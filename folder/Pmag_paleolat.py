@@ -39,17 +39,17 @@ Paleolat = df['Paleolat'] #call paleolat whenever you want all the paleolatitude
 pl_df = pd.DataFrame([(Paleolat.values.tolist()[n:n+len(time)]) for n in range(0, len(Paleolat.values.tolist()), len(time))])
 
 #x = pl_df.iloc[0]
-x #india, present day to 70 Ma
+#india, present day to 70 Ma
 #plt.plot(time,x)
 #plt.plot(time, pl_df.iloc[1])
 
 
-plt.figure()
-plt.subplot(211)
-plt.plot(time,x, color='blue',c = 'blue', label = '20N, 73E')
-plt.legend(loc = 'lower left', frameon=True)
-plt.subplot(212)
-plt.plot(time,pl_df.iloc[1], color='green', label = '19S, 69W')
-plt.xlabel('Time [Ma]')
-plt.legend(frameon=True)
-plt.savefig('paleolat_subplots.png', dpi = 300, bbox_inches='tight')
+# plt.figure()
+# plt.subplot(211)
+# plt.plot(time,x, color='blue',c = 'blue', label = '20N, 73E')
+# plt.legend(loc = 'lower left', frameon=True)
+# plt.subplot(212)
+# plt.plot(time,pl_df.iloc[1], color='green', label = '19S, 69W')
+# plt.xlabel('Time [Ma]')
+# plt.legend(frameon=True)
+# plt.savefig('paleolat_subplots.png', dpi = 300, bbox_inches='tight')

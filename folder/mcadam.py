@@ -8,16 +8,17 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
+import os
 
 #get_ipython().run_line_magic('matplotlib', 'inline')
 
-
 #Set directory
-#os.chdir('/drive/notebooks/ProdRateCalc')
+
+directory = os.path.dirname(__file__)
 
 #Convert MCADAM xlsx to csv and manually remove rows past 70Ma or pandas has an aneurysm 
 #Read in MCADAM model (QPI>=3)
-MCADAM_qpi3 = pd.read_csv('MCADAM_1b.csv')
+MCADAM_qpi3 = pd.read_csv(directory+'/text_files_for_read/MCADAM_1b.csv')
 
 #Adding new columns for upper and lower bounds using +/- 2 STD
 MCADAM_qpi3['upper'] = MCADAM_qpi3['mean'] + (2 * MCADAM_qpi3['std'])
@@ -75,7 +76,7 @@ plt.savefig('MCADAM_1b-250kyr_step.png')
 
 #Use Excel to remove columns past ArcheoVolcanic or pandas has an aneurysm 
 #Read in all GEOMAGIA data (query: Intensities, VADM)
-GEOMAGIA = pd.read_csv('archeo010.csv', header=1)
+GEOMAGIA = pd.read_csv(directory+'/text_files_for_read/archeo010.csv', header=1)
 
 #Calculate mean and stdev for all GEOMAGIA data
 GEOMAGIA_mean = np.mean(GEOMAGIA['VADM[E22_AmE2]'])
