@@ -5,7 +5,8 @@ Created on Thu Sep 15 13:54:41 2022
 
 @author: mmijjum
 """
-import numpy as np 
+import numpy as np
+ 
 
 ## USER input information HERE ##
 system = 1 #see above for options
