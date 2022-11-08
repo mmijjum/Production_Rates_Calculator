@@ -12,28 +12,28 @@ import numpy as np
 
         Parameters
         ----------
-        system  : nuclide-mineral pair
+        system  : integer 1 - 4 (nuclide-mineral pair)
             1 = 3He in quartz
             2 = 3He in clinopyroxene
             3 = 3He in olivine
             4 = 21Ne in quartz
-        system_b : specify clinopyroxene
+        system_b : integer 0 - 4 (specify clinopyroxene)
             0 = N/A (non-cpx)
             1 = enstatite
             2 = ferrosilite
             3 = wollastonite
             4 = augite
-        system_c : specify olivine 
+        system_c : 0 - 3 (specify olivine)
             0 = N/A (non-olivine)
             1 = Forsterite
             2 = Fayalite
             3 = F8
         
-        stdatm : atmospheric depth dependence
+        stdatm : 0 or 1 (atmospheric depth dependence)
             0 = ERA40 reanalysis data (applicable for recent exposures)
             1 = standard atmospheric conversion (RECOMMENDED)
             
-        muons : TRUE/FALSE
+        muons : TRUE/FALSE (specify if Muons script is applicable)
             True : only for 21Ne in qtz (system = 4)
             False: all other systems (system = 1,2,3)
         
@@ -41,6 +41,15 @@ import numpy as np
             start: minimum 0 (present day)
             stop: maximum 70
         
+        plate: string (specify plate)
+            NA : North America
+            SA : South America
+            AF : Africa
+            IN : India
+            EU : Eurasia
+            AU : Australia
+            ANT: Antarctica
+            GL : Greenland
 
         """
 
