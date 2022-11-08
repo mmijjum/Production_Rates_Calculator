@@ -177,25 +177,25 @@ p3p_ol = []
 p21p_qtz = []
 for i in range(len(Rc.Rc)*len(time)):
     if User_Interface.system == 1: #qtz
-        p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3_temp[0],E) + np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3_temp[0]/2),E))*2.00600000000000e22*1e-27*3.1536e7   
+        p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0],E) + np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3df[0]/2),E))*2.00600000000000e22*1e-27*3.1536e7   
         p3p_qtz.append(p3p_temp_qtz)
     if User_Interface.system == 2:
-        p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3_temp[0], E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3_temp[0]*1.92/6),E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Alpx3_temp[0]*0.12/6),E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgpx3_temp[0]*0.67/6), E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fepx3_temp[0]*0.31/6), E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Capx3_temp[0]*0.86/6), E))*(2.00600000000000e22*1e-27*3.1536e7)
+        p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E) +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3df[0]*1.92/6),E) +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Alpx3df[0]*0.12/6),E) +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgpx3df[0]*0.67/6), E) +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fepx3df[0]*0.31/6), E) +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Capx3df[0]*0.86/6), E))*(2.00600000000000e22*1e-27*3.1536e7)
         p3p_cpx.append(p3p_temp_cpx)
     if User_Interface.system == 3: 
-        p3p_temp_ol = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3_temp[0], E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3_temp[0]*1/4), E) + 
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgpx3_temp[0]*1.1/4), E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fepx3_temp[0]*0.9/4), E))*(2.00600000000000e22*1e-27*3.1536e7)
+        p3p_temp_ol = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E) +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3df[0]*1/4), E) + 
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgpx3df[0]*1.1/4), E) +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fepx3df[0]*0.9/4), E))*(2.00600000000000e22*1e-27*3.1536e7)
         p3p_ol.append(p3p_temp_ol)
     #21-Ne
     if User_Interface.system == 4:
-        p21p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx3_temp[0],E)) *(1.00228e22*1e-27*3.1536e7)
+        p21p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx3df[0],E)) *(1.00228e22*1e-27*3.1536e7)
         p21p_qtz.append(p21p_temp_qtz)
 
 

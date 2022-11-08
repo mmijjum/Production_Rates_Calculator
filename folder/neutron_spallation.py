@@ -183,31 +183,31 @@ PhiGMev = PhiGMev_temp.T
 
 for i in range(len(Rc.Rc)*len(time)):
     if User_Interface.system == 1: #qtz
-        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3_temp[0],E_df.iloc[0,:])+ np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3_temp[0]/2), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
+        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])+ np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]/2), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
         p3n_qtz.append(p3n_temp_qtz)
 
     #Inserted from Dave Parmelee's code (MS thesis, NMT 2014) to account for composition
     #dependence of clinopyroxene
     if User_Interface.system == 2: #cpx
-        p3n_temp_cpx = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3_temp[0], E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3_temp[0]*(1.92/6)),E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Alnx3_temp[0]*(0.12/6)),E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3_temp[0]*(0.67/6)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3_temp[0]*(0.31/6)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Canx3_temp[0]*(0.86/6)), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
-        p3n_cpx.append(p3n_temp_cpx)
+        p3ndf_cpx = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]*(1.92/6)),E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Alnx3df[0]*(0.12/6)),E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]*(0.67/6)), E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]*(0.31/6)), E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Canx3df[0]*(0.86/6)), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
+        p3n_cpx.append(p3ndf_cpx)
 
     if User_Interface.system == 3: #olivine
-        p3n_temp_ol = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3_temp[0], E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3_temp[0]*(1/4)), E_df.iloc[0,:]) + 
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3_temp[0]*(1.1/4)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3_temp[0]*(0.9/4)), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
-        p3n_ol.append(p3n_temp_ol)
+        p3ndf_ol = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]*(1/4)), E_df.iloc[0,:]) + 
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]*(1.1/4)), E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]*(0.9/4)), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
+        p3n_ol.append(p3ndf_ol)
 
     #21-Ne
     if User_Interface.system == 4:
-        p21n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21_temp[0],E_df.iloc[0,:])) *(1.00228e22*1e-27*3.1536e7)
-        p21n_qtz.append(p21n_temp_qtz)
+        p21ndf_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])) *(1.00228e22*1e-27*3.1536e7)
+        p21n_qtz.append(p21ndf_qtz)
 
 
 if User_Interface.system == 1:

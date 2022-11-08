@@ -10,11 +10,12 @@ import pandas as pd
 import glob
 import os
 
+#SET DIRECTORY
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 directory = os.path.dirname(__file__)
 
 
-
+#Read in excel sheet with data, set variable names.
 Exposure_Age_Inputs = pd.read_excel(directory+'/text_files_for_read/inputs.xlsx') #excel sheet with all pmag data. 0-70 Ma, all criteria
 site_lat = Exposure_Age_Inputs['Latitude']
 site_lon = Exposure_Age_Inputs['Longitude']
@@ -25,33 +26,48 @@ rho = Exposure_Age_Inputs['Sample Density']
 erosion = Exposure_Age_Inputs['Erosion']
 nuclide_concentration = Exposure_Age_Inputs['Nuclide Concentration']
 
+#convert lat/lon/altitude to lists for use later.
 lat = site_lat.tolist()
 lon = site_lon.tolist()
 alt = site_elevation.tolist()
 
-# need to add ERA40
+#Add files to compute ERA40 reanalysis
 ERA40lat = pd.read_csv(directory+'/text_files_for_read/ERA40lat.csv', header=None) 
 ERA40lon = pd.read_csv(directory+'/text_files_for_read/ERA40lon.csv', header=None)
 meanT = pd.read_csv(directory+'/text_files_for_read/meanT.csv', header=None)
 meanP = pd.read_csv(directory+'/text_files_for_read/meanP.csv', header=None)
 
-#Read in all the relevant files (reaction cross sections, energy spectra, etc.)
-#Rxn cross sections from LSD. Naming as follows: Element_nucleon_x_nuclide_T
-
+#Reaction Cross Sections: naming scheme is Element_nucleon_x_nuclide_T
+#e.g: Oxygen_neutron_x_3He_T = Onx3HeT
 Onx3HeT = pd.read_csv(directory+'/text_files_for_read/Onx3HeT.csv', header = None) 
 Sinx3HeT = pd.read_csv(directory+'/text_files_for_read/Sinx3HeT.csv', header=None) 
 Fenx3HeT = pd.read_csv(directory+'/text_files_for_read/Fenx3HeT.csv', header=None)
 Canx3HeT = pd.read_csv(directory+'/text_files_for_read/Canx3HeT.csv', header=None)
 Mgnx3HeT = pd.read_csv(directory+'/text_files_for_read/Mgnx3HeT.csv', header=None)
 Alnx3HeT = pd.read_csv(directory+'/text_files_for_read/Alnx3HeT.csv', header=None)
-
 Sinx21Ne = pd.read_csv(directory+'/text_files_for_read/SinxNe21.csv', header = None)
 
-#Polynomial-fitting coefficients and energy spectra, from LSD
+Opx3HeT = pd.read_csv(directory+'/text_files_for_read/Opx3HeT.csv', header = None)
+Sipx3HeT = pd.read_csv(directory+'/text_files_for_read/Sipx3HeT.csv', header = None)
+Fepx3HeT = pd.read_csv(directory+'/text_files_for_read/Fepx3HeT.csv', header=None)
+Capx3HeT = pd.read_csv(directory+'/text_files_for_read/Capx3HeT.csv', header=None)
+Mgpx3HeT = pd.read_csv(directory+'/text_files_for_read/Mgpx3HeT.csv', header=None)
+Alpx3HeT = pd.read_csv(directory+'/text_files_for_read/Alpx3HeT.csv', header=None)
+Sipx21Ne = pd.read_csv(directory+'/text_files_for_read/SipxNe21.csv', header = None)
+
+
+#Integrated neutron flux < 15 MeV
 a_values = pd.read_csv(directory+'/text_files_for_read/a_values.csv', header=None)
+
+#Basic Spectrum
 b_values = pd.read_csv(directory+'/text_files_for_read/b_values.csv', header=None)
 basic_spectrum = pd.read_csv(directory+'/text_files_for_read/basic_spectrum.csv',header=None)
+
+#C values are also part of basic spectrum.
+#c1, c7 are in units of inverse lethargy
+#c2,5,5,6,8, 10 are in units of MeV
 c_values = pd.read_csv(directory+'/text_files_for_read/c_values.csv', header=None)
+
 ground_level_spectrum = pd.read_csv(directory+'/text_files_for_read/ground_level_spectrum.csv',header=None)
 thermal_neutron_spectrum = pd.read_csv(directory+'/text_files_for_read/thermal_neutron_spectrum.csv',header=None)
 
@@ -63,6 +79,8 @@ f = Canx3HeT.to_numpy()
 g = Mgnx3HeT.to_numpy()
 h = Alnx3HeT.to_numpy()
 i = Sinx21Ne.to_numpy()
+
+#reshape the arrays to convert to dataframe in preferred format.
 Onx3HeT_array = np.reshape(c,200)
 Sinx3HeT_array = np.reshape(d,200)
 Fenx3HeT_array = np.reshape(e,200)
@@ -71,33 +89,34 @@ Mgnx3HeT_array = np.reshape(g,200)
 Alnx3HeT_array = np.reshape(h,200)
 Sinx21Ne_array = np.reshape(i,200)
 
-#convert to dataframe, match shape of Rc dataframe (which is dependent on user inputs)
+#convert to dataframe. Using length of 'lat' because that will tell the dataframe how many rows (sample #) it needs.
 Onx3 = pd.DataFrame(data=Onx3HeT_array)
-Onx3_temp = pd.DataFrame(np.repeat(Onx3.values, len(lat), axis=1))
+Onx3df = pd.DataFrame(np.repeat(Onx3.values, len(lat), axis=1))
 
 Sinx3 = pd.DataFrame(data=Sinx3HeT_array)
-Sinx3_temp = pd.DataFrame(np.repeat(Sinx3.values,len(lat), axis=1))
+Sinx3df = pd.DataFrame(np.repeat(Sinx3.values,len(lat), axis=1))
 
 
 Fenx3 = pd.DataFrame(data=Fenx3HeT_array)
-Fenx3_temp = pd.DataFrame(np.repeat(Fenx3.values, len(lat), axis=1))
+Fenx3df = pd.DataFrame(np.repeat(Fenx3.values, len(lat), axis=1))
 
 Canx3 = pd.DataFrame(data=Canx3HeT_array)
-Canx3_temp = pd.DataFrame(np.repeat(Canx3.values, len(lat), axis=1))
+Canx3df = pd.DataFrame(np.repeat(Canx3.values, len(lat), axis=1))
 
 Mgnx3 = pd.DataFrame(data=Mgnx3HeT_array)
-Mgnx3_temp = pd.DataFrame(np.repeat(Mgnx3.values, len(lat), axis=1))
+Mgnx3df = pd.DataFrame(np.repeat(Mgnx3.values, len(lat), axis=1))
 
 Alnx3 = pd.DataFrame(data=Alnx3HeT_array)
-Alnx3_temp = pd.DataFrame(np.repeat(Alnx3.values, len(lat), axis=1))
+Alnx3df = pd.DataFrame(np.repeat(Alnx3.values, len(lat), axis=1))
 
 Sinx21 = pd.DataFrame(data=Sinx21Ne_array)
-Sinx21_temp = pd.DataFrame(np.repeat(Sinx21.values, len(lat), axis=1))
+Sinx21df = pd.DataFrame(np.repeat(Sinx21.values, len(lat), axis=1))
 
-#FOR PROTONS:
+#Proton Spectra
 basic_spectrum_protons = pd.read_csv(directory+'/text_files_for_read/basic_spectrum_protons.csv', header = None)
 primary_spectrum = pd.read_csv(directory+'/text_files_for_read/primary_spectrum.csv', header = None)
 secondary_spectrum = pd.read_csv(directory+'/text_files_for_read/secondary_spectrum.csv', header = None)
+#h values are part of the secondary spectrum
 h_values_protons = pd.read_csv(directory+'/text_files_for_read/h_values_protons.csv', header = None)
 
 basic_spectrum_protons.columns = ['variable','values']
@@ -105,14 +124,6 @@ primary_spectrum.columns = ['variable','values']
 secondary_spectrum.columns = ['variable','values']
 h_values_protons.columns = ['variable','values']
 
-Opx3HeT = pd.read_csv(directory+'/text_files_for_read/Opx3HeT.csv', header = None)
-Sipx3HeT = pd.read_csv(directory+'/text_files_for_read/Sipx3HeT.csv', header = None)
-Fepx3HeT = pd.read_csv(directory+'/text_files_for_read/Fepx3HeT.csv', header=None)
-Capx3HeT = pd.read_csv(directory+'/text_files_for_read/Capx3HeT.csv', header=None)
-Mgpx3HeT = pd.read_csv(directory+'/text_files_for_read/Mgpx3HeT.csv', header=None)
-Alpx3HeT = pd.read_csv(directory+'/text_files_for_read/Alpx3HeT.csv', header=None)
-
-Sipx21Ne = pd.read_csv(directory+'/text_files_for_read/SipxNe21.csv', header = None)
 
 cp = Opx3HeT.to_numpy()
 dp = Sipx3HeT.to_numpy()
@@ -131,26 +142,26 @@ Alpx3HeT_array = np.reshape(hp,200)
 Sipx21NeT_array = np.reshape(ip,200)
 
 Opx3 = pd.DataFrame(data=Opx3HeT_array)
-Opx3_temp = pd.DataFrame(np.repeat(Opx3.values, len(lat), axis=1))
+Opx3df = pd.DataFrame(np.repeat(Opx3.values, len(lat), axis=1))
 
 Sipx3 = pd.DataFrame(data=Sipx3HeT_array)
-Sipx3_temp = pd.DataFrame(np.repeat(Sipx3.values,len(lat), axis=1))
+Sipx3df = pd.DataFrame(np.repeat(Sipx3.values,len(lat), axis=1))
 
 
 Fepx3 = pd.DataFrame(data=Fepx3HeT_array)
-Fepx3_temp = pd.DataFrame(np.repeat(Fepx3.values, len(lat), axis=1))
+Fepx3df = pd.DataFrame(np.repeat(Fepx3.values, len(lat), axis=1))
 
 Capx3 = pd.DataFrame(data=Capx3HeT_array)
-Capx3_temp = pd.DataFrame(np.repeat(Capx3.values, len(lat), axis=1))
+Capx3df = pd.DataFrame(np.repeat(Capx3.values, len(lat), axis=1))
 
 Mgpx3 = pd.DataFrame(data=Mgpx3HeT_array)
-Mgpx3_temp = pd.DataFrame(np.repeat(Mgpx3.values, len(lat), axis=1))
+Mgpx3df = pd.DataFrame(np.repeat(Mgpx3.values, len(lat), axis=1))
 
 Alpx3 = pd.DataFrame(data=Alpx3HeT_array)
-Alpx3_temp = pd.DataFrame(np.repeat(Alpx3.values, len(lat), axis=1))
+Alpx3df = pd.DataFrame(np.repeat(Alpx3.values, len(lat), axis=1))
 
 Sipx21 = pd.DataFrame(data=Sipx21NeT_array)
-Sipx21_temp = pd.DataFrame(np.repeat(Sipx21.values, len(lat), axis=1))
+Sipx21df = pd.DataFrame(np.repeat(Sipx21.values, len(lat), axis=1))
 
 
 #Assign column names to text files
@@ -512,3 +523,8 @@ h62p = 6.9500e-6;
 h63p = 7.4700e-4;
 h64p = 3.7200;
 h65p = 1.9700;
+
+
+
+
+
