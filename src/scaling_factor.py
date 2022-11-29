@@ -12,15 +12,12 @@ import pandas as pd
 import Rc
 import neutron_spallation
 import proton_spallation
+import Pmag_paleolat
 
 
-# # Calculate scaling factor from spallation of protons + neutrons
+#Calculate scaling factor from spallation of protons + neutrons
 
 time = User_Interface.time 
-
-
-
-
 Siteprod = []
 
 if User_Interface.system == 1:
@@ -96,7 +93,7 @@ if User_Interface.system == 4:
             Siteprod.append(SiteNe_temp_qtz)
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
 
-#Exposure Age Integration
+     
 #define SLHL. Ref is pre-calculated above, dependent on mineral/nuclide system. 
 if User_Interface.system ==1:
     ref = HeRef_qtz
@@ -106,4 +103,5 @@ if User_Interface.system == 3:
     ref = HeRef_ol
 if User_Interface.system == 4:
     ref = NeRef_qtz
+
 

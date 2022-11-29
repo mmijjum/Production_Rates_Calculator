@@ -32,6 +32,8 @@ for i in range(len(Read.zmax)):
 
 #create dataframe of Zmax with time steps.
 #zmax is non-time dependent, this is just for the sake of making the zmax shape same as other dataframes.
-zmax_updated = pd.DataFrame(Read.zmax)
-zmax_df = pd.concat([zmax_updated]*len(time), ignore_index=True, axis = 1)
+zmax = (Read.zmax)
+rho = (Read.rho)
+
+z_df = pd.concat([zmax.mul(rho)]*len(time), ignore_index=True, axis = 1)
 

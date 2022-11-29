@@ -4,6 +4,14 @@
 Created on Thu Sep 15 14:25:17 2022
 
 @author: mmijjum
+
+This script converts the user-supplied elevation to an atmospheric depth.
+
+It will perfrom the ERA40 reanalysis if user specified '0' for standard atmosphere in User_Interface
+It will perform a standard atmospheric conversion if user specifies '1' for standard atmosphere in User_Interface.
+
+This was originally written by Greg Balco, then modified by Brent Goehring and Nat Lifton. This version was modified by Moe Mijjum for python. 
+
 """
 
 import numpy as np
@@ -14,8 +22,6 @@ import Pmag_paleolat
 import User_Interface
 
 time = User_Interface.time 
-
-
 
 lon_repeated = np.repeat(Read.lon,len(time))
 lon_df = pd.DataFrame([(lon_repeated.tolist()[n:n+len(time)]) for n in range(0, len(lon_repeated.tolist()), len(time))])
@@ -79,7 +85,7 @@ if User_Interface.stdatm == 1:
 #convert pressure to atmospheric depth
 def atmdepth(x):
     return x*1.019716
-
 x = atmdepth(sample_pressure)
 
-# # Back to calculating neutron spallation production
+# xn = np.repeat(1033, 95)
+# x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])

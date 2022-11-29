@@ -4,6 +4,13 @@
 Created on Fri Sep 16 08:46:54 2022
 
 @author: mmijjum
+
+This script will calculate the production of some nuclide-mineral pair due to proton spallation. 
+
+Based on Sato et al. (2008) Neutron Spectrum, and PARMA (analytical function approx.
+                                                         )
+This code was originally implemented in MATLAB by Nat Lifton in 2013. This modified version was written by Moe Mijjum.
+
 """
 
 import numpy as np
@@ -18,7 +25,7 @@ import atm_depth
 time = User_Interface.time 
 
 
-s = 465; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
+s = 624.5718; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
 smin = 400; #Units of MV
 smax = 1200; #Units of MV
 w = 0.06
@@ -179,23 +186,39 @@ for i in range(len(Rc.Rc)*len(time)):
     if User_Interface.system == 1: #qtz
         p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0],E) + np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3df[0]/2),E))*2.00600000000000e22*1e-27*3.1536e7   
         p3p_qtz.append(p3p_temp_qtz)
+        
     if User_Interface.system == 2:
+        if User_Interface.system_b == 1:
+            Natoms = 1.79965e22
+        if User_Interface.system_b == 2:
+            Natoms = 1.36941e22
+        if User_Interface.system_b == 3:
+            Natoms = 1.55528e22
+        if User_Interface.system_b == 4:
+            Natoms = 2 * 1.53124e22
         p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E) +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3df[0]*1.92/6),E) +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Alpx3df[0]*0.12/6),E) +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgpx3df[0]*0.67/6), E) +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Fepx3df[0]*0.31/6), E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Capx3df[0]*0.86/6), E))*(2.00600000000000e22*1e-27*3.1536e7)
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Capx3df[0]*0.86/6), E))*(Natoms*1e-27*3.1536e7)
         p3p_cpx.append(p3p_temp_cpx)
     if User_Interface.system == 3: 
+        if User_Interface.system_c == 1:
+            Natoms = 1.71214e22
+        if User_Interface.system_c == 2:
+            Natoms = 1.1821e22
+        if User_Interface.system_c == 3:
+            Natoms = 1.57124e22
         p3p_temp_ol = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E) +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3df[0]*1/4), E) + 
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgpx3df[0]*1.1/4), E) +
-        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fepx3df[0]*0.9/4), E))*(2.00600000000000e22*1e-27*3.1536e7)
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fepx3df[0]*0.9/4), E))*(Natoms*1e-27*3.1536e7)
         p3p_ol.append(p3p_temp_ol)
     #21-Ne
     if User_Interface.system == 4:
-        p21p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx3df[0],E)) *(1.00228e22*1e-27*3.1536e7)
+        Natoms = 1.00228e22
+        p21p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx21df[0],E)) *(Natoms*1e-27*3.1536e7)
         p21p_qtz.append(p21p_temp_qtz)
 
 

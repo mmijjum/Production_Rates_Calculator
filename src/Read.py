@@ -4,6 +4,11 @@
 Created on Thu Sep 15 14:01:08 2022
 
 @author: mmijjum
+    
+
+This script will read in all the necessary files (inputs spreadsheet, and .csv files).
+
+
 """
 import numpy as np
 import pandas as pd

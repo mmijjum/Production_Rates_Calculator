@@ -4,15 +4,15 @@
 Created on Mon Oct  3 15:20:39 2022
 
 @author: mmijjum
+
+This script will calculate the production of some nuclide-"mineral pair due to neutron spallation. 
+
+Based on Sato et al. (2008) Neutron Spectrum, and PARMA (analytical function approx.)
+This code was originally implemented in MATLAB by Nat Lifton in 2013. This modified version was written by Moe Mijjum.
+
 """
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 15 14:13:44 2022
 
-@author: mmijjum
-"""
 import numpy as np
 import User_Interface
 import pandas as pd
@@ -28,20 +28,12 @@ E = pd.DataFrame(df)
 E.columns = ['Energy']
 E = E.T
 
-PhiL_list = []
-p3n = []
-p3n_cpx = []
-p3n_ol = []
-p3n_qtz = []
-p21n_qtz = []
-fG_list = []
-
-s = 465; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
+s = 624.5718; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 1,100 years.
 Et = 2.5e-8; #Thermal neutron energy in MeV
 
 smin = 400; #Units of MV
 smax = 1200; #Units of MV
-w = 0.06
+w = 0.06 #water content. 
 
 # Ground-Level Spectrum
 g3 = 10**(Read.ground_level_spectrum.iloc[0]['values'] + (Read.ground_level_spectrum.iloc[1]['values'])/(w + Read.ground_level_spectrum.iloc[2]['values']))
@@ -49,19 +41,15 @@ g5 = Read.ground_level_spectrum.iloc[3]['values'] + (Read.ground_level_spectrum.
 
 def fG(E):
     return (10**(Read.ground_level_spectrum.iloc[6]['values'] + Read.ground_level_spectrum.iloc[7]['values']*np.log10(E/g3)*(1-np.tanh(Read.ground_level_spectrum.iloc[8]['values']*np.log10(E/g5)))))
-fG_df = fG(E)
+fG_df = fG(E) #GROUND LEVEL
 
 # Thermal Neutron Spectrum
 g6 = (Read.thermal_neutron_spectrum.iloc[0]['values'] + Read.thermal_neutron_spectrum.iloc[1]['values']*np.exp(-Read.thermal_neutron_spectrum.iloc[2]['values']*w))/(1 + Read.thermal_neutron_spectrum.iloc[3]['values']*np.exp(-Read.thermal_neutron_spectrum.iloc[4]['values']*w))
 #PhiT = g6*((E/Et)**2)*np.exp(-E/Et)
-PhiT = 0
+PhiT = 0 #Can calculate, literally always gives 0. Thermal neutron. 
 
 
 # Total Ground-Level Flux
-PhiB = np.zeros((1,len(E)))
-PhiG = np.zeros((1,len(E)))
-PhiGMev = np.zeros((1,len(E)))
-
 
 def minmax(b1, b2, b3, b4, b5):
     return b1 + (b2*Rc.Rc.iloc[: , 0:]) + b3/(1 + np.exp((Rc.Rc.iloc[: , 0:] - b4)/b5))
@@ -96,6 +84,7 @@ f1_values = []
 PhiL_values = []
 
 x = atm_depth.x[0].to_numpy().flatten().tolist()
+
 for n in range(len(atm_depth.sample_pressure)):
     for i in range(len(time)):
         c4_vals = a5.iloc[n,i] + Read.a_values.iloc[0]['values']*x[n]/(1 + Read.a_values.iloc[1]['values']*np.exp(Read.a_values.iloc[2]['values']*x[n])) #lethargy^-1
@@ -182,31 +171,49 @@ PhiGMev = PhiGMev_temp.T
 
 
 for i in range(len(Rc.Rc)*len(time)):
+    
     if User_Interface.system == 1: #qtz
-        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])+ np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]/2), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
+        Natoms = 2.00456e22
+        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])+ np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]/2), E_df.iloc[0,:]))*(Natoms*1e-27*3.1536e7)
         p3n_qtz.append(p3n_temp_qtz)
 
     #Inserted from Dave Parmelee's code (MS thesis, NMT 2014) to account for composition
     #dependence of clinopyroxene
+    
     if User_Interface.system == 2: #cpx
+        if User_Interface.system_b == 1:
+            Natoms = 1.79965e22
+        if User_Interface.system_b == 2:
+            Natoms = 1.36941e22
+        if User_Interface.system_b == 3:
+            Natoms = 1.55528e22
+        if User_Interface.system_b == 4:
+            Natoms= 2 * 1.53124e22
         p3ndf_cpx = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:]) +
         np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]*(1.92/6)),E_df.iloc[0,:]) +
         np.trapz(PhiGMev.iloc[:,i]*(Read.Alnx3df[0]*(0.12/6)),E_df.iloc[0,:]) +
         np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]*(0.67/6)), E_df.iloc[0,:]) +
         np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]*(0.31/6)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Canx3df[0]*(0.86/6)), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Canx3df[0]*(0.86/6)), E_df.iloc[0,:]))*(Natoms*1e-27*3.1536e7)
         p3n_cpx.append(p3ndf_cpx)
 
     if User_Interface.system == 3: #olivine
+        if User_Interface.system_c == 1:
+            Natoms = 1.71214e22
+        if User_Interface.system_c == 2:
+            Natoms = 1.1821e22
+        if User_Interface.system_c == 3:
+            Natoms = 1.57124e22
         p3ndf_ol = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:]) +
         np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]*(1/4)), E_df.iloc[0,:]) + 
         np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]*(1.1/4)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]*(0.9/4)), E_df.iloc[0,:]))*(2.00456e22*1e-27*3.1536e7)
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]*(0.9/4)), E_df.iloc[0,:]))*(Natoms*1e-27*3.1536e7)
         p3n_ol.append(p3ndf_ol)
 
     #21-Ne
     if User_Interface.system == 4:
-        p21ndf_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])) *(1.00228e22*1e-27*3.1536e7)
+        Natoms = 1.00228e22
+        p21ndf_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])) *(Natoms*1e-27*3.1536e7)
         p21n_qtz.append(p21ndf_qtz)
 
 
@@ -223,7 +230,4 @@ if User_Interface.system == 4:
     pn = p21n_qtz
 
 lst = pn 
-#bin_names = ['0 - 50 kyr', '50 kyr - 5 Ma', '5 - 10 Ma', '10 - 15 Ma', '15 - 20 Ma', '20 - 25 Ma', '25 - 30 Ma', 
-#            '30 - 35 Ma', '35 - 40 Ma', '40 - 45 Ma', '45 - 50 Ma', '50 - 55 Ma', '55 - 60 Ma', '60 - 65 Ma', '65 - 70 Ma']
-
 pn_df = pd.DataFrame([(lst[n:n+len(time)]) for n in range(0, len(lst), len(time))])
