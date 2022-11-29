@@ -56,9 +56,9 @@ import numpy as np
 system = 2
 system_b = 4
 system_c = 0
-stdatm = 1
+stdatm = 0
 muons = False
-timerange = [40,65+0.05]
+timerange = [0,25+0.05]
 plate = 'SA'
 
 #The authors do not recommend changing the resolution below #
