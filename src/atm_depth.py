@@ -20,7 +20,21 @@ import scipy as sci
 import Read
 import Pmag_paleolat
 import User_Interface
+import math
 
+def truncate(number, decimals=0):
+    """
+    Returns a value truncated to a specific number of decimal places.
+    """
+    if not isinstance(decimals, int):
+        raise TypeError("decimal places must be an integer.")
+    elif decimals < 0:
+        raise ValueError("decimal places has to be 0 or more.")
+    elif decimals == 0:
+        return math.trunc(number)
+
+    factor = 10.0 ** decimals
+    return math.trunc(number * factor) / factor
 time = User_Interface.time 
 
 lon_repeated = np.repeat(Read.lon,len(time))
@@ -77,15 +91,23 @@ if User_Interface.stdatm == 0: #ERA40
 
 empty = []
 if User_Interface.stdatm == 1:
-    for i in range(len(differential)):
-        sp = 1013.25 * np.exp((gmr/differential[i])*(np.log(288.15) - np.log(288.15 - (alt_list[i]*differential[i]))))
+    for i in range(len(alt_list)):
+        differential = 0.0065
+        sp = 1013.25 * np.exp((gmr/differential)*(np.log(288.15) - np.log(288.15 - (alt_list[i]*differential))))
         empty.append(sp)
     sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
 
+
+x_updated = []
+for i in range(len(empty)):
+    temp = truncate(empty[i],0)
+    x_updated.append(float(temp))
+xdf = pd.DataFrame([(x_updated[n:n+len(time)]) for n in range(0, len(x_updated), len(time))])
+
 #convert pressure to atmospheric depth
 def atmdepth(x):
-    return x*1.019716
-x = atmdepth(sample_pressure)
+    return x*(1.019716)
+x = atmdepth(xdf)
 
-# xn = np.repeat(1033, 95)
+# xn = np.repeat(1013.25*1.019716, 2020)
 # x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])

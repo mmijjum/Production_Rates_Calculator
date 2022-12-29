@@ -23,8 +23,8 @@ Siteprod = []
 if User_Interface.system == 1:
     #qtz
     #Nuclide Specific Scaling Factors
-    p3nref_q = 90.0788
-    p3pref_q = 13.6184
+    p3nref_q = 90.1971
+    p3pref_q = 13.6257
     HeRef_qtz = p3nref_q + p3pref_q #reference production rate
     
     #Nuclide specific scaling factors as f(Rc)
@@ -32,30 +32,17 @@ if User_Interface.system == 1:
         for i in range(len(time)):
             SiteHe_temp_qtz = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_qtz #scaling factor
             Siteprod.append(SiteHe_temp_qtz)
+            
 
 if User_Interface.system == 2:
     #SiteHe for cpx:
-    #Nuclide Specific Scaling Factors
-    if User_Interface.system_b == 1:
-        p3nref_en = 90.1744
-        p3pref_en = 12.9932
-        HeRef_cpx = p3nref_en + p3pref_en #reference production rate
-    if User_Interface.system_b == 2:
-        p3nref_fe = 64.3539
-        p3pref_fe = 10.6587
-        HeRef_cpx = p3nref_fe + p3pref_fe #reference production rate
-    if User_Interface.system_b == 3:
-        p3nref_wo = 74.4471
-        p3pref_wo = 11.8056
-        HeRef_cpx = p3nref_wo + p3pref_wo #reference production rate
-    if User_Interface.system_b == 4:
-        p3nref_au = 78.8285
-        p3pref_au = 11.9608
-        HeRef_cpx = p3nref_au + p3pref_au #reference production rate
+    p3nref_au = 90.0788
+    p3pref_au = 13.6184
+    HeRef_cpx = (p3nref_au + p3pref_au) #reference production rate
     #Nuclide specific scaling factors as f(Rc)
     for n in range(len(Rc.Rc)):
         for i in range(len(time)):
-            SiteHe_temp_cpx = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
+            SiteHe_temp_cpx = (1.323*neutron_spallation.pn_df.iloc[n,i] + 1.323*proton_spallation.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
             Siteprod.append(SiteHe_temp_cpx)
 
 if User_Interface.system ==3 :
@@ -91,6 +78,27 @@ if User_Interface.system == 4:
         for i in range(len(time)):  
             SiteNe_temp_qtz = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/NeRef_qtz #scaling factor
             Siteprod.append(SiteNe_temp_qtz)
+# import math
+
+# def truncate(number, decimals=0):
+#     """
+#     Returns a value truncated to a specific number of decimal places.
+#     """
+#     if not isinstance(decimals, int):
+#         raise TypeError("decimal places must be an integer.")
+#     elif decimals < 0:
+#         raise ValueError("decimal places has to be 0 or more.")
+#     elif decimals == 0:
+#         return math.trunc(number)
+
+#     factor = 10.0 ** decimals
+#     return math.trunc(number * factor) / factor
+
+# sf_updated = []
+# for i in range(len(Siteprod)):
+#     temp = truncate(Siteprod[i],2)
+#     sf_updated.append(temp)
+    
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
 
      

@@ -29,14 +29,34 @@ erosion = np.repeat(0,20)
 dt = 250000
 Pmu = 0.23 #larsen et al
 
-# dt = np.repeat(250000,len(User_Interface.time)-1)
-# dt = np.insert(dt,0, 50000)
+import math
 
+# def truncate(number, decimals=0):
+#     """
+#     Returns a value truncated to a specific number of decimal places.
+#     """
+#     if not isinstance(decimals, int):
+#         raise TypeError("decimal places must be an integer.")
+#     elif decimals < 0:
+#         raise ValueError("decimal places has to be 0 or more.")
+#     elif decimals == 0:
+#         return math.trunc(number)
+
+#     factor = 10.0 ** decimals
+#     return math.trunc(number * factor) / factor
+
+# sthick_updated = []
+# for i in range(len(sthick)):
+#     temp = truncate(sthick[i],2)
+#     sthick_updated.append(temp)
+    
 #if User_Interface.system == 4: 
 #spallation part
+
 # def func(sthick,tempvals):
 #     return sthick*slhl*tempvals
 
+    
 # for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
 #     for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
 #         temp = (scaling_factor.Siteprod_df.iloc[i][j]* dt)
@@ -58,8 +78,8 @@ Pmu = 0.23 #larsen et al
 
 # iteration = []
 # for i in range (len(tempvals_df)):
-#     x = tempvals_df[0][i]
-#     y = tempvals_df_mu[0][i]
+#     x = tempvals_df.iloc[i][0]
+#     y = tempvals_df_mu.iloc[i][0]
 #     for j in range(len(tempvals_df.iloc[0])):
 #         l = func(sthick[i],x) + funcmu(y)
 #         if l < n0[i]:
@@ -71,18 +91,16 @@ Pmu = 0.23 #larsen et al
         
 # exp_age = []
 # for i in range (len(tempvals_df)):
-#     for j in range(len(tempvals_df.iloc[0])):
-#         dt2 = (n0[i] - (sthick[i] * slhl * (np.sum(tempvals_df.iloc[i][0:iteration[i]])) + (Pmu*(np.sum(tempvals_df_mu.iloc[i][0:iteration[i]]))))) / (sthick[i] * slhl * (tempvals_df.iloc[i][iteration[i]+1]/dt)) + (Pmu * (tempvals_df_mu.iloc[i][iteration[i]+1]/dt))  
-#         expage = iteration[i] * dt + dt2
+#     a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
+#     b = (np.sum(tempvals_df_mu.iloc[i][0:iteration[i]]))
+#     dt2 = ((n0[i] - (sthick[i] * slhl * a) - (Pmu * b))/ (stexphick[i] * slhl) * Pmu)/ scaling_factor.Siteprod_df.iloc[i][iteration[i]+1]
+#     expage = iteration[i] * dt + dt2
 #     exp_age.append(expage)
 
-
-
-
- 
 def func(sthick,tempvals):
     return sthick*slhl*tempvals
 
+    
 for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
     for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
         temp = (scaling_factor.Siteprod_df.iloc[i][j]* dt)
@@ -93,8 +111,8 @@ for i in range(len(scaling_factor.Siteprod_df)): #how many samples
 tempvals_df = pd.DataFrame([(tempvals[n:n+len(User_Interface.time)]) for n in range(0, len(tempvals), len(User_Interface.time))])
 
 iteration = []
-for i in range (len(tempvals_df)):
-    x = tempvals_df[0][i]
+for i in range(len(tempvals_df)):
+    x = tempvals_df.iloc[i][0]
     for j in range(len(tempvals_df.iloc[0])):
         l = func(sthick[i],x)
         if l < n0[i]:
@@ -102,10 +120,11 @@ for i in range (len(tempvals_df)):
         else:
             iteration.append(j)
             break
+            
         
 exp_age = []
 for i in range (len(tempvals_df)):
-    for j in range(len(tempvals_df.iloc[0])):
-        dt2 = (n0[i] - sthick[i] * slhl * (np.sum(tempvals_df.iloc[i][0:iteration[i]]))) / (sthick[i] * slhl * (tempvals_df.iloc[i][iteration[i]+1]/dt)) 
-        expage = iteration[i] * dt + dt2
+    a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
+    dt2 = ((n0[i]/(sthick[i] * slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]])
+    expage = iteration[i] * dt + dt2
     exp_age.append(expage)

@@ -26,15 +26,15 @@ MCADAM_qpi3.head()
 
 
 #Plot of relevant subset of MCADAM (QPI>=3) at full resolution (~55kyr bins)
-f = plt.figure()
-plt.plot(MCADAM_qpi3['age'], MCADAM_qpi3['mean'], color='orange')
-plt.plot(MCADAM_qpi3['age'], MCADAM_qpi3['lower'], color='gray', alpha=0.4)
-plt.plot(MCADAM_qpi3['age'], MCADAM_qpi3['upper'], color='gray', alpha=0.4)
-plt.fill_between(MCADAM_qpi3['age'], MCADAM_qpi3['upper'], MCADAM_qpi3['lower'], color='steelblue', alpha=0.2)
-plt.ylabel('MCADAM Mean Dipole (1e22 Am2)')
-plt.xlabel('Age Step Realization (Ma)')
-plt.ylim(0,12)
-f.savefig('MCADAM_1b-full_res.png')
+# f = plt.figure()
+# plt.plot(MCADAM_qpi3['age'], MCADAM_qpi3['mean'], color='orange')
+# plt.plot(MCADAM_qpi3['age'], MCADAM_qpi3['lower'], color='gray', alpha=0.4)
+# plt.plot(MCADAM_qpi3['age'], MCADAM_qpi3['upper'], color='gray', alpha=0.4)
+# plt.fill_between(MCADAM_qpi3['age'], MCADAM_qpi3['upper'], MCADAM_qpi3['lower'], color='steelblue', alpha=0.2)
+# plt.ylabel('MCADAM Mean Dipole (1e22 Am2)')
+# plt.xlabel('Age Step Realization (Ma)')
+# plt.ylim(0,12)
+# f.savefig('MCADAM_1b-full_res.png')
 
 
 

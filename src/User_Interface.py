@@ -17,7 +17,7 @@ import numpy as np
             2 = 3He in clinopyroxene
             3 = 3He in olivine
             4 = 21Ne in quartz
-        system_b : integer 0 - 4 (specify clinopyroxene)
+        system_b : integer 0 - 4 (specify cpx/opx)
             0 = N/A (non-cpx)
             1 = enstatite
             2 = ferrosilite
@@ -56,12 +56,12 @@ import numpy as np
 system = 2
 system_b = 4
 system_c = 0
-stdatm = 0
+stdatm = 1 
 muons = False
 timerange = [0,25+0.05]
 plate = 'SA'
 
-#The authors do not recommend changing the resolution below #
+#The authors do not recommend changing the resolution below 
 resolution = int(250000)/10**6
 
 time = np.arange(timerange[0], timerange[1], resolution) # time bin#for 250ka resolution, with first bin being 50 ka

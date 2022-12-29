@@ -3,7 +3,7 @@
 """
 Created on Thu Sep 15 14:01:08 2022
 
-@author: mmijjum
+@autfhor: mmijjum
     
 
 This script will read in all the necessary files (inputs spreadsheet, and .csv files).
@@ -177,6 +177,40 @@ c_values.columns = ['variable', 'values']
 ground_level_spectrum.columns = ['variable' , 'values']
 thermal_neutron_spectrum.columns = ['variable' , 'values']
 
+#Number densities
+
+#Quartz
+NatomsQtzO = 2.0046e22
+NatomsQtzSi = 1.0023e22
+
+#Pyroxene
+NatomsOPxEnMg = 5.998e21
+NatomsOPxEnSi = 5.9988e21
+NatomsOPxEnO = 1.7997e22
+NatomsOPxFsFe = 4.5647e21
+NatomsOPxFsSi = 4.5647e21
+NatomsOPxFsO = 1.3694e22
+NatomsCPxWoCa = 5.1843e21
+NatomsCPxWoSi = 5.1843e21
+NatomsCPxWoO = 1.5553e22
+NatomsCPxAuCa = 2.5521e21
+NatomsCPxAuMg = 2.2969e21
+NatomsCPxAuFe = 5.1041e20
+NatomsCPxAuAl = 1.2760e21
+NatomsCPxAuSi = 4.8489e21
+NatomsCPxAuO = 1.5312e22
+
+#Olivine
+NatomsOlFoMg = 8.5607e21
+NatomsOlFoSi = 4.2803e21
+NatomsOlFoO = 1.7121e22
+NatomsOlFaFe = 5.9106e21
+NatomsOlFaSi = 2.9553e21
+NatomsOlFaO = 1.1821e22
+NatomsOlFo80Fe = 6.2850e21
+NatomsOlFo80Mg = 1.5712e21
+NatomsOlFo80Si = 3.9821e21
+NatomsOlFo80O = 1.5712e22
 
 
 # # Muons

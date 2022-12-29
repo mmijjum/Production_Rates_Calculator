@@ -33,7 +33,7 @@ Et = 2.5e-8; #Thermal neutron energy in MeV
 
 smin = 400; #Units of MV
 smax = 1200; #Units of MV
-w = 0.06 #water content. 
+w = 0.2 #water content. 
 
 # Ground-Level Spectrum
 g3 = 10**(Read.ground_level_spectrum.iloc[0]['values'] + (Read.ground_level_spectrum.iloc[1]['values'])/(w + Read.ground_level_spectrum.iloc[2]['values']))
@@ -169,51 +169,55 @@ for n in range(len(c4_df)):
 PhiGMev_temp = pd.DataFrame([(df2[n:n+200]) for n in range(0, len(df2), len(E))])  
 PhiGMev = PhiGMev_temp.T
 
-
 for i in range(len(Rc.Rc)*len(time)):
     
     if User_Interface.system == 1: #qtz
-        Natoms = 2.00456e22
-        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])+ np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]/2), E_df.iloc[0,:]))*(Natoms*1e-27*3.1536e7)
+        NatomsO = Read.NatomsQtzO
+        NatomsSi = Read.NatomsQtzSi
+        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])
+        + np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]/2),E_df.iloc[0,:]))*2.00600000000000e+22*1e-27*3.1536e7
         p3n_qtz.append(p3n_temp_qtz)
 
     #Inserted from Dave Parmelee's code (MS thesis, NMT 2014) to account for composition
     #dependence of clinopyroxene
     
     if User_Interface.system == 2: #cpx
-        if User_Interface.system_b == 1:
-            Natoms = 1.79965e22
-        if User_Interface.system_b == 2:
-            Natoms = 1.36941e22
-        if User_Interface.system_b == 3:
-            Natoms = 1.55528e22
-        if User_Interface.system_b == 4:
-            Natoms= 2 * 1.53124e22
         p3ndf_cpx = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]*(1.92/6)),E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Alnx3df[0]*(0.12/6)),E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]*(0.67/6)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]*(0.31/6)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Canx3df[0]*(0.86/6)), E_df.iloc[0,:]))*(Natoms*1e-27*3.1536e7)
+        np.trapz(PhiGMev.iloc[:,i]*Read.Sinx3df[0]*1.92/6,E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*Read.Alnx3df[0]*0.12/6,E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*Read.Mgnx3df[0]*0.67/6, E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*Read.Fenx3df[0]*0.31/6, E_df.iloc[0,:]) +
+        np.trapz(PhiGMev.iloc[:,i]*Read.Canx3df[0]*0.86/6, E_df.iloc[0,:]))*2.00600000000000*10**22*1*10**-27*3.1536*10**7
         p3n_cpx.append(p3ndf_cpx)
 
+    
     if User_Interface.system == 3: #olivine
-        if User_Interface.system_c == 1:
-            Natoms = 1.71214e22
-        if User_Interface.system_c == 2:
-            Natoms = 1.1821e22
-        if User_Interface.system_c == 3:
-            Natoms = 1.57124e22
-        p3ndf_ol = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]*(1/4)), E_df.iloc[0,:]) + 
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]*(1.1/4)), E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]*(0.9/4)), E_df.iloc[0,:]))*(Natoms*1e-27*3.1536e7)
+        if User_Interface.system_c == 1: #Forsterite
+            NatomsO = Read.NatomsOlFoO
+            NatomsSi = Read.NatomsOlFoSi
+            NatomsMg = Read.NatomsOlFoMg
+            NatomsFe = 0
+        if User_Interface.system_c == 2: #Fayalite
+            NatomsO = Read.NatomsOlFaO
+            NatomsSi = Read.NatomsOlFaSi
+            NatomsMg = 0
+            NatomsFe = Read.NatomsOlFaFe
+        if User_Interface.system_c == 3: #F8
+            NatomsO = Read.NatomsOlFo80O
+            NatomsSi = Read.NatomsOlFo80Si
+            NatomsMg = Read.NatomsOlFo80Mg
+            NatomsFe = Read.NatomsOlFo80Fe
+
+        p3ndf_ol = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*NatomsO +
+        np.trapz(PhiGMev.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*NatomsSi + 
+        np.trapz(PhiGMev.iloc[:,i]*Read.Mgnx3df[0], E_df.iloc[0,:])*NatomsMg +
+        np.trapz(PhiGMev.iloc[:,i]*Read.Fenx3df[0], E_df.iloc[0,:])*NatomsFe)*1e-27*3.1536e7
         p3n_ol.append(p3ndf_ol)
 
     #21-Ne
     if User_Interface.system == 4:
         Natoms = 1.00228e22
-        p21ndf_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])) *(Natoms*1e-27*3.1536e7)
+        p21ndf_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])) *(NatomsSi*1e-27*3.1536e7)
         p21n_qtz.append(p21ndf_qtz)
 
 
