@@ -23,6 +23,7 @@ c = 299792458 #m/s, speed of light.
 R = 6.378*10**6 #m, radius of Earth.
 Rc_list = []
 
+
 for x in range (len(Pmag_paleolat.pl_df)):
     for i in range(len(mcadam.means)):
         Rc_calc = (((mcadam.means.iloc[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
@@ -30,12 +31,5 @@ for x in range (len(Pmag_paleolat.pl_df)):
 Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
 
 
-# means = np.repeat(9.254976,101)
-# for x in range (len(Pmag_paleolat.pl_df)):
-#     for i in range(len(means)):
-#         Rc_calc = (((means[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
-#         Rc_list.append(Rc_calc)
-# Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
-      
-# Rc_list = np.repeat(12,2020)
+# Rc_list = np.repeat(5.684071,2020)
 # Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])

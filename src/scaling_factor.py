@@ -24,8 +24,9 @@ if User_Interface.system == 1:
     #qtz
     #Nuclide Specific Scaling Factors
     p3nref_q = 90.1971
-    p3pref_q = 13.6257
-    HeRef_qtz = p3nref_q + p3pref_q #reference production rate
+    p3pref_q = 13.6357
+    HeRef_qtz = 91.695875+13.741686  #reference production rate
+    #HeRef_qtz = p3nref_q + p3pref_q #reference production rate
     
     #Nuclide specific scaling factors as f(Rc)
     for n in range(len(Rc.Rc)):
@@ -36,13 +37,15 @@ if User_Interface.system == 1:
 
 if User_Interface.system == 2:
     #SiteHe for cpx:
-    p3nref_au = 90.0788
-    p3pref_au = 13.6184
-    HeRef_cpx = (p3nref_au + p3pref_au) #reference production rate
+    p3nref_au = 90.1971
+    p3pref_au = 13.6357
+    HeRef_cpx = 97.870304+14.841103 #reference production rate, internal
+
+    #HeRef_cpx = (p3nref_au + p3pref_au) #reference production rate
     #Nuclide specific scaling factors as f(Rc)
     for n in range(len(Rc.Rc)):
         for i in range(len(time)):
-            SiteHe_temp_cpx = (1.323*neutron_spallation.pn_df.iloc[n,i] + 1.323*proton_spallation.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
+            SiteHe_temp_cpx = (neutron_spallation.pn_df.iloc[n,i] +proton_spallation.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
             Siteprod.append(SiteHe_temp_cpx)
 
 if User_Interface.system ==3 :

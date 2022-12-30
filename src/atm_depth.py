@@ -76,7 +76,7 @@ for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
 lr = [-6.1517E-03, -3.1831E-06, -1.5014E-07, 1.8097E-09, 1.1791E-10, -6.5359E-14, -9.5209E-15]
 
 differential = []
-sp_list = []
+empty = []
 for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
     dtdz = lr[0] + lr[1]*Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**6;
     dtdz = -dtdz
@@ -86,10 +86,9 @@ if User_Interface.stdatm == 0: #ERA40
     for i in range(len(slp)):
         sp = slp[i] * np.exp( (gmr/differential[i]) * (np.log(temp[i]) - np.log(temp[i] - (alt_list[i]*differential[i])) ) )
         sp = float(sp)
-        sp_list.append(sp)
-    sample_pressure = pd.DataFrame([(sp_list[n:n+len(time)]) for n in range(0, len(sp_list), len(time))])
+        empty.append(sp)
+    sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
 
-empty = []
 if User_Interface.stdatm == 1:
     for i in range(len(alt_list)):
         differential = 0.0065

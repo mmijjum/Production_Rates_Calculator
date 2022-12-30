@@ -18,10 +18,10 @@ import atm_depth
 time = User_Interface.time 
 
 
-s = 465; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
+s = 624.5718; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
 smin = 400; #Units of MV
 smax = 1200; #Units of MV
-w = 0.06
+w = 0.2
 
 if User_Interface.system == 4: 
 
