@@ -30,6 +30,15 @@ for x in range (len(Pmag_paleolat.pl_df)):
         Rc_list.append(Rc_calc)
 Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
 
+# for x in range (len(Pmag_paleolat.pl_df)):
+#     for i in range(len(mcadam.means)):
+#         theta = (90 - (Pmag_paleolat.pl_df.iloc[x,i]))
+#         I = Pmag_paleolat.inc_df.iloc[x,i]
+#         H = (mcadam.means.iloc[i] * mu_knot * np.sin(np.deg2rad(theta))) / (4 * np.pi * R**3)
+#         Rc_calc = ((R/4) * (H*c)/(1+0.25*(np.tan(np.deg2rad(I))**2)))/10**9      
+#         Rc_list.append(Rc_calc)
+# Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
+
 
 # Rc_list = np.repeat(5.684071,2020)
 # Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])

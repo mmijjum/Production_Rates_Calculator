@@ -182,92 +182,37 @@ p3p_qtz = []
 p3p_cpx = []
 p3p_ol = []
 p21p_qtz = []
+
 for i in range(len(Rc.Rc)*len(time)):
+
     if User_Interface.system == 1: #qtz
-        NatomsO = Read.NatomsQtzO
-        NatomsSi = Read.NatomsQtzSi
-        p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0],E_df.iloc[0,:]) + np.trapz(phiPtot.T.iloc[:,i]*(Read.Sipx3df[0]/2),E_df.iloc[0,:]))*2.00600000000000e+22*1e-27*3.1536e7  
+        p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])*Read.NatomsQtzO+ np.trapz(phiPtot.T.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*Read.NatomsQtzSi)*(1e-27*3.1536e7)
         p3p_qtz.append(p3p_temp_qtz)
 
-    if User_Interface.system == 2:
-        p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E) +
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx3df[0]*1.92/6,E) +
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Alpx3df[0]*0.12/6,E) +
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Mgpx3df[0]*0.67/6, E) +
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Fepx3df[0]*0.31/6, E) +
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Capx3df[0]*0.86/6, E))*2.00600000000000*10**22*1*10**-27*3.1536*10**7
+    #Inserted from Dave Parmelee's code (MS thesis, NMT 2014) to account for composition
+    #dependence of clinopyroxene
+
+    if User_Interface.system == 2: #cpx
+        p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*Read.NatomsCpxAuO +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Sinx3df[0]),E_df.iloc[0,:])*Read.NatomsCpxAuSi +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Alnx3df[0]),E_df.iloc[0,:])*Read.NatomsCpxAuAl +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgnx3df[0]), E_df.iloc[0,:])*Read.NatomsCpxAuMg +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fenx3df[0]), E_df.iloc[0,:])*Read.NatomsCpxAuFe +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Canx3df[0]), E_df.iloc[0,:])*Read.NatomsCpxAuCa)*(1e-27*3.1536e7)
         p3p_cpx.append(p3p_temp_cpx)
-        # if User_Interface.system_b == 1: #Enstatite
-        #     NatomsO = Read.NatomsOPxEnO
-        #     NatomsSi = Read.NatomsOPxEnSi
-        #     NatomsAl = 0
-        #     NatomsMg = Read.NatomsOPxEnMg
-        #     NatomsFe = 0
-        #     NatomsCa = 0
-        # if User_Interface.system_b == 2: #Ferrosilite
-        #     NatomsO = Read.NatomsOPxFsO
-        #     NatomsSi = Read.NatomsOPxFsSi
-        #     NatomsAl = 0
-        #     NatomsMg = 0
-        #     NatomsFe = Read.NatomsOPxFsFe
-        #     NatomsCa = 0
-        # if User_Interface.system_b == 3: #Wollastonite
-        #     NatomsO = Read.NatomsCPxWoO
-        #     NatomsSi = Read.NatomsCPxWoSi
-        #     NatomsAl = 0
-        #     NatomsMg = 0
-        #     NatomsFe = 0
-        #     NatomsCa = Read.NatomsCPxWoCa  
-        # if User_Interface.system_b == 4: #Augite
-        #     NatomsO = Read.NatomsCPxAuO
-        #     NatomsSi = Read.NatomsCPxAuSi 
-        #     NatomsAl = Read.NatomsCPxAuAl 
-        #     NatomsMg = Read.NatomsCPxAuMg 
-        #     NatomsFe = Read.NatomsCPxAuFe
-        #     NatomsCa = Read.NatomsCPxAuCa 
-        # p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E_df.iloc[0,:])*NatomsO +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx3df[0],E_df.iloc[0,:])*NatomsSi +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Alpx3df[0],E_df.iloc[0,:])*NatomsAl +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Mgpx3df[0], E_df.iloc[0,:])*NatomsMg +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Fepx3df[0], E_df.iloc[0,:])*NatomsFe +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Capx3df[0], E_df.iloc[0,:])*NatomsCa)*(1e-27*3.1536e7)
-        # p3p_cpx.append(p3p_temp_cpx)
-        
-        # p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E_df.iloc[0,:]) +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx3df[0],E_df.iloc[0,:]*1.92/6) +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Alpx3df[0],E_df.iloc[0,:]*0.12/6) +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Mgpx3df[0], E_df.iloc[0,:]*0.67/6) +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Fepx3df[0], E_df.iloc[0,:]*0.31/6) +
-        # np.trapz(phiPtot.T.iloc[:,i]*Read.Capx3df[0], E_df.iloc[0,:]*0.86/6))*1.5312e22*(1e-27*3.1536e7)
-        # p3p_cpx.append(p3p_temp_cpx)
-    if User_Interface.system == 3: 
-        if User_Interface.system_c == 1: #Forsterite
-            NatomsO = Read.NatomsOlFoO
-            NatomsSi = Read.NatomsOlFoSi
-            NatomsMg = Read.NatomsOlFoMg
-            NatomsFe = 0
-        if User_Interface.system_c == 2: #Fayalite
-            NatomsO = Read.NatomsOlFaO
-            NatomsSi = Read.NatomsOlFaSi
-            NatomsMg = 0
-            NatomsFe = Read.NatomsOlFaFe
-        if User_Interface.system_c == 3: #F8
-            NatomsO = Read.NatomsOlFo80O
-            NatomsSi = Read.NatomsOlFo80Si
-            NatomsMg = Read.NatomsOlFo80Mg
-            NatomsFe = Read.NatomsOlFo80Fe
-        p3p_temp_ol = (np.trapz(phiPtot.T.iloc[:,i]*Read.Opx3df[0], E_df.iloc[0,:])*NatomsO +
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx3df[0], E_df.iloc[0,:])*NatomsSi + 
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Mgpx3df[0], E_df.iloc[0,:])*NatomsMg +
-        np.trapz(phiPtot.T.iloc[:,i]*Read.Fepx3df[0], E_df.iloc[0,:])*NatomsFe)*1e-27*3.1536e7        
+
+    if User_Interface.system == 3: #olivine
+        p3p_temp_ol = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*Read.NatomsOlFo80O +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Sinx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Si + 
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgnx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Mg +
+        np.trapz(phiPtot.T.iloc[:,i]*(Read.Fenx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Fe)*(1e-27*3.1536e7)
         p3p_ol.append(p3p_temp_ol)
+
     #21-Ne
     if User_Interface.system == 4:
         Natoms = 1.00228e22
-        p21p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Sipx21df[0],E)) *(NatomsSi*1e-27*3.1536e7)
-        p21p_qtz.append(p21p_temp_qtz)
-
-
+        p21pdf_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])*Natoms) *(1e-27*3.1536e7)
+        p21p_qtz.append(p21pdf_qtz)
 
 if User_Interface.system == 1:
     pp = p3p_qtz

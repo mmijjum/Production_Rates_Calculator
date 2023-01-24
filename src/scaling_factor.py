@@ -23,9 +23,11 @@ Siteprod = []
 if User_Interface.system == 1:
     #qtz
     #Nuclide Specific Scaling Factors
-    p3nref_q = 90.1971
-    p3pref_q = 13.6357
-    HeRef_qtz = 91.695875+13.741686  #reference production rate
+    # p3nref_q = 90.0788 #nat's
+    # p3pref_q = 13.6184
+    p3nref_q = 91.6318
+    p3pref_q = 14.7771
+    HeRef_qtz = p3nref_q + p3pref_q  #reference production rate
     #HeRef_qtz = p3nref_q + p3pref_q #reference production rate
     
     #Nuclide specific scaling factors as f(Rc)
@@ -37,9 +39,11 @@ if User_Interface.system == 1:
 
 if User_Interface.system == 2:
     #SiteHe for cpx:
-    p3nref_au = 90.1971
-    p3pref_au = 13.6357
-    HeRef_cpx = 97.870304+14.841103 #reference production rate, internal
+    # p3nref_cpx = 78.8285 #these are nat's values
+    # p3pref_cpx = 11.9608
+    p3nref_cpx = 80.1750
+    p3pref_cpx = 13.0628
+    HeRef_cpx = p3nref_cpx + p3pref_cpx #reference production rate, internal
 
     #HeRef_cpx = (p3nref_au + p3pref_au) #reference production rate
     #Nuclide specific scaling factors as f(Rc)
@@ -51,18 +55,9 @@ if User_Interface.system == 2:
 if User_Interface.system ==3 :
     #SiteHe for olivine: 
     #Nuclide Specific Scaling Factors
-    if User_Interface.system_c == 1:
-        p3nref_fo = 90.2153
-        p3pref_fo = 12.7262
-        HeRef_ol = p3nref_fo + p3pref_fo #reference production rate
-    if User_Interface.system_c == 2:
-        p3nref_fa = 56.7687
-        p3pref_fa = 9.7859
-        HeRef_ol = p3nref_fa + p3pref_fa #reference production rate
-    if User_Interface.system_c == 3:
-        p3nref_f8 = 81.3239
-        p3pref_f8 = 12.5509
-        HeRef_ol = p3nref_f8 + p3pref_f8 #reference production rate
+    p3nref_ol = 81.3239
+    p3pref_ol = 12.5509
+    HeRef_cpx = p3nref_ol + p3pref_ol
     #Nuclide specific scaling factors as f(Rc)
     for n in range(len(Rc.Rc)):
         for i in range(len(time)):        
@@ -109,7 +104,7 @@ Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Site
 if User_Interface.system ==1:
     ref = HeRef_qtz
 if User_Interface.system ==2: 
-    ref = HeRef_cpx
+    ref = 105.437561
 if User_Interface.system == 3: 
     ref = HeRef_ol
 if User_Interface.system == 4:

@@ -5,15 +5,16 @@ Created on Thu Nov 10 10:57:00 2022
 
 @author: mmijjum
 """
-# import numpy as np
-# import matplotlib.pyplot as plt
-# import User_Interface
-# #import Pmag_paleolat
-# import Read
-# #import scaling_factor
-# #import Rc
-# import atm_depth
-# import expage
+import numpy as np
+
+import matplotlib.pyplot as plt
+import User_Interface
+import Pmag_paleolat
+import Read
+import scaling_factor
+import Rc
+import atm_depth
+import expage
 import pandas as pd
 
 # # time = User_Interface.time
@@ -140,7 +141,7 @@ import pandas as pd
 # # SA = pl_df.iloc[1] #COMMENT THIS OUT WHEN YOU RUN THE NEXT SAMPLE SO DATA DOESN'T GET UPDATED W NEW PLATE.
 # # #IN = Pmag_paleolat.pl_df.iloc[0]
 
-# # plt.figure()
+# # plt.figure()p
 # # plt.subplot(211)
 # # plt.plot(time,IN,color='blue',c = 'blue', label = '20N, 73E')
 # # plt.legend(loc = 'lower left', frameon=True)
@@ -244,115 +245,53 @@ import pandas as pd
 # #Age comparison plot: Evenstar data, CPX.
 
 # texp = [3060943,2420867,2996038,5626876,3466142,5550019,5054803,5421151,6343026,3975730,4503242,4602262
-# ,4368152,13030241,8703075,13958527,12118011,11914337,2696545,2660317]
+#   ,4368152,13030241,8703075,13958527,12118011,11914337,2696545,2660317]
 
-# #FOR QTZ BELOW
-texp = [3482009,2760335,3411507,6389973,3943729,6310070,5748965,6155450,7198966,4528601,5113348,5227171
-,4962226,14765193,9867669,15815179,13732297,13502759,3070545,3026159]
+# age250 = [2839161.7976549855,
+#  2301862.116779193,
+#  2811301.826025699,
+#  5238892.278703601,
+#  3239322.4409733815,
+#  5240686.691514916,
+#  4764029.0054370975,
+#  5041761.411336673,
+#  5822777.130696475,
+#  3747196.379156443,
+#  4086671.677934946,
+#  4220536.545408334,
+#  4001351.54136129,
+#  10971879.937392477,
+#  7566920.79039923,
+#  11662836.030671537,
+#  10313452.203257067,
+#  10159133.243373051,
+#  2521636.8086418966,
+#  2469205.3393815313]
 
-# age250 = [2773550.7686141287,
-#  2251844.667073892,
-#  2746279.7256950266,
-#  5115989.303468854,
-#  3165013.052190089,
-#  5117333.521481127,
-#  4648985.988297649,
-#  4922251.445855418,
-#  5714808.614434532,
-#  3666621.353840409,
-#  3989764.2065212494,
-#  4119998.0784403575,
-#  3910590.8378341645,
-#  10754705.17398112,
-#  7394138.366091279,
-#  11430634.129625762,
-#  10103664.591674007,
-#  9951934.552162657,
-#  2465629.6750738434,
-#  2415193.8339522537]
-# # age250 = [4608530.499430503,
-# #  3797103.6625315165,
-# #  4644416.536743036,
-# #  8520031.741169002,
-# #  5337193.934408491,
-# #  8734160.042145181,
-# #  7978185.465152661,
-# #  8182667.244481054,
-# #  9536125.888483683,
-# #  6410623.131174649,
-# #  6561481.885203983,
-# #  6855065.837851957,
-# #  6517399.793334388,
-# #  19011043.440484427,
-# #  12799149.474537505,
-# #  20398002.136458285,
-# #  17736802.103519104,
-# #  17472065.563144416,
-# #  4122940.9627625654,
-# #  3973875.3668470895]
-# #FOR QTZ BELOW, time varying field:
-# age250 =[2785653.0746758142,
-#  2261530.2394134086,
-#  2758820.100137907,
-#  5140005.563868982,
-#  3179417.5193440025,
-#  5143276.281538495,
-#  4673121.038872589,
-#  4945379.382714362,
-#  5737153.183261831,
-#  3683878.4645796935,
-#  4006901.673025417,
-#  4138791.6568088545,
-#  3927524.1733365506,
-#  10793644.489223007,
-#  7424528.159112385,
-#  11471873.467100091,
-#  10141572.237383649,
-#  9989681.700546756,
-#  2475925.6652259436,
-#  2424828.6100813546]
-#below is test with non varying paleolat or Rc, with input of nat's long term field average
-age250 = [2270311.1351501844,
- 1814209.0589835863,
- 2219044.6465279902,
- 4070765.5469567254,
- 2549830.8847261257,
- 3976960.3915505586,
- 3632739.4320981116,
- 3914767.387840612,
- 4562291.673263085,
- 2873522.235951222,
- 3324756.7422890333,
- 3366639.795527435,
- 3200806.239736612,
- 9336647.803997047,
- 6251539.222261872,
- 9963076.895502722,
- 8663256.43342432,
- 8526032.821121221,
- 2011916.0977857758,
- 1966720.4620678748]
-# # #FOR CPX BELOW
-# # age250 = [2466573.812240755,
-# #   2023299.0465562146,
-# #   2444888.3224641937,
-# #   4553730.093643763,
-# #   2815661.742382576,
-# #   4558046.30932169,
-# #   4129536.130928539,
-# #   4370703.18758535,
-# #   5147929.74150341,
-# #   3284304.210058709,
-# #   3574064.8522674884,
-# #   3678847.610658329,
-# #   3503468.9083244572,
-# #   9826447.766671108,
-# #   6690999.3511465965,
-# #   10466508.118817024,
-# #   9186317.233039252,
-# #   9039952.58829612,
-# #   2203962.164205366,
-# #   2156751.2442309437]
+
+#FOR QUARTZ BELOW
+texp = [3482009,2760335,3411507,6389973,3943729,6310070,5748965,6155450,7198966,4528601,5113348,5227171,4962226,14765193
+,9867669,15815179,13732297,13502759,3070545,3026159]
+age250 = [3472423.4290153407,
+  2803426.12703357,
+  3440260.0089757773,
+  6210468.883134722,
+  3941471.677105054,
+  6199931.158187177,
+  5784984.334458705,
+  6036594.47367114,
+  6840152.114310803,
+  4621753.219224201,
+  5044878.742110162,
+  5208934.969623533,
+  4941923.281071253,
+  13047183.38954281,
+  9169206.641035197,
+  13862570.084416265,
+  12278962.150294438,
+  12099327.172749909,
+  3085828.2737018084,
+  3017938.615948302]
 
 # # agemuons =[2299376.4962355015,
 # #   2005097.1553156185,
@@ -375,21 +314,15 @@ age250 = [2270311.1351501844,
 # #   2046583.114626112,
 # #   2035542.1304661129]
 
-# updated_texp = []
-# updated_model_ages = []
+# updated_texp_qtz = []
+# updated_texp_cpx = []
 # muons_list = []
-
-# for i in range(len(texp)): #convert ages from [yr] to [Ma]
-#     updated = texp[i]/10**6
-#     updated_texp.append(updated) #Evenstar data
-#     updated_model = age250[i]/10**6 
-#     updated_model_ages.append(updated_model) #this model
-#     #wmuons = agemuons[i]/10**6 
+# for i in range(len(texp_qtz)): #convert ages from [yr] to [Ma]
+#     updated_qtz = texp_qtz[i]/10**6
+#     updated_texp_qtz.append(updated_qtz) #Evenstar data
+#     updated_cpx = texp_cpx[i]/10**6 
+#     updated_texp_cpx.append(updated_cpx)
     
-#     #muons_list.append(wmuons) #con muons
-# ratio = []    
-# for i in range(len(updated_model_ages)):
-#     ratio.append(updated_model_ages[i]/updated_texp[i])
 
 
 # plt.plot([0,18], [0,18], 'k-') #1:1 line
@@ -397,12 +330,40 @@ age250 = [2270311.1351501844,
 # # plt.axhline(y=1, color='k', linestyle='-')
 # # plt.plot(ratio, 'o', c = 'darkmagenta', alpha = 0.5, label = 'without muons')
 
-# plt.plot(updated_texp,updated_model_ages, 'o', c = 'darkmagenta', alpha = 0.5, label = 'without muons')
+# plt.plot(updated_texp_qtz,updated_texp_cpx, 'o', c = 'darkmagenta', alpha = 0.5, label = 'without muons')
 # #plt.plot(updated_texp,muons_list, 'x', c = 'black', label = 'w muons')
 # plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
-# plt.xlabel('Exposure Age [Ma] recalculated from Evenstar (2017)', fontsize = 10)
-# plt.ylabel('Exposure Age [Ma] from this Model', fontsize = 10)
-# plt.savefig(Read.directory+'self_slhl_qtz.png', dpi = 300, bbox_inches='tight')
+# plt.xlabel('CRONUS quartz', fontsize = 10)
+# plt.ylabel('CRONUS cpx', fontsize = 10)
+# plt.savefig(Read.directory+'CRONUs_comparison.png', dpi = 300, bbox_inches='tight')
+
+updated_texp = []
+updated_model_ages = []
+for i in range(len(texp)): #convert ages from [yr] to [Ma]
+    updated = texp[i]/10**6
+    updated_texp.append(updated) #Evenstar data
+    updated_model = age250[i]/10**6 
+    updated_model_ages.append(updated_model) #this model
+    #wmuons = agemuons[i]/10**6 
+    
+    #muons_list.append(wmuons) #con muons
+ratio = []    
+for i in range(len(updated_model_ages)):
+    ratio.append(updated_model_ages[i]/updated_texp[i])
+
+
+plt.plot([0,18], [0,18], 'k-') #1:1 line
+plt.rcParams["figure.figsize"] = [6,4] #update figure size
+# plt.axhline(y=1, color='k', linestyle='-')
+# plt.plot(ratio, 'o', c = 'darkmagenta', alpha = 0.5, label = 'without muons')
+
+plt.plot(updated_texp,updated_model_ages, 'o', c = 'darkmagenta', alpha = 0.5, label = 'without muons')
+#plt.plot(updated_texp,muons_list, 'x', c = 'black', label = 'w muons')
+plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
+plt.title('Qtz')
+plt.xlabel('Exposure Age [Ma] recalculated from Evenstar (2017)', fontsize = 10)
+plt.ylabel('Exposure Age [Ma] from this Model', fontsize = 10)
+plt.savefig(Read.directory+'expage_comparison_qtz.png', dpi = 300, bbox_inches='tight')
 
 
 #USING ERA 40

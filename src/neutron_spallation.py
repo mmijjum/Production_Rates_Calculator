@@ -170,68 +170,44 @@ PhiGMev_temp = pd.DataFrame([(df2[n:n+200]) for n in range(0, len(df2), len(E))]
 PhiGMev = PhiGMev_temp.T
 
 for i in range(len(Rc.Rc)*len(time)):
-    
+
     if User_Interface.system == 1: #qtz
-        NatomsO = Read.NatomsQtzO
-        NatomsSi = Read.NatomsQtzSi
-        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])
-        + np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]/2),E_df.iloc[0,:]))*2.00600000000000e+22*1e-27*3.1536e7
+        p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])*Read.NatomsQtzO+ np.trapz(PhiGMev.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*Read.NatomsQtzSi)*(1e-27*3.1536e7)
         p3n_qtz.append(p3n_temp_qtz)
 
     #Inserted from Dave Parmelee's code (MS thesis, NMT 2014) to account for composition
     #dependence of clinopyroxene
-    
+
     if User_Interface.system == 2: #cpx
-        p3ndf_cpx = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*Read.Sinx3df[0]*1.92/6,E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*Read.Alnx3df[0]*0.12/6,E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*Read.Mgnx3df[0]*0.67/6, E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*Read.Fenx3df[0]*0.31/6, E_df.iloc[0,:]) +
-        np.trapz(PhiGMev.iloc[:,i]*Read.Canx3df[0]*0.86/6, E_df.iloc[0,:]))*2.00600000000000*10**22*1*10**-27*3.1536*10**7
-        p3n_cpx.append(p3ndf_cpx)
+        p3n_temp_cpx = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*Read.NatomsCpxAuO +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]),E_df.iloc[0,:])*Read.NatomsCpxAuSi +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Alnx3df[0]),E_df.iloc[0,:])*Read.NatomsCpxAuAl +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]), E_df.iloc[0,:])*Read.NatomsCpxAuMg +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]), E_df.iloc[0,:])*Read.NatomsCpxAuFe +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Canx3df[0]), E_df.iloc[0,:])*Read.NatomsCpxAuCa)*(1e-27*3.1536e7)
+        p3n_cpx.append(p3n_temp_cpx)
 
-    
     if User_Interface.system == 3: #olivine
-        if User_Interface.system_c == 1: #Forsterite
-            NatomsO = Read.NatomsOlFoO
-            NatomsSi = Read.NatomsOlFoSi
-            NatomsMg = Read.NatomsOlFoMg
-            NatomsFe = 0
-        if User_Interface.system_c == 2: #Fayalite
-            NatomsO = Read.NatomsOlFaO
-            NatomsSi = Read.NatomsOlFaSi
-            NatomsMg = 0
-            NatomsFe = Read.NatomsOlFaFe
-        if User_Interface.system_c == 3: #F8
-            NatomsO = Read.NatomsOlFo80O
-            NatomsSi = Read.NatomsOlFo80Si
-            NatomsMg = Read.NatomsOlFo80Mg
-            NatomsFe = Read.NatomsOlFo80Fe
-
-        p3ndf_ol = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*NatomsO +
-        np.trapz(PhiGMev.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*NatomsSi + 
-        np.trapz(PhiGMev.iloc[:,i]*Read.Mgnx3df[0], E_df.iloc[0,:])*NatomsMg +
-        np.trapz(PhiGMev.iloc[:,i]*Read.Fenx3df[0], E_df.iloc[0,:])*NatomsFe)*1e-27*3.1536e7
-        p3n_ol.append(p3ndf_ol)
+        p3n_temp_ol = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*Read.NatomsOlFo80O +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Sinx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Si + 
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Mgnx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Mg +
+        np.trapz(PhiGMev.iloc[:,i]*(Read.Fenx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Fe)*(1e-27*3.1536e7)
+        p3n_ol.append(p3n_temp_ol)
 
     #21-Ne
     if User_Interface.system == 4:
         Natoms = 1.00228e22
-        p21ndf_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])) *(NatomsSi*1e-27*3.1536e7)
+        p21ndf_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])) *(Natoms*1e-27*3.1536e7)
         p21n_qtz.append(p21ndf_qtz)
 
 
 if User_Interface.system == 1:
     pn = p3n_qtz
-
 if User_Interface.system == 2:
-    pn = p3n_cpx 
-
-if User_Interface.system ==3:
-    pn = p3n_ol 
-
+    pn = p3n_cpx
+if User_Interface.system == 3:
+    pn = p3n_ol
 if User_Interface.system == 4:
     pn = p21n_qtz
-
 lst = pn 
 pn_df = pd.DataFrame([(lst[n:n+len(time)]) for n in range(0, len(lst), len(time))])

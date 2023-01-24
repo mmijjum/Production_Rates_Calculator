@@ -21,7 +21,16 @@ import muons
 
 n0 = Read.nuclide_concentration
 sthick = shielding.S_thick[0]
-slhl =  1.323*131
+
+if User_Interface.system == 1:
+    slhl = 1
+if User_Interface.system == 2:
+    slhl = 131.32#scaling to pyx via balco's make_consts code.
+if User_Interface.system == 3:
+    slhl = 1.323
+if User_Interface.system == 4:
+    slhl = 0 #update later
+
 tempvals = []
 tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001

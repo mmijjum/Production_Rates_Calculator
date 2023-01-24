@@ -193,12 +193,12 @@ NatomsOPxFsO = 1.3694e22
 NatomsCPxWoCa = 5.1843e21
 NatomsCPxWoSi = 5.1843e21
 NatomsCPxWoO = 1.5553e22
-NatomsCPxAuCa = 2.5521e21
-NatomsCPxAuMg = 2.2969e21
-NatomsCPxAuFe = 5.1041e20
-NatomsCPxAuAl = 1.2760e21
-NatomsCPxAuSi = 4.8489e21
-NatomsCPxAuO = 1.5312e22
+NatomsCpxAuCa = 2.5521e21
+NatomsCpxAuMg = 2.2969e21
+NatomsCpxAuFe = 5.1041e20
+NatomsCpxAuAl = 1.2760e21
+NatomsCpxAuSi = 4.8489e21
+NatomsCpxAuO= 1.5312e22
 
 #Olivine
 NatomsOlFoMg = 8.5607e21
