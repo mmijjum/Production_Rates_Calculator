@@ -23,6 +23,8 @@ c = 299792458 #m/s, speed of light.
 R = 6.378*10**6 #m, radius of Earth.
 Rc_list = []
 
+#constant field
+M_constant = 6.6725 #0.7048 from LSD code, long term average ratio multiplied by 2010 DGRF (in Lifton 2014)
 
 for x in range (len(Pmag_paleolat.pl_df)):
     for i in range(len(mcadam.means)):
@@ -30,15 +32,12 @@ for x in range (len(Pmag_paleolat.pl_df)):
         Rc_list.append(Rc_calc)
 Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
 
+#applying long term average only
 # for x in range (len(Pmag_paleolat.pl_df)):
 #     for i in range(len(mcadam.means)):
-#         theta = (90 - (Pmag_paleolat.pl_df.iloc[x,i]))
-#         I = Pmag_paleolat.inc_df.iloc[x,i]
-#         H = (mcadam.means.iloc[i] * mu_knot * np.sin(np.deg2rad(theta))) / (4 * np.pi * R**3)
-#         Rc_calc = ((R/4) * (H*c)/(1+0.25*(np.tan(np.deg2rad(I))**2)))/10**9      
+#         Rc_calc = (((M_constant*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
 #         Rc_list.append(Rc_calc)
 # Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
-
 
 # Rc_list = np.repeat(5.684071,2020)
 # Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])

@@ -565,5 +565,15 @@ h65p = 1.9700;
 
 
 
+#FIGURE 2 TEXT FILES
+IN = pd.read_csv(directory+'/plots/IN.csv')
+SA = pd.read_csv(directory+'/plots/SA.csv')
+GL = pd.read_csv(directory+'/plots/GL.csv')
+AF = pd.read_csv(directory+'/plots/AF.csv')
+
+sf_IN = pd.read_csv(directory+'/plots/sf_IN.csv')
+sf_SA = pd.read_csv(directory+'/plots/sf_SA.csv')
+sf_GL = pd.read_csv(directory+'/plots/sf_GL.csv')
+sf_AF = pd.read_csv(directory+'/plots/sf_AF.csv')
 
 

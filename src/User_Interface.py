@@ -58,8 +58,8 @@ system_b = 0
 system_c = 0
 stdatm = 1
 muons = False
-timerange = [0,1+0.05]
-plate = 'GL'
+timerange = [0,70+0.05]
+plate = 'AF'
 
 #The authors do not recommend changing the resolution below 
 resolution = int(250000)/10**6
