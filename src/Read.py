@@ -576,4 +576,12 @@ sf_SA = pd.read_csv(directory+'/plots/sf_SA.csv')
 sf_GL = pd.read_csv(directory+'/plots/sf_GL.csv')
 sf_AF = pd.read_csv(directory+'/plots/sf_AF.csv')
 
+sf_IN_const = pd.read_csv(directory+'/plots/sf_IN_const.csv')
+
+#FIGURE X TEXT FILES
+
+pn_cpx = pd.read_csv(directory+'/plots/pn_cpx.csv')
+pp_cpx = pd.read_csv(directory+'/plots/pp_cpx.csv')
+pn_qtz = pd.read_csv(directory+'/plots/pn_qtz.csv')
+pp_qtz = pd.read_csv(directory+'/plots/pp_qtz.csv')
 

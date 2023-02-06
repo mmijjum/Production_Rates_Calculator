@@ -39,8 +39,8 @@ erosion = np.repeat(0,20)
 dt = 250000
 Pmu = 0.23 #larsen et al, this is for comparing 3He muon production
 
-# if User_Interface.system == 4: #FOr 21Ne
-#     Pmu = muons.mu_df
+if User_Interface.system == 4: #FOr 21Ne
+    Pmu = muons.mu_df
 
 #spallation part
 
@@ -89,34 +89,34 @@ for i in range (len(tempvals_df)):
     exp_age.append(expage)
 
 #For 3He
-# def func(sthick,tempvals):
-#     return sthick*slhl*tempvals
+def func(sthick,tempvals):
+    return sthick*slhl*tempvals
 
     
-# for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
-#     for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
-#         temp = (scaling_factor.Siteprod_df.iloc[i][j]* dt)
-#         tempvals.append(temp)
-#       #   n = sthick * slhl * temp
-#       #   if n == n0:
+for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
+    for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
+        temp = (scaling_factor.Siteprod_df.iloc[i][j]* dt)
+        tempvals.append(temp)
+      #   n = sthick * slhl * temp
+      #   if n == n0:
 
-# tempvals_df = pd.DataFrame([(tempvals[n:n+len(User_Interface.time)]) for n in range(0, len(tempvals), len(User_Interface.time))])
+tempvals_df = pd.DataFrame([(tempvals[n:n+len(User_Interface.time)]) for n in range(0, len(tempvals), len(User_Interface.time))])
 
-# iteration = []
-# for i in range(len(tempvals_df)):
-#     x = tempvals_df.iloc[i][0]
-#     for j in range(len(tempvals_df.iloc[0])):
-#         l = func(sthick[i],x)
-#         if l < n0[i]:
-#             x += tempvals_df.iloc[i][j+1]
-#         else:
-#             iteration.append(j)
-#             break
+iteration = []
+for i in range(len(tempvals_df)):
+    x = tempvals_df.iloc[i][0]
+    for j in range(len(tempvals_df.iloc[0])):
+        l = func(sthick[i],x)
+        if l < n0[i]:
+            x += tempvals_df.iloc[i][j+1]
+        else:
+            iteration.append(j)
+            break
             
         
-# exp_age = []
-# for i in range (len(tempvals_df)):
-#     a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
-#     dt2 = ((n0[i]/(sthick[i] * slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]])
-#     expage = iteration[i] * dt + dt2
-#     exp_age.append(expage)
+exp_age = []
+for i in range (len(tempvals_df)):
+    a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
+    dt2 = ((n0[i]/(sthick[i] * slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]])
+    expage = iteration[i] * dt + dt2
+    exp_age.append(expage)

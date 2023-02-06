@@ -52,17 +52,17 @@ if User_Interface.system == 2:
             SiteHe_temp_cpx = (neutron_spallation.pn_df.iloc[n,i] +proton_spallation.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
             Siteprod.append(SiteHe_temp_cpx)
 
-if User_Interface.system ==3 :
-    #SiteHe for olivine: 
-    #Nuclide Specific Scaling Factors
-    p3nref_ol = 81.3239
-    p3pref_ol = 12.5509
-    HeRef_cpx = p3nref_ol + p3pref_ol
-    #Nuclide specific scaling factors as f(Rc)
-    for n in range(len(Rc.Rc)):
-        for i in range(len(time)):        
-            SiteHe_temp_ol = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_ol #scaling factor
-            Siteprod.append(SiteHe_temp_ol)
+# if User_Interface.system ==3 :
+#     #SiteHe for olivine: 
+#     #Nuclide Specific Scaling Factors
+#     p3nref_ol = 81.3239
+#     p3pref_ol = 12.5509
+#     HeRef_cpx = p3nref_ol + p3pref_ol
+#     #Nuclide specific scaling factors as f(Rc)
+#     for n in range(len(Rc.Rc)):
+#         for i in range(len(time)):        
+#             SiteHe_temp_ol = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_ol #scaling factor
+#             Siteprod.append(SiteHe_temp_ol)
 
 if User_Interface.system == 4:
     #qtz
@@ -76,26 +76,7 @@ if User_Interface.system == 4:
         for i in range(len(time)):  
             SiteNe_temp_qtz = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/NeRef_qtz #scaling factor
             Siteprod.append(SiteNe_temp_qtz)
-# import math
 
-# def truncate(number, decimals=0):
-#     """
-#     Returns a value truncated to a specific number of decimal places.
-#     """
-#     if not isinstance(decimals, int):
-#         raise TypeError("decimal places must be an integer.")
-#     elif decimals < 0:
-#         raise ValueError("decimal places has to be 0 or more.")
-#     elif decimals == 0:
-#         return math.trunc(number)
-
-#     factor = 10.0 ** decimals
-#     return math.trunc(number * factor) / factor
-
-# sf_updated = []
-# for i in range(len(Siteprod)):
-#     temp = truncate(Siteprod[i],2)
-#     sf_updated.append(temp)
     
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
 

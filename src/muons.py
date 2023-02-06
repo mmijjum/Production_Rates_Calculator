@@ -26,9 +26,9 @@ w = 0.2
 if User_Interface.system == 4: 
 
     Emu = 105.658 # in Mev, Rest energy of muon
-    E_muons = np.logspace(1,5.9030,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
+    E_muons = np.logspace(1,5.9030,800) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
     E_m_temp = pd.DataFrame(E_muons)
-    E_m = pd.concat([E_m_temp.T]*len(Rc), ignore_index=True)
+    E_m = pd.concat([E_m_temp.T]*len(Rc.Rc), ignore_index=True)
 
     alpha3 = 3.7 # Muon spectrum power law exponent
     Beta = np.sqrt(1-(Emu/(Emu + E_m))**2) #  Particle speed relative to light
@@ -52,7 +52,7 @@ if User_Interface.system == 4:
 
 if User_Interface.system == 4 :
     def minmax(w1,w2,w3,w4,w5):
-        return w1 + w2*Rc.iloc[: , 1:] + w3/(1 + np.exp((Rc.iloc[: , 1:] - w4)/w5))
+        return w1 + w2*Rc.Rc.iloc[: , 0:] + w3/(1 + np.exp((Rc.Rc.iloc[: , 0:] - w4)/w5))
 
     #Negative Muons:
     v11nmin = minmax(Read.w111nmin, Read.w112nmin, Read.w113nmin, Read.w114nmin, Read.w115nmin)
@@ -135,18 +135,28 @@ if User_Interface.system == 4 :
     g5n = []
     g6n = []
     
-    for i in range(len(Rc)):
-        for j in range(len(time)):
-            for n in range(len(E_m)):
-                phimunmin_temp = Phimn.iloc[i,j]*(E_m.iloc[i,n] + (t1nmin_df.iloc[i,j] + t2nmin_df.iloc[i,j]*np.log10(E_m.iloc[i,n]))/(Beta.iloc[i,n]**t3nmin_df.iloc[i,j]))**-alpha3;
-                phimunmin.append(phimunmin_temp)
-                phimunmax_temp = Phimn.iloc[i,j]*(E_m.iloc[i,n] + (t1nmax_df.iloc[i,j] + t2nmax_df.iloc[i,j]*np.log10(E_m.iloc[i,n]))/(Beta.iloc[i,n]**t3nmax_df.iloc[i,j]))**-alpha3;
-                phimunmax.append(phimunmax_temp)
-    phimunmin_df = pd.DataFrame([(phimunmin[n:n+200]) for n in range(0, len(phimunmin), len(E_m))])
-    phimunmax_df = pd.DataFrame([(phimunmax[n:n+200]) for n in range(0, len(phimunmax), len(E_m))])
-
+    # for i in range(len(Rc.Rc)):
+    #     for j in range(len(time)):
+    #         for n in range(len(E_m.T)):
+    #             phimunmin_temp = Phimn.iloc[i,j]*(E_m.iloc[i,n] + (t1nmin_df.iloc[i,j] + t2nmin_df.iloc[i,j]*np.log10(E_m.iloc[i,n]))/(Beta.iloc[i,n]**t3nmin_df.iloc[i,j]))**-alpha3;
+    #             phimunmin.append(phimunmin_temp)
+    #             phimunmax_temp = Phimn.iloc[i,j]*(E_m.iloc[i,n] + (t1nmax_df.iloc[i,j] + t2nmax_df.iloc[i,j]*np.log10(E_m.iloc[i,n]))/(Beta.iloc[i,n]**t3nmax_df.iloc[i,j]))**-alpha3;
+    #             phimunmax.append(phimunmax_temp)
+    # phimunmin_df = pd.DataFrame([(phimunmin[n:n+800]) for n in range(0, len(phimunmin), len(E_m.T))])
+    # phimunmax_df = pd.DataFrame([(phimunmax[n:n+800]) for n in range(0, len(phimunmax), len(E_m.T))])
+    E_m = np.logspace(1,5.9030,800)
+    Beta = np.sqrt(1-(Emu/(Emu + E_m))**2)
+    for i in range(len(Phimn.to_numpy().flatten().tolist())):
+        phimunmin_temp = Phimn.to_numpy().flatten().tolist()[i]*(E_m + (t1nmin_df.to_numpy().flatten().tolist()[i] + t2nmin_df.to_numpy().flatten().tolist()[i]*np.log10(E_m))/(Beta**t3nmin_df.to_numpy().flatten().tolist()[i]))**-alpha3;
+        phimunmin.append(phimunmin_temp)
+        phimunmax_temp = Phimn.to_numpy().flatten().tolist()[i]*(E_m + (t1nmax_df.to_numpy().flatten().tolist()[i] + t2nmax_df.to_numpy().flatten().tolist()[i]*np.log10(E_m))/(Beta**t3nmax_df.to_numpy().flatten().tolist()[i]))**-alpha3;
+        phimunmax.append(phimunmax_temp)
+    x = np.concatenate(phimunmin).ravel().tolist()
+    y = np.concatenate(phimunmax).ravel().tolist()
+    phimunmin_df = pd.DataFrame([(x[n:n+800]) for n in range(0, len(x), len(E_m.T))])
+    phimunmax_df = pd.DataFrame([(y[n:n+800]) for n in range(0, len(y), len(E_m.T))])
     def gnfun(h1,h2,h3,h4,h5):
-        return h1 + h2*Rc.iloc[: , 1:]+ h3/(1 + np.exp((Rc.iloc[: , 1:] - h4)/h5));
+        return h1 + h2*Rc.Rc.iloc[: , 0:]+ h3/(1 + np.exp((Rc.Rc.iloc[: , 0:] - h4)/h5));
 
     g5n = gnfun(Read.h51n, Read.h52n, Read.h53n, Read.h54n, Read.h55n)
     g6n = gnfun(Read.h61n, Read.h62n, Read.h63n, Read.h64n, Read.h65n)
@@ -154,7 +164,7 @@ if User_Interface.system == 4 :
 
     phimun = []
     f3n = []
-    for i in range(len(Rc)):
+    for i in range(len(Rc.Rc)):
         for j in range(len(time)):
             f3n_temp = g5n.iloc[i,j] + g6n.iloc[i,j]*atm_depth.x.iloc[i,j];
             f3n.append(f3n_temp)
@@ -164,12 +174,12 @@ if User_Interface.system == 4 :
     f3n_updated = f3n_df.stack().tolist() #this flattens pressure df into a list so you can incorporate it into the for loop below
     phimun = []
     for i in range(len(phimunmin_df)):
-        for j in range(len(E_m)):
-            f2n = (phimunmin_df.iloc[i,j]- phimunmax_df.iloc[i,j])/(smin**f3n_updated[i] - smax**f3n_updated[i])
-            f1n = phimunmin_df.iloc[i,j] - f2n*smin**f3n_updated[i]
-            phimun_temp = f1n + f2n*s**f3n_updated[i]
-            phimun.append(phimun_temp)
-    Phimun_df = pd.DataFrame([(phimun[n:n+200]) for n in range(0, len(phimun), len(E_m))])
+        f2n = (phimunmin_df.iloc[i,:]- phimunmax_df.iloc[i,:])/(smin**f3n_updated[i] - smax**f3n_updated[i])
+        f1n = phimunmin_df.iloc[i,:] - f2n*smin**f3n_updated[i]
+        phimun_temp = f1n + f2n*s**f3n_updated[i]
+        phimun.append(phimun_temp)
+    x = np.concatenate(phimun).ravel().tolist()
+    Phimun_df = pd.DataFrame([(x[n:n+800]) for n in range(0, len(x), len(E_m.T))])
     
     #Positive Muons:
     v11pmin = minmax(Read.w111pmin, Read.w112pmin, Read.w113pmin, Read.w114pmin, Read.w115pmin)
@@ -226,7 +236,7 @@ if User_Interface.system == 4 :
     t2pmax=[]
     t3pmin=[]
     t3pmax=[]
-    for i in range(len(Rc)):
+    for i in range(len(Rc.Rc)):
         for j in range(len(time)):    
             t1pmin_temp = v11pmin.iloc[i,j] + v12pmin.iloc[i,j]*atm_depth.x.iloc[i,j] + v13pmin.iloc[i,j]*atm_depth.x.iloc[i,j]**2 + v14pmin.iloc[i,j]*atm_depth.x.iloc[i,j]**3 + v15pmin.iloc[i,j]*atm_depth.x.iloc[i,j]**4;
             t1pmax_temp = v11pmax.iloc[i,j] + v12pmax.iloc[i,j]*atm_depth.x.iloc[i,j] + v13pmax.iloc[i,j]*atm_depth.x.iloc[i,j]**2 + v14pmax.iloc[i,j]*atm_depth.x.iloc[i,j]**3 + v15pmax.iloc[i,j]*atm_depth.x.iloc[i,j]**4;
@@ -240,7 +250,6 @@ if User_Interface.system == 4 :
             t2pmax.append(t2pmax_temp)
             t3pmin.append(t3pmin_temp)
             t3pmax.append(t3pmax_temp)
-    #all correct above this
     t1pmin_df = pd.DataFrame([(t1pmin[n:n+len(time)]) for n in range(0, len(t1pmin), len(time))])
     t1pmax_df = pd.DataFrame([(t1pmax[n:n+len(time)]) for n in range(0, len(t1pmax), len(time))])
     t2pmin_df = pd.DataFrame([(t2pmin[n:n+len(time)]) for n in range(0, len(t2pmin), len(time))])
@@ -253,25 +262,26 @@ if User_Interface.system == 4 :
     phimup = []
     g5n = []
     g6n = []
-    for i in range(len(Rc)):
-        for j in range(len(time)):
-            for n in range(len(E_m)):
-                phimupmin_temp = Phimp.iloc[i,j]*(E_m.iloc[i,n] + (t1pmin_df.iloc[i,j] + t2pmin_df.iloc[i,j]*np.log10(E_m.iloc[i,n]))/(Beta.iloc[i,n]**t3pmin_df.iloc[i,j]))**-alpha3;
-                phimupmin.append(phimupmin_temp)
-                phimupmax_temp = Phimp.iloc[i,j]*(E_m.iloc[i,n] + (t1pmax_df.iloc[i,j] + t2pmax_df.iloc[i,j]*np.log10(E_m.iloc[i,n]))/(Beta.iloc[i,n]**t3pmax_df.iloc[i,j]))**-alpha3;
-                phimupmax.append(phimupmax_temp)
-    phimupmin_df = pd.DataFrame([(phimupmin[n:n+200]) for n in range(0, len(phimupmin), len(E_m))])
-    phimupmax_df = pd.DataFrame([(phimupmax[n:n+200]) for n in range(0, len(phimupmax), len(E_m))])
+    for i in range(len(Phimp.to_numpy().flatten().tolist())):
+        phimupmin_temp = Phimp.to_numpy().flatten().tolist()[i]*(E_m + (t1pmin_df.to_numpy().flatten().tolist()[i] + t2pmin_df.to_numpy().flatten().tolist()[i]*np.log10(E_m))/(Beta**t3pmin_df.to_numpy().flatten().tolist()[i]))**-alpha3;
+        phimupmin.append(phimupmin_temp)
+        phimupmax_temp = Phimp.to_numpy().flatten().tolist()[i]*(E_m + (t1pmax_df.to_numpy().flatten().tolist()[i] + t2pmax_df.to_numpy().flatten().tolist()[i]*np.log10(E_m))/(Beta**t3pmax_df.to_numpy().flatten().tolist()[i]))**-alpha3;
+        phimupmax.append(phimupmax_temp)
+    x = np.concatenate(phimupmin).ravel().tolist()
+    y = np.concatenate(phimupmax).ravel().tolist()
+    phimupmin_df = pd.DataFrame([(x[n:n+800]) for n in range(0, len(x), len(E_m.T))])
+    phimupmax_df = pd.DataFrame([(y[n:n+800]) for n in range(0, len(y), len(E_m.T))])
+
 
     def gpfun(h1,h2,h3,h4,h5):
-        return h1 + h2*Rc.iloc[: , 1:]+ h3/(1 + np.exp((Rc.iloc[: , 1:] - h4)/h5));
+        return h1 + h2*Rc.Rc.iloc[: , 0:]+ h3/(1 + np.exp((Rc.Rc.iloc[: , 0:] - h4)/h5));
 
     g5p = gpfun(Read.h51p, Read.h52p, Read.h53p, Read.h54p, Read.h55p)
     g6p = gpfun(Read.h61p, Read.h62p, Read.h63p, Read.h64p, Read.h65p)
 
 
     f3p = []
-    for i in range(len(Rc)):
+    for i in range(len(Rc.Rc)):
         for j in range(len(time)):
             f3p_temp = g5p.iloc[i,j] + g6p.iloc[i,j]*atm_depth.x.iloc[i,j];
             f3p.append(f3p_temp)
@@ -283,14 +293,14 @@ if User_Interface.system == 4 :
 
     phimup = []
     for i in range(len(phimupmin_df)):
-        for j in range(len(E_m)):
-            f2p = (phimupmin_df.iloc[i,j]- phimupmax_df.iloc[i,j])/(smin**f3p_updated[i] - smax**f3p_updated[i])
-            f1p = phimupmin_df.iloc[i,j] - f2p*smin**f3p_updated[i]
-            phimup_temp = f1p + f2p*s**f3p_updated[i]
-            phimup.append(phimup_temp)
-    Phimup_df = pd.DataFrame([(phimup[n:n+200]) for n in range(0, len(phimup), len(E_m))])
+        f2p = (phimupmin_df.iloc[i,:]- phimupmax_df.iloc[i,:])/(smin**f3p_updated[i] - smax**f3p_updated[i])
+        f1p = phimupmin_df.iloc[i,:] - f2p*smin**f3p_updated[i]
+        phimup_temp = f1p + f2p*s**f3p_updated[i]
+        phimup.append(phimup_temp)
+    x = np.concatenate(phimup).ravel().tolist()
+    Phimup_df = pd.DataFrame([(x[n:n+800]) for n in range(0, len(x), len(E_m.T))])
 
-
+    
     Site_muE = E_m #muon flux energy bins in MeV
     Site_mup = p #muon flux momentu bins in MeV/c
 
@@ -302,44 +312,23 @@ if User_Interface.system == 4 :
     mfluxRef_pint = 0.0085
 
     muRef = Read.mfluxRef_neg + Read.mfluxRef_pos
-    modified_muRef = pd.concat([muRef.T]*len(Rc), ignore_index=True)
+    modified_muRef = pd.concat([muRef.T]*len(Rc.Rc), ignore_index=True)
     muSite = mflux_neg + mflux_pos
     Site_muSF = []
 
     #Total ground level flux = Phimu
     Phimu = Phimun_df + Phimup_df 
 
-    #Differential muon flux SF as f(E,Rc)
-    for i in range(len(Rc)):
-        for j in range(len(E_m)):
-            Site_muSF_temp = muSite.iloc[i,j]/modified_muRef.iloc[i,j]
-            Site_muSF.append(Site_muSF_temp)
-    mu_df = pd.DataFrame([(Site_muSF[n:n+len(time)]) for n in range(0, len(Site_muSF), len(E_m))])
-
-
     #Total integral flux
     mflux_total = []
     mflux_nint = []
     mflux_pint = []
-
-    for i in range(len(Rc)*len(time)):
-        mflux_total_temp = np.trapz(Phimu.T.iloc[:,i], E_m.T[0])
+    
+    E_m = pd.DataFrame(E_m)
+    E_m.columns = ['Energy']
+    E_m_df = pd.concat([E_m.T]*len(Rc.Rc), ignore_index=True)
+    for i in range(len(Rc.Rc)*len(time)):
+        mflux_total_temp = np.trapz(Phimu.T.iloc[:,i], E_m_df.iloc[0,:])
         mflux_total.append(mflux_total_temp)
-
-        #Integral fluxes for pos and neg muons
-        mflux_nint_temp = np.trapz(Phimun_df.T.iloc[:,i],  E_m.T[0])
-        mflux_nint.append(mflux_nint_temp)
-        mflux_pint_temp = np.trapz(Phimup_df.T.iloc[:,i], E_m.T[0])
-        mflux_pint.append(mflux_pint_temp)
-
-    mflux_total_df = pd.DataFrame([(mflux_total[n:n+len(time)]) for n in range(0, len(mflux_total), len(time))])
-    mflux_nint_df = pd.DataFrame([(mflux_nint[n:n+len(time)]) for n in range(0, len(mflux_nint), len(time))])
-    mflux_pint_df = pd.DataFrame([(mflux_pint[n:n+len(time)]) for n in range(0, len(mflux_pint), len(time))])
-
-
-    Site_muTotal = mflux_total_df/mfluxRef_total
-    Site_mn = mflux_nint_df/mfluxRef_nint
-    Site_mp = mflux_pint_df/mfluxRef_pint
-    Site_mnabs = mflux_nint
-    Site_mpabs = mflux_pint
-
+    pmuons_df = pd.DataFrame([(mflux_total[n:n+len(time)]) for n in range(0, len(mflux_total), len(time))])
+    
