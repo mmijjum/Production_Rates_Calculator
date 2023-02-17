@@ -67,8 +67,8 @@ if User_Interface.system == 2:
 if User_Interface.system == 4:
     #qtz
     #Nuclide Specific Scaling Factors
-    p21nref_q = 90.0788
-    p21pref_q = 13.6184
+    p21nref_q = 11.8702
+    p21pref_q = 1.6269
     NeRef_qtz = p21nref_q + p21pref_q #reference production rate
     
     #Nuclide specific scaling factors as f(Rc)

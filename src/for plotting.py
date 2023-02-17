@@ -9,12 +9,15 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 import Read
-import Pmag_paleolat
+# import Rc
+# import Pmag_paleolat
 import scaling_factor
 import glob
 import os
-import neutron_spallation
-import proton_spallation
+# import neutron_spallation
+# import proton_spallation
+# import matplotlib.gridspec as gridspec
+
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 directory = os.path.dirname(__file__)
@@ -26,19 +29,19 @@ Figure 1
 Flux comparisons 
 
 """
-##need specific excel sheet. Ran using quartz conditions. Only need 1 time bin. 
+#need specific excel sheet. Ran using quartz conditions. Only need 1 time bin. 
 # plt.yscale('log')
 # plt.xscale('log')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = 'Sea level, pole')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkgreen', label = 'Sea level, equator')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[4]*neutron_spallation.E.iloc[:,0], '--',c = 'darkblue', label = '1000 masl, pole')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[6]*neutron_spallation.E.iloc[:,0], c = 'darkblue',label = '1000 masl, equator')
-# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
-# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkblue', label = '2000 masl, equator')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0], '--', c = 'darkblue', label = 'Sea level, pole')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Sea level, equator')
+# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[4]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '1000 masl, pole')
+# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[6]*neutron_spallation.E.iloc[:,0], c = 'darkgreen',label = '1000 masl, equator')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkgreen', label = '2000 masl, equator')
 # # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[12]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '4000 masl, pole')
 # # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[14]*neutron_spallation.E.iloc[:,0], c = 'darkblue',label = '4000 masl, equator')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[16]*neutron_spallation.E.iloc[:,0],'--', c = 'purple',label = '6000 masl, pole')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[18]*neutron_spallation.E.iloc[:,0], c = 'purple',label = '6000 masl, equator')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[16]*neutron_spallation.E.iloc[:,0],'--', c = 'purple',label = '6000 masl, pole')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[18]*neutron_spallation.E.iloc[:,0], c = 'purple',label = '6000 masl, equator')
 
 
 # plt.ylabel('Differential Flux  of Neutrons * Energy [cm^-2 s^-1]')
@@ -51,31 +54,31 @@ Flux comparisons
 Figure 2
 Rc vs. Scaling Factor
 """
-# # create figure and axis objects with subplots()
-# # in excel sheet: set every lat to 0-90, lon = 0, elevation = 0. Uncomment out the part of pmag that hard-codes the latitudes (so it doesn't vary w time)
-# # only run for like 1 Ma, bc you're only gonna use the first value anyways.
-# # note: make sure you hard code atm depth to 1033 g/cm2
+# create figure and axis objects with subplots()
+# in excel sheet: set every lat to 0-90, lon = 0, elevation = 0. Uncomment out the part of pmag that hard-codes the latitudes (so it doesn't vary w time)
+# only run for like 1 Ma, bc you're only gonna use the first value anyways.
+# note: make sure you hard code atm depth to 1033 g/cm2
 # paleolatitudes = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]
 # fig,ax = plt.subplots()
 # # make a plot
 # ax.plot(paleolatitudes, scaling_factor.Siteprod_df[0],
-#         color="green")
+#         color="darkgreen")
 # ax.set_ylim(top = 1.1)
 # # set x-axis label
 # ax.set_xlabel("Geomagnetic Latitude", fontsize = 13)
 # # set y-axis label
 # ax.set_ylabel("Scaling Factor",
-#               color="green",
+#               color="darkgreen",
 #               fontsize=13)
 
 
 # # twin object for two different y-axis on the sample plot
 # ax2=ax.twinx()
 # # make a plot with different y-axis using second axis object
-# ax2.plot(paleolatitudes, Rc.Rc.iloc[:,0],color="blue")
+# ax2.plot(paleolatitudes, Rc.Rc.iloc[:,0],color="darkblue")
 # ax2.set_ylim(top = 19)
 
-# ax2.set_ylabel("Cutoff Rigidty [GV]",color="blue",fontsize=13)
+# ax2.set_ylabel("Cutoff Rigidty [GV]",color="darkblue",fontsize=13)
 # plt.savefig(Read.directory+'/plots/rc_vs_sf.png', dpi = 300, bbox_inches='tight')
 
 
@@ -86,7 +89,7 @@ PALEOLAT FIGURE
 UPDATED: 1/30
 """
 
-# time = np.linspace(0,70,281)
+time = np.linspace(0,70,281)
 # IN = Pmag_paleolat.pl_df.iloc[0]
 # IN.to_csv(directory+'/plots/IN.csv') 
 # sf_india = scaling_factor.Siteprod_df.iloc[0]
@@ -109,9 +112,11 @@ UPDATED: 1/30
 # sf_AF = scaling_factor.Siteprod_df.iloc[3]
 # sf_AF.to_csv(directory+'/plots/sf_AF.csv') 
 
-# fig, axs = plt.subplots(2, 2, figsize = (10,5), sharex = True)
+# fig, axs = plt.subplots(2, 4, figsize = (10,5), sharex = True)
 
 # axs[0, 1].plot(time,Read.IN.iloc[:,1]/Read.IN.iloc[0,1], 'royalblue')
+#axs[0, 1].plot(time,Read.sf_IN.iloc[:,1], 'royalblue')
+
 # axs[0, 1].set_title('India: 20N, 73E')
 # axs[1,1].plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen')
 # axs[1,1].set_title('South America: 19S, 69W')
@@ -122,8 +127,45 @@ UPDATED: 1/30
 
 # fig.text(0.5,0.04, "Time [Ma]",size = 15, ha="center", va="center")
 # fig.text(0.05,0.5, "Change in paleolatitude (normalized)",size = 15, ha="center", va="center", rotation=90)
-# plt.savefig(directory+'/plots/paleolat_subplots.png', dpi = 300, bbox_inches='tight')
+#plt.savefig(directory+'/plots/paleolat_subplots.png', dpi = 300, bbox_inches='tight')
 
+
+##VERSION B###
+# fig = plt.figure(figsize=(10.5, 8.5))
+# spec = fig.add_gridspec(3,3)
+
+# ax0 = fig.add_subplot(spec[1, :])
+# ax0.plot(time,Read.IN.iloc[:,1]/Read.IN.iloc[0,1], 'royalblue')
+# ax0.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue')
+# ax0.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen')
+# ax0.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen')
+# #annotate_axes(ax0, 'ax0')
+
+# ax10 = fig.add_subplot(spec[0, 0])
+# ax10.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue')
+# ax10.title.set_text('Greenland: 75N, 42W')
+# # annotate_axes(ax10, 'ax10')
+
+# ax11 = fig.add_subplot(spec[0,1], sharey=ax10)
+# #ax11.sharey(ax10)
+# ax11.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen')
+# ax11.title.set_text('South America: 19S, 69W')
+
+# # annotate_axes(ax11, 'ax11')
+
+# ax20 = fig.add_subplot(spec[0,2])
+# ax20.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen')
+# ax20.title.set_text('Africa: 0N, 20W')
+
+# plt.savefig(directory+'/plots/paleolat_subplots_updated.png', dpi = 300, bbox_inches='tight')
+
+##VERSION C##
+
+# plt.plot(time,Read.IN.iloc[:,1]/Read.IN.iloc[0,1], 'royalblue')
+# plt.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue')
+# plt.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen')
+# plt.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen')
+# plt.ylim(-90,90)
 
 """
 Figure 4
@@ -132,6 +174,21 @@ MCADAM Model
 """
 
 
+#RUNNING AVERAGES TEST
+
+#CAHNGE 10 TO 70 AND 40 TO 280 FOR FULL MODEL. 
+# import mcadam
+
+# time = np.linspace(0,10,40)
+# store_vals = []
+# for i in range(40):
+#     x = np.sum(mcadam.means[0:i+1])/(i+1)
+#     store_vals.append(x)
+
+
+# plt.plot(time, store_vals)
+# plt.xlabel('Time [Ma]') 
+# plt.ylabel('Running paleointensity average')
 
 """
 Figure 5
@@ -222,86 +279,86 @@ UPDATED 1/30
 #   2664551.4317678516,
 #   2585317.380928394]
 # exp_ages_muons_tv = [2753701.4107777853,
-#  2056795.4435907109,
-#  2555151.201061768,
-#  5023786.798965172,
-#  3036213.925069018,
-#  5024321.868726578,
-#  4531786.161718714,
-#  4786715.492061025,
-#  5546595.182462663,
-#  3536620.176497739,
-#  3802736.2381327846,
-#  4025090.5900709876,
-#  3784680.5793326064,
-#  10552959.960047904,
-#  7278845.120270775,
-#  11285533.425735576,
-#  10018403.433793591,
-#  9791145.702431163,
-#  2298236.0942358165,
-#  2286441.4922106797]
+#   2056795.4435907109,
+#   2555151.201061768,
+#   5023786.798965172,
+#   3036213.925069018,
+#   5024321.868726578,
+#   4531786.161718714,
+#   4786715.492061025,
+#   5546595.182462663,
+#   3536620.176497739,
+#   3802736.2381327846,
+#   4025090.5900709876,
+#   3784680.5793326064,
+#   10552959.960047904,
+#   7278845.120270775,
+#   11285533.425735576,
+#   10018403.433793591,
+#   9791145.702431163,
+#   2298236.0942358165,
+#   2286441.4922106797]
 
 # exp_ages_muons_const = [2804694.601454547,
-#  2291451.7704243823,
-#  2801180.6267542527,
-#  5296654.495290533,
-#  3288119.3619893105,
-#  5303227.6317730425,
-#  5001584.898952547,
-#  5055488.738484894,
-#  6024849.306097686,
-#  3806980.741328083,
-#  4262879.589419506,
-#  4293269.676632794,
-#  4050497.5906659523,
-#  12263282.93816918,
-#  8254035.283485948,
-#  13040516.707969276,
-#  11297650.29089213,
-#  11257175.75048956,
-#  2537307.567803689,
-#  2518794.2504755203]
+#   2291451.7704243823,
+#   2801180.6267542527,
+#   5296654.495290533,
+#   3288119.3619893105,
+#   5303227.6317730425,
+#   5001584.898952547,
+#   5055488.738484894,
+#   6024849.306097686,
+#   3806980.741328083,
+#   4262879.589419506,
+#   4293269.676632794,
+#   4050497.5906659523,
+#   12263282.93816918,
+#   8254035.283485948,
+#   13040516.707969276,
+#   11297650.29089213,
+#   11257175.75048956,
+#   2537307.567803689,
+#   2518794.2504755203]
 # exp_ages_muons_tv_40 = [2038507.3868198807,
-#  1552945.6876126726,
-#  2027140.7487187046,
-#  3779870.455732829,
-#  2292547.402327704,
-#  3760589.539642837,
-#  3300870.4321572417,
-#  3750615.814442533,
-#  4275850.4963406045,
-#  2556564.699971064,
-#  3033088.4983339314,
-#  3047344.437869694,
-#  3011135.556944223,
-#  8531592.629825767,
-#  5785438.910213004,
-#  9052583.660561532,
-#  8015061.925196326,
-#  7791861.157506797,
-#  1788967.6358008967,
-#  1784318.6862023794]
+#   1552945.6876126726,
+#   2027140.7487187046,
+#   3779870.455732829,
+#   2292547.402327704,
+#   3760589.539642837,
+#   3300870.4321572417,
+#   3750615.814442533,
+#   4275850.4963406045,
+#   2556564.699971064,
+#   3033088.4983339314,
+#   3047344.437869694,
+#   3011135.556944223,
+#   8531592.629825767,
+#   5785438.910213004,
+#   9052583.660561532,
+#   8015061.925196326,
+#   7791861.157506797,
+#   1788967.6358008967,
+#   1784318.6862023794]
 # exp_ages_muons_const_40 = [2804694.601454547,
-#  2291451.7704243823,
-#  2801180.6267542527,
-#  5296654.495290533,
-#  3288119.3619893105,
-#  5303227.6317730425,
-#  5001584.898952547,
-#  5055488.738484894,
-#  6024849.306097686,
-#  3806980.741328083,
-#  4262879.589419506,
-#  4293269.676632794,
-#  4050497.5906659523,
-#  12263282.93816918,
-#  8254035.283485948,
-#  13040516.707969276,
-#  11297650.29089213,
-#  11257175.75048956,
-#  2537307.567803689,
-#  2518794.2504755203]
+#   2291451.7704243823,
+#   2801180.6267542527,
+#   5296654.495290533,
+#   3288119.3619893105,
+#   5303227.6317730425,
+#   5001584.898952547,
+#   5055488.738484894,
+#   6024849.306097686,
+#   3806980.741328083,
+#   4262879.589419506,
+#   4293269.676632794,
+#   4050497.5906659523,
+#   12263282.93816918,
+#   8254035.283485948,
+#   13040516.707969276,
+#   11297650.29089213,
+#   11257175.75048956,
+#   2537307.567803689,
+#   2518794.2504755203]
 
 # updated_texp_tv = []
 # updated_texp_const = []
@@ -334,12 +391,12 @@ UPDATED 1/30
 #     #wmuons = agemuons[i]/10**6 
     
 
-# plt.plot([0,18], [0,18], 'k-') #1:1 line
-# plt.rcParams["figure.figsize"] = [6,4] #update figure size
+# plt.plot([0,16], [0,16], 'k-') #1:1 line
+# plt.rcParams["figure.figsize"] = [5,5] #update figure size
 # plt.plot(updated_texp_const,updated_texp_tv, 'o', c = 'darkblue', alpha = 0.7, label = '0-25 Ma')
-# plt.plot(updated_texp_const_40,updated_texp_tv_40, 'o', c = 'darkgreen', alpha = 0.7, label = '40-65 Ma')
+# #plt.plot(updated_texp_const_40,updated_texp_tv_40, 'o', c = 'darkgreen', alpha = 0.7, label = '40-65 Ma')
 # plt.plot(updated_muons_const,updated_muons_tv, 'x', markersize = 3, c = 'cornflowerblue', label = '0-25 Ma w muons')
-# plt.plot(updated_muons_const_40,updated_muons_tv_40, 'x', markersize = 3, c = 'mediumaquamarine', label = '40-65 Ma w muons')
+# #plt.plot(updated_muons_const_40,updated_muons_tv_40, 'x', markersize = 3, c = 'mediumaquamarine', label = '40-65 Ma w muons')
 # plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
 # plt.xlabel('Exposure Age [Ma] constant field', fontsize = 10)
 # plt.ylabel('Exposure Age [Ma] time-varying field', fontsize = 10)
@@ -351,20 +408,24 @@ Atmospheric Depth / SF variations
 
 """
 
-# gl_std = [0.9982, 1.0924, 1.5602, 2.3965]
-# gl_era40 = [0.9905, 0.9911,1.5597, 2.3958]
-# ec_std = [0.4675, 0.50607, 0.6974, 1.0239]
-# ec_era40 = [0.5275, 0.5761, 0.8162, 1.2320]
+# gl_std = [0.9983, 1.0924, 1.5604, 2.3974]#5.3535]#,21.2553]
+# gl_era40 = [0.9905, 1.0921,1.5600, 2.3967]#,5.3936]#,21.414]
+# ec_std = [0.4688, 0.5080, 0.69959, 1.0275]#,2.0954]#6.8824
+# ec_era40 = [0.5290, 0.5777, 0.8188, 1.2366]#],2.6392]#,9.1394]
 
 # alt = [0,100,500,1000]
 
-# plt.plot([0.4,2.5], [0.4,2.5], 'k-') #1:1 line
-# plt.scatter(gl_std,gl_era40, c = alt, cmap = 'plasma', label = 'High latitude')
-# plt.scatter(ec_std,ec_era40, c = alt, marker = 'x', cmap = 'plasma', label = 'Equator')
+
+
+# plt.plot([0,2.4], [0,2.4], 'k-') #1:1 line
+# plt.scatter(gl_std,gl_era40, c = alt, cmap = 'PuBuGn_r', label = 'High latitude')
+# plt.scatter(ec_std,ec_era40, c = alt, marker = 'x', cmap = 'PuBuGn_r', label = 'Equator')
 # plt.ylabel('Scaling factor using standard atmosphere')
 # plt.xlabel('Scaling factor using ERA40')
+
 # cbar = plt.colorbar()
 # cbar.set_label('Elevation', rotation = 270)
+
 # plt.legend()
 # plt.savefig(Read.directory+'/plots/atm_depth_comparison.png', dpi = 300, bbox_inches='tight')
 
@@ -546,3 +607,24 @@ MIN COMPARISON
 # plt.plot(time,Read.pn_qtz.iloc[:,1] ,label = 'Quartz')
 # plt.plot(time,Read.pn_cpx.iloc[:,1] ,label = 'Pyroxene')
 # plt.legend()
+
+# sf_mean = scaling_factor.Siteprod_df
+# sf_mean.to_csv(directory+'/plots/sf_mean.csv') 
+
+# sf_upper = scaling_factor.Siteprod_df
+# sf_upper.to_csv(directory+'/plots/sf_upper.csv') 
+
+# sf_lower = scaling_factor.Siteprod_df
+# sf_lower.to_csv(directory+'/plots/sf_lower.csv') 
+
+
+time = np.linspace(0,70,281)
+mean = Read.mean
+upper = Read.upper
+lower = Read.lower
+
+plt.plot(time,mean.iloc[0,1:], label = 'Mean')
+plt.plot(time,upper.iloc[0,1:], label = 'Upper')
+plt.plot(time,lower.iloc[0,1:], label = 'Lower')
+
+plt.legend()

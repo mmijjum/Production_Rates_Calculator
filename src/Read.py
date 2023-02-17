@@ -585,3 +585,22 @@ pp_cpx = pd.read_csv(directory+'/plots/pp_cpx.csv')
 pn_qtz = pd.read_csv(directory+'/plots/pn_qtz.csv')
 pp_qtz = pd.read_csv(directory+'/plots/pp_qtz.csv')
 
+mean = pd.read_csv(directory+'/plots/sf_mean.csv')
+upper = pd.read_csv(directory+'/plots/sf_upper.csv')
+lower = pd.read_csv(directory+'/plots/sf_lower.csv')
+
+
+
+chisq_neg6 = pd.read_csv(directory+'/plots/chisq_neg6.csv', header = None)
+chisq_neg56 = pd.read_csv(directory+'/plots/chisq_neg56.csv', header = None)
+
+chisq_neg5 = pd.read_csv(directory+'/plots/chisq_neg5.csv', header = None)
+chisq_neg55 = pd.read_csv(directory+'/plots/chisq_neg55.csv', header = None)
+chisq_neg4 = pd.read_csv(directory+'/plots/chisq_neg4.csv', header = None)
+chisq_neg54 = pd.read_csv(directory+'/plots/chisq_neg54.csv', header = None)
+chisq_neg3 = pd.read_csv(directory+'/plots/chisq_neg3.csv', header = None)
+chisq_neg53 = pd.read_csv(directory+'/plots/chisq_neg53.csv', header = None)
+chisq_neg2 = pd.read_csv(directory+'/plots/chisq_neg2.csv', header = None)
+
+
+

@@ -57,8 +57,8 @@ system = 4
 system_b = 0
 system_c = 0
 stdatm = 1
-muons = True
-timerange = [0,25+0.05]
+muons = False
+timerange = [27,28+0.05]
 plate = 'NA'
 
 #The authors do not recommend changing the resolution below 

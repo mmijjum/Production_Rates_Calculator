@@ -24,11 +24,11 @@ R = 6.378*10**6 #m, radius of Earth.
 Rc_list = []
 
 #constant field
-M_constant = 6.6725 #0.7048 from LSD code, long term average ratio multiplied by 2010 DGRF (in Lifton 2014)
+M_constant = 6.27 #average from 2-4 Ma using 
 
 for x in range (len(Pmag_paleolat.pl_df)):
     for i in range(len(mcadam.means)):
-        Rc_calc = (((mcadam.means.iloc[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
+        Rc_calc = (((mcadam.MCADAM_qpi3_int_250kyr['lower'].iloc[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
         Rc_list.append(Rc_calc)
 Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
 
