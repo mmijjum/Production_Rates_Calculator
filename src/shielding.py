@@ -14,7 +14,7 @@ import Read
 #Shielding
 #lambda_sp = effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
 #rho = sample density in g/cm3, user input above. 
-#zmax = max depth of sample below surface in cm, user input above.
+#zmax = sample thickness in cm, user input above.
 
 time = User_Interface.time 
 

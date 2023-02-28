@@ -215,6 +215,7 @@ updated_df =  PINT_df_int_250kyr[(PINT_df_int_250kyr ['age'] >= User_Interface.t
 
 #Add GEOMAGIA vals to mean list
 means = updated_df['mean']
+
 #print(means)
 #Preview new dataframe
 #display(PINT_df_int_50kyr)

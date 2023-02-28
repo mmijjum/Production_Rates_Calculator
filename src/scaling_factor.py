@@ -80,15 +80,4 @@ if User_Interface.system == 4:
     
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
 
-     
-#define SLHL. Ref is pre-calculated above, dependent on mineral/nuclide system. 
-if User_Interface.system ==1:
-    ref = HeRef_qtz
-if User_Interface.system ==2: 
-    ref = 105.437561
-if User_Interface.system == 3: 
-    ref = HeRef_ol
-if User_Interface.system == 4:
-    ref = NeRef_qtz
-
 

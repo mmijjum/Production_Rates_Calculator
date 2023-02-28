@@ -53,13 +53,13 @@ import numpy as np
 
         """
 
-system = 4
-system_b = 0
+system = 2
+system_b = 4
 system_c = 0
 stdatm = 1
 muons = False
-timerange = [27,28+0.05]
-plate = 'NA'
+timerange = [0,70+0.05]
+plate = 'IN'
 
 #The authors do not recommend changing the resolution below 
 resolution = int(250000)/10**6
