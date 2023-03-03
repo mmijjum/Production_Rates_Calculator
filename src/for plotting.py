@@ -334,7 +334,7 @@ UPDATED 1/30
 
 
 """
-FIGURE 7
+FIGURE 9
 Comparing bin size
 
 """
@@ -478,28 +478,49 @@ Comparing bin size
 # plt.ylabel('Exposure Age [250ka] bin size')
 # plt.savefig(Read.directory+'/plots/binsize_comparison_scatter.png', dpi = 300, bbox_inches='tight')
 
-
+"""
+FIG X
+LIBARKIN DATASET
 
 """
-FIG A
 
-"""
+xaxis = [10000,50000,100000,150000,200000,250000,300000,350000,400000,450000,500000,510000,520000,530000,540000,550000,600000]
+
+"""FOR 2.5KM"""
+plt.plot(xaxis,Read.chisq_neg203.values.tolist(), 'o-',label = "20*10^-3")
+plt.plot(xaxis,Read.chisq_neg153.values.tolist(), 'o-',label = "15*10^-3")
+plt.plot(xaxis,Read.chisq_neg103.values.tolist(), 'o-',label = "10*10^-3")
+plt.plot(xaxis,Read.chisq_neg625.values.tolist(), 'o-',label = "6.25*10^-3")
+
+plt.plot(xaxis,Read.chisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
+
+#plt.plot(xaxis,Read.chisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
+
+#plt.plot(xaxis,Read.chisq_neg3.values.tolist(), 'o-',label = "10^-3")
+
+plt.xlabel('Exposure Age [Years]')
+plt.ylabel('Chi Squared')
+plt.title('2.5 km above sea level')
+plt.legend()
+
+plt.savefig(Read.directory+'/plots/Libarkin_2km.png', dpi = 300, bbox_inches='tight')
 
 
+""" FOR SEA LEVEL"""
+# # plt.plot(xaxis,Read.SLchisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
+# # plt.plot(xaxis,Read.SLchisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
 
+# # plt.plot(xaxis,Read.SLchisq_neg3.values.tolist(), 'o-',label = "10^-3")
+# #plt.plot(xaxis,Read.SLchisq_neg093.values.tolist(), 'o-',label = "0.9*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg083.values.tolist(), 'o-',label = "0.8*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg073.values.tolist(), 'o-',label = "0.7*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg063.values.tolist(), 'o-',label = "0.6*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg0653.values.tolist(), 'o-',label = "0.65*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg053.values.tolist(), 'o-',label = "0.5*10^-3")
+# #plt.plot(xaxis,Read.SLchisq_neg033.values.tolist(), 'o-',label = "0.3*10^-3")
 
-# sf_std = scaling_factor.Siteprod_df
-# sf_std.to_csv(directory+'/plots/sf_std.csv') 
-# sf_era = scaling_factor.Siteprod_df
-# sf_era.to_csv(directory+'/plots/sf_era.csv') 
-
-# time = np.linspace(0,70,281)
-# sf_std = Read.sf_std
-# sf_era = Read.sf_era
-
-# difference = sf_std-sf_era
-
-# plt.plot(time, difference.iloc[0][1:])
-#plt.plot(time, difference.iloc[5][1:])
-#plt.plot(time, difference.iloc[2][1:])
-
+# plt.xlabel('Exposure Age [Years]')
+# plt.ylabel('Chi Squared')
+# plt.title('Sea Level')
+# plt.legend()
+# plt.savefig(Read.directory+'/plots/Libarkin_sealvel.png', dpi = 300, bbox_inches='tight')

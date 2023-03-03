@@ -16,58 +16,49 @@ import proton_spallation
 import muons
 import matplotlib.pyplot as plt
 import os
+import shielding
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 directory = os.path.dirname(__file__)
 n0 = Read.nuclide_concentration
 
-if User_Interface.system == 1:
-    slhl = 131.32
-if User_Interface.system == 2:
-    slhl = 131.32#scaling to pyx via balco's make_consts code.
-if User_Interface.system == 3:
-    slhl = 131.32
-if User_Interface.system == 4:
-    slhl = 15.5 #Sf scaled, bc LSDn not used for 21ne, only10be in Fenton 2019? #update later
 
 tempvals = []
 tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
-lambdamu = 1500 #muon attenuation length in at/g/yr (Balco supplementary)
-#lambdamu=878- #3he, larsen
-erosion =(10**-2) #cm/yr, per Dunai (2010)
+lambdamu = 1300 #muon attenuation length in at/g/yr (Balco supplementary)
+erosion = 6.25*(10**-3) #cm/yr, per Dunai (2010)
 dt = 250000
 rho = 2.32
-#Pmu = 0.23 #larsen et al, this is for comparing 3He muon production
+
 texp_bin1 = [10000,50000,100000,150000,200000,250000]
 texp_bin2 = [300000,350000,400000,450000,500000]
-texp_bin3 = [550000,600000]
+texp_bin3 = [510000,520000,530000,540000,550000,600000]
 
-z0 = [15,15,15,20,30,20,40]
+z0 = [15,15,15,35,45,35,55]
 concentrations = []
-
 
 for j in range(len(texp_bin1)):
     for i in range(len(Read.site_lat)):
-        Cspall = ((neutron_spallation.pn_df.iloc[i][0] + proton_spallation.pp_df.iloc[i][0]) / ((rho*erosion)/lambdasp)) * np.exp(-2.32*(z0[i] - erosion*texp_bin1[j])/lambdasp) * (1 - np.exp(-((rho*erosion)/lambdasp)*texp_bin1[j]))
-        Cmuons = ((muons.pmuons_df.iloc[i][0]) / ((rho*erosion)/lambdamu)) * np.exp(-2.32*(z0[i] - erosion*texp_bin1[j])/lambdamu) * (1 - np.exp(-((rho*erosion)/lambdamu)*texp_bin1[j]))
+        Cspall = (shielding.S_thick[0][0]*(neutron_spallation.pn_df[0][i] + proton_spallation.pp_df[0][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*texp_bin1[j]))
+        Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*texp_bin1[j]))
         Ctot = Cspall + Cmuons
-        concentrations.append(Ctot)
+        concentrations.append(Cspall + Cmuons)
         
 for j in range(len(texp_bin2)):
     for i in range(len(Read.site_lat)):
-        Cspall = ((neutron_spallation.pn_df.iloc[i][0] + proton_spallation.pp_df.iloc[i][0]) / ((rho*erosion)/lambdasp)) * np.exp(-2.32*(z0[i] - erosion*dt)/lambdasp) * (1 - np.exp(-((rho*erosion)/lambdasp)*dt)) + ((neutron_spallation.pn_df.iloc[i][1] + proton_spallation.pp_df.iloc[i][1]) / ((rho*erosion)/lambdasp)) * np.exp(-2.32*(z0[i] - erosion* (texp_bin2[j] - dt))/lambdasp) * (1 - np.exp(-((rho*erosion)/lambdasp)*(texp_bin2[j]-dt)))
-        Cmuons = ((muons.pmuons_df.iloc[i][0]) / ((rho*erosion)/lambdamu)) * np.exp(-2.32*(z0[i] - erosion*dt)/lambdamu) * (1 - np.exp(-((rho*erosion)/lambdamu)*dt)) + ((muons.pmuons_df.iloc[i][1]) / ((rho*erosion)/lambdamu)) * np.exp(-2.32*(z0[i] - erosion*(texp_bin2[j]-dt))/lambdamu) * (1 - np.exp(-((rho*erosion)/lambdamu)*(texp_bin1[j]-dt)))
+        Cspall = (shielding.S_thick[0][0]*(neutron_spallation.pn_df[0][i] + proton_spallation.pp_df[0][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt)) + (shielding.S_thick[0][0]*(neutron_spallation.pn_df[1][i] + proton_spallation.pp_df[1][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*(texp_bin2[j] - dt)))
+        Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*dt)) + muons.pmuons_df[1][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(texp_bin2[j]-dt)))
         Ctot = Cspall + Cmuons
-        concentrations.append(Ctot)
+        concentrations.append(Cspall + Cmuons)
         
 for j in range(len(texp_bin3)):
     for i in range(len(Read.site_lat)):
-        Cspall = ((neutron_spallation.pn_df.iloc[i][0] + proton_spallation.pp_df.iloc[i][0]) / ((rho*erosion)/lambdasp)) * np.exp(-2.32*(z0[i] - erosion*dt)/lambdasp) * (1 - np.exp(-((rho*erosion)/lambdasp)*dt)) + ((neutron_spallation.pn_df.iloc[i][1] + proton_spallation.pp_df.iloc[i][1]) / ((rho*erosion)/lambdasp)) * np.exp(-2.32*(z0[i] - erosion* (dt))/lambdasp) * (1 - np.exp(-((rho*erosion)/lambdasp)*(dt))) + ((neutron_spallation.pn_df.iloc[i][2] + proton_spallation.pp_df.iloc[i][2]) / ((rho*erosion)/lambdasp)) * np.exp(-2.32*(z0[i] - erosion* (texp_bin3[j] - 2*dt))/lambdasp) * (1 - np.exp(-((rho*erosion)/lambdasp)*(texp_bin3[j]-2*dt)))
-        Cmuons = ((muons.pmuons_df.iloc[i][0]) / ((rho*erosion)/lambdamu)) * np.exp(-2.32*(z0[i] - erosion*dt)/lambdamu) * (1 - np.exp(-((rho*erosion)/lambdamu)*dt)) + ((muons.pmuons_df.iloc[i][1]) / ((rho*erosion)/lambdamu)) * np.exp(-2.32*(z0[i] - erosion*(texp_bin2[j]-dt))/lambdamu) * (1 - np.exp(-((rho*erosion)/lambdamu)*(texp_bin1[j]-dt)))
+        Cspall = (shielding.S_thick[0][0]*(neutron_spallation.pn_df[0][i] + proton_spallation.pp_df[0][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt)) + (shielding.S_thick[0][0]*(neutron_spallation.pn_df[1][i] + proton_spallation.pp_df[1][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt)) + (shielding.S_thick[0][0]*(neutron_spallation.pn_df[2][i] + proton_spallation.pp_df[2][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*(texp_bin3[j]-2*dt)))
+        Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*dt)) + muons.pmuons_df[1][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(dt))) +  muons.pmuons_df[2][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(texp_bin3[j]-2*dt)))
         Ctot = Cspall + Cmuons
-        concentrations.append(Ctot)
-
+        concentrations.append(Cspall + Cmuons)
+        
 c10k = concentrations[0:7] #all predicted concentrations (fpj) for 7 samples at one exposure age (len: exp ages)
 c50k = concentrations[7:14]
 c100k = concentrations[14:21]
@@ -79,12 +70,16 @@ c350k = concentrations[49:56]
 c400k = concentrations[56:63]
 c450k = concentrations[63:70]
 c500k = concentrations[70:77]
-c550k = concentrations[77:84]
-c600k = concentrations[84:91]
+c510k = concentrations[77:84]
+c520k = concentrations[84:91]
+c530k = concentrations[91:98]
+c540k = concentrations[98:105]
+c550k = concentrations[105:112]
+c600k = concentrations[112:119]
 
-fmj = [2.38*10**6,2.63*10**6,2.75*10**6,33000,73000,34000,59000]
+fmj = [2380000,2630000,2750000,330000,730000,340000,590000]
 
-chi = [56000,59000,57000,55000,54000,60000,56000]
+chi = [560000,590000,570000,550000,540000,600000,560000]
 
 
 
@@ -101,6 +96,11 @@ temp10 = []
 temp11 = []
 temp12 = []
 temp13 = []
+temp14 = []
+temp15 = []
+temp16 = []
+temp17 = []
+
 
 for i in range(len(c10k)):
     temp1.append(((c10k[i] - fmj[i]) / chi[i])**2)
@@ -114,8 +114,12 @@ for i in range(len(c10k)):
     temp9.append(((c400k[i] - fmj[i]) / chi[i])**2)
     temp10.append(((c450k[i] - fmj[i]) / chi[i])**2)
     temp11.append(((c500k[i] - fmj[i]) / chi[i])**2)
-    temp12.append(((c550k[i] - fmj[i]) / chi[i])**2)
-    temp13.append(((c600k[i] - fmj[i]) / chi[i])**2)
+    temp12.append(((c510k[i] - fmj[i]) / chi[i])**2)
+    temp13.append(((c520k[i] - fmj[i]) / chi[i])**2)
+    temp14.append(((c530k[i] - fmj[i]) / chi[i])**2)
+    temp15.append(((c540k[i] - fmj[i]) / chi[i])**2)
+    temp16.append(((c550k[i] - fmj[i]) / chi[i])**2)
+    temp17.append(((c600k[i] - fmj[i]) / chi[i])**2)
 
 
 chisq1 = (1/7) * np.sum(temp1)
@@ -131,42 +135,86 @@ chisq10 = (1/7) * np.sum(temp10)
 chisq11 = (1/7) * np.sum(temp11)
 chisq12 = (1/7) * np.sum(temp12)
 chisq13 = (1/7) * np.sum(temp13)
+chisq14 = (1/7) * np.sum(temp14)
+chisq15 = (1/7) * np.sum(temp15)
+chisq16 = (1/7) * np.sum(temp16)
+chisq17 = (1/7) * np.sum(temp17)
 
-xaxis = [10000,50000,100000,150000,200000,250000,300000,350000,400000,450000,500000,550000,600000]
-yaxis = [chisq1,chisq2,chisq3,chisq4,chisq5,chisq6,chisq7,chisq8,chisq9,chisq10,chisq11,chisq12,chisq13]
-plt.plot(xaxis,yaxis, 'o-')
+#Read.chisq_neg203.idxmin()
+
+xaxis = [10000,50000,100000,150000,200000,250000,300000,350000,400000,450000,500000,510000,520000,530000,540000,550000,600000]
+"""FOR TESTING ONLY"""
+yaxis = [chisq1,chisq2,chisq3,chisq4,chisq5,chisq6, chisq7,chisq8,chisq9,chisq10,chisq11,chisq12,chisq13,chisq14,chisq15,chisq16,chisq17]
+plt.plot(xaxis,yaxis, 'o-')  
 plt.xlabel('exposure age')
 plt.ylabel('chi squared')
 plt.plot(xaxis,yaxis, 'o-')
 
+
+"""FOR 2.5KM"""
+# plt.plot(xaxis,Read.chisq_neg203.values.tolist(), 'o-',label = "20*10^-3")
+# plt.plot(xaxis,Read.chisq_neg153.values.tolist(), 'o-',label = "15*10^-3")
+# plt.plot(xaxis,Read.chisq_neg103.values.tolist(), 'o-',label = "10*10^-3")
 # plt.plot(xaxis,Read.chisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
-# plt.plot(xaxis,Read.chisq_neg3.values.tolist(), 'o-',label = "10^-3")
-# plt.plot(xaxis,Read.chisq_neg54.values.tolist(), 'o-',label = "5*10^-4")
-# plt.plot(xaxis,Read.chisq_neg4.values.tolist(), 'o-',label = "10^-4")
-# plt.plot(xaxis,Read.chisq_neg55.values.tolist(), 'o-',label = "5*10^-5")
-# plt.plot(xaxis,Read.chisq_neg5.values.tolist(), 'o-',label = "10^-5")
-# plt.plot(xaxis,Read.chisq_neg56.values.tolist(), 'o-',label = "5*10^-6")
-# plt.plot(xaxis,Read.chisq_neg6.values.tolist(), 'o-',label = "10^-6")
+
+# #plt.plot(xaxis,Read.chisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
+
+# #plt.plot(xaxis,Read.chisq_neg3.values.tolist(), 'o-',label = "10^-3")
+
+# plt.xlabel('Exposure Age [Years]')
+# plt.ylabel('Chi Squared')
+# plt.title('2.5 km above sea level')
+# plt.legend()
 
 
+""" FOR SEA LEVEL"""
+# # plt.plot(xaxis,Read.SLchisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
+# # plt.plot(xaxis,Read.SLchisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
+
+# # plt.plot(xaxis,Read.SLchisq_neg3.values.tolist(), 'o-',label = "10^-3")
+# #plt.plot(xaxis,Read.SLchisq_neg093.values.tolist(), 'o-',label = "0.9*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg083.values.tolist(), 'o-',label = "0.8*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg073.values.tolist(), 'o-',label = "0.7*10^-3")
+# plt.plot(xaxis,Read.SLchisq_neg063.values.tolist(), 'o-',label = "0.6*10^-3")
+
+# plt.plot(xaxis,Read.SLchisq_neg053.values.tolist(), 'o-',label = "0.5*10^-3")
+# #plt.plot(xaxis,Read.SLchisq_neg033.values.tolist(), 'o-',label = "0.3*10^-3")
+
+# plt.xlabel('Exposure Age [Years]')
+# plt.ylabel('Chi Squared')
+# plt.title('Sea Level')
+# plt.legend()
 
 
-
-yaxis_neg2 = yaxis
-# yaxis_neg53 = yaxis
-# yaxis_neg3 = yaxis
-# yaxis_neg54 = yaxis
-# yaxis_neg4 = yaxis
-# yaxis_neg55 = yaxis
-# yaxis_neg5 = yaxis
-# yaxis_neg56 = yaxis
-# yaxis_neg6 = yaxis
+#yaxis_neg203 = yaxis
+#yaxis_neg153 = yaxis
+#yaxis_neg103 = yaxis
+#yaxis_neg33 = yaxis
+#yaxis_neg625 = yaxis
 
 
-np.savetxt(directory+"/plots/chisq_neg2.csv", 
-            yaxis_neg2,
-            delimiter =", ", 
-            fmt ='% s')
+#SEA LEVEL
+#SLyaxis_neg53 = yaxis
+#SLyaxis_neg33 = yaxis
+#SLyaxis_neg3 = yaxis
+#SLyaxis_neg053 = yaxis
+# SLyaxis_neg033 = yaxis
+
+
+#SLyaxis_neg093 = yaxis
+#SLyaxis_neg083 = yaxis
+#SLyaxis_neg073 = yaxis
+# SLyaxis_neg063 = yaxis
+# SLyaxis_neg0653 = yaxis
+
+
+# # # # ##NOTE TO MOE: for first three plot lines, the min is the last exp age (600k). For 53 the min is 300k
+
+
+# np.savetxt(directory+"/text_for_plots/chisq_neg625.csv", 
+#             yaxis_neg625,
+#             delimiter =", ", 
+#             fmt ='% s')
 
 
 

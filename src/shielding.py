@@ -29,7 +29,6 @@ for i in range(len(Read.zmax)):
     thickness = Sthick(lambda_sp, Read.zmax[i], Read.rho[i])
     S_thick.append(thickness)
 
-
 #create dataframe of Zmax with time steps.
 #zmax is non-time dependent, this is just for the sake of making the zmax shape same as other dataframes.
 zmax = (Read.zmax)

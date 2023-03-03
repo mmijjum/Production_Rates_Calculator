@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1000 655.9" style="enable-background:new 0 0 1000 655.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;}
+	.st1{fill:#231F20;}
+	.st2{fill:#00586D;}
+	.st3{font-family:'MyriadPro-Regular';}
+	.st4{font-size:13px;}
+	.st5{fill:none;stroke:#000000;stroke-miterlimit:10;}
+	.st6{font-family:'MyriadPro-It';}
+	.st7{font-size:12px;}
+</style>
+<symbol  id="Arrow_25" viewBox="-22.9 -13.1 45.7 26.3">
+	<rect x="-22.9" y="-13.1" class="st0" width="45.7" height="26.3"/>
+	<g>
+		<polygon class="st1" points="-22.9,-3.2 0.1,-3.2 0.1,-13.1 22.9,0 0.1,13.1 0.1,3.2 -22.9,3.2 		"/>
+	</g>
+</symbol>
+<g>
+	<text transform="matrix(1 0 0 1 159.9019 60.022)" class="st2 st3 st4">User Interface</text>
+	<rect x="80.7" y="43.6" class="st5" width="224.5" height="81.7"/>
+	<text transform="matrix(1 0 0 1 92.1503 77.9199)" class="st6 st7">User provides sample-specific information</text>
+	<text transform="matrix(1 0 0 1 101.5332 96.415)"><tspan x="0" y="0" class="st3 st7">Mineral, nuclide, atmospheric depth </tspan><tspan x="-18.7" y="14.4" class="st3 st7">conversion mode, time range, tectonic plate</tspan></text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 453.7484 60.1646)" class="st2 st3 st4">Read</text>
+	<rect x="348.3" y="43.6" class="st5" width="244.2" height="99.2"/>
+	<text transform="matrix(1 0 0 1 411.9334 77.9199)" class="st6 st7">Read in relevant text files</text>
+	<text transform="matrix(1 0 0 1 377.3936 96.4149)"><tspan x="0" y="0" class="st3 st7">Excel file with dataset (sample name, </tspan><tspan x="-4.2" y="14.4" class="st3 st7">lat/lon, elevation, geometric shielding, </tspan><tspan x="-20.2" y="28.8" class="st3 st7">erosion, sample depth, nuclide concentration</tspan></text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 729.7604 61.0012)" class="st2 st3 st4">MCADAM</text>
+	<rect x="635.5" y="44.3" class="st5" width="244.2" height="80.9"/>
+	<text transform="matrix(1 0 0 1 659.3256 78.0517)"><tspan x="0" y="0" class="st6 st7">Generate time-averaged paleointensities </tspan><tspan x="65.7" y="14.4" class="st6 st7">in 250 ka bins</tspan></text>
+	<text transform="matrix(1 0 0 1 663.4166 110.8149)" class="st3 st7">MCADAM model, Geomagia database</text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 145.8333 207.6719)" class="st2 st3 st4">PmagPy Paleolatitude</text>
+	<rect x="80.5" y="191.1" class="st5" width="244.2" height="82.6"/>
+	<text transform="matrix(1 0 0 1 113.7228 225.4273)" class="st6 st7">Calculate time-varying paleolatitude</text>
+	<text transform="matrix(1 0 0 1 86.2789 243.9223)"><tspan x="0" y="0" class="st3 st7">User-specified plate, lat/lon, PmagPy Apparent</tspan><tspan x="27.8" y="14.4" class="st3 st7">Polar Wander Path (APWP) package</tspan></text>
+</g>
+<text transform="matrix(1 0 0 1 430.327 207.6719)" class="st2 st3 st4">Cutoff Rigidity (Rc)</text>
+<rect x="357.9" y="191.1" class="st5" width="244.2" height="82.6"/>
+<text transform="matrix(1 0 0 1 426.5562 225.4273)" class="st6 st7">Calculate cutoff rigidity</text>
+<text transform="matrix(1 0 0 1 392.4267 243.9223)"><tspan x="0" y="0" class="st3 st7">MCADAM paleointensity averages, </tspan><tspan x="32.4" y="14.4" class="st3 st7">PmagPy paleolatitude</tspan></text>
+<g>
+	<text transform="matrix(1 0 0 1 138.026 346.3209)" class="st2 st3 st4">Neutron Spallation</text>
+	<rect x="57.1" y="329.7" class="st5" width="265.7" height="132.2"/>
+	<text transform="matrix(1 0 0 1 122.4165 364.0763)" class="st6 st7">Calculate neutron production</text>
+	<text transform="matrix(1 0 0 1 107.2872 382.5713)"><tspan x="0" y="0" class="st3 st7">Time-averaged solar modulation </tspan><tspan x="6.9" y="14.4" class="st3 st7">parameter (Lifton et al., 2008), </tspan><tspan x="-45.6" y="28.8" class="st3 st7">neutron flux and energy spectra (Sato et al., (2008)),</tspan><tspan x="-11.9" y="43.2" class="st3 st7">reaction cross sections (Reedy (2013)),</tspan><tspan x="-27" y="57.6" class="st3 st7">atmospheric depth, atomic number density,</tspan><tspan x="47.6" y="72" class="st3 st7">cutoff rigidity </tspan><tspan x="81.4" y="86.4" class="st3 st7"> </tspan></text>
+</g>
+<text transform="matrix(1 0 0 1 712.9401 207.6719)" class="st2 st3 st4">Atmospheric Depth</text>
+<rect x="640.5" y="191.1" class="st5" width="259" height="106.3"/>
+<text transform="matrix(1 0 0 1 673.1132 225.4273)" class="st6 st7">Convert elevation to atmospheric depth</text>
+<text transform="matrix(1 0 0 1 669.3816 244.2134)"><tspan x="0" y="0" class="st3 st7">If user specified ERA40: Use ERA40 mean</tspan><tspan x="-11.9" y="14.4" class="st3 st7">temperature and pressure to interpolate site-</tspan><tspan x="59.2" y="28.8" class="st3 st7">specific pressure</tspan><tspan x="-18.2" y="43.2" class="st3 st7">Else: use ICAO standard atmosphere conversion</tspan></text>
+<text transform="matrix(1 0 0 1 444.1238 347.443)" class="st2 st3 st4">Proton Spallation</text>
+<rect x="357.3" y="330.8" class="st5" width="265.7" height="132.2"/>
+<text transform="matrix(1 0 0 1 422.5694 365.1984)" class="st6 st7">Calculate proton production</text>
+<text transform="matrix(1 0 0 1 407.4401 383.6934)"><tspan x="0" y="0" class="st3 st7">Time-averaged solar modulation </tspan><tspan x="6.9" y="14.4" class="st3 st7">parameter (Lifton et al., 2008), </tspan><tspan x="-42.7" y="28.8" class="st3 st7">proton flux and energy spectra (Sato et al., (2008)),</tspan><tspan x="-11.9" y="43.2" class="st3 st7">reaction cross sections (Reedy (2013)),</tspan><tspan x="-27" y="57.6" class="st3 st7">atmospheric depth, atomic number density,</tspan><tspan x="47.6" y="72" class="st3 st7">cutoff rigidity </tspan><tspan x="81.4" y="86.4" class="st3 st7"> </tspan></text>
+<g>
+	<text transform="matrix(1 0 0 1 771.4797 346.3209)" class="st2 st3 st4">Muons</text>
+	<rect x="664.3" y="329.7" class="st5" width="265.7" height="132.2"/>
+	<text transform="matrix(1 0 0 1 693.4138 364.0763)" class="st6 st7">Calculate muogenic production (for 21Ne only)</text>
+	<text transform="matrix(1 0 0 1 780.444 382.5713)"><tspan x="0" y="0" class="st3 st7">FILL IN</tspan><tspan x="15.4" y="14.4" class="st3 st7"> </tspan></text>
+</g>
+<text transform="matrix(1 0 0 1 123.0043 529.0918)" class="st2 st3 st4">Thickness shielding factor</text>
+<rect x="69.7" y="512.5" class="st5" width="246.5" height="83.5"/>
+<text transform="matrix(1 0 0 1 99.6434 544.2051)" class="st6 st7">Calculate shielding due to sample depth</text>
+<text transform="matrix(1 0 0 1 80.8755 565.3423)"><tspan x="0" y="0" class="st3 st7">Spallation attenuation length, user-specified </tspan><tspan x="40.2" y="14.4" class="st3 st7">sample depth below surface </tspan><tspan x="110.8" y="28.8" class="st3 st7"> </tspan></text>
+<g>
+	<text transform="matrix(1 0 0 1 449.6334 529.0918)" class="st2 st3 st4">Scaling Factor</text>
+	<rect x="361" y="512.5" class="st5" width="246.5" height="83.5"/>
+	<text transform="matrix(1 0 0 1 386.1052 544.2051)"><tspan x="0" y="0" class="st6 st7">Calculate sample and site specific scaling </tspan><tspan x="84.6" y="14.4" class="st6 st7">factor</tspan></text>
+	<text transform="matrix(1 0 0 1 384.9177 573.9348)"><tspan x="0" y="0" class="st3 st7">Production from neutrons and protons, </tspan><tspan x="16.6" y="14.4" class="st3 st7">reference production rate (SLHL) </tspan></text>
+</g>
+<g>
+	<text transform="matrix(1 0 0 1 768.4393 523.3113)" class="st2 st3 st4">Exposure Age</text>
+	<rect x="664.3" y="506.7" class="st5" width="265.7" height="122.3"/>
+	<text transform="matrix(1 0 0 1 752.5857 541.0667)" class="st6 st7">Calculate exposure age</text>
+	<text transform="matrix(1 0 0 1 694.0335 559.5617)"><tspan x="0" y="0" class="st3 st7">Scaling factor, reference production rate, </tspan><tspan x="-14.1" y="14.4" class="st3 st7">thickness shielding factor, geometric shielding </tspan><tspan x="-21.6" y="28.8" class="st3 st7">factor, erosion rate, spallation attenuation length, </tspan><tspan x="-9.2" y="43.2" class="st3 st7">For 21Ne only: muogenic attenuation length </tspan><tspan x="53" y="57.6" class="st3 st7">and production rate</tspan><tspan x="101.8" y="72" class="st3 st7"> </tspan></text>
+</g>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 326.7475 87.895)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 341.3082 232.3848)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 613.9886 87.895)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 339.2221 549.9531)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 643.6212 395.8486)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 339.2221 399.3472)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 622.626 232.3848)" style="overflow:visible;"/>
+<use xlink:href="#Arrow_25"  width="45.7" height="26.3" x="-22.9" y="-13.1" transform="matrix(0.6369 0 0 -0.6369 635.8712 549.9531)" style="overflow:visible;"/>
+</svg>
