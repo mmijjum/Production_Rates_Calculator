@@ -23,21 +23,21 @@ The manuscript and reference files and will be included within this folder.
 ### Data
 
 All the data needed to run the code will be included within this folder. 
-*ERA40 data
-*Shielding factor
-*etc. etc.
-*Geomagnetic data
-    *Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
-    *Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
-*Our complete geomagnetic model
+* ERA40 data
+* Shielding factor
+* etc. etc.
+* Geomagnetic data
+    * Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
+    * Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
+* Our complete geomagnetic model
 
 ### Code
 
 The code that estimates production rates and creates the figures for the manuscript will be included in the Jupyter notebooks within this folder.
 
-*Notebook 1: The code that estimates production rates.
-*Notebook 2: The code that recreates the figures from the manuscript. 
-*Notebook 3: abcd xyz
+* Notebook 1: The code that estimates production rates.
+* Notebook 2: The code that recreates the figures from the manuscript. 
+* Notebook 3: abcd xyz
 
 You can try a preview of the code here (link needs updating):
 
