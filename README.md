@@ -1,12 +1,12 @@
 # Production Rates Calculator
 **Please note: This calculator is still under development! The following README is a draft.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![DOI](https://gsa.confex.com/gsa/2021AM/webprogram/Paper364512.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
+[![DOI][https://img.shields.io/badge/DOI-10.1130%2Fabs%2F2021AM--364512-red](https://gsa.confex.com/gsa/2021AM/webprogram/Paper364512.html)
 
-This repository contains the manuscript, code, and data associated with the project *A model framework for scaling pre-Quaternary cosmogenic nuclide production rates*.
+This repository contains the manuscript, code, and data associated with the project: *A model framework for scaling pre-Quaternary cosmogenic nuclide production rates*.
  
-Abstract: Multiple scaling schemes for cosmogenic nuclide production rates have been developed for the late Quaternary, the period over which most cosmogenic nuclide measurements are applicable. Applications of cosmogenic nuclide measurements on longer timescales to address questions regarding landscape evolution and surface exposure durations are becoming more prevalent. However, production rate calculations through deep time (i.e., pre-late Quaternary) have primarily utilized Quaternary or present-day scaling factors. To increase the accuracy of scaling schemes through deep time, spatiotemporal variations in physical parameters (e.g. geomagnetic field intensity and paleogeography) beyond the Quaternary should be accounted for. We present a production rate scaling scheme model for the past 70 My. This model builds on existing scaling schemes while incorporating effects relevant to deep time applications, specifically by, (1) accounting for site-specific changes in paleolatitude, and (2) integrating geomagnetic field intensity data from two global paleomagnetic databases. We evaluate the efficacy of our model by applying it to existing datasets from paleo exposure sites, and from sites with apparent continuous million-year exposure histories. Our model will enable measurements of stable cosmogenic nuclides to be applied to research questions such as constraining paleoexposure durations between lava flows, quantifying sediment storage on ~Ma timescales, and calculating the formation timescales of paleosurfaces.
+GSA 2021 Abstract: Multiple scaling schemes for cosmogenic nuclide production rates have been developed for the late Quaternary, the period over which most cosmogenic nuclide measurements are applicable. Applications of cosmogenic nuclide measurements on longer timescales to address questions regarding landscape evolution and surface exposure durations are becoming more prevalent. However, production rate calculations through deep time (i.e., pre-late Quaternary) have primarily utilized Quaternary or present-day scaling factors. To increase the accuracy of scaling schemes through deep time, spatiotemporal variations in physical parameters (e.g. geomagnetic field intensity and paleogeography) beyond the Quaternary should be accounted for. We present a production rate scaling scheme model for the past 70 My. This model builds on existing scaling schemes while incorporating effects relevant to deep time applications, specifically by, (1) accounting for site-specific changes in paleolatitude, and (2) integrating geomagnetic field intensity data from two global paleomagnetic databases. We evaluate the efficacy of our model by applying it to existing datasets from paleo exposure sites, and from sites with apparent continuous million-year exposure histories. Our model will enable measurements of stable cosmogenic nuclides to be applied to research questions such as constraining paleoexposure durations between lava flows, quantifying sediment storage on ~Ma timescales, and calculating the formation timescales of paleosurfaces.
 
 *Mijjum, M, Bristol, K.E., Bono, R.K., Sprain, C.J., Tremblay, M.M, 2023. A model framework for scaling pre-Quaternary cosmogenic nuclide production rates. In preparation.*
 
@@ -39,6 +39,8 @@ The code that estimates production rates and creates the figures for the manuscr
 The notebooks can be viewed statically at this link: https://nbviewer.jupyter.org/github/mmijjum/Production_Rates_Calculator/tree/master/Code/
 
 ### Outputs
+
+Description of outputs will go here. 
 
 ## How to use
 
