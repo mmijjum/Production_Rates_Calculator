@@ -36,8 +36,8 @@ The code that estimates production rates and creates the figures for the manuscr
 -Notebook 2: The code that recreates the figures from the manuscript. 
 -Notebook 3: abcd xyz
 
-The notebooks can be viewed here: https://nbviewer.jupyter.org/github/mmijjum/Production_Rates_Calculator/tree/main/code/
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mmijjum/Production_Rates_Calculator/tree/main/code/)
+You can try a preview of the code here (link needs updating):
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mmijjum/Production_Rates_Calculator/tree/main?filepath=demo.ipynb)
 
 ### Outputs
 
