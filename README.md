@@ -2,6 +2,7 @@
 **Please note: This calculator is still under development! The following README is a draft.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
+
 [![DOI](https://img.shields.io/badge/DOI-10.1130%2Fabs%2F2021AM--364512-red)](https://gsa.confex.com/gsa/2021AM/webprogram/Paper364512.html)
 
 This repository contains the manuscript, code, and data associated with the project: *A model framework for scaling pre-Quaternary cosmogenic nuclide production rates*.
@@ -37,6 +38,7 @@ The code that estimates production rates and creates the figures for the manuscr
 -Notebook 3: abcd xyz
 
 You can try a preview of the code here (link needs updating):
+
 [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mmijjum/Production_Rates_Calculator/tree/main?filepath=demo.ipynb)
 
 ### Outputs
