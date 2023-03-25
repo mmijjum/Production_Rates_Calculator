@@ -23,11 +23,13 @@ The manuscript and reference files and will be included within this folder.
 ### Data
 
 All the data needed to run the code will be included within this folder. 
--ERA40 data
--etc. etc.
--Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
--Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
--Complete PINT model compilation
+*ERA40 data
+*Shielding factor
+*etc. etc.
+*Geomagnetic data
+    *Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
+    *Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
+*Our complete geomagnetic model
 
 ### Code
 
