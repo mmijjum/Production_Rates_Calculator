@@ -40,6 +40,7 @@ import numpy as np
         timerange : [start, stop] of exposure duration (in Ma)
             start: minimum 0 (present day)
             stop: maximum 70
+            NOTE: do not remove "+0.05"
         
         plate: string (specify plate)
             NA : North America
@@ -53,22 +54,20 @@ import numpy as np
 
         """
 
-system = 4
-system_b = 0
+system = 2
+system_b = 4
 system_c = 0
 stdatm = 1
 muons = False
-timerange = [27.5,28.5+0.05]
-plate = 'NA'
+timerange = [0,0.25+0.05]
+plate = 'SA'
 
-#The authors do not recommend changing the resolution below 
+
+## USER DO NOT EDIT BELOW ##
 resolution = int(250000)/10**6
 
 time = np.arange(timerange[0], timerange[1], resolution) # time bin#for 250ka resolution, with first bin being 50 ka
 
-# time = np.linspace(300000/10**6, timerange[1], int(timerange[1]/resolution)-1) # time bin
-# time = np.insert(time,0, 0)
-# time = np.insert(time,1, 50000/10**6)
 
 
 

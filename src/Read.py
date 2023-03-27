@@ -564,6 +564,8 @@ h64p = 3.7200;
 h65p = 1.9700;
 
 
+##EVERYTHING BELOW ARE TEXT FILES FOR PLOTS MADE IN MANUSCRIPT. 
+#NOT RELEVANT FOR REGULAR USER
 
 #FIGURE 2 TEXT FILES
 IN = pd.read_csv(directory+'/text_for_plots/IN.csv')
@@ -593,28 +595,26 @@ lower = pd.read_csv(directory+'/text_for_plots/sf_lower.csv')
 
 chisq_neg203 = pd.read_csv(directory+'/text_for_plots/chisq_neg203.csv', header = None)
 chisq_neg153 = pd.read_csv(directory+'/text_for_plots/chisq_neg153.csv', header = None)
-
 chisq_neg103 = pd.read_csv(directory+'/text_for_plots/chisq_neg103.csv', header = None)
 chisq_neg53 = pd.read_csv(directory+'/text_for_plots/chisq_neg53.csv', header = None)
-chisq_neg33 = pd.read_csv(directory+'/text_for_plots/chisq_neg33.csv', header = None)
+chisq_neg625 = pd.read_csv(directory+'/text_for_plots/chisq_neg6253.csv', header = None)
 
-chisq_neg3 = pd.read_csv(directory+'/text_for_plots/chisq_neg3.csv', header = None)
-chisq_neg625 = pd.read_csv(directory+'/text_for_plots/chisq_neg625.csv', header = None)
-
-
-SLchisq_neg53 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg53.csv', header = None)
-SLchisq_neg33 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg33.csv', header = None)
-
-SLchisq_neg3 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg3.csv', header = None)
 SLchisq_neg093 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg093.csv', header = None)
 SLchisq_neg083 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg083.csv', header = None)
 SLchisq_neg073 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg073.csv', header = None)
 SLchisq_neg063 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg063.csv', header = None)
 SLchisq_neg0653 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg0653.csv', header = None)
-
-SLchisq_neg053 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg053.csv', header = None)
-SLchisq_neg033 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg033.csv', header = None)
+SLchisq_neg53 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg53.csv', header = None)
 
 
 sf_std = pd.read_csv(directory+'/text_for_plots/sf_std.csv')
 sf_era= pd.read_csv(directory+'/text_for_plots/sf_era.csv')
+
+
+#Figure 5
+
+GL_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_5_GL', header = None)
+GL_STD = pd.read_csv(directory+'/text_for_plots/Figure_5_GL_STD', header = None)
+
+EC_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_5_EC_ERA40', header = None)
+EC_STD = pd.read_csv(directory+'/text_for_plots/Figure_5_EC_STD', header = None)

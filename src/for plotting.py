@@ -156,18 +156,17 @@ FIGURE 5
 Atmospheric Depth / SF variations
 
 """
-
-# gl_std = [0.9989,1.0931,1.5614,2.3987]#5.3535]#,21.2553]
-# gl_era40 = [0.9912,1.0938,1.5609,2.3980]#,5.3936]#,21.414]
-# ec_std = [0.63111,0.68668,0.9593,1.4335]#,2.0954]#6.8824
-# ec_era40 = [0.7162,0.7853,1.1308,1.7397]#],2.6392]#,9.1394]
-
-# alt = [0,100,500,1000]
+# x = scaling_factor.Siteprod_df
+# Ec_STD_sf = x[0][10:20]
+# Ec_STD_sf.to_csv(directory+'/text_for_plots/Figure_5_EC_STD')
 
 
-# plt.plot([0,3], [0,3], 'k-') #1:1 line
-# plt.scatter(gl_std,gl_era40, c = alt, marker = 'o', cmap = 'plasma', vmin = 0, vmax = 2000, label = 'High latitude')
-# plt.scatter(ec_std,ec_era40, c = alt, marker = 'x', cmap = 'plasma', vmin = 0, vmax = 2000, label = 'Equator')
+# alt = [0,100,500,1000,1500,2000,2500,3000,4000,5000]
+
+
+# # plt.plot([0,3], [0,3], 'k-') #1:1 line
+# plt.scatter(Read.GL_STD,Read.GL_ERA40, c = alt, marker = 'o', cmap = 'plasma', vmin = 0, vmax = 5000, label = 'High latitude')
+# plt.scatter(Read.EC_STD,Read.EC_ERA40, c = alt, marker = 'x', cmap = 'plasma', vmin = 0, vmax = 5000, label = 'Equator')
 # plt.ylabel('Scaling factor using standard atmosphere')
 # plt.xlabel('Scaling factor using ERA40')
 
@@ -403,80 +402,36 @@ Comparing bin size
 #   10062821.5672929,
 #   2647676.63087064,
 #   2593155.2261833437]
-# # #FOR 40-65MA
-# age250z = [2168943.0556243784,
-#   1731005.0344781834,
-#   2119077.805024399,
-#   3881849.440059906,
-#   2436197.9424115433,
-#   3797236.6068173186,
-#   3472222.080307602,
-#   3754936.710317188,
-#   4364932.21885633,
-#   2746606.998669661,
-#   3146264.2761222157,
-#   3207892.7656139405,
-#   3050462.8485466754,
-#   8642809.117168196,
-#   5907953.62561004,
-#   9234609.800892549,
-#   8070773.711728752,
-#   7936892.007334684,
-#   1920612.3647647523,
-#   1901074.1548788303]
 
+updated_texp_diff_250_50= []
+updated_texp_diff_250_1ma = []
 
-# age50z = [2170334.6280697524,
-#   1732438.8213361914,
-#   2120551.0420199977,
-#   3881619.3118807958,
-#   2437683.3133775983,
-#   3797069.258840903,
-#   3472679.6701391074,
-#   3754779.866021021,
-#   4363964.150665254,
-#   2747978.614388317,
-#   3147007.6957184975,
-#   3208647.5851966664,
-#   3051253.702529829,
-#   8637940.055721866,
-#   5904248.025958664,
-#   9230537.334929865,
-#   8065461.163987972,
-#   7931561.535650669,
-#   1921946.207495562,
-#   1902414.7082181757]
+time = np.linspace(0,70,281)
+for i in range(len(age50)): #convert ages from [yr] to [Ma]
+    updated = age50[i]/10**6
+    updated_250 = age250[i]/10**6 
+    diff1 = updated_250/updated
+    updated_1ma = age_1ma[i]/10**6
+    diff2 = updated_250/updated_1ma
+    updated_texp_diff_250_50.append(diff1)
+    updated_texp_diff_250_1ma.append(diff2)
 
-# updated_texp_50 = []
-# updated_texp_250 = []
-# updated_texp_1ma = []
-# updated_texp_past_50 = []
-# updated_texp_past_250 = []
-# error = []
-# time = np.linspace(0,70,281)
-# for i in range(len(age50)): #convert ages from [yr] to [Ma]
-#     updated = age50[i]/10**6
-#     updated_texp_50.append(updated) #Evenstar data
-#     updated_250 = age250[i]/10**6 
-#     updated_texp_250.append(updated_250) #this model
-#     updated_1ma = age_1ma[i]/10**6
-#     updated_texp_1ma.append(updated_1ma)
-#     err = updated_250*0.05
-#     error.append(err)
-#     #updated_40 = age50z[i]/10**6
-#     #updated_texp_past_50.append(updated_40) #Evenstar data
-#     #updated_250z = age250z[i]/10**6 
-#     #updated_texp_past_250.append(updated_250z) #this model
+plt.rcParams["figure.figsize"] = [10,4] #update figure size
+plt.subplot(1, 2, 1)
+#plt.ylim(0.95,1.02)
+plt.plot(updated_texp_diff_250_50, marker='o', linestyle = ':', c = 'midnightblue', label = "50 ka bins")
+plt.legend()
+plt.xlabel('Sample #')
+plt.ylabel('Texp_250ka / Texp_50ka')
 
-# plt.rcParams["figure.figsize"] = [4,3] #update figure size
+#plt.axhline(y = 1)
+plt.subplot(1, 2, 2)
+plt.plot(updated_texp_diff_250_1ma, marker = 'o', linestyle = ':', c = 'darkmagenta', label = "1 Ma bins")
+plt.legend()
+plt.xlabel('Sample #')
+plt.ylabel('Texp_250ka / Texp_1Ma')
 
-# plt.plot(updated_texp_50[0:12],updated_texp_250[0:12], 'o', c = 'midnightblue', markersize=4, label = "50 ka bins")
-# plt.plot(updated_texp_1ma[0:12], updated_texp_250[0:12], '^', c = 'darkmagenta', markersize = 4, label = "1 Ma bins")
-# plt.errorbar(updated_texp_250[0:12], updated_texp_250[0:12],marker = 'x', c='cornflowerblue', markersize = 4, xerr=error[0:12], fmt="o", label = '250ka bins')
-# plt.legend()
-# plt.xlabel('Exposure Age [x] bin size')
-# plt.ylabel('Exposure Age [250ka] bin size')
-# plt.savefig(Read.directory+'/plots/binsize_comparison_scatter.png', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots/Figure_9.png', dpi = 300, bbox_inches='tight')
 
 """
 FIG X
@@ -484,43 +439,43 @@ LIBARKIN DATASET
 
 """
 
-xaxis = [10000,50000,100000,150000,200000,250000,300000,350000,400000,450000,500000,510000,520000,530000,540000,550000,600000]
+# xaxis = [10000,50000,100000,150000,200000,250000,300000,350000,400000,450000,500000,510000,520000,530000,540000,550000,600000]
 
-"""FOR 2.5KM"""
-plt.plot(xaxis,Read.chisq_neg203.values.tolist(), 'o-',label = "20*10^-3")
-plt.plot(xaxis,Read.chisq_neg153.values.tolist(), 'o-',label = "15*10^-3")
-plt.plot(xaxis,Read.chisq_neg103.values.tolist(), 'o-',label = "10*10^-3")
-plt.plot(xaxis,Read.chisq_neg625.values.tolist(), 'o-',label = "6.25*10^-3")
+# """FOR 2.5KM"""
+# plt.plot(xaxis,Read.chisq_neg203.values.tolist(), 'o-')
+# plt.plot(xaxis,Read.chisq_neg153.values.tolist(), 'o-')
+# plt.plot(xaxis,Read.chisq_neg103.values.tolist(), 'o-')
+# plt.plot(xaxis,Read.chisq_neg625.values.tolist(), 'o-')
 
-plt.plot(xaxis,Read.chisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
+# plt.plot(xaxis,Read.chisq_neg53.values.tolist(), 'o-')
 
-#plt.plot(xaxis,Read.chisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
+# #plt.plot(xaxis,Read.chisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
 
-#plt.plot(xaxis,Read.chisq_neg3.values.tolist(), 'o-',label = "10^-3")
-
-plt.xlabel('Exposure Age [Years]')
-plt.ylabel('Chi Squared')
-plt.title('2.5 km above sea level')
-plt.legend()
-
-plt.savefig(Read.directory+'/plots/Libarkin_2km.png', dpi = 300, bbox_inches='tight')
-
-
-""" FOR SEA LEVEL"""
-# # plt.plot(xaxis,Read.SLchisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
-# # plt.plot(xaxis,Read.SLchisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
-
-# # plt.plot(xaxis,Read.SLchisq_neg3.values.tolist(), 'o-',label = "10^-3")
-# #plt.plot(xaxis,Read.SLchisq_neg093.values.tolist(), 'o-',label = "0.9*10^-3")
-# plt.plot(xaxis,Read.SLchisq_neg083.values.tolist(), 'o-',label = "0.8*10^-3")
-# plt.plot(xaxis,Read.SLchisq_neg073.values.tolist(), 'o-',label = "0.7*10^-3")
-# plt.plot(xaxis,Read.SLchisq_neg063.values.tolist(), 'o-',label = "0.6*10^-3")
-# plt.plot(xaxis,Read.SLchisq_neg0653.values.tolist(), 'o-',label = "0.65*10^-3")
-# plt.plot(xaxis,Read.SLchisq_neg053.values.tolist(), 'o-',label = "0.5*10^-3")
-# #plt.plot(xaxis,Read.SLchisq_neg033.values.tolist(), 'o-',label = "0.3*10^-3")
+# #plt.plot(xaxis,Read.chisq_neg3.values.tolist(), 'o-',label = "10^-3")
 
 # plt.xlabel('Exposure Age [Years]')
 # plt.ylabel('Chi Squared')
-# plt.title('Sea Level')
+# plt.title('2.5 km above sea level')
 # plt.legend()
-# plt.savefig(Read.directory+'/plots/Libarkin_sealvel.png', dpi = 300, bbox_inches='tight')
+
+# plt.savefig(Read.directory+'/plots/Libarkin_2km_unlabeled.png', dpi = 300, bbox_inches='tight')
+
+
+# """ FOR SEA LEVEL"""
+# # # plt.plot(xaxis,Read.SLchisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
+# # # plt.plot(xaxis,Read.SLchisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
+
+# # # plt.plot(xaxis,Read.SLchisq_neg3.values.tolist(), 'o-',label = "10^-3")
+# # #plt.plot(xaxis,Read.SLchisq_neg093.values.tolist(), 'o-',label = "0.9*10^-3")
+# # plt.plot(xaxis,Read.SLchisq_neg083.values.tolist(), 'o-',label = "0.8*10^-3")
+# # plt.plot(xaxis,Read.SLchisq_neg073.values.tolist(), 'o-',label = "0.7*10^-3")
+# # plt.plot(xaxis,Read.SLchisq_neg063.values.tolist(), 'o-',label = "0.6*10^-3")
+# # plt.plot(xaxis,Read.SLchisq_neg0653.values.tolist(), 'o-',label = "0.65*10^-3")
+# # plt.plot(xaxis,Read.SLchisq_neg53.values.tolist(), 'o-',label = "0.5*10^-3")
+# # #plt.plot(xaxis,Read.SLchisq_neg033.values.tolist(), 'o-',label = "0.3*10^-3")
+
+# # plt.xlabel('Exposure Age [Years]')
+# # plt.ylabel('Chi Squared')
+# # plt.title('Sea Level')
+# # plt.legend()
+# # plt.savefig(Read.directory+'/plots/Libarkin_sealvel.png', dpi = 300, bbox_inches='tight')
