@@ -32,12 +32,6 @@ for i in range(0,len(Read.lat)):
         pmag.apwp(data, print_results = False) #change to true if you want to see the output
         vals.append(pmag.apwp(data))
 
-#save outputs in usable dataframes for later.
-# pl = np.repeat(Read.site_lat.values, len(time))
-# pl_df = pd.DataFrame([(pl[n:n+len(time)]) for n in range(0, len(pl), len(time))])
-
-
-
 df = pd.DataFrame(vals) 
 df.columns = ['Age', 'Paleolat', 'Dec','Inc','Pole_lat','Pole_Long'] 
 Paleolat = df['Paleolat']
@@ -49,3 +43,7 @@ inc_df  = pd.DataFrame([(Paleolat.values.tolist()[n:n+len(time)]) for n in range
 #RUN THIS IF YOU'RE MAKING FIG. 3
 # pl_temp = np.repeat(90,len(time))
 # pl_df = pd.DataFrame([(pl_temp[n:n+101]) for n in range(0, len(pl_temp), len(time))])
+
+#RUN THIS to create non-time varying paleolatitude dataframe
+# pl = np.repeat(Read.site_lat.values, len(time))
+# pl_df = pd.DataFrame([(pl[n:n+len(time)]) for n in range(0, len(pl), len(time))])

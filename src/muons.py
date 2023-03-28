@@ -4,6 +4,12 @@
 Created on Fri Sep 16 15:01:48 2022
 
 @author: mmijjum
+This script will calculate the production of 21Ne in quartz pair due to muons. 
+
+Based on Sato et al. (2008) Neutron Spectrum, and PARMA (analytical function approx.
+                                                         )
+This code was originally implemented in MATLAB by Nat Lifton in 2013. This modified version was written by Moe Mijjum.
+
 """
 import numpy as np
 import pandas as pd

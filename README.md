@@ -21,35 +21,144 @@ The manuscript and reference files and will be included within this folder.
 
 
 ### Data
-
 All the data needed to run the code will be included within this folder. 
-* ERA40 data
-* Shielding factor
-* etc. etc.
+
+The following .csv files are adapted from LSD:
+
+- Spreadsheet with user-provided sample-specific information: 
+* inputs.xlsx
+
+- Integrated neutron flux < 15 MeV: 
+* a_values.csv
+* b_values.csv
+
+- Basic Spectrum
+* basic_spectrum_protons.csv
+* basic_spectrum.csv 
+* c_values.csv
+
+- Ground level spectrum
+* ground_level_spectrum.csv
+
+- Thermal neutron spectrum 
+* thermal_neutron_spectrum.csv
+
+- Primary spectrum (for protons)
+* primary_spectrum.csv
+
+- Secondary spectrum (for protons)
+* secondary_spectrum.csv
+* h_values_protons.csv
+
+- Reaction cross sections
+* Alnx3HeT.csv
+* Alpx3HeT.csv
+* Canx3HeT.csv
+* Capx3HeT.csv
+* Capx3HeT.csv
+* Fenx3HeT.csv
+* Fepx3HeT.csv
+* Mgnx3HeT.csv
+* Mgpx3HeT.csv
+* Onx3HeT.csv
+* Opx3HeT.csv
+* Sinx3HeT.csv
+* Sipx3HeT.csv
+* SinxNe21.csv
+* SipxNe21.csv
+
+- ERA40 reanalysis data
+* ERA40lat.csv
+* ERA40lon.csv
+* meanP.csv
+* meanT.csv
+
+- Muon flux
+* mfluxRef_neg.csv
+* mfluxRef_pos.csv
+
 * Geomagnetic data
     * Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
     * Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
-* Our complete geomagnetic model
-
+	* archeo010.csv
+	* MCADAM_1b.csv
+	
 ### Code
 
-The code that estimates production rates and creates the figures for the manuscript will be included in the Jupyter notebooks within this folder.
+Description of each of the scripts:
 
-* Notebook 1: The code that estimates production rates.
-* Notebook 2: The code that recreates the figures from the manuscript. 
-* Notebook 3: abcd xyz
+1) User_Interface.py 
+- Mineral/nuclide system, time period of interest, and method of converting elevation to atmospheric pressure is specified here. 
 
-You can try a preview of the code here (link needs updating):
+2) Read.py
+- All .csv / .xlsx files from 'Data' are read into the code here.
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/mmijjum/Production_Rates_Calculator/tree/main?filepath=demo.ipynb)
+3) mcadam.py 
+
+4) Pmag_paleolat.py
+- Present day site latitude is converted to paleolatitude for the specified time duration in User_Interface. 
+
+5) Rc.py
+- Cutoff rigidity is calculated following Dunai (2001). 
+
+6) atm_depth.py
+- Elevation is converted to atmospheric depth either using ERA40 reanalysis data or a standard atmosphere conversion.
+- Conversion method is specified in 'User_Interface' - 1 = standard atmosphere, 0 = ERA40. 
+
+7) neutrons.py
+- Production via spallation from neutrons is calculated. 
+
+8) protons.py
+- Production via spallation from protons is calculated.
+
+9) muons.py
+- Production via muons (only for 21Ne) is calculated. 
+
+10) shielding.py
+- Shielding (due to sample thickness) scaling factor is calculated.
+
+11) scaling_factor.py
+- Scaling factor due to spallation is calculated.
+
+12) expage.py
+- Exposure ages are calculated. 
+- If 21Ne: incorporates muons into calculation. 
+
+13) expage_modified.py
+- Tests a range of exposure ages and erosion rates to minimize chi-square values (of nuclide concentration)
+
+14) for_plotting.py ##NOTE FOR TYPICAL USE
+- code for generating plots in Mijjum et al. (2023)
 
 ### Outputs
 
-Description of outputs will go here. 
+This model calculates exposure ages using 3He and 21Ne measurements. The following are relevant outputs from individual scripts:
+
+- expage.py: when run, will return the exposure age of each sample specified in 'inputs.xlsx'
+- scaling_factor.py: when run, 'Siteprod_df' will generate a dataframe of site-specific & time varying spallogenic scaling factors.
+- Pmag_paleolat.py: when run, 'pl_df' will generate a dataframe of site-specific & time varying paleolatitudes.
 
 ## How to use
 
-General walkthrough on usage will go here.
+1) Input sample-specific information into 'inputs.xlsx'. This includes:
+- Sample name
+- Latitude (degrees, positive if N hemisphere, negative if S)
+- Longitude (degrees, positive if E hemisphere, negative if W)
+- Elevation (MASL)
+- Sample thickness (cm)
+- Sample density (g/cm3)
+- Topographic shielding correction (0 - 1)
+- Erosion rate (cm/yr)
+- Nuclide concentration (at/g)
+- Nuclide uncertainty (at/g)
+
+* NOTE: only 'Active' tab is read into code. All other tabs are reference tables that can be copy-pasted into 'Active' to generate certain figures, or for specific datasets. 
+
+2) Enter mineral/nuclide pair, method of converting elevation to atmospheric depth, whether 'muons' script should be run (False unless 21Ne), time range of interest (in Ma), and tectonic plate of interest.
+
+3) Run 'expage.py' 
+
+4) Will output exposure ages for each sample. For ~20 samples, takes ~3 minutes to run for 20 Ma. 
 
 ### Dependencies
 
