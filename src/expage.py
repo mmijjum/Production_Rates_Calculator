@@ -14,7 +14,6 @@ Created on Tue Nov  1 14:22:28 2022
 import numpy as np
 import pandas as pd
 import Read
-import User_Interface
 import scaling_factor
 import shielding
 import muons
@@ -22,13 +21,13 @@ import muons
 n0 = Read.nuclide_concentration
 sthick = shielding.S_thick[0]
 
-if User_Interface.system == 1:
+if Read.system == 1:
     slhl = 131.32
-if User_Interface.system == 2:
+if Read.system == 2:
     slhl = 131.32#scaling to pyx via balco's make_consts code.
-if User_Interface.system == 3:
+if Read.system == 3:
     slhl = 131.32
-if User_Interface.system == 4:
+if Read.system == 4:
     slhl = 15.5 #Sf scaled, bc LSDn not used for 21ne, only10be in Fenton 2019? #update later
 
 tempvals = []
@@ -40,7 +39,7 @@ erosion = np.repeat(0,20)
 dt = 250000
 #Pmu = 0.23 #larsen et al, this is for comparing 3He muon production
 
-if User_Interface.muons == False: 
+if Read.muons == False: 
     #For 3He
     def func(sthick,tempvals):
         return sthick*slhl*tempvals
@@ -53,7 +52,7 @@ if User_Interface.muons == False:
           #   n = sthick * slhl * temp
           #   if n == n0:
     
-    tempvals_df = pd.DataFrame([(tempvals[n:n+len(User_Interface.time)]) for n in range(0, len(tempvals), len(User_Interface.time))])
+    tempvals_df = pd.DataFrame([(tempvals[n:n+len(Read.time)]) for n in range(0, len(tempvals), len(Read.time))])
     
     iteration = []
     for i in range(len(tempvals_df)):
@@ -74,7 +73,7 @@ if User_Interface.muons == False:
         expage = iteration[i] * dt + dt2
         exp_age.append(expage)
 
-if User_Interface.muons == True: 
+if Read.muons == True: 
     
     Pmu = muons.pmuons_df
 
@@ -89,7 +88,7 @@ if User_Interface.muons == True:
           #   n = sthick * slhl * temp
           #   if n == n0:
     
-    tempvals_df = pd.DataFrame([(tempvals[n:n+len(User_Interface.time)]) for n in range(0, len(tempvals), len(User_Interface.time))])
+    tempvals_df = pd.DataFrame([(tempvals[n:n+len(Read.time)]) for n in range(0, len(tempvals), len(Read.time))])
     #muons part
     def funcmu(Pmu,tempvalsmu):
         return Pmu * tempvalsmu
@@ -99,7 +98,7 @@ if User_Interface.muons == True:
             temp = np.exp((-shielding.z_df.iloc[i][j]/2)/lambdamu) * dt
             tempvalsmu.append(temp)
     
-    tempvals_df_mu = pd.DataFrame([(tempvalsmu[n:n+len(User_Interface.time)]) for n in range(0, len(tempvalsmu), len(User_Interface.time))])
+    tempvals_df_mu = pd.DataFrame([(tempvalsmu[n:n+len(Read.time)]) for n in range(0, len(tempvalsmu), len(Read.time))])
     
     iteration = []
     for i in range (len(tempvals_df)):

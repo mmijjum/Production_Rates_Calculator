@@ -87,47 +87,44 @@ The following .csv files are adapted from LSD:
 
 Description of each of the scripts:
 
-1) User_Interface.py 
-- Mineral/nuclide system, time period of interest, and method of converting elevation to atmospheric pressure is specified here. 
-
-2) Read.py
+1) Read.py
 - All .csv / .xlsx files from 'Data' are read into the code here.
 
-3) mcadam.py 
+2) mcadam.py 
 
-4) Pmag_paleolat.py
+3) Pmag_paleolat.py
 - Present day site latitude is converted to paleolatitude for the specified time duration in User_Interface. 
 
-5) Rc.py
+4) Rc.py
 - Cutoff rigidity is calculated following Dunai (2001). 
 
-6) atm_depth.py
+5) atm_depth.py
 - Elevation is converted to atmospheric depth either using ERA40 reanalysis data or a standard atmosphere conversion.
-- Conversion method is specified in 'User_Interface' - 1 = standard atmosphere, 0 = ERA40. 
+- Conversion method is specified in excel spreadsheet - 1 = standard atmosphere, 0 = ERA40. 
 
-7) neutrons.py
+6) neutrons.py
 - Production via spallation from neutrons is calculated. 
 
-8) protons.py
+7) protons.py
 - Production via spallation from protons is calculated.
 
-9) muons.py
+8) muons.py
 - Production via muons (only for 21Ne) is calculated. 
 
-10) shielding.py
+9) shielding.py
 - Shielding (due to sample thickness) scaling factor is calculated.
 
-11) scaling_factor.py
+10) scaling_factor.py
 - Scaling factor due to spallation is calculated.
 
-12) expage.py
+11) expage.py
 - Exposure ages are calculated. 
 - If 21Ne: incorporates muons into calculation. 
 
-13) expage_modified.py
+12) expage_modified.py
 - Tests a range of exposure ages and erosion rates to minimize chi-square values (of nuclide concentration)
 
-14) for_plotting.py ##NOTE FOR TYPICAL USE
+13) for_plotting.py ##NOTE FOR TYPICAL USE
 - code for generating plots in Mijjum et al. (2023)
 
 ### Outputs
@@ -151,6 +148,10 @@ This model calculates exposure ages using 3He and 21Ne measurements. The followi
 - Erosion rate (cm/yr)
 - Nuclide concentration (at/g)
 - Nuclide uncertainty (at/g)
+- Nuclide - mineral system 
+- Atmospheric conversion preference
+- Tectonic plate
+- Start and stop duration
 
 * NOTE: only 'Active' tab is read into code. All other tabs are reference tables that can be copy-pasted into 'Active' to generate certain figures, or for specific datasets. 
 

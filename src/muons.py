@@ -13,15 +13,13 @@ This code was originally implemented in MATLAB by Nat Lifton in 2013. This modif
 """
 import numpy as np
 import pandas as pd
-import Pmag_paleolat
 import Rc
 import Read
-import User_Interface
 import atm_depth
 
 
 
-time = User_Interface.time 
+time = Read.time 
 
 
 s = 624.5718; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
@@ -29,7 +27,7 @@ smin = 400; #Units of MV
 smax = 1200; #Units of MV
 w = 0.2
 
-if User_Interface.system == 4: 
+if Read.system == 4: 
 
     Emu = 105.658 # in Mev, Rest energy of muon
     E_muons = np.logspace(1,5.9030,800) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
@@ -45,7 +43,7 @@ smin = 400 #units of MV
 smax = 1200 #units of MV
 
 
-if User_Interface.system == 4: 
+if Read.system == 4: 
     def Phimnfun(x):
         return Read.u1n*(np.exp(-Read.u2n*x) - Read.u3n*np.exp(-Read.u4n*x)) + Read.u5n
 
@@ -56,7 +54,7 @@ if User_Interface.system == 4:
 
     Phimp = Phimpfun(atm_depth.x)
 
-if User_Interface.system == 4 :
+if Read.system == 4 :
     def minmax(w1,w2,w3,w4,w5):
         return w1 + w2*Rc.Rc.iloc[: , 0:] + w3/(1 + np.exp((Rc.Rc.iloc[: , 0:] - w4)/w5))
 

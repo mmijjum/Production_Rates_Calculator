@@ -10,13 +10,12 @@ This script calculates the shielding scaling factor due to sample THICKNESS (NOT
 From Balco (2008), modified by Moe Mijjum for Python. 
 """
 import numpy as np
-import User_Interface
 import pandas as pd
 import Read
 
 
 
-time = User_Interface.time 
+time = Read.time 
 
 
 lambda_sp = 160 #g/cm2, from Balco (2008) 

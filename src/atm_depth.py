@@ -7,9 +7,6 @@ Created on Thu Sep 15 14:25:17 2022
 
 This script converts the user-supplied elevation to an atmospheric depth.
 
-It will perfrom the ERA40 reanalysis if user specified '0' for standard atmosphere in User_Interface
-It will perform a standard atmospheric conversion if user specifies '1' for standard atmosphere in User_Interface.
-
 This was originally written by Greg Balco, then modified by Brent Goehring and Nat Lifton. This version was modified by Moe Mijjum for python. 
 
 """
@@ -19,7 +16,6 @@ import pandas as pd
 import scipy as sci
 import Read
 import Pmag_paleolat
-import User_Interface
 import math
 
 def truncate(number, decimals=0):
@@ -35,7 +31,7 @@ def truncate(number, decimals=0):
 
     factor = 10.0 ** decimals
     return math.trunc(number * factor) / factor
-time = User_Interface.time 
+time = Read.time 
 
 lon_repeated = np.repeat(Read.lon,len(time))
 lon_df = pd.DataFrame([(lon_repeated.tolist()[n:n+len(time)]) for n in range(0, len(lon_repeated.tolist()), len(time))])
@@ -82,14 +78,14 @@ for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
     dtdz = -dtdz
     differential.append(dtdz)
     
-if User_Interface.stdatm == 0: #ERA40
+if Read.stdatm == 0: #ERA40
     for i in range(len(slp)):
         sp = slp[i] * np.exp( (gmr/differential[i]) * (np.log(temp[i]) - np.log(temp[i] - (alt_list[i]*differential[i])) ) )
         sp = float(sp)
         empty.append(sp)
     sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
 
-if User_Interface.stdatm == 1:
+if Read.stdatm == 1:
     for i in range(len(alt_list)):
         differential = 0.0065
         sp = 1013.25 * np.exp((gmr/differential)*(np.log(288.15) - np.log(288.15 - (alt_list[i]*differential))))
@@ -108,3 +104,5 @@ def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(xdf)
 
+# xn = np.repeat(1013.25*1.019716, len(xdf) * len(time))
+# x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])

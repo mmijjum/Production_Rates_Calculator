@@ -6,29 +6,27 @@ Created on Thu Sep 15 13:32:26 2022
 @author: mmijjum
 
 This script converts user-supplied latitude values into paleolatitude
-- only over timeframe specified by user in User_Interface.
+- only over timeframe specified by user.
 
 """
 
-import User_Interface
 import Read
 import numpy as np
 import pmagpy.pmag as pmag
 import pandas as pd
 import matplotlib.pyplot as plt
 
-time = User_Interface.time 
+time = Read.time 
 
 
 #PmagPy paleolatitude calculations
 vals = [] #storage for pmagpy data 
 
 #The following for loop converts the user-supplied latitude values (Read.lat) to paleolatitude through time.
-#Plate is specified in User_Interface.py
 
 for i in range(0,len(Read.lat)):
     for j in time:
-        data=[str(User_Interface.plate),Read.lat[i], Read.lon[i],j] 
+        data=[str(Read.plate),Read.lat[i], Read.lon[i],j] 
         pmag.apwp(data, print_results = False) #change to true if you want to see the output
         vals.append(pmag.apwp(data))
 

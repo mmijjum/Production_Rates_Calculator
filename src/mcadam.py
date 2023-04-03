@@ -9,17 +9,18 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
 import os
-import User_Interface
+import Read
+import matplotlib.pyplot as plt
 
 #Set path
 directory = os.path.dirname(__file__)
 
 #Read in excerpt of MCADAM1.b model (QPI>=3) (Bono et al., 2021)
-MCADAM_qpi3 = pd.read_csv(directory+'/text_files_for_read/MCADAM_1b.csv') 
+MCADAM_qpi3 = pd.read_csv(directory+'/Data/MCADAM_1b.csv') 
 
 #Read in volcanic and archeomagnetic data from GEOMAGIA50.v3 (Brown et al., 2015)
 #Calculate mean and std
-GEOMAGIA = pd.read_csv(directory+'/text_files_for_read/archeo010.csv', header=1)
+GEOMAGIA = pd.read_csv(directory+'/Data/archeo010.csv', header=1)
 GEOMAGIA_mean = np.mean(GEOMAGIA['VADM[E22_AmE2]'])
 GEOMAGIA_std = np.std(GEOMAGIA['VADM[E22_AmE2]'])
 
@@ -60,8 +61,9 @@ PINT_model_500kyr = pd.DataFrame(data=d500kyr)
 PINT_model_1ma = pd.DataFrame(data=d1ma)
 
 ##BELOW added by Moe for use in rest of model
-updated_df =  PINT_model_250kyr[(PINT_model_250kyr ['age'] >= User_Interface.timerange[0]) & (PINT_model_250kyr ['age'] < User_Interface.timerange[1])]
+updated_df =  PINT_model_250kyr[(PINT_model_250kyr ['age'] >= Read.timerange[0]) & (PINT_model_250kyr ['age'] < Read.timerange[1])]
 #print(PINT_df)
 
 #Add GEOMAGIA vals to mean list
 means = updated_df['mean']
+

@@ -18,11 +18,10 @@ import pandas as pd
 import Pmag_paleolat
 import Rc
 import Read
-import User_Interface
 import atm_depth
 
 
-time = User_Interface.time 
+time = Read.time 
 
 
 s = 624.5718; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
@@ -185,14 +184,14 @@ p21p_qtz = []
 
 for i in range(len(Rc.Rc)*len(time)):
 
-    if User_Interface.system == 1: #qtz
+    if Read.system == 1: #qtz
         p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])*Read.NatomsQtzO+ np.trapz(phiPtot.T.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*Read.NatomsQtzSi)*(1e-27*3.1536e7)
         p3p_qtz.append(p3p_temp_qtz)
 
     #Inserted from Dave Parmelee's code (MS thesis, NMT 2014) to account for composition
     #dependence of clinopyroxene
 
-    if User_Interface.system == 2: #cpx
+    if Read.system == 2: #cpx
         p3p_temp_cpx = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*Read.NatomsCpxAuO +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Sinx3df[0]),E_df.iloc[0,:])*Read.NatomsCpxAuSi +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Alnx3df[0]),E_df.iloc[0,:])*Read.NatomsCpxAuAl +
@@ -201,7 +200,7 @@ for i in range(len(Rc.Rc)*len(time)):
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Canx3df[0]), E_df.iloc[0,:])*Read.NatomsCpxAuCa)*(1e-27*3.1536e7)
         p3p_cpx.append(p3p_temp_cpx)
 
-    if User_Interface.system == 3: #olivine
+    if Read.system == 3: #olivine
         p3p_temp_ol = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0], E_df.iloc[0,:])*Read.NatomsOlFo80O +
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Sinx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Si + 
         np.trapz(phiPtot.T.iloc[:,i]*(Read.Mgnx3df[0]), E_df.iloc[0,:])*Read.NatomsOlFo80Mg +
@@ -209,18 +208,18 @@ for i in range(len(Rc.Rc)*len(time)):
         p3p_ol.append(p3p_temp_ol)
 
     #21-Ne
-    if User_Interface.system == 4:
+    if Read.system == 4:
         Natoms = 1.00228e22
         p21pdf_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Sinx21df[0],E_df.iloc[0,:])*Natoms) *(1e-27*3.1536e7)
         p21p_qtz.append(p21pdf_qtz)
 
-if User_Interface.system == 1:
+if Read.system == 1:
     pp = p3p_qtz
-if User_Interface.system == 2:
+if Read.system == 2:
     pp = p3p_cpx 
-if User_Interface.system ==3:
+if Read.system ==3:
     pp = p3p_ol 
-if User_Interface.system == 4:
+if Read.system == 4:
     pp = p21p_qtz
     
 #bin_names = ['0 - 50 kyr', '50 kyr - 5 Ma', '5 - 10 Ma', '10 - 15 Ma', '15 - 20 Ma', '20 - 25 Ma', '25 - 30 Ma', 

@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 import glob
 import os
+import matplotlib.pyplot as plt
 
 #SET DIRECTORY
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +22,7 @@ directory = os.path.dirname(__file__)
 
 
 #Read in excel sheet with data, set variable names.
-Exposure_Age_Inputs = pd.read_excel(directory+'/text_files_for_read/inputs.xlsx') #excel sheet with all pmag data. 0-70 Ma, all criteria
+Exposure_Age_Inputs = pd.read_excel(directory+'/Data/inputs.xlsx') #excel sheet with all pmag data. 0-70 Ma, all criteria
 site_lat = Exposure_Age_Inputs['Latitude']
 site_lon = Exposure_Age_Inputs['Longitude']
 site_elevation = Exposure_Age_Inputs['Elevation']
@@ -30,6 +31,45 @@ zmax = Exposure_Age_Inputs['Sample Thickness']
 rho = Exposure_Age_Inputs['Sample Density']
 erosion = Exposure_Age_Inputs['Erosion']
 nuclide_concentration = Exposure_Age_Inputs['Nuclide Concentration']
+Nuclide = Exposure_Age_Inputs['Nuclide']
+atm = Exposure_Age_Inputs['Atmospheric conversion']
+start = Exposure_Age_Inputs['Start']
+stop = Exposure_Age_Inputs['Stop']
+plate = Exposure_Age_Inputs['Plate']
+
+if plate[0] == 1:
+    plate = 'NA'
+if plate[0] == 2:
+    plate = 'SA'
+if plate[0] == 3:
+    plate = 'AF'
+if plate[0] == 4:
+    plate = 'IN'
+if plate[0] == 5:
+    plate = 'EU'
+if plate[0] == 6:
+    plate = 'ANT'
+if plate[0] == 7:
+    plate = 'GL'
+    
+if Nuclide[0] == 1:
+    system = 1
+if Nuclide[0] == 2:
+    system = 2
+if Nuclide[0] == 3:
+    system = 3
+if Nuclide[0] == 4:
+    system = 4
+    
+if atm[0] == 0:
+    stdatm = 0
+if atm[0] == 1:
+    stdatm = 1
+
+resolution = int(250000)/10**6
+timerange = [start[0],stop[0]+0.05]
+
+time = np.arange(timerange[0], timerange[1], resolution) # time bin#for 250ka resolution, with first bin being 50 ka
 
 #convert lat/lon/altitude to lists for use later.
 lat = site_lat.tolist()
@@ -37,44 +77,44 @@ lon = site_lon.tolist()
 alt = site_elevation.tolist()
 
 #Add files to compute ERA40 reanalysis
-ERA40lat = pd.read_csv(directory+'/text_files_for_read/ERA40lat.csv', header=None) 
-ERA40lon = pd.read_csv(directory+'/text_files_for_read/ERA40lon.csv', header=None)
-meanT = pd.read_csv(directory+'/text_files_for_read/meanT.csv', header=None)
-meanP = pd.read_csv(directory+'/text_files_for_read/meanP.csv', header=None)
+ERA40lat = pd.read_csv(directory+'/Data/ERA40lat.csv', header=None) 
+ERA40lon = pd.read_csv(directory+'/Data/ERA40lon.csv', header=None)
+meanT = pd.read_csv(directory+'/Data/meanT.csv', header=None)
+meanP = pd.read_csv(directory+'/Data/meanP.csv', header=None)
 
 #Reaction Cross Sections: naming scheme is Element_nucleon_x_nuclide_T
 #e.g: Oxygen_neutron_x_3He_T = Onx3HeT
-Onx3HeT = pd.read_csv(directory+'/text_files_for_read/Onx3HeT.csv', header = None) 
-Sinx3HeT = pd.read_csv(directory+'/text_files_for_read/Sinx3HeT.csv', header=None) 
-Fenx3HeT = pd.read_csv(directory+'/text_files_for_read/Fenx3HeT.csv', header=None)
-Canx3HeT = pd.read_csv(directory+'/text_files_for_read/Canx3HeT.csv', header=None)
-Mgnx3HeT = pd.read_csv(directory+'/text_files_for_read/Mgnx3HeT.csv', header=None)
-Alnx3HeT = pd.read_csv(directory+'/text_files_for_read/Alnx3HeT.csv', header=None)
-Sinx21Ne = pd.read_csv(directory+'/text_files_for_read/SinxNe21.csv', header = None)
+Onx3HeT = pd.read_csv(directory+'/Data/Onx3HeT.csv', header = None) 
+Sinx3HeT = pd.read_csv(directory+'/Data/Sinx3HeT.csv', header=None) 
+Fenx3HeT = pd.read_csv(directory+'/Data/Fenx3HeT.csv', header=None)
+Canx3HeT = pd.read_csv(directory+'/Data/Canx3HeT.csv', header=None)
+Mgnx3HeT = pd.read_csv(directory+'/Data/Mgnx3HeT.csv', header=None)
+Alnx3HeT = pd.read_csv(directory+'/Data/Alnx3HeT.csv', header=None)
+Sinx21Ne = pd.read_csv(directory+'/Data/SinxNe21.csv', header = None)
 
-Opx3HeT = pd.read_csv(directory+'/text_files_for_read/Opx3HeT.csv', header = None)
-Sipx3HeT = pd.read_csv(directory+'/text_files_for_read/Sipx3HeT.csv', header = None)
-Fepx3HeT = pd.read_csv(directory+'/text_files_for_read/Fepx3HeT.csv', header=None)
-Capx3HeT = pd.read_csv(directory+'/text_files_for_read/Capx3HeT.csv', header=None)
-Mgpx3HeT = pd.read_csv(directory+'/text_files_for_read/Mgpx3HeT.csv', header=None)
-Alpx3HeT = pd.read_csv(directory+'/text_files_for_read/Alpx3HeT.csv', header=None)
-Sipx21Ne = pd.read_csv(directory+'/text_files_for_read/SipxNe21.csv', header = None)
+Opx3HeT = pd.read_csv(directory+'/Data/Opx3HeT.csv', header = None)
+Sipx3HeT = pd.read_csv(directory+'/Data/Sipx3HeT.csv', header = None)
+Fepx3HeT = pd.read_csv(directory+'/Data/Fepx3HeT.csv', header=None)
+Capx3HeT = pd.read_csv(directory+'/Data/Capx3HeT.csv', header=None)
+Mgpx3HeT = pd.read_csv(directory+'/Data/Mgpx3HeT.csv', header=None)
+Alpx3HeT = pd.read_csv(directory+'/Data/Alpx3HeT.csv', header=None)
+Sipx21Ne = pd.read_csv(directory+'/Data/SipxNe21.csv', header = None)
 
 
 #Integrated neutron flux < 15 MeV
-a_values = pd.read_csv(directory+'/text_files_for_read/a_values.csv', header=None)
+a_values = pd.read_csv(directory+'/Data/a_values.csv', header=None)
 
 #Basic Spectrum
-b_values = pd.read_csv(directory+'/text_files_for_read/b_values.csv', header=None)
-basic_spectrum = pd.read_csv(directory+'/text_files_for_read/basic_spectrum.csv',header=None)
+b_values = pd.read_csv(directory+'/Data/b_values.csv', header=None)
+basic_spectrum = pd.read_csv(directory+'/Data/basic_spectrum.csv',header=None)
 
 #C values are also part of basic spectrum.
 #c1, c7 are in units of inverse lethargy
 #c2,5,5,6,8, 10 are in units of MeV
-c_values = pd.read_csv(directory+'/text_files_for_read/c_values.csv', header=None)
+c_values = pd.read_csv(directory+'/Data/c_values.csv', header=None)
 
-ground_level_spectrum = pd.read_csv(directory+'/text_files_for_read/ground_level_spectrum.csv',header=None)
-thermal_neutron_spectrum = pd.read_csv(directory+'/text_files_for_read/thermal_neutron_spectrum.csv',header=None)
+ground_level_spectrum = pd.read_csv(directory+'/Data/ground_level_spectrum.csv',header=None)
+thermal_neutron_spectrum = pd.read_csv(directory+'/Data/thermal_neutron_spectrum.csv',header=None)
 
 #convert to numpy arrays
 c = Onx3HeT.to_numpy()
@@ -118,11 +158,11 @@ Sinx21 = pd.DataFrame(data=Sinx21Ne_array)
 Sinx21df = pd.DataFrame(np.repeat(Sinx21.values, len(lat), axis=1))
 
 #Proton Spectra
-basic_spectrum_protons = pd.read_csv(directory+'/text_files_for_read/basic_spectrum_protons.csv', header = None)
-primary_spectrum = pd.read_csv(directory+'/text_files_for_read/primary_spectrum.csv', header = None)
-secondary_spectrum = pd.read_csv(directory+'/text_files_for_read/secondary_spectrum.csv', header = None)
+basic_spectrum_protons = pd.read_csv(directory+'/Data/basic_spectrum_protons.csv', header = None)
+primary_spectrum = pd.read_csv(directory+'/Data/primary_spectrum.csv', header = None)
+secondary_spectrum = pd.read_csv(directory+'/Data/secondary_spectrum.csv', header = None)
 #h values are part of the secondary spectrum
-h_values_protons = pd.read_csv(directory+'/text_files_for_read/h_values_protons.csv', header = None)
+h_values_protons = pd.read_csv(directory+'/Data/h_values_protons.csv', header = None)
 
 basic_spectrum_protons.columns = ['variable','values']
 primary_spectrum.columns = ['variable','values']
@@ -215,8 +255,8 @@ NatomsOlFo80O = 1.5712e22
 
 # # Muons
 # - only for 21Ne qtz
-mfluxRef_neg = pd.read_csv(directory+'/text_files_for_read/mfluxRef_neg.csv', header = None)
-mfluxRef_pos = pd.read_csv(directory+'/text_files_for_read/mfluxRef_pos.csv', header = None)
+mfluxRef_neg = pd.read_csv(directory+'/Data/mfluxRef_neg.csv', header = None)
+mfluxRef_pos = pd.read_csv(directory+'/Data/mfluxRef_pos.csv', header = None)
 
 
 u1n = 5.8214e9;
@@ -613,8 +653,18 @@ sf_era= pd.read_csv(directory+'/text_for_plots/sf_era.csv')
 
 #Figure 5
 
-GL_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_5_GL', header = None)
+GL_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_5_GL_ERA40', header = None)
 GL_STD = pd.read_csv(directory+'/text_for_plots/Figure_5_GL_STD', header = None)
 
 EC_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_5_EC_ERA40', header = None)
 EC_STD = pd.read_csv(directory+'/text_for_plots/Figure_5_EC_STD', header = None)
+
+Rc_full = pd.read_csv(directory+'/text_for_plots/Rc_full.csv', header = None)
+Rc_half = pd.read_csv(directory+'/text_for_plots/Rc_half.csv', header = None)
+
+sf_full = pd.read_csv(directory+'/text_for_plots/sf_full.csv', header = None)
+sf_half = pd.read_csv(directory+'/text_for_plots/sf_half.csv', header = None)
+
+x_tv = pd.read_csv(directory+'/text_for_plots/x_tv.csv', header = None)
+x_c = pd.read_csv(directory+'/text_for_plots/x_c.csv', header = None)
+
