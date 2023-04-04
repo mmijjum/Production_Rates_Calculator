@@ -38,9 +38,6 @@ Inc = df['Inc']
 pl_df = pd.DataFrame([(Paleolat.values.tolist()[n:n+len(time)]) for n in range(0, len(Paleolat.values.tolist()), len(time))])
 inc_df  = pd.DataFrame([(Paleolat.values.tolist()[n:n+len(time)]) for n in range(0, len(Paleolat.values.tolist()), len(time))])
 
-#RUN THIS IF YOU'RE MAKING FIG. 3
-# pl_temp = np.repeat(90,len(time))
-# pl_df = pd.DataFrame([(pl_temp[n:n+101]) for n in range(0, len(pl_temp), len(time))])
 
 #RUN THIS to create non-time varying paleolatitude dataframe
 # pl = np.repeat(Read.site_lat.values, len(time))

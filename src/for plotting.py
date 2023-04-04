@@ -146,32 +146,34 @@ UPDATED: 1/30
 
 # fig = plt.figure(figsize=(10.5, 8.5))
 # spec = fig.add_gridspec(3,3)
+# fig.text(0.06, 0.65, 'Normalized paleolatitude', va='center', rotation='vertical', size =15)
+# fig.text(0.45, 0.34, 'Time (Ma)', va='center', rotation='horizontal', size =15)
 
+# time = np.arange(0,70+0.25,0.25)
 # ax0 = fig.add_subplot(spec[0, :])
-# ax0.plot(time,Read.IN.iloc[:,1]/Read.IN.iloc[0,1], 'royalblue')
+# ax0.plot(time,Read.IN.iloc[:,1]/Read.IN.iloc[0,1], 'royalblue', label = 'India (20N, 73E)')
 # ax0.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue')
 # ax0.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen')
 # ax0.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen')
+# ax0.text(65,0, 'A', fontsize = 22)
+
+# plt.axhspan(0.85, 1.1, xmin=0, xmax=1, color = 'gray', alpha = 0.5)
+
+# ax0.set_xlim(0, 70)
+# plt.legend()
 # #annotate_axes(ax0, 'ax0')
 
-# ax10 = fig.add_subplot(spec[1, 0])
-# ax10.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue')
+# ax10 = fig.add_subplot(spec[1, :])
+# ax10.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue', label = 'Greenland (75N, 42W)')
+# ax10.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen', label = 'Northern Chile (19S, 69W)')
+# ax10.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen', label = 'South Africa (31S, 22E)')
+# ax10.set_xlim(0, 70)
+# ax10.text(65,0.93, 'B', fontsize = 22)
 
-# #ax10.title.set_text('Greenland: 75N, 42W')
-# # annotate_axes(ax10, 'ax10')
+# plt.legend()
 
-# ax11 = fig.add_subplot(spec[1,1], sharey = ax10)
-# #ax11.sharey(ax10)
-# ax11.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen')
-# #ax11.title.set_text('South America: 19S, 69W')
 
-# # annotate_axes(ax11, 'ax11')
-
-# ax20 = fig.add_subplot(spec[1,2], sharey = ax10)
-# ax20.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen')
-# #ax20.title.set_text('Africa: 0N, 20W')
-
-# plt.savefig(directory+'/plots/Figure_4.pdf', dpi = 300, bbox_inches='tight')
+# plt.savefig(directory+'/plots/Figure_4.svg', dpi = 300, bbox_inches='tight')
 
 
 """

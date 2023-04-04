@@ -152,14 +152,15 @@ This model calculates exposure ages using 3He and 21Ne measurements. The followi
 - Atmospheric conversion preference
 - Tectonic plate
 - Start and stop duration
+- Mineral nuclide pair
+- Atmospheric pressure conversion
+- Tectonic plate
 
 * NOTE: only 'Active' tab is read into code. All other tabs are reference tables that can be copy-pasted into 'Active' to generate certain figures, or for specific datasets. 
 
-2) Enter mineral/nuclide pair, method of converting elevation to atmospheric depth, whether 'muons' script should be run (False unless 21Ne), time range of interest (in Ma), and tectonic plate of interest.
+2) Run 'expage.py' 
 
-3) Run 'expage.py' 
-
-4) Will output exposure ages for each sample. For ~20 samples, takes ~3 minutes to run for 20 Ma. 
+3) Will output exposure ages for each sample. For ~20 samples, takes ~3 minutes to run for 20 Ma. 
 
 ### Dependencies
 

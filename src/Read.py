@@ -36,7 +36,7 @@ atm = Exposure_Age_Inputs['Atmospheric conversion']
 start = Exposure_Age_Inputs['Start']
 stop = Exposure_Age_Inputs['Stop']
 plate = Exposure_Age_Inputs['Plate']
-
+z_from_surface = Exposure_Age_Inputs['Depth below paleosurface']
 if plate[0] == 1:
     plate = 'NA'
 if plate[0] == 2:
@@ -65,6 +65,11 @@ if atm[0] == 0:
     stdatm = 0
 if atm[0] == 1:
     stdatm = 1
+    
+if Nuclide[0] != 4:
+    muons = 'False'
+else:
+    muons = 'True'
 
 resolution = int(250000)/10**6
 timerange = [start[0],stop[0]+0.05]

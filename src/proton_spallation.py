@@ -15,7 +15,6 @@ This code was originally implemented in MATLAB by Nat Lifton in 2013. This modif
 
 import numpy as np
 import pandas as pd
-import Pmag_paleolat
 import Rc
 import Read
 import atm_depth

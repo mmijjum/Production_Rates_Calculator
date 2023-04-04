@@ -39,7 +39,7 @@ erosion = np.repeat(0,20)
 dt = 250000
 #Pmu = 0.23 #larsen et al, this is for comparing 3He muon production
 
-if Read.muons == False: 
+if Read.muons == 'False': 
     #For 3He
     def func(sthick,tempvals):
         return sthick*slhl*tempvals
@@ -73,7 +73,7 @@ if Read.muons == False:
         expage = iteration[i] * dt + dt2
         exp_age.append(expage)
 
-if Read.muons == True: 
+if Read.muons == 'True': 
     
     Pmu = muons.pmuons_df
 
