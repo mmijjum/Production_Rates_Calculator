@@ -78,10 +78,8 @@ The following .csv files are adapted from LSD:
 * mfluxRef_pos.csv
 
 * Geomagnetic data
-    * Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
-    * Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
-	* archeo010.csv
-	* MCADAM_1b.csv
+    * archeo010.csv - Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
+    * MCADAM_1b.csv - Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
 	
 ### Code
 
@@ -91,6 +89,7 @@ Description of each of the scripts:
 - All .csv / .xlsx files from 'Data' are read into the code here.
 
 2) mcadam.py 
+- MCADAM and GEOMAGIA data is compiled into a contineous geomagnetic model.  
 
 3) Pmag_paleolat.py
 - Present day site latitude is converted to paleolatitude for the specified time duration in User_Interface. 
