@@ -60,10 +60,21 @@ PINT_model_250kyr = pd.DataFrame(data=d250kyr)
 PINT_model_500kyr = pd.DataFrame(data=d500kyr)
 PINT_model_1ma = pd.DataFrame(data=d1ma)
 
-##BELOW added by Moe for use in rest of model
+#BELOW added by Moe for use in rest of model
 updated_df =  PINT_model_250kyr[(PINT_model_250kyr ['age'] >= Read.timerange[0]) & (PINT_model_250kyr ['age'] < Read.timerange[1])]
 #print(PINT_df)
+means = updated_df['mean']
 
 #Add GEOMAGIA vals to mean list
-means = updated_df['mean']
+# time = np.arange(0,70+0.05,0.25)
+# plt.xlim(0, 70)
+
+# plt.plot(time,means, 'cornflowerblue', label = 'MCADAM')
+# plt.hlines(5.4,0,70, linestyle = '--', color = 'darkblue', label = 'LSD long term average')
+
+# plt.xlabel('Time (Ma)', size = 13)
+# plt.ylabel(r'Paleointensity (Am$^2$ $\times$ 10 $^{22}$)', size = 13)
+# plt.legend()
+
+# plt.savefig(directory+'/plots/paleointensity_prelims.png', dpi = 300, bbox_inches='tight')
 

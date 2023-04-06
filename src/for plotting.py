@@ -9,14 +9,13 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 import Read
-import pandas
+import pandas as pd
 import Rc
 import Pmag_paleolat
 import glob
 import os
 # import scaling_factor
 import neutron_spallation
-# import Pmag_paleolat
 # # import proton_spallation
 # import matplotlib.gridspec as gridspec
 
@@ -461,13 +460,13 @@ LIBARKIN DATASET
 
 # xaxis = [10000,50000,100000,150000,200000,250000,300000,350000,400000,450000,500000,510000,520000,530000,540000,550000,600000]
 
-# """FOR 2.5KM"""
-# plt.plot(xaxis,Read.chisq_neg203.values.tolist(), 'o-')
-# plt.plot(xaxis,Read.chisq_neg153.values.tolist(), 'o-')
-# plt.plot(xaxis,Read.chisq_neg103.values.tolist(), 'o-')
-# plt.plot(xaxis,Read.chisq_neg625.values.tolist(), 'o-')
+# # """FOR 2.5KM"""
+# plt.plot(xaxis,Read.chisq_neg203.values.tolist(), 'o-', c = 'midnightblue')
+# plt.plot(xaxis,Read.chisq_neg153.values.tolist(), 'o-', c = 'royalblue')
+# plt.plot(xaxis,Read.chisq_neg103.values.tolist(), 'o-', c = 'cornflowerblue')
+# plt.plot(xaxis,Read.chisq_neg625.values.tolist(), 'o-', c = 'lightskyblue')
 
-# plt.plot(xaxis,Read.chisq_neg53.values.tolist(), 'o-')
+# plt.plot(xaxis,Read.chisq_neg53.values.tolist(), 'o-', c = 'lightsteelblue')
 
 # #plt.plot(xaxis,Read.chisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
 
@@ -476,13 +475,13 @@ LIBARKIN DATASET
 # plt.xlabel('Exposure Age [Years]')
 # plt.ylabel('Chi Squared')
 # plt.title('2.5 km above sea level')
-# plt.legend()
 
 # plt.savefig(Read.directory+'/plots/Libarkin_2km_unlabeled.png', dpi = 300, bbox_inches='tight')
 
 
 # """ FOR SEA LEVEL"""
-# # # plt.plot(xaxis,Read.SLchisq_neg53.values.tolist(), 'o-',label = "5*10^-3")
+# # # plt.plot(xaxis,Read.SLchisq_neg53.values.tolist()
+# , 'o-',label = "5*10^-3")
 # # # plt.plot(xaxis,Read.SLchisq_neg33.values.tolist(), 'o-',label = "3*10^-3")
 
 # # # plt.plot(xaxis,Read.SLchisq_neg3.values.tolist(), 'o-',label = "10^-3")
@@ -511,22 +510,21 @@ LIBARKIN DATASET
 
 
 #need specific excel sheet. Ran using quartz conditions. Only need 1 time bin
-# plt.figure(figsize=(8,6)) 
-# plt.yscale('log')
-# plt.xscale('log')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Terrestrial surface at poles (neutrons)')
-# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Sea level, equator')
-# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[4]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '1000 masl, pole')
-# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[6]*neutron_spallation.E.iloc[:,0], c = 'darkgreen',label = '1000 masl, equator')
-# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
-# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkgreen', label = '2000 masl, equator')
-# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[12]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '4000 masl, pole')
-# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[14]*neutron_spallation.E.iloc[:,0], c = 'darkblue',label = '4000 masl, equator')
-# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[16]*neutron_spallation.E.iloc[:,0],'--', c = 'purple',label = '6000 masl, pole')
-# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[18]*neutron_spallation.E.iloc[:,0], c = 'purple',label = '6000 masl, equator')
-# leya = Read.leya
+plt.figure(figsize=(8,6)) 
+plt.yscale('log')
+plt.xscale('log')
+plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Terrestrial surface at poles (neutrons)')
+#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Sea level, equator')
+#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[4]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '1000 masl, pole')
+#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[6]*neutron_spallation.E.iloc[:,0], c = 'darkgreen',label = '1000 masl, equator')
+#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
+#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkgreen', label = '2000 masl, equator')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[12]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '4000 masl, pole')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[14]*neutron_spallation.E.iloc[:,0], c = 'darkblue',label = '4000 masl, equator')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[16]*neutron_spallation.E.iloc[:,0],'--', c = 'purple',label = '6000 masl, pole')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[18]*neutron_spallation.E.iloc[:,0], c = 'purple',label = '6000 masl, equator')
 
-# plt.plot(leya['x'],leya[' y']*leya['x'], label = 'Meteoroid surface (protons)', c = 'cornflowerblue')
-# plt.ylabel('Differential Flux' r'$ \;\times$' 'Energy ' '$ (cm^{-2} s^{-1}$)', fontsize = 13)
-# plt.xlabel('Energy (MeV)', fontsize = 13)
-# plt.savefig(directory+'/plots/energies_prelims.png', dpi = 300, bbox_inches='tight')
+leya = pd.read_csv(directory+'/text_for_plots/leyadata.csv')
+plt.yscale('log')
+plt.xscale('log')
+plt.plot(leya['x'],leya[' y']*leya['x'], label = 'Meteoroid surface (protons)', c = 'cornflowerblue')
