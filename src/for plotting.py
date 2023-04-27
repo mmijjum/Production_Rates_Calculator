@@ -15,7 +15,7 @@ import Pmag_paleolat
 import glob
 import os
 # import scaling_factor
-import neutron_spallation
+# import neutron_spallation
 # # import proton_spallation
 # import matplotlib.gridspec as gridspec
 
@@ -60,7 +60,8 @@ Rc vs. Scaling Factor
 # # only run for like 1 Ma, bc you're only gonna use the first value anyways.
 # # note: make sure you hard code atm depth to 1033 g/cm2
 
-# paleolatitudes = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]
+
+# paleolatitudes = np.arange(0,92,2)
 # fig,ax = plt.subplots()
 
 
@@ -74,36 +75,39 @@ Rc vs. Scaling Factor
 #               color="darkblue",
 #               fontsize=13)
 # ax.set_xlabel("Geomagnetic Latitude", fontsize = 13)
+# ax.spines['left'].set_color('darkblue')
+# ax.tick_params(axis='y', colors='darkblue')
 
 # # twin object for two different y-axis on the sample plot
 # ax2=ax.twinx()
 # ax2.plot(paleolatitudes, Read.sf_full[1][1:],
-#         color="darkgreen", label = 'present day field')
+#         color="darkgreen", label = "$M_{present}$")
 # ax2.plot(paleolatitudes, Read.sf_half[1][1:],
-#         color="darkgreen", linestyle = '-.', label = 'present day field/2')
+#         color="darkgreen", linestyle = '-.', label = "$M_{half}$")
 # ax2.set_ylim(top = 1.1)
 # # set x-axis label
 # # set y-axis label
 # ax2.set_xlim(left=0)
 # ax2.set_xlim(right=90)
 # ax2.set_ylabel("Scaling Factor",color="darkgreen",fontsize=13)
+# ax2.tick_params(axis='y', colors='darkgreen')
 
 # ax2.legend(loc = 'right')
 
-# plt.savefig(Read.directory+'/plots/Figure_2.pdf', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots/Figure_2.png', dpi = 300, bbox_inches='tight')
 
 # ##DO NUT RUN, SAVED CSV's##
-# # Rc_half = Rc.Rc.iloc[:,0]
-# # Rc_half.to_csv(directory+'/text_for_plots/Rc_half.csv') 
+# Rc_half = Rc.Rc.iloc[:,0]
+# Rc_half.to_csv(directory+'/text_for_plots/Rc_half.csv') 
 
-# # sf_half = scaling_factor.Siteprod_df[0]
-# # sf_half.to_csv(directory+'/text_for_plots/sf_half.csv') 
+# sf_half = scaling_factor.Siteprod_df[0]
+# sf_half.to_csv(directory+'/text_for_plots/sf_half.csv') 
 
-# # Rc_full = Rc.Rc.iloc[:,0]
-# # Rc_full.to_csv(directory+'/text_for_plots/Rc_full.csv') 
+# Rc_full = Rc.Rc.iloc[:,0]
+# Rc_full.to_csv(directory+'/text_for_plots/Rc_full.csv') 
 
-# # sf_full = scaling_factor.Siteprod_df[0]
-# # sf_full.to_csv(directory+'/text_for_plots/sf_full.csv') 
+# sf_full = scaling_factor.Siteprod_df[0]
+# sf_full.to_csv(directory+'/text_for_plots/sf_full.csv') 
 
 """
 Figure 3
@@ -183,14 +187,17 @@ Atmospheric Depth / SF variations
 # x = scaling_factor.Siteprod_df
 # GL_STD_sf = x[0][0:17]
 # GL_STD_sf.to_csv(directory+'/text_for_plots/Figure_5_GL_STD')
+from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
+                                                  mark_inset)
+import matplotlib.patches as patches
+# fig = plt.figure(figsize=(4,4))
+
+# alt = np.arange(0,5001,500)
 
 
-# alt = np.arange(0,8001,500)
-
-
-# # plt.plot([0,3], [0,3], 'k-') #1:1 line
-# plt.plot(Read.GL_STD[1],Read.GL_ERA40[1], 'x-',  markersize = 4, label = 'High latitude', c = 'darkmagenta')
-# plt.plot(Read.EC_STD[1],Read.EC_ERA40[1], 'x-',    markersize = 4,label = 'Equator' , c = 'green')
+# plt.plot([0,40], [0,40], 'k-') #1:1 line
+# plt.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
+# plt.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
 # plt.ylabel('Scaling factor using ERA40')
 # plt.xlabel('Scaling factor using standard atmosphere')
 
@@ -198,6 +205,31 @@ Atmospheric Depth / SF variations
 # plt.legend()
 # plt.savefig(Read.directory+'/plots/Figure_5.pdf', dpi = 300, bbox_inches='tight')
 
+fig, ax1 = plt.subplots()
+ax1.set_aspect('equal')
+ax1.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
+ax1.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
+ax1.set_ylabel('Scaling factor using ERA40')
+ax1.set_xlabel('Scaling factor using standard atmosphere')
+ax1.legend(loc=0)
+ax1.set_ylim(0,40)
+ax1.set_xlim(0,40)
+
+rect = patches.Rectangle((0, 0), 5, 5, linewidth=1, edgecolor='k', facecolor='none')
+ax1.add_patch(rect)
+
+left, bottom, width, height = [0.53, 0.2, 0.20, 0.25] # modify to move the inset curve and change its size
+ax2 = fig.add_axes([left, bottom, width, height])
+ax2.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
+ax2.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
+ax2.set_xlim(0,5)
+ax2.set_ylim(0,5)
+ax2.set_xticks([0, 2,4])
+ax2.set_yticks([0,2,4])
+ax2.tick_params(axis='both', which='major', labelsize=8)
+
+
+plt.savefig(Read.directory+'/plots/Figure_5.png', dpi = 300, bbox_inches='tight')
 
 """
 FIGURE 6
@@ -345,11 +377,11 @@ UPDATED 1/30
 # plt.plot([0,16], [0,16], 'k-') #1:1 line
 # plt.rcParams["figure.figsize"] = [5,5] #update figure size
 # plt.plot(updated_texp_const,updated_texp_tv, 'o', c = 'darkblue', alpha = 0.7, label = '0-25 Ma')
-# plt.plot(updated_muons_const,updated_muons_tv, 'x', markersize = 3, c = 'cornflowerblue', label = '0-25 Ma w muons')
-# plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
+# #plt.plot(updated_muons_const,updated_muons_tv, 'x', markersize = 3, c = 'cornflowerblue', label = '0-25 Ma w muons')
+# #plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
 # plt.xlabel('Exposure Age [Ma] constant field', fontsize = 10)
 # plt.ylabel('Exposure Age [Ma] time-varying field', fontsize = 10)
-# plt.savefig(Read.directory+'/plots/Figure_8.svg', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots/Figure_8.png', dpi = 300, bbox_inches='tight')
 
 
 
@@ -444,13 +476,12 @@ Comparing bin size
 #     updated_texp_diff_250_50.append(diff1)
 #     updated_texp_diff_250_1ma.append(diff2)
     
-# plt.scatter(updated_age_50, updated_texp_diff_250_50, c = 'blue', label = '50 ka')
-# plt.scatter(updated_age_1ma,  updated_texp_diff_250_1ma, c = 'darkmagenta', label = '1 Ma')
-# plt.xlabel('Exposure Age [Ma]')
-# plt.ylabel('Exposure Age (250 ka) / Exposure Age (50ka or 1 Ma)')
+# plt.scatter(updated_age_250, updated_texp_diff_250_50, c = 'blue', label = '50 kyr')
+# plt.scatter(updated_age_250,  updated_texp_diff_250_1ma, c = 'darkmagenta', label = '1 Myr')
+# plt.xlabel('$T_{exposure(250kyr)}$ (Ma)')
+# plt.ylabel("$T_{exposure(250kyr)}$ / $T_{exposure(50kyr)}$ $_{or}$ $_{(1Myr)}$ ")
 # plt.legend()
-
-# plt.savefig(Read.directory+'/plots/Figure_9.png', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots/Figure_9.pdf', dpi = 300, bbox_inches='tight')
 
 """
 FIG X
@@ -510,21 +541,60 @@ LIBARKIN DATASET
 
 
 #need specific excel sheet. Ran using quartz conditions. Only need 1 time bin
-plt.figure(figsize=(8,6)) 
-plt.yscale('log')
-plt.xscale('log')
-plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Terrestrial surface at poles (neutrons)')
-#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Sea level, equator')
-#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[4]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '1000 masl, pole')
-#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[6]*neutron_spallation.E.iloc[:,0], c = 'darkgreen',label = '1000 masl, equator')
-#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
-#plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkgreen', label = '2000 masl, equator')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[12]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '4000 masl, pole')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[14]*neutron_spallation.E.iloc[:,0], c = 'darkblue',label = '4000 masl, equator')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[16]*neutron_spallation.E.iloc[:,0],'--', c = 'purple',label = '6000 masl, pole')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[18]*neutron_spallation.E.iloc[:,0], c = 'purple',label = '6000 masl, equator')
+# plt.figure(figsize=(8,6)) 
+# plt.yscale('log')
+# plt.xscale('log')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Terrestrial surface at poles (neutrons)')
+# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Sea level, equator')
+# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[4]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '1000 masl, pole')
+# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[6]*neutron_spallation.E.iloc[:,0], c = 'darkgreen',label = '1000 masl, equator')
+# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
+# #plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkgreen', label = '2000 masl, equator')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[12]*neutron_spallation.E.iloc[:,0], '--',c = 'darkgreen', label = '4000 masl, pole')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[14]*neutron_spallation.E.iloc[:,0], c = 'darkblue',label = '4000 masl, equator')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[16]*neutron_spallation.E.iloc[:,0],'--', c = 'purple',label = '6000 masl, pole')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[18]*neutron_spallation.E.iloc[:,0], c = 'purple',label = '6000 masl, equator')
 
-leya = pd.read_csv(directory+'/text_for_plots/leyadata.csv')
-plt.yscale('log')
-plt.xscale('log')
-plt.plot(leya['x'],leya[' y']*leya['x'], label = 'Meteoroid surface (protons)', c = 'cornflowerblue')
+
+# P0 = 100
+# rho = 3
+# z = np.arange(0,200)
+# lambdasp = 160
+# concs = []
+# concs2 = []
+# t1 = 1000
+# t2 = 10000
+# for i in range(len(z)):
+#     C = P0 * np.e**(-rho*(z[i]/lambdasp))*t1
+#     C2 = P0 * np.e**(-rho*(z[i]/lambdasp))*t2
+#     concs.append(C)
+#     concs2.append(C2)
+# plt.plot(concs,z, c = 'darkblue')  
+# plt.plot(concs2,z, c = 'cornflowerblue')  
+# ax = plt.gca()
+# ax.axes.xaxis.set_ticklabels([])
+# ax.axes.yaxis.set_ticklabels([])
+# ax.set_xticks([])
+# ax.set_yticks([])
+# plt.savefig('/Users/mmijjum/Documents/prelims scripts/depth.png', dpi = 300, bbox_inches='tight')
+
+# P0 = 100
+# rho = 3
+# z = np.arange(0,200)
+# lambdasp = 160
+# concs = []
+# concs2 = []
+# erosion = 5
+# t1 = 1000
+# t2 = 10000
+# for i in range(len(z)):
+#     C = P0/rho*erosion/lambdasp * np.e**(-rho*((z[i] - erosion*t1)/lambdasp))
+#     C2 = P0/rho*erosion/lambdasp * np.e**(-rho*((z[i] - erosion*t2)/lambdasp))
+#     concs.append(C)
+#     concs2.append(C2)
+# plt.plot(concs,z, c = 'darkblue')  
+# plt.plot(concs2,z, c = 'cornflowerblue')  
+# ax = plt.gca()
+# ax.axes.xaxis.set_ticklabels([])
+# ax.axes.yaxis.set_ticklabels([])
+# #plt.savefig('/Users/mmijjum/Documents/prelims scripts/depth_erosion_5.png', dpi = 300, bbox_inches='tight')

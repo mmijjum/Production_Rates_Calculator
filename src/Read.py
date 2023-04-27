@@ -673,3 +673,10 @@ sf_half = pd.read_csv(directory+'/text_for_plots/sf_half.csv', header = None)
 x_tv = pd.read_csv(directory+'/text_for_plots/x_tv.csv', header = None)
 x_c = pd.read_csv(directory+'/text_for_plots/x_c.csv', header = None)
 
+#Libarkin artificial curves
+lib5e3 = pd.read_csv(directory+'/text_for_plots/lib_5e3.csv', header = None)
+lib65e3 = pd.read_csv(directory+'/text_for_plots/lib_65e3.csv', header = None)
+lib1e2 = pd.read_csv(directory+'/text_for_plots/lib_1e2.csv', header = None)
+lib3e3 = pd.read_csv(directory+'/text_for_plots/lib_3e3.csv', header = None)
+lib10e3 = pd.read_csv(directory+'/text_for_plots/lib_10e3.csv', header = None)
+lib20e3 = pd.read_csv(directory+'/text_for_plots/lib_20e3.csv', header = None)

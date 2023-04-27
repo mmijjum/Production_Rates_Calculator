@@ -22,14 +22,13 @@ n0 = Read.nuclide_concentration
 sthick = shielding.S_thick[0]
 
 if Read.system == 1:
-    slhl = 131.32
+    slhl = 1 * (91.6318 + 14.7771) #1 = qtz non dimensional scaling factor, from Greg's make_consts
 if Read.system == 2:
-    slhl = 131.32#scaling to pyx via balco's make_consts code.
+    slhl = 1.369 * (80.1750 + 13.0628) #1.369 = LSDn non-dimensional correction factor (excluding a data point from calibration dataset, per Marissa)
 if Read.system == 3:
-    slhl = 131.32
+    slhl = 1.369 * (80.1750 + 13.0628) #1.369 = LSDn non-dimensional correction factor (excluding a data point from calibration dataset, per Marissa)
 if Read.system == 4:
-    slhl = 15.5 #Sf scaled, bc LSDn not used for 21ne, only10be in Fenton 2019? #update later
-
+    slhl = 1.272 * (11.8702 + 1.6269) #1.272 = non dimensional scaling factor, from Greg's make_consts
 tempvals = []
 tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001

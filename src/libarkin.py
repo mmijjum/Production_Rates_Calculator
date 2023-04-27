@@ -9,7 +9,6 @@ Created on Mon Feb 13 16:26:50 2023
 import numpy as np
 import pandas as pd
 import Read
-import User_Interface
 import scaling_factor
 import neutron_spallation
 import proton_spallation
@@ -27,7 +26,7 @@ tempvals = []
 tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
 lambdamu = 1300 #muon attenuation length in at/g/yr (Balco supplementary)
-erosion = 0.5*(10**-3) #cm/yr, per Dunai (2010)
+erosion = 5*(10**-3) #cm/yr, per Dunai (2010)
 dt = 250000
 rho = 2.32
 
@@ -143,13 +142,16 @@ chisq17 = (1/7) * np.sum(temp17)
 #Read.chisq_neg203.idxmin()
 
 xaxis = [10000,50000,100000,150000,200000,250000,300000,350000,400000,450000,500000,510000,520000,530000,540000,550000,600000]
-"""FOR TESTING ONLY"""
-yaxis = [chisq1,chisq2,chisq3,chisq4,chisq5,chisq6, chisq7,chisq8,chisq9,chisq10,chisq11,chisq12,chisq13,chisq14,chisq15,chisq16,chisq17]
-plt.plot(xaxis,yaxis, 'o-')  
-plt.xlabel('exposure age')
-plt.ylabel('chi squared')
-plt.plot(xaxis,yaxis, 'o-')
+depth = [15,15,15,35,45,35,55]
 
+# """FOR TESTING ONLY"""
+# yaxis = [chisq1,chisq2,chisq3,chisq4,chisq5,chisq6, chisq7,chisq8,chisq9,chisq10,chisq11,chisq12,chisq13,chisq14,chisq15,chisq16,chisq17]
+# plt.plot(xaxis,yaxis, 'o-')  
+# plt.xlabel('exposure age')
+# plt.ylabel('chi squared')
+# plt.plot(xaxis,yaxis, 'o-')
+plt.plot(depth,c10k)
+#plt.plot(depth,c500k)
 
 """FOR 2.5KM"""
 # plt.plot(xaxis,Read.chisq_neg203.values.tolist(), 'o-',label = "20*10^-3")
