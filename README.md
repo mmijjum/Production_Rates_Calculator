@@ -1,4 +1,4 @@
-# Production Rates Calculator
+# SPRITE: Scaling Production Rates In deep TimE
 **Please note: This calculator is still under development! The following README is a draft.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
@@ -22,7 +22,7 @@ The manuscript and reference files and will be included within this folder.
 
 ### Data
 
-All the data needed to run the code will be included within this folder. 
+All the data needed to run SPRITE will be included within this folder. 
 * ERA40 data
 * Shielding factor
 * etc. etc.
@@ -53,7 +53,8 @@ General walkthrough on usage will go here.
 
 ### Dependencies
 
-Use of this code requires PmagPy (https://github.com/PmagPy) which can be installed using pip: 
+Use of SPRITE requires PmagPy (https://github.com/PmagPy) which can be installed using pip: 
 
 ```pip install pmagpy```
 
+To see additional dependencies, see requirements.txt. 
