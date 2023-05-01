@@ -1,4 +1,4 @@
-# Production Rates Calculator
+# SPRITE: Scaling Production Rates In deep TimE
 **Please note: This calculator is still under development! The following README is a draft.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
@@ -11,7 +11,7 @@ GSA 2021 Abstract: Multiple scaling schemes for cosmogenic nuclide production ra
 
 *Mijjum, M, Bristol, K.E., Bono, R.K., Sprain, C.J., Tremblay, M.M, 2023. A model framework for scaling pre-Quaternary cosmogenic nuclide production rates. In preparation.*
 
-This Production Rate Calculator is published under the [MIT license](LICENSE.txt).
+SPRITE is published under the [MIT license](LICENSE.txt).
 
 
 ## Folders 
@@ -128,7 +128,7 @@ Description of each of the scripts:
 
 ### Outputs
 
-This model calculates exposure ages using 3He and 21Ne measurements. The following are relevant outputs from individual scripts:
+SPRITE calculates exposure ages using 3He and 21Ne measurements. The following are relevant outputs from individual scripts:
 
 - expage.py: when run, will return the exposure age of each sample specified in 'inputs.xlsx'
 - scaling_factor.py: when run, 'Siteprod_df' will generate a dataframe of site-specific & time varying spallogenic scaling factors.
@@ -163,7 +163,9 @@ This model calculates exposure ages using 3He and 21Ne measurements. The followi
 
 ### Dependencies
 
-Use of this code requires PmagPy (https://github.com/PmagPy) which can be installed using pip: 
+Use of SPRITE requires PmagPy (https://github.com/PmagPy) which can be installed using pip: 
 
 ```pip install pmagpy```
+
+To see additional dependencies, see requirements.txt.
 
