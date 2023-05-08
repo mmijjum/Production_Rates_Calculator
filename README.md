@@ -21,61 +21,63 @@ The manuscript and reference files and will be included within this folder.
 
 
 ### Data
-All the data needed to run the code will be included within this folder. 
+All the data needed to run the code are included within this folder. 
 
 The following .csv files are adapted from LSD:
 
-- Spreadsheet with user-provided sample-specific information: 
-* inputs.xlsx
+* Spreadsheet with user-provided sample-specific information: 
+    * inputs.xlsx
 
-- Integrated neutron flux < 15 MeV: 
-* a_values.csv
-* b_values.csv
+* Integrated neutron flux < 15 MeV:
+    * a_values.csv
+    * b_values.csv
 
-- Basic Spectrum
-* basic_spectrum_protons.csv
-* basic_spectrum.csv 
-* c_values.csv
+* Basic Spectrum
+    * basic_spectrum_protons.csv
+    * basic_spectrum.csv 
+    * c_values.csv
 
-- Ground level spectrum
-* ground_level_spectrum.csv
+* Ground level spectrum
+    * ground_level_spectrum.csv
 
-- Thermal neutron spectrum 
-* thermal_neutron_spectrum.csv
+* Thermal neutron spectrum 
+    * thermal_neutron_spectrum.csv
 
-- Primary spectrum (for protons)
-* primary_spectrum.csv
+* Primary spectrum (for protons)
+    * primary_spectrum.csv
 
-- Secondary spectrum (for protons)
-* secondary_spectrum.csv
-* h_values_protons.csv
+* Secondary spectrum (for protons)
+    * secondary_spectrum.csv
+    * h_values_protons.csv
 
-- Reaction cross sections
-* Alnx3HeT.csv
-* Alpx3HeT.csv
-* Canx3HeT.csv
-* Capx3HeT.csv
-* Capx3HeT.csv
-* Fenx3HeT.csv
-* Fepx3HeT.csv
-* Mgnx3HeT.csv
-* Mgpx3HeT.csv
-* Onx3HeT.csv
-* Opx3HeT.csv
-* Sinx3HeT.csv
-* Sipx3HeT.csv
-* SinxNe21.csv
-* SipxNe21.csv
+* Reaction cross sections
+    * Alnx3HeT.csv
+    * Alpx3HeT.csv
+    * Canx3HeT.csv
+    * Capx3HeT.csv
+    * Capx3HeT.csv
+    * Fenx3HeT.csv
+    * Fepx3HeT.csv
+    * Mgnx3HeT.csv
+    * Mgpx3HeT.csv
+    * Onx3HeT.csv
+    * Opx3HeT.csv
+    * Sinx3HeT.csv
+    * Sipx3HeT.csv
+    * SinxNe21.csv
+    * SipxNe21.csv
 
-- ERA40 reanalysis data
-* ERA40lat.csv
-* ERA40lon.csv
-* meanP.csv
-* meanT.csv
+* ERA40 reanalysis data
+    * ERA40lat.csv
+    * ERA40lon.csv
+    * meanP.csv
+    * meanT.csv
 
-- Muon flux
-* mfluxRef_neg.csv
-* mfluxRef_pos.csv
+* Muon flux
+    * mfluxRef_neg.csv
+    * mfluxRef_pos.csv
+
+The following .csv files are what make up the magnetic data compilation:
 
 * Geomagnetic data
     * archeo010.csv - Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
