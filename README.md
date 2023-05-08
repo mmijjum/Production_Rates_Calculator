@@ -88,74 +88,74 @@ The following .csv files are what make up the magnetic data compilation:
 Description of each of the scripts:
 
 1) Read.py
-- All .csv / .xlsx files from 'Data' are read into the code here.
+    * All .csv / .xlsx files from 'Data' are read into the code here.
 
 2) mcadam.py 
-- MCADAM and GEOMAGIA data is compiled into a contineous geomagnetic model.  
+    * MCADAM and GEOMAGIA data is compiled into a contineous geomagnetic model.  
 
 3) Pmag_paleolat.py
-- Present day site latitude is converted to paleolatitude for the specified time duration in User_Interface. 
+    * Present day site latitude is converted to paleolatitude for the specified time duration in User_Interface. 
 
 4) Rc.py
-- Cutoff rigidity is calculated following Dunai (2001). 
+    * Cutoff rigidity is calculated following Dunai (2001). 
 
 5) atm_depth.py
-- Elevation is converted to atmospheric depth either using ERA40 reanalysis data or a standard atmosphere conversion.
-- Conversion method is specified in excel spreadsheet - 1 = standard atmosphere, 0 = ERA40. 
+    * Elevation is converted to atmospheric depth either using ERA40 reanalysis data or a standard atmosphere conversion.
+    * Conversion method is specified in excel spreadsheet - 1 = standard atmosphere, 0 = ERA40. 
 
 6) neutrons.py
-- Production via spallation from neutrons is calculated. 
+    * Production via spallation from neutrons is calculated. 
 
 7) protons.py
-- Production via spallation from protons is calculated.
+    * Production via spallation from protons is calculated.
 
 8) muons.py
-- Production via muons (only for 21Ne) is calculated. 
+    * Production via muons (only for 21Ne) is calculated. 
 
 9) shielding.py
-- Shielding (due to sample thickness) scaling factor is calculated.
+    * Shielding (due to sample thickness) scaling factor is calculated.
 
 10) scaling_factor.py
-- Scaling factor due to spallation is calculated.
+    * Scaling factor due to spallation is calculated.
 
 11) expage.py
-- Exposure ages are calculated. 
-- If 21Ne: incorporates muons into calculation. 
+    * Exposure ages are calculated. 
+    * If 21Ne: incorporates muons into calculation. 
 
 12) expage_modified.py
-- Tests a range of exposure ages and erosion rates to minimize chi-square values (of nuclide concentration)
+    * Tests a range of exposure ages and erosion rates to minimize chi-square values (of nuclide concentration)
 
 13) for_plotting.py ##NOTE FOR TYPICAL USE
-- code for generating plots in Mijjum et al. (2023)
+    * code for generating plots in Mijjum et al. (2023)
 
 ### Outputs
 
 SPRITE calculates exposure ages using 3He and 21Ne measurements. The following are relevant outputs from individual scripts:
 
-- expage.py: when run, will return the exposure age of each sample specified in 'inputs.xlsx'
-- scaling_factor.py: when run, 'Siteprod_df' will generate a dataframe of site-specific & time varying spallogenic scaling factors.
-- Pmag_paleolat.py: when run, 'pl_df' will generate a dataframe of site-specific & time varying paleolatitudes.
+* expage.py: when run, will return the exposure age of each sample specified in 'inputs.xlsx'
+* scaling_factor.py: when run, 'Siteprod_df' will generate a dataframe of site-specific & time varying spallogenic scaling factors.
+* Pmag_paleolat.py: when run, 'pl_df' will generate a dataframe of site-specific & time varying paleolatitudes.
 
 ## How to use
 
 1) Input sample-specific information into 'inputs.xlsx'. This includes:
-- Sample name
-- Latitude (degrees, positive if N hemisphere, negative if S)
-- Longitude (degrees, positive if E hemisphere, negative if W)
-- Elevation (MASL)
-- Sample thickness (cm)
-- Sample density (g/cm3)
-- Topographic shielding correction (0 - 1)
-- Erosion rate (cm/yr)
-- Nuclide concentration (at/g)
-- Nuclide uncertainty (at/g)
-- Nuclide - mineral system 
-- Atmospheric conversion preference
-- Tectonic plate
-- Start and stop duration
-- Mineral nuclide pair
-- Atmospheric pressure conversion
-- Tectonic plate
+* Sample name
+* Latitude (degrees, positive if N hemisphere, negative if S)
+* Longitude (degrees, positive if E hemisphere, negative if W)
+* Elevation (MASL)
+* Sample thickness (cm)
+* Sample density (g/cm3)
+* Topographic shielding correction (0 - 1)
+* Erosion rate (cm/yr)
+* Nuclide concentration (at/g)
+* Nuclide uncertainty (at/g)
+* Nuclide - mineral system 
+* Atmospheric conversion preference
+* Tectonic plate
+* Start and stop duration
+* Mineral nuclide pair
+* Atmospheric pressure conversion
+* Tectonic plate
 
 * NOTE: only 'Active' tab is read into code. All other tabs are reference tables that can be copy-pasted into 'Active' to generate certain figures, or for specific datasets. 
 
