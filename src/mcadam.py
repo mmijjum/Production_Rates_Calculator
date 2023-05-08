@@ -67,7 +67,7 @@ PINT_model_500kyr = pd.DataFrame(data=d500kyr)
 PINT_model_1ma = pd.DataFrame(data=d1ma)
 
 #BELOW added by Moe for use in rest of model
-updated_df =  PINT_model_50kyr[(PINT_model_50kyr['age'] >= Read.timerange[0]) & (PINT_model_50kyr ['age'] < Read.timerange[1])]
+updated_df =  PINT_model_250kyr[(PINT_model_250kyr['age'] >= Read.timerange[0]) & (PINT_model_250kyr ['age'] < Read.timerange[1])]
 #print(PINT_df)
 means = updated_df['mean']
 
