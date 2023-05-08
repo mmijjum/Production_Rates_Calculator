@@ -227,4 +227,5 @@ if Read.system == 4:
 pp_df = pd.DataFrame([(pp[n:n+len(time)]) for n in range(0, len(pp), len(time))])
 
 
-
+if Read.erosion[0] != int:
+    pp_df[:] = pp_df.values[:, ::-1]

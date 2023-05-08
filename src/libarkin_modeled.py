@@ -58,9 +58,9 @@ z0 = np.arange(0,100,2)
 # fig = plt.figure(figsize=(5,5))
 #plt.yscale('log')
 #plt.ylim(10**4,10**9)
-plt.plot(z0,Read.lib3e3[0], c = 'darkblue', label = '3e-3 cm/yr')
-plt.plot(z0,Read.lib10e3[0], c = 'cornflowerblue', label = '10e-3 cm/yr')
-plt.plot(z0,Read.lib20e3[0], c = 'teal',label = '20e-3 cm/yr')
+plt.plot(z0,Read.lib3e3[0], c = 'darkblue', label=r'3$\times 10^{-3}$ cm/yr')
+plt.plot(z0,Read.lib10e3[0], c = 'cornflowerblue', label = r'10$\times 10^{-3}$ cm/yr')
+plt.plot(z0,Read.lib20e3[0], c = 'teal',label = r'20$\times 10^{-3}$ cm/yr')
 x = [15,15,15,35,45,35,55]
 y = [2380000.00,2630000.00,2750000.00,330000.00,730000.00,340000.00,590000.00]
 
@@ -84,7 +84,8 @@ plt.errorbar(x,y, xerr = ex, yerr=e, fmt='o',color = 'k', markersize = 4)
 # plt.scatter(35,340000.00, c = 'midnightblue', alpha = 0.7)
 # plt.scatter(55,590000.00, c = 'midnightblue', alpha = 0.7)
 plt.legend()
-
+plt.xlim(0,100)
+plt.ylim(0,5e6)
 plt.xlabel('Depth below surface (cm)')
 plt.ylabel('Concentration (atoms/g)')
-#plt.savefig(Read.directory+'/plots/Figure_10.png', dpi = 300, bbox_inches='tight')
+plt.savefig(Read.directory+'/plots/Figure_10.svg', dpi = 300, bbox_inches='tight')

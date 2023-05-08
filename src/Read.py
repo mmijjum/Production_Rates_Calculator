@@ -30,6 +30,7 @@ s_topo = Exposure_Age_Inputs['Shielding Correction']
 zmax = Exposure_Age_Inputs['Sample Thickness']
 rho = Exposure_Age_Inputs['Sample Density']
 erosion = Exposure_Age_Inputs['Erosion']
+
 nuclide_concentration = Exposure_Age_Inputs['Nuclide Concentration']
 Nuclide = Exposure_Age_Inputs['Nuclide']
 atm = Exposure_Age_Inputs['Atmospheric conversion']
@@ -70,6 +71,8 @@ if Nuclide[0] != 4:
     muons = 'False'
 else:
     muons = 'True'
+
+
 
 resolution = int(250000)/10**6
 timerange = [start[0],stop[0]+0.05]
@@ -625,6 +628,10 @@ sf_AF = pd.read_csv(directory+'/text_for_plots/sf_AF.csv')
 
 sf_IN_const = pd.read_csv(directory+'/text_for_plots/sf_IN_const.csv')
 
+sf_IN_tvlatonly = pd.read_csv(directory+'/text_for_plots/sf_india_tvlatonly.csv')
+
+sf_IN_tvfieldonly = pd.read_csv(directory+'/text_for_plots/sf_india_tvfieldonly.csv')
+
 #FIGURE X TEXT FILES
 
 pn_cpx = pd.read_csv(directory+'/text_for_plots/pn_cpx.csv')
@@ -655,6 +662,9 @@ SLchisq_neg53 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg53.csv', heade
 sf_std = pd.read_csv(directory+'/text_for_plots/sf_std.csv')
 sf_era= pd.read_csv(directory+'/text_for_plots/sf_era.csv')
 
+sf_50kyr = pd.read_csv(directory+'/text_for_plots/sf_50kyr.csv')
+sf_250kyr = pd.read_csv(directory+'/text_for_plots/sf_250kyr.csv')
+sf_1ma = pd.read_csv(directory+'/text_for_plots/sf_1ma.csv')
 
 #Figure 5
 

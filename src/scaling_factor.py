@@ -9,15 +9,12 @@ This script calculates spallogenic scaling factors as a function of time.
 OUTPUT: Siteprod_df (dataframe of scaling factors through time for each sample.)
 
 """
-
 import numpy as np
 import Read
 import pandas as pd
 import Rc
 import neutron_spallation
 import proton_spallation
-import Pmag_paleolat
-import matplotlib.pyplot as plt
 
 #Calculate scaling factor from spallation of protons + neutrons
 #NOTE: all 'refs' were calculated using this model, for a hypothetical sample at SLHL.
@@ -48,17 +45,17 @@ if Read.system == 2:
             SiteHe_temp_cpx = (neutron_spallation.pn_df.iloc[n,i] +proton_spallation.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
             Siteprod.append(SiteHe_temp_cpx)
 
-# if Read.system ==3 :
-#     #SiteHe for olivine: 
-#     #Nuclide Specific Scaling Factors
-#     p3nref_ol = 81.3239
-#     p3pref_ol = 12.5509
-#     HeRef_cpx = p3nref_ol + p3pref_ol
-#     #Nuclide specific scaling factors as f(Rc)
-#     for n in range(len(Rc.Rc)):
-#         for i in range(len(time)):        
-#             SiteHe_temp_ol = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_ol #scaling factor
-#             Siteprod.append(SiteHe_temp_ol)
+if Read.system ==3 :
+    #SiteHe for olivine: 
+    #Nuclide Specific Scaling Factors
+    p3nref_ol = 81.3239
+    p3pref_ol = 12.5509
+    HeRef_ol = p3nref_ol + p3pref_ol
+    #Nuclide specific scaling factors as f(Rc)
+    for n in range(len(Rc.Rc)):
+        for i in range(len(time)):        
+            SiteHe_temp_ol = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_ol #scaling factor
+            Siteprod.append(SiteHe_temp_ol)
 
 if Read.system == 4:
     p21nref_q = 11.8702
@@ -72,4 +69,3 @@ if Read.system == 4:
 
     
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
-

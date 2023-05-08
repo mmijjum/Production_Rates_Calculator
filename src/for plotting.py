@@ -14,7 +14,7 @@ import Rc
 import Pmag_paleolat
 import glob
 import os
-# import scaling_factor
+import scaling_factor
 # import neutron_spallation
 # # import proton_spallation
 # import matplotlib.gridspec as gridspec
@@ -205,31 +205,31 @@ import matplotlib.patches as patches
 # plt.legend()
 # plt.savefig(Read.directory+'/plots/Figure_5.pdf', dpi = 300, bbox_inches='tight')
 
-fig, ax1 = plt.subplots()
-ax1.set_aspect('equal')
-ax1.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
-ax1.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
-ax1.set_ylabel('Scaling factor using ERA40')
-ax1.set_xlabel('Scaling factor using standard atmosphere')
-ax1.legend(loc=0)
-ax1.set_ylim(0,40)
-ax1.set_xlim(0,40)
+# fig, ax1 = plt.subplots()
+# ax1.set_aspect('equal')
+# ax1.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
+# ax1.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
+# ax1.set_ylabel('Scaling factor using ERA40')
+# ax1.set_xlabel('Scaling factor using standard atmosphere')
+# ax1.legend(loc=0)
+# ax1.set_ylim(0,40)
+# ax1.set_xlim(0,40)
 
-rect = patches.Rectangle((0, 0), 5, 5, linewidth=1, edgecolor='k', facecolor='none')
-ax1.add_patch(rect)
+# rect = patches.Rectangle((0, 0), 5, 5, linewidth=1, edgecolor='k', facecolor='none')
+# ax1.add_patch(rect)
 
-left, bottom, width, height = [0.53, 0.2, 0.20, 0.25] # modify to move the inset curve and change its size
-ax2 = fig.add_axes([left, bottom, width, height])
-ax2.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
-ax2.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
-ax2.set_xlim(0,5)
-ax2.set_ylim(0,5)
-ax2.set_xticks([0, 2,4])
-ax2.set_yticks([0,2,4])
-ax2.tick_params(axis='both', which='major', labelsize=8)
+# left, bottom, width, height = [0.53, 0.2, 0.20, 0.25] # modify to move the inset curve and change its size
+# ax2 = fig.add_axes([left, bottom, width, height])
+# ax2.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
+# ax2.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
+# ax2.set_xlim(0,5)
+# ax2.set_ylim(0,5)
+# ax2.set_xticks([0, 2,4])
+# ax2.set_yticks([0,2,4])
+# ax2.tick_params(axis='both', which='major', labelsize=8)
 
 
-plt.savefig(Read.directory+'/plots/Figure_5.png', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots/Figure_5.png', dpi = 300, bbox_inches='tight')
 
 """
 FIGURE 6
@@ -237,21 +237,44 @@ Scaling factor TV and Constant
 
 """
 
-# time = np.linspace(0,70,281)
+time = np.linspace(0,70,281)
 
 ##DONT RUN THIS PART
-# # sf_india = scaling_factor.Siteprod_df.iloc[0]
-# # sf_india.to_csv(directory+'/text_for_plots/sf_IN.csv') 
-# # sf_india_const = scaling_factor.Siteprod_df.iloc[0]
-# # sf_india_const.to_csv(directory+'/text_for_plots/sf_IN_const.csv') 
+# sf_india = scaling_factor.Siteprod_df.iloc[0]
+# sf_india.to_csv(directory+'/text_for_plots/sf_IN.csv') 
+# sf_india_const = scaling_factor.Siteprod_df.iloc[0]
+# sf_india_const.to_csv(directory+'/text_for_plots/sf_IN_const.csv') 
+# sf_india_tvfieldonly = scaling_factor.Siteprod_df.iloc[0]
+# sf_india_tvfieldonly.to_csv(directory+'/text_for_plots/sf_india_tvfieldonly.csv') 
+# sf_india_tvlatonly = scaling_factor.Siteprod_df.iloc[0]
+# sf_india_tvlatonly.to_csv(directory+'/text_for_plots/sf_india_tvlatonly.csv') 
 
 ##BEGIN
-# plt.plot(time,Read.sf_IN.iloc[:,1], c = 'darkgreen',label = 'time-varying field + latitude')
-# plt.plot(time,Read.sf_IN_const.iloc[:,1], '--',c = 'darkblue', label = 'constant field + latitude')
-# plt.legend()
-# plt.xlabel('Time [Ma]')
-# plt.ylabel('Scaling Factor')
-# plt.savefig(directory+'/plots/Figure_6.pdf', dpi = 300, bbox_inches='tight')
+# f = plt.figure(figsize=(10,4))
+# ax = f.add_subplot(121)
+# ax2 = f.add_subplot(122)
+# ax.plot(time,Read.sf_IN.iloc[:,1], c = 'cornflowerblue',label = 'time-varying field and latitude')
+# ax.plot(time,Read.sf_IN_const.iloc[:,1], '--',c = 'gray', label = 'constant field and latitude')
+# ax.set_xlim(0,70)
+# ax.set_ylim(0.55,0.95)
+# ax.vlines(66.052, 0.55, 0.95)
+# ax.set_xlabel('Time (Ma)', fontsize = 13)
+# ax.set_ylabel('Scaling Factor', fontsize = 13)
+# ax.legend(loc = 'lower left')
+
+# ax2.plot(time,Read.sf_IN_tvfieldonly.iloc[:,1], c = 'darkblue',label = 'time-varying field, constant latitude')
+# ax2.plot(time,Read.sf_IN_tvlatonly.iloc[:,1], '--',c = 'darkgray', label = 'constant field, time-varying latitude')
+# ax2.set_xlim(0,70)
+# ax2.set_ylim(0.55,0.95)
+# ax2.vlines(66.052, 0.55, 0.95)
+# ax2.set_xlabel('Time (Ma)', fontsize = 13)
+# ax2.legend(loc = 'lower left')
+
+# plt.setp(ax2.get_yticklabels(), visible=False)
+
+# plt.savefig(directory+'/plots/Figure_6.png', dpi = 300, bbox_inches='tight')
+
+
 
 
 """
@@ -269,90 +292,183 @@ For present - 25 Ma and 40-65Ma
 Including Muons
 UPDATED 1/30
 """
-# exp_ages_time_varying = [2768814.7852780037,
-#   2248207.300541437,
-#   2741539.525003936,
-#   5107076.41764413,
-#   3159569.0728202676,
-#   5108018.95259798,
-#   4640289.046260925,
-#   4913645.370893386,
-#   5706446.686550266,
-#   3660411.029096094,
-#   3983111.2540024156,
-#   4112798.331950483,
-#   3904084.2200530013,
-#   10737925.276977753,
-#   7381647.68935432,
-#   11412837.334886586,
-#   10087786.024035417,
-#   9936179.90547212,
-#   2461604.0058712866,
-#   2411367.4649931323]
+exp_ages_time_varying = [155593.52786932606,
+ 1050951.2248863552,
+ 2831348.702412607,
+ 1469311.5590249018,
+ 1592658.9714878928,
+ 2297144.5682555283,
+ 2803045.8427018654,
+ 5221658.721505653,
+ 855239.0185367782,
+ 1070701.220555257,
+ 3223913.7055379744,
+ 5221937.246334542,
+ 4744334.95240991,
+ 5023826.065186487,
+ 5810154.514717868,
+ 3730292.137318971,
+ 4070488.991956865,
+ 4202807.60792382,
+ 3984673.174236659,
+ 10952038.518797737,
+ 7544102.684698869,
+ 11641350.204300093,
+ 10293582.901721338,
+ 10139306.51186702,
+ 2513462.435254132,
+ 2461193.045742694,
+ 1933488.4986433575,
+ 2103438.741531167]
 
-# exp_ages_constant = [2990674.9547791057,
-#   2431916.217552013,
-#   2974591.3992882436,
-#   5456791.598782122,
-#   3418179.2227333765,
-#   5483880.018366278,
-#   5009229.467293485,
-#   5245524.757105527,
-#   6113163.708160606,
-#   3999211.357593979,
-#   4310674.068886829,
-#   4442160.370589831,
-#   4223348.946027382,
-#   12319371.654837996,
-#   8275636.121384772,
-#   13188879.74707849,
-#   11468208.919486826,
-#   11291749.683707338,
-#   2664551.4317678516,
-#   2585317.380928394]
+exp_ages_constant = [123788.57275789027,
+ 992608.0601948479,
+ 2968655.6947280755,
+ 1450321.8535919287,
+ 1602643.1662383978,
+ 2409491.1477360856,
+ 2947162.2389736497,
+ 5406473.6923960075,
+ 785195.75932338,
+ 1008751.7006882153,
+ 3386662.2202707627,
+ 5418024.084532633,
+ 4949073.613545629,
+ 5201138.962016999,
+ 6061436.255854619,
+ 3946894.108034649,
+ 4278386.705606539,
+ 4406785.074010707,
+ 4189716.1617380097,
+ 12221265.915827842,
+ 8211982.257018811,
+ 13087434.595280413,
+ 11379998.683515336,
+ 11201758.987958398,
+ 2643316.0303535247,
+ 2571250.308911892,
+ 1988876.5496879644,
+ 2178537.4577767653]
 
-# exp_ages_muons_tv = [2753701.4107777853,
-#   2056795.4435907109,
-#   2555151.201061768,
-#   5023786.798965172,
-#   3036213.925069018,
-#   5024321.868726578,
-#   4531786.161718714,
-#   4786715.492061025,
-#   5546595.182462663,
-#   3536620.176497739,
-#   3802736.2381327846,
-#   4025090.5900709876,
-#   3784680.5793326064,
-#   10552959.960047904,
-#   7278845.120270775,
-#   11285533.425735576,
-#   10018403.433793591,
-#   9791145.702431163,
-#   2298236.0942358165,
-#   2286441.4922106797]
+exp_neon_tv = [1317141.900055992,
+ 1268583.4965384267,
+ 381864.2661348289,
+ 254954.54699896005,
+ 478986.03282274,
+ 270179.90285424626,
+ 333922.3771803039,
+ 84982.44629013207,
+ 2283951.0567599516,
+ 2508554.1719347164,
+ 3300883.392604308,
+ 6285002.331971036,
+ 3728823.0171599705,
+ 2414086.6464455402]
 
-# exp_ages_muons_const = [2804694.601454547,
-#   2291451.7704243823,
-#   2801180.6267542527,
-#   5296654.495290533,
-#   3288119.3619893105,
-#   5303227.6317730425,
-#   5001584.898952547,
-#   5055488.738484894,
-#   6024849.306097686,
-#   3806980.741328083,
-#   4262879.589419506,
-#   4293269.676632794,
-#   4050497.5906659523,
-#   12263282.93816918,
-#   8254035.283485948,
-#   13040516.707969276,
-#   11297650.29089213,
-#   11257175.75048956,
-#   2537307.567803689,
-#   2518794.2504755203]
+exp_neon_const =  [1108315.8620698294,
+ 1059757.7974818319,
+ 268792.7044840601,
+ 254946.47715577335,
+ 365915.17197197385,
+ 352103.5900102401,
+ 251600.63040524072,
+ 84978.77752181498,
+ 2402271.341291927,
+ 2358069.467202251,
+ 3735179.200323837,
+ 6704330.923486828,
+ 3554715.2836084124,
+ 2286134.7752009244]
+exp_ages_dunai = [12079356.192299709,
+ 13243766.367313802,
+ 10226092.626417426,
+ 19169399.21252651,
+ 12359658.090757791,
+ 13637574.563267816,
+ 8365572.549046695,
+ 5682988.316644355,
+ 13458657.26751266,
+ 8595986.509027485,
+ 11081818.386184158,
+ 14615303.475366574,
+ 10606710.375174612,
+ 107348.07816393787,
+ 202768.59208743824,
+ 137166.98876503174]
 
+exp_ages_dunai_const = [12138950.788789494,
+ 12970666.541489856,
+ 9934981.671404669,
+ 19274627.48051447,
+ 12081487.205194987,
+ 13704418.904514944,
+ 8403927.916413188,
+ 5704804.809174601,
+ 13525501.390303448,
+ 8308602.68569148,
+ 11135397.325000148,
+ 14362946.778750991,
+ 10657111.587570492,
+ 107348.06214576238,
+ 202768.56183088454,
+ 137166.96829736306]
+# # exp_ages_muons_tv = [265411.22053419525,
+# #  982919.8929994438,
+# #  2532603.9804173275,
+# #  1430560.7831150235,
+# #  1351247.2152844712,
+# #  1854444.7045112464,
+# #  2534867.7285628067,
+# #  4233540.39638492,
+# #  1060190.8802123163,
+# #  1080490.0372512478,
+# #  2996807.1740701823,
+# #  4104499.1670110016,
+# #  4630602.751959682,
+# #  4371676.975538476,
+# #  4752786.197871009,
+# #  2801979.6923513245,
+# #  3348352.497011173,
+# #  3613128.693939878,
+# #  3178873.597239819,
+# #  9216300.193334645,
+# #  6559055.491510672,
+# #  9884634.340030625,
+# #  8497581.02133486,
+# #  8574486.078128759,
+# #  2375024.7017890974,
+# #  2159250.57668627,
+# #  1619310.1095379305,
+# #  1921898.406673565]
+
+# # exp_ages_muons_const = [265411.22053419525,
+# #  771696.2992130874,
+# #  2364046.9253956983,
+# #  1288396.5269947306,
+# #  1901956.603620552,
+# #  2011372.7603821848,
+# #  2787759.838818932,
+# #  4342267.915258035,
+# #  831247.9372817662,
+# #  819568.1619946248,
+# #  2792956.736881527,
+# #  4208692.379432997,
+# #  4531181.999072417,
+# #  4402361.75302382,
+# #  4882763.30644277,
+# #  3902945.4527308145,
+# #  3383552.0548880612,
+# #  3609680.411813231,
+# #  3575907.6624627025,
+# #  10031769.90397615,
+# #  6791671.54704856,
+# #  10539331.19720867,
+# #  9130919.117084693,
+# #  9209053.512951447,
+# #  2086283.9840488157,
+# #  2057308.5445523043,
+# #  1583453.4291142398,
+# #  1886041.726249874]
 
 # updated_texp_tv = []
 # updated_texp_const = []
@@ -362,27 +478,69 @@ UPDATED 1/30
 # updated_muons_const = []
 # updated_muons_tv_40 = []
 # updated_muons_const_40 = []
-# for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
-#     updated = exp_ages_time_varying[i]/10**6
-#     updated_texp_tv.append(updated) #Evenstar data
-#     updated_const = exp_ages_constant[i]/10**6 
-#     updated_texp_const.append(updated_const) #this model
-    
+# updated_dunai_const = []
+# updated_dunai = []
+# updated_neon_tv = []
+# updated_neon_const = []
+# # for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
+# #     updated = exp_ages_time_varying[i]/10**6
+# #     updated_texp_tv.append(updated) #Evenstar data
+# #     updated_const = exp_ages_constant[i]/10**6 
+# #     updated_texp_const.append(updated_const) #this model
 
-#     updatedmuons = exp_ages_muons_tv[i]/10**6
-#     updated_muons_tv.append(updatedmuons)
-#     updatedmuonsconst = exp_ages_muons_const[i]/10**6
-#     updated_muons_const.append(updatedmuonsconst)
+# # for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
+# #     updatedneontv = exp_neon_tv[i]/10**6
+# #     updated_neon_tv.append(updatedneontv)
+# #     updatedneonconst = exp_neon_const[i]/10**6
+# #     updated_neon_const.append(updatedneonconst)
+# for i in range(len(exp_ages_dunai)):
+#     updated_dunaix = exp_ages_dunai[i]/10**6
+#     updated_dunai_constx = exp_ages_dunai_const[i]/10**6
+#     updated_dunai.append(updated_dunaix)
+#     updated_dunai_const.append(updated_dunai_constx)
 
-# plt.plot([0,16], [0,16], 'k-') #1:1 line
+#     # updatedmuons = exp_ages_muons_tv[i]/10**6
+#     # updated_muons_tv.append(updatedmuons)
+#     # updatedmuonsconst = exp_ages_muons_const[i]/10**6
+#     # updated_muons_const.append(updatedmuonsconst)
+
+# plt.plot([0,21], [0,21], 'k-') #1:1 line
 # plt.rcParams["figure.figsize"] = [5,5] #update figure size
-# plt.plot(updated_texp_const,updated_texp_tv, 'o', c = 'darkblue', alpha = 0.7, label = '0-25 Ma')
-# #plt.plot(updated_muons_const,updated_muons_tv, 'x', markersize = 3, c = 'cornflowerblue', label = '0-25 Ma w muons')
-# #plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
+# plt.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c = 'darkblue', alpha = 0.7, label = '$^{3}He$ - Surface 2')
+# plt.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', alpha = 0.7, label = '$^{3}He$ - Surface 3')
+# plt.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue', alpha = 0.7, label = '$^{3}He$ - Surface 5')
+
+# plt.plot(updated_neon_const[0:9], updated_neon_tv[0:9], 's', c ='teal', alpha = 0.7,label = '$^{21}Ne$ - Surface 1')
+# plt.plot(updated_neon_const[9:11], updated_neon_tv[9:11], 's', c='darkblue', alpha = 0.7,label = '$^{21}Ne$ - Surface 2')
+# plt.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue', alpha = 0.7,label = '$^{21}Ne$ - Surface 3')
+# plt.plot(updated_neon_const[13], updated_neon_tv[13], 's', c='deepskyblue', alpha = 0.7,label = '$^{21}Ne$ - Surface 5')
+
+# plt.legend()
+
+# #plt.plot(updated_texp_const[26:28],updated_texp_tv[26:28], 'o', c = 'lightsteelblue', alpha = 0.7, label = '0-25 Ma')
+
+# # plt.plot(updated_muons_const[0:4],updated_muons_tv[0:4], 'x', markersize = 3, c = 'darkblue')
+# # plt.plot(updated_muons_const[4:17],updated_muons_tv[4:17], 'x', markersize = 3, c = 'darkblue')
+# # plt.plot(updated_muons_const[17:26],updated_muons_tv[17:26], 'x', markersize = 3, c = 'darkblue')
+
+
+
+
+# plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
 # plt.xlabel('Exposure Age [Ma] constant field', fontsize = 10)
 # plt.ylabel('Exposure Age [Ma] time-varying field', fontsize = 10)
-# plt.savefig(Read.directory+'/plots/Figure_8.png', dpi = 300, bbox_inches='tight')
+# #plt.savefig(Read.directory+'/plots/Figure_8.png', dpi = 300, bbox_inches='tight')
 
+
+# plt.plot(updated_dunai[0:5],updated_dunai_const[0:5],  's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# plt.plot(updated_dunai[5:9],updated_dunai_const[5:9],  's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# plt.plot(updated_dunai[9:13],updated_dunai_const[9:13],  's', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# plt.plot(updated_dunai[13:15],updated_dunai_const[13:15],  's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# plt.plot(updated_dunai[15:16],updated_dunai_const[15:16],  's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# plt.legend(frameon = True,facecolor='white',framealpha=1, fontsize = 10)
+# plt.xlabel('Exposure Age [Ma] constant field', fontsize = 10)
+# plt.ylabel('Exposure Age [Ma] time-varying field', fontsize = 10)
+# plt.savefig(Read.directory+'/plots/Figure_11.svg', dpi = 300, bbox_inches='tight')
 
 
 
@@ -483,6 +641,31 @@ Comparing bin size
 # plt.legend()
 # plt.savefig(Read.directory+'/plots/Figure_9.pdf', dpi = 300, bbox_inches='tight')
 
+
+
+# sf_50kyr = scaling_factor.Siteprod_df.iloc[0]
+# sf_50kyr.to_csv(directory+'/text_for_plots/sf_50kyr.csv')
+
+# sf_250kyr = scaling_factor.Siteprod_df.iloc[0]
+# sf_250kyr.to_csv(directory+'/text_for_plots/sf_250kyr.csv') 
+
+# sf_1ma= scaling_factor.Siteprod_df.iloc[0]
+# sf_1ma.to_csv(directory+'/text_for_plots/sf_1ma.csv') 
+
+time =  np.arange(0,20.05,0.25)
+time50 = np.arange(0,20.05,0.05)
+time1 = np.arange(0,20.05,1)
+x = Read.sf_50kyr.iloc[:,1]
+sub = x[::5]
+plt.rcParams["figure.figsize"] = [5,5] #update figure size 
+plt.xlim(0,20)
+plt.scatter(time, Read.sf_250kyr.iloc[:,1]/sub, s = 20, marker = 's', c = 'black',  label = '250 kyr')
+#plt.scatter(time50, Read.sf_50kyr.iloc[:,1], s = 15, c = 'cornflowerblue', alpha = 0.5, label = '50 kyr')
+#plt.scatter(time1, Read.sf_1ma.iloc[:,1], s = 15 ,c = 'seagreen', label = '1ma')
+plt.xlabel('Time (Ma)', fontsize = 13)
+plt.ylabel('Scaling Factor', fontsize = 13)
+plt.legend(loc = 'lower right')
+#plt.savefig(Read.directory+'/plots/Figure_12_alt.png', dpi = 300, bbox_inches='tight')
 """
 FIG X
 LIBARKIN DATASET

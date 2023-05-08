@@ -335,4 +335,6 @@ if Read.system == 4 :
         mflux_total_temp = np.trapz(Phimu.T.iloc[:,i], E_m_df.iloc[0,:])
         mflux_total.append(mflux_total_temp)
     pmuons_df = pd.DataFrame([(mflux_total[n:n+len(time)]) for n in range(0, len(mflux_total), len(time))])
-    
+
+    if Read.erosion[0] != int:
+        pmuons_df[:] = pmuons_df.values[:, ::-1]

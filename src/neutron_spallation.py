@@ -210,3 +210,6 @@ if Read.system == 4:
     pn = p21n_qtz
 lst = pn 
 pn_df = pd.DataFrame([(lst[n:n+len(time)]) for n in range(0, len(lst), len(time))])
+
+if Read.erosion[0] != int:
+    pn_df[:] = pn_df.values[:, ::-1]
