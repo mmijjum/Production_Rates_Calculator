@@ -46,30 +46,42 @@ PINT_model = pd.DataFrame(data=d)
 PINT_model.head()
 
 #Timesteps for different bin sizes
-ts_50kyr = np.arange(0, 71, 0.05) # 50 kyr bins
-
-ts_250kyr = np.arange(0, 71, 0.25) # 250 kyr bins
+ts_250kyr = np.arange(0, 71.005, 0.25) # 250 kyr bins
 ts_500kyr = np.arange(0, 71.005, 0.50) # 500 kyr bins
 ts_1ma = np.arange(0, 71.005, 1) # 1 Myr bins
 
 #Setting up datasets for each timestep
-d50kyr = {'age': ts_50kyr, 'mean': mean_f(ts_50kyr), 'upper': upper_f(ts_50kyr), 'lower': lower_f(ts_50kyr)}
-
 d250kyr = {'age': ts_250kyr, 'mean': mean_f(ts_250kyr), 'upper': upper_f(ts_250kyr), 'lower': lower_f(ts_250kyr)}
 d500kyr = {'age': ts_500kyr, 'mean': mean_f(ts_500kyr), 'upper': upper_f(ts_500kyr), 'lower': lower_f(ts_500kyr)}
 d1ma = {'age': ts_1ma, 'mean': mean_f(ts_1ma), 'upper': upper_f(ts_1ma), 'lower': lower_f(ts_1ma)}
 
 #Creating dataframes for each timestep
-PINT_model_50kyr = pd.DataFrame(data=d50kyr)
-
 PINT_model_250kyr = pd.DataFrame(data=d250kyr)
 PINT_model_500kyr = pd.DataFrame(data=d500kyr)
 PINT_model_1ma = pd.DataFrame(data=d1ma)
 
 #BELOW added by Moe for use in rest of model
-updated_df =  PINT_model_250kyr[(PINT_model_250kyr['age'] >= Read.timerange[0]) & (PINT_model_250kyr ['age'] < Read.timerange[1])]
-#print(PINT_df)
+
+array = PINT_model['mean'].values[1::]
+
+def groupedAvg(myArray, N=5):
+    result = np.cumsum(myArray, 0)[N-1::N]/float(N)
+    result[1:] = result[1:] - result[:-1]
+    return result
+
+z = groupedAvg(array)
+
+updated = np.insert(z,0, PINT_model['mean'].values[0])
+temp_means = pd.DataFrame(updated)
+temp_means.columns = ['mean']
+ts_250kyr_updated = pd.Series(ts_250kyr)
+temp_means['age'] = ts_250kyr_updated
+updated_df =  temp_means[(temp_means['age'] >= Read.timerange[0]) & (temp_means['age'] < Read.timerange[1])]
 means = updated_df['mean']
+
+#PREVIOUS code
+# updated_df =  PINT_model_250kyr[(PINT_model_250kyr['age'] >= Read.timerange[0]) & (PINT_model_250kyr ['age'] < Read.timerange[1])]
+# means = updated_df['mean']
 
 #Add GEOMAGIA vals to mean list
 # time = np.arange(0,70+0.05,0.25)
