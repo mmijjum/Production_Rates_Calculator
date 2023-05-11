@@ -122,10 +122,10 @@ Description of each of the scripts:
     * Exposure ages are calculated. 
     * If 21Ne: incorporates muons into calculation. 
 
-12) expage_modified.py
+12) erosion_rate.py
     * Tests a range of exposure ages and erosion rates to minimize chi-square values (of nuclide concentration)
 
-13) for_plotting.py ##NOTE FOR TYPICAL USE
+13) for_plotting.py ##NOT FOR TYPICAL USE
     * code for generating plots in Mijjum et al. (2023)
 
 ### Outputs
@@ -151,14 +151,12 @@ SPRITE calculates exposure ages using 3He and 21Ne measurements. The following a
 * Nuclide uncertainty (at/g)
 * Nuclide - mineral system 
 * Atmospheric conversion preference
-* Tectonic plate
 * Start and stop duration
-* Mineral nuclide pair
-* Atmospheric pressure conversion
 * Tectonic plate
+* Depth below paleosurface
+* Paleoduration
 
-* NOTE: only 'Active' tab is read into code. All other tabs are reference tables that can be copy-pasted into 'Active' to generate certain figures, or for specific datasets. 
-
+* NOTE: Details on how to format spreadsheet are in 'README' tab of 'inputs.xlsx'. Only 'Active' tab is read into code. All other tabs are reference tables that can be copy-pasted into 'Active' to generate certain figures, or for specific datasets. 
 2) Run 'expage.py' 
 
 3) Will output exposure ages for each sample. For ~20 samples, takes ~3 minutes to run for 20 Ma. 
