@@ -38,6 +38,8 @@ start = Exposure_Age_Inputs['Start']
 stop = Exposure_Age_Inputs['Stop']
 plate = Exposure_Age_Inputs['Plate']
 z_from_surface = Exposure_Age_Inputs['Depth below paleosurface']
+paleo = Exposure_Age_Inputs['Paleoduration?']
+
 if plate[0] == 1:
     plate = 'NA'
 if plate[0] == 2:
@@ -79,6 +81,7 @@ timerange = [start[0],stop[0]+0.05]
 
 time = np.arange(timerange[0], timerange[1], resolution) # time bin#for 250ka resolution, with first bin being 50 ka
 
+    
 #convert lat/lon/altitude to lists for use later.
 lat = site_lat.tolist()
 lon = site_lon.tolist()

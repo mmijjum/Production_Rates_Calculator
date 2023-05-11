@@ -211,5 +211,5 @@ if Read.system == 4:
 lst = pn 
 pn_df = pd.DataFrame([(lst[n:n+len(time)]) for n in range(0, len(lst), len(time))])
 
-if Read.erosion[0] == str:
+if Read.paleo[0] == 1:
     pn_df[:] = pn_df.values[:, ::-1]

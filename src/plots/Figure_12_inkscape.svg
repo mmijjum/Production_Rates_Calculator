@@ -13,8 +13,11 @@
    viewBox="0 0 350.38 320.863615"
    width="350.38pt"
    id="svg4159"
-   sodipodi:docname="Figure_12.svg"
-   inkscape:version="1.0.1 (c497b03c, 2020-09-10)">
+   sodipodi:docname="Figure_12_inkscape.svg"
+   inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
+   inkscape:export-filename="/Users/mmijjum/Documents/Production_Rates_Calculator/src/plots/Figure_12_inkscape.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
   <metadata
      id="metadata4163">
     <rdf:RDF>
@@ -23,6 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>

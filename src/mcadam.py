@@ -79,6 +79,7 @@ temp_means['age'] = ts_250kyr_updated
 updated_df =  temp_means[(temp_means['age'] >= Read.timerange[0]) & (temp_means['age'] < Read.timerange[1])]
 means = updated_df['mean']
 
+
 #PREVIOUS code
 # updated_df =  PINT_model_250kyr[(PINT_model_250kyr['age'] >= Read.timerange[0]) & (PINT_model_250kyr ['age'] < Read.timerange[1])]
 # means = updated_df['mean']
