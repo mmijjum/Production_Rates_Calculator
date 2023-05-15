@@ -26,7 +26,7 @@ Exposure_Age_Inputs = pd.read_excel(directory+'/Data/inputs.xlsx') #excel sheet 
 site_lat = Exposure_Age_Inputs['Latitude']
 site_lon = Exposure_Age_Inputs['Longitude']
 site_elevation = Exposure_Age_Inputs['Elevation']
-s_topo = Exposure_Age_Inputs['Shielding Correction']
+s_topo = Exposure_Age_Inputs['Topographic shielding correction']
 zmax = Exposure_Age_Inputs['Sample Thickness']
 rho = Exposure_Age_Inputs['Sample Density']
 erosion = Exposure_Age_Inputs['Erosion']
@@ -76,10 +76,10 @@ else:
 
 
 
-resolution = int(250000)/10**6
+resolution = int(250000)/10**6 #change from 250000 to 50000 for MCADAM full resolution
 timerange = [start[0],stop[0]+0.05]
 
-time = np.arange(timerange[0], timerange[1], resolution) # time bin#for 250ka resolution, with first bin being 50 ka
+time = np.arange(timerange[0], timerange[1], resolution)
 
     
 #convert lat/lon/altitude to lists for use later.
@@ -671,11 +671,11 @@ sf_1ma = pd.read_csv(directory+'/text_for_plots/sf_1ma.csv')
 
 #Figure 5
 
-GL_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_5_GL_ERA40', header = None)
-GL_STD = pd.read_csv(directory+'/text_for_plots/Figure_5_GL_STD', header = None)
+GL_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_7_GL_ERA40', header = None)
+GL_STD = pd.read_csv(directory+'/text_for_plots/Figure_7_GL_STD', header = None)
 
-EC_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_5_EC_ERA40', header = None)
-EC_STD = pd.read_csv(directory+'/text_for_plots/Figure_5_EC_STD', header = None)
+EC_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_7_EC_ERA40', header = None)
+EC_STD = pd.read_csv(directory+'/text_for_plots/Figure_7_EC_STD', header = None)
 
 Rc_full = pd.read_csv(directory+'/text_for_plots/Rc_full.csv', header = None)
 Rc_half = pd.read_csv(directory+'/text_for_plots/Rc_half.csv', header = None)

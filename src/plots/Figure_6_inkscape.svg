@@ -26,7 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -43,13 +43,14 @@
      inkscape:window-height="984"
      id="namedview6078"
      showgrid="false"
-     inkscape:zoom="1.6570348"
+     inkscape:zoom="1.9143682"
      inkscape:cx="416.40645"
      inkscape:cy="179.26593"
      inkscape:window-x="1440"
      inkscape:window-y="23"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg6076" />
+     inkscape:current-layer="svg6076"
+     inkscape:document-rotation="0" />
   <defs
      id="defs5149">
     <style
@@ -2131,4 +2132,26 @@
        x="-219.13684"
        y="593.89807"
        style="stroke-width:0.75;font-size:12.00000016px;">Deccan Traps</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;line-height:1.25;font-family:sans-serif;stroke-width:0.75"
+     x="64.250969"
+     y="29.774837"
+     id="text2323"><tspan
+       sodipodi:role="line"
+       id="tspan2321"
+       x="64.250969"
+       y="29.774837"
+       style="font-size:12px;stroke-width:0.75">A</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;line-height:1.25;font-family:sans-serif;stroke-width:0.75;stroke-linecap:butt;stroke-linejoin:round"
+     x="369.62308"
+     y="29.82736"
+     id="text2323-8"><tspan
+       sodipodi:role="line"
+       id="tspan2321-4"
+       x="369.62308"
+       y="29.82736"
+       style="font-size:12px;stroke-width:0.75">B</tspan></text>
 </svg>
