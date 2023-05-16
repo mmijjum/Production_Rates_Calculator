@@ -37,6 +37,15 @@ new_row = pd.DataFrame({'age': 0, '50%': GEOMAGIA_median, 'upper': GEOMAGIA_uppe
 PINT_df = pd.concat([new_row, MCADAM_qpi3]).reset_index(drop = True)
 PINT_df.rename(columns={'50%': 'median'}, inplace=True)
 
+mean_f = interp1d(PINT_df['age'], PINT_df['median'])
+upper_f = interp1d(PINT_df['age'], PINT_df['upper'])
+lower_f = interp1d(PINT_df['age'], PINT_df['lower'])
+
+#Create model at full-resolution
+timestep = np.arange(0, 71.005, 0.050) # 50 kyr bins
+d = {'age': timestep, 'median': mean_f(timestep), 'upper': upper_f(timestep), 'lower': lower_f(timestep)}
+PINT_model = pd.DataFrame(data=d)
+PINT_model.head()
 #Timesteps for different bin sizes
 ts_50kyr = np.arange(0, 71.005, 0.05) # 50 kyr bins
 ts_250kyr = np.arange(0, 71.005, 0.25) # 250 kyr bins
@@ -45,7 +54,7 @@ ts_1ma = np.arange(0, 71.005, 1) # 1 Myr bins
 
 # #BELOW added by Moe for use in rest of model
 
-array = PINT_df['median'].values[1::]
+array = PINT_df['median'].values[0::]
 
 def groupedAvg(myArray, N=5):
     result = np.cumsum(myArray, 0)[N-1::N]/float(N)
@@ -54,8 +63,7 @@ def groupedAvg(myArray, N=5):
 
 z = groupedAvg(array)
 
-updated = np.insert(z,0, PINT_df['median'].values[0])
-temp_median = pd.DataFrame(updated)
+temp_median = pd.DataFrame(z)
 temp_median.columns = ['median']
 ts_250kyr_updated = pd.Series(ts_250kyr)
 temp_median['age'] = ts_250kyr_updated

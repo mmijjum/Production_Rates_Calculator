@@ -33,7 +33,7 @@ tempvals = []
 tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
 lambdamu = 1300 #muon attenuation length in at/g/yr (Balco supplementary)
-erosion = 3*(10**-3) #cm/yr, per Dunai (2010)
+erosion = 20*(10**-3) #cm/yr, per Dunai (2010)
 dt = 250000
 rho = 2.32
 
@@ -51,7 +51,7 @@ concentrations = []
 #     Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*dt)) + muons.pmuons_df[1][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(dt))) 
 #     Ctot = Cspall + Cmuons
 #     concentrations.append(Cspall + Cmuons)
-# np.savetxt(directory+"/text_for_plots/lib_3e3.csv", 
+# np.savetxt(directory+"/text_for_plots/lib_20e3.csv", 
 #             concentrations,
 #             delimiter =", ", 
 #             fmt ='% s')
@@ -88,4 +88,4 @@ plt.xlim(0,100)
 plt.ylim(0,5e6)
 plt.xlabel('Depth below surface (cm)', fontsize = 12)
 plt.ylabel('Concentration (atoms/g)', fontsize = 12)
-plt.savefig(Read.directory+'/plots/Figure_10.svg', dpi = 300, bbox_inches='tight')
+plt.savefig(Read.directory+'/plots/Figure_10.pdf', dpi = 300, bbox_inches='tight')
