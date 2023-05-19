@@ -28,15 +28,15 @@ M_constant = 5.45938 #long term average from LSDn. M/M0 in final time bin is .70
 
 M_half = 4.545
 
-# for x in range (len(Pmag_paleolat.pl_df)):
-#     for i in range(len(mcadam.medians)):
-#         Rc_calc = (((mcadam.medians.iloc[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
-#         Rc_list.append(Rc_calc)
-# Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
-
-#RUN THIS if you want to apply long term average only
 for x in range (len(Pmag_paleolat.pl_df)):
     for i in range(len(mcadam.medians)):
-        Rc_calc = (((M_constant*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
+        Rc_calc = (((mcadam.medians.iloc[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
         Rc_list.append(Rc_calc)
 Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
+
+#RUN THIS if you want to apply long term average only
+# for x in range (len(Pmag_paleolat.pl_df)):
+#     for i in range(len(mcadam.medians)):
+#         Rc_calc = (((M_constant*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
+#         Rc_list.append(Rc_calc)
+# Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])

@@ -32,6 +32,7 @@ rho = Exposure_Age_Inputs['Sample Density']
 erosion = Exposure_Age_Inputs['Erosion']
 
 nuclide_concentration = Exposure_Age_Inputs['Nuclide Concentration']
+nuclide_uncertainty = Exposure_Age_Inputs['Nuclide Uncertainty']
 Nuclide = Exposure_Age_Inputs['Nuclide']
 atm = Exposure_Age_Inputs['Atmospheric conversion']
 start = Exposure_Age_Inputs['Start']
@@ -39,6 +40,7 @@ stop = Exposure_Age_Inputs['Stop']
 plate = Exposure_Age_Inputs['Plate']
 z_from_surface = Exposure_Age_Inputs['Depth below paleosurface']
 paleo = Exposure_Age_Inputs['Paleoduration?']
+expage = Exposure_Age_Inputs['Exposure Age']
 
 if plate[0] == 1:
     plate = 'NA'
@@ -51,10 +53,11 @@ if plate[0] == 4:
 if plate[0] == 5:
     plate = 'EU'
 if plate[0] == 6:
-    plate = 'ANT'
+    plate = 'AU'
 if plate[0] == 7:
+    plate = 'ANT'
+if plate[0] == 8:
     plate = 'GL'
-    
 if Nuclide[0] == 1:
     system = 1
 if Nuclide[0] == 2:
@@ -74,7 +77,7 @@ if Nuclide[0] != 4:
 else:
     muons = 'True'
 
-
+texp = expage[0]
 
 resolution = int(250000)/10**6 #change from 250000 to 50000 for MCADAM full resolution
 timerange = [start[0],stop[0]+0.05]
@@ -666,7 +669,7 @@ sf_std = pd.read_csv(directory+'/text_for_plots/sf_std.csv')
 sf_era= pd.read_csv(directory+'/text_for_plots/sf_era.csv')
 
 sf_50kyr = pd.read_csv(directory+'/text_for_plots/sf_50kyr.csv')
-sf_250kyr = pd.read_csv(directory+'/text_for_plots/sf_250kyr.csv')
+sf_250ka = pd.read_csv(directory+'/text_for_plots/sf_250ka.csv')
 sf_1ma = pd.read_csv(directory+'/text_for_plots/sf_1ma.csv')
 
 #Figure 5
@@ -688,8 +691,8 @@ x_c = pd.read_csv(directory+'/text_for_plots/x_c.csv', header = None)
 
 #Libarkin artificial curves
 lib5e3 = pd.read_csv(directory+'/text_for_plots/lib_5e3.csv', header = None)
-lib65e3 = pd.read_csv(directory+'/text_for_plots/lib_65e3.csv', header = None)
-lib1e2 = pd.read_csv(directory+'/text_for_plots/lib_1e2.csv', header = None)
+lib1e3 = pd.read_csv(directory+'/text_for_plots/lib_1e3.csv', header = None)
+lib5e4 = pd.read_csv(directory+'/text_for_plots/lib_5e4.csv', header = None)
 lib3e3 = pd.read_csv(directory+'/text_for_plots/lib_3e3.csv', header = None)
 lib10e3 = pd.read_csv(directory+'/text_for_plots/lib_10e3.csv', header = None)
 lib20e3 = pd.read_csv(directory+'/text_for_plots/lib_20e3.csv', header = None)

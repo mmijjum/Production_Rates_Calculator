@@ -54,7 +54,7 @@ ts_1ma = np.arange(0, 71.005, 1) # 1 Myr bins
 
 # #BELOW added by Moe for use in rest of model
 
-array = PINT_df['median'].values[0::]
+array = PINT_model['median'].values[0::]
 
 def groupedAvg(myArray, N=5):
     result = np.cumsum(myArray, 0)[N-1::N]/float(N)
@@ -63,6 +63,7 @@ def groupedAvg(myArray, N=5):
 
 z = groupedAvg(array)
 
+
 temp_median = pd.DataFrame(z)
 temp_median.columns = ['median']
 ts_250kyr_updated = pd.Series(ts_250kyr)
@@ -70,3 +71,21 @@ temp_median['age'] = ts_250kyr_updated
 updated_df =  temp_median[(temp_median['age'] >= Read.timerange[0]) & (temp_median['age'] < Read.timerange[1])]
 medians = updated_df['median']
 
+# updated_df.to_csv(directory+'/text_for_plots/medians_250ka.csv') 
+#PINT_model.to_csv(directory+'/text_for_plots/medians_50ka.csv') 
+
+# def groupedAvg(myArray, N=20):
+#     result = np.cumsum(myArray, 0)[N-1::N]/float(N)
+#     result[1:] = result[1:] - result[:-1]
+#     return result
+
+# z = groupedAvg(array)
+
+# temp_median = pd.DataFrame(z)
+# temp_median.columns = ['median']
+# ts_1ma_updated = pd.Series(ts_1ma)
+# temp_median['age'] = ts_1ma_updated
+# updated_df =  temp_median[(temp_median['age'] >= Read.timerange[0]) & (temp_median['age'] < Read.timerange[1])]
+# medians = updated_df['median']
+
+# updated_df.to_csv(directory+'/text_for_plots/medians_1ma.csv') 
