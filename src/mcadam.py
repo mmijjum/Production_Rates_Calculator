@@ -68,8 +68,10 @@ temp_median = pd.DataFrame(z)
 temp_median.columns = ['median']
 ts_250kyr_updated = pd.Series(ts_250kyr)
 temp_median['age'] = ts_250kyr_updated
-updated_df =  temp_median[(temp_median['age'] >= Read.timerange[0]) & (temp_median['age'] < Read.timerange[1])]
+updated_df =  temp_median[(temp_median['age'] >= Read.time[0]) & (temp_median['age'] <= Read.time[-1])]
 medians = updated_df['median']
+
+
 
 # updated_df.to_csv(directory+'/text_for_plots/medians_250ka.csv') 
 #PINT_model.to_csv(directory+'/text_for_plots/medians_50ka.csv') 

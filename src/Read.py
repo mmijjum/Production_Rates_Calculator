@@ -82,9 +82,18 @@ texp = expage[0]
 resolution = int(250000)/10**6 #change from 250000 to 50000 for MCADAM full resolution
 timerange = [start[0],stop[0]+0.05]
 
-time = np.arange(timerange[0], timerange[1], resolution)
+time_1 = np.arange(timerange[0], timerange[1], resolution)
+def round_down(num):
+    return num - (num%0.25)
 
-    
+time1 = round_down(timerange[0])
+
+def myround(x, base=0.25):
+    return base * round(x/base)
+
+time2 = myround(timerange[1])
+
+time = np.arange(time1,time2+0.05,resolution)
 #convert lat/lon/altitude to lists for use later.
 lat = site_lat.tolist()
 lon = site_lon.tolist()
@@ -696,3 +705,8 @@ lib5e4 = pd.read_csv(directory+'/text_for_plots/lib_5e4.csv', header = None)
 lib3e3 = pd.read_csv(directory+'/text_for_plots/lib_3e3.csv', header = None)
 lib10e3 = pd.read_csv(directory+'/text_for_plots/lib_10e3.csv', header = None)
 lib20e3 = pd.read_csv(directory+'/text_for_plots/lib_20e3.csv', header = None)
+
+Rc_const = pd.read_csv(directory+'/text_for_plots/Rc_const.csv', header = None)
+Rc_tv_latonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_latonly.csv', header = None)
+Rc_tv_fieldonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_fieldonly.csv', header = None)
+Rc_tv_both = pd.read_csv(directory+'/text_for_plots/Rc_tv_both.csv', header = None)
