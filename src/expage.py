@@ -31,13 +31,13 @@ sthick = shielding.S_thick[0]
 stopo = Read.s_topo
 erosion = Read.erosion
 if Read.system == 1:
-    slhl = 1 * (91.6318 + 14.7771) #1 = qtz non dimensional scaling factor, from Greg's make_consts
+    slhl = 1 * (91.452156 + 14.750325) #1 = qtz non dimensional scaling factor, from Greg's make_consts
 if Read.system == 2:
-    slhl = 1.369 * (80.1750 + 13.0628) #1.369 = LSDn non-dimensional correction factor (excluding a data point from calibration dataset, per Marissa)
+    slhl = 1.369 * (80.175076 + 13.062843) #1.369 = LSDn non-dimensional correction factor (excluding a data point from calibration dataset, per Marissa)
 if Read.system == 3:
-    slhl = 1.369 * (80.1750 + 13.0628) #1.369 = LSDn non-dimensional correction factor (excluding a data point from calibration dataset, per Marissa)
+    slhl = 1.369 * (78.28355 + 13.197369 ) #1.369 = LSDn non-dimensional correction factor (excluding a data point from calibration dataset, per Marissa)
 if Read.system == 4:
-    slhl = 1.272 * (11.8702 + 1.6269) #1.272 = non dimensional scaling factor, from Greg's make_consts
+    slhl = 1.272 * (11.847124 + 1.624044) #1.272 = non dimensional scaling factor, from Greg's make_consts
 tempvals = []
 tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
@@ -45,7 +45,11 @@ lambdamu = 1500 #muon attenuation length in at/g/yr (Balco supplementary)
 #lambdamu=8780 #3he, larsen
 dt = 250000
 #Pmu = 0.23 #larsen et al, this is for comparing 3He muon production
-dt_start = (Read.time1 + 0.25) - Read.timerange[0]
+if Read.paleo[0] == 0:
+    dt_start = (Read.time1 + 0.25) - Read.timerange[0]
+
+if Read.paleo[0] == 1:
+    dt_start = float(Read.timerange[-1] - Read.stop)
 
 firstbin  = []
 
@@ -72,7 +76,7 @@ if Read.muons == 'False':
     tempvals_df = pd.DataFrame([(tempvals[n:n+len(Read.time)]) for n in range(0, len(tempvals), len(Read.time))])
     tempvals_df[0] = bin1
 
-    #muons part
+    # #muons part
 
     iteration = []
     for i in range(len(tempvals_df)):
@@ -90,7 +94,10 @@ if Read.muons == 'False':
     for i in range (len(tempvals_df)):
         a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
         dt2 = ((n0[i]/(sthick[i] *stopo[i]* slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]]* np.exp((-erosion[i]*i)/lambdasp))
-        expage = ((iteration[i]-1) * dt) + (dt_start*10**6) + dt2
+        if iteration[i] == 0:
+            expage = dt2
+        else:
+            expage = ((iteration[i]-1) * dt) + (dt_start*10**6) + dt2
         exp_age.append(expage)
 
     

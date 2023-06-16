@@ -80,20 +80,35 @@ else:
 texp = expage[0]
 
 resolution = int(250000)/10**6 #change from 250000 to 50000 for MCADAM full resolution
-timerange = [start[0],stop[0]+0.05]
+if paleo[0] ==0: 
+    timerange = [start[0],stop[0]+0.05]
+    
+    time_1 = np.arange(timerange[0], timerange[1], resolution)
+    def round_down(num):
+        return num - (num%0.25)
+    
+    time1 = round_down(timerange[0])
+    
+    def myround(x, base=0.25):
+        return base * round(x/base)
+    
+    time2 = myround(timerange[1])
+    time = np.arange(time1,time2+.25,resolution)
 
-time_1 = np.arange(timerange[0], timerange[1], resolution)
-def round_down(num):
-    return num - (num%0.25)
+if paleo[0] == 1:
+    timerange = [start[0]+0.05,stop[0]]
+    def round_down(num):
+        return num - (num%0.25)
 
-time1 = round_down(timerange[0])
+    time1 = round_down(timerange[1])
+    
+    def myround(x, base=0.25):
+        return base * round(x/base)
 
-def myround(x, base=0.25):
-    return base * round(x/base)
+    time2 = myround(timerange[0])
 
-time2 = myround(timerange[1])
-
-time = np.arange(time1,time2+0.05,resolution)
+    
+    time = np.arange(time2,time1+0.5,resolution)
 #convert lat/lon/altitude to lists for use later.
 lat = site_lat.tolist()
 lon = site_lon.tolist()
@@ -659,7 +674,10 @@ upper = pd.read_csv(directory+'/text_for_plots/sf_upper.csv')
 lower = pd.read_csv(directory+'/text_for_plots/sf_lower.csv')
 
 
+chisq_neg33 = pd.read_csv(directory+'/text_for_plots/chisq_neg33.csv', header = None)
+chisq_neg73 = pd.read_csv(directory+'/text_for_plots/chisq_neg73.csv', header = None)
 
+chisq_neg1003 = pd.read_csv(directory+'/text_for_plots/chisq_neg1003.csv', header = None)
 chisq_neg203 = pd.read_csv(directory+'/text_for_plots/chisq_neg203.csv', header = None)
 chisq_neg153 = pd.read_csv(directory+'/text_for_plots/chisq_neg153.csv', header = None)
 chisq_neg103 = pd.read_csv(directory+'/text_for_plots/chisq_neg103.csv', header = None)

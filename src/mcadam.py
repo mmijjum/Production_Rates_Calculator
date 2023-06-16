@@ -18,76 +18,28 @@ import matplotlib.pyplot as plt
 directory = os.path.dirname(__file__)
 
 #Read in excerpt of MCADAM1.b model (QPI>=3) (Bono et al., 2021)
-MCADAM_qpi3 = pd.read_csv(directory+'/Data/MCADAM_1b.csv') 
 
-#Read in volcanic and archeomagnetic data from GEOMAGIA50.v3 (Brown et al., 2015)
-#Calculate mean and std
-GEOMAGIA = pd.read_csv(directory+'/Data/archeo010.csv', header=1)
-GEOMAGIA_median = np.median(GEOMAGIA['VADM[E22_AmE2]'])
-GEOMAGIA_std = np.std(GEOMAGIA['VADM[E22_AmE2]'])
+MCADAM_250ka_full = pd.read_excel(directory+'/Data/mcadam_v1b_cosmo250kyr.xlsx', index_col=0) 
+MCADAM_250 = MCADAM_250ka_full.iloc[0:281]
 
-#Calculate uncertainty envelopes at +/- 1 sigma
-MCADAM_qpi3['upper'] = MCADAM_qpi3['50%'] + (1 * MCADAM_qpi3['std'])
-MCADAM_qpi3['lower'] = MCADAM_qpi3['50%'] - (1 * MCADAM_qpi3['std'])
-GEOMAGIA_upper = GEOMAGIA_median + (GEOMAGIA_std * 1)
-GEOMAGIA_lower = GEOMAGIA_median - (GEOMAGIA_std * 1)
-
-#Combine data
-new_row = pd.DataFrame({'age': 0, '50%': GEOMAGIA_median, 'upper': GEOMAGIA_upper, 'lower': GEOMAGIA_lower}, index=[0])
-PINT_df = pd.concat([new_row, MCADAM_qpi3]).reset_index(drop = True)
-PINT_df.rename(columns={'50%': 'median'}, inplace=True)
-
-mean_f = interp1d(PINT_df['age'], PINT_df['median'])
-upper_f = interp1d(PINT_df['age'], PINT_df['upper'])
-lower_f = interp1d(PINT_df['age'], PINT_df['lower'])
-
-#Create model at full-resolution
-timestep = np.arange(0, 71.005, 0.050) # 50 kyr bins
-d = {'age': timestep, 'median': mean_f(timestep), 'upper': upper_f(timestep), 'lower': lower_f(timestep)}
-PINT_model = pd.DataFrame(data=d)
-PINT_model.head()
-#Timesteps for different bin sizes
-ts_50kyr = np.arange(0, 71.005, 0.05) # 50 kyr bins
-ts_250kyr = np.arange(0, 71.005, 0.25) # 250 kyr bins
-ts_1ma = np.arange(0, 71.005, 1) # 1 Myr bins
-
-
-# #BELOW added by Moe for use in rest of model
-
-array = PINT_model['median'].values[0::]
-
-def groupedAvg(myArray, N=5):
-    result = np.cumsum(myArray, 0)[N-1::N]/float(N)
-    result[1:] = result[1:] - result[:-1]
-    return result
-
-z = groupedAvg(array)
-
-
-temp_median = pd.DataFrame(z)
-temp_median.columns = ['median']
-ts_250kyr_updated = pd.Series(ts_250kyr)
-temp_median['age'] = ts_250kyr_updated
+temp_median =pd.concat([MCADAM_250['age'],MCADAM_250['50%']],axis=1)
 updated_df =  temp_median[(temp_median['age'] >= Read.time[0]) & (temp_median['age'] <= Read.time[-1])]
-medians = updated_df['median']
+medians = updated_df['50%'].reset_index(drop=True)
 
 
+#50kyr resolution model
+#need to update time range in 'read' to use this
 
-# updated_df.to_csv(directory+'/text_for_plots/medians_250ka.csv') 
-#PINT_model.to_csv(directory+'/text_for_plots/medians_50ka.csv') 
+# MCADAM_50ka_full = pd.read_excel(directory+'/Data/mcadam_v1b_cosmo50kyr.xlsx', index_col=0) 
+# MCADAM_50 = MCADAM_50ka_full[0:1401]
+# temp_median =pd.concat([MCADAM_50['age'],MCADAM_50['50%']],axis=1)
+# updated_df =  temp_median[(temp_median['age'] >= Read.time[0]) & (temp_median['age'] <= Read.time[-1])]
+# medians = updated_df['50%']
 
-# def groupedAvg(myArray, N=20):
-#     result = np.cumsum(myArray, 0)[N-1::N]/float(N)
-#     result[1:] = result[1:] - result[:-1]
-#     return result
-
-# z = groupedAvg(array)
-
-# temp_median = pd.DataFrame(z)
-# temp_median.columns = ['median']
-# ts_1ma_updated = pd.Series(ts_1ma)
-# temp_median['age'] = ts_1ma_updated
-# updated_df =  temp_median[(temp_median['age'] >= Read.timerange[0]) & (temp_median['age'] < Read.timerange[1])]
-# medians = updated_df['median']
-
-# updated_df.to_csv(directory+'/text_for_plots/medians_1ma.csv') 
+#1000kyr resolution model
+#need to update time range in 'read' to use this
+# MCADAM_1000ka_full = pd.read_excel(directory+'/Data/mcadam_v1b_cosmo1000kyr.xlsx', index_col=0) 
+# MCADAM_1000 = MCADAM_1000ka_full.iloc[0:71]
+# temp_median =pd.concat([MCADAM_1000['age'],MCADAM_1000['50%']],axis=1)
+# updated_df =  temp_median[(temp_median['age'] >= Read.time[0]) & (temp_median['age'] <= Read.time[-1])]
+# medians = updated_df['50%']
