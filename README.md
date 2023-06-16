@@ -123,10 +123,7 @@ Description of each of the scripts:
     * Exposure ages are calculated. 
     * If 21Ne: incorporates muons into calculation. 
 
-12) erosion_rate.py
-    * Tests a range of exposure ages and erosion rates to minimize chi-square values (of nuclide concentration)
-
-13) for_plotting.py ##NOT FOR TYPICAL USE
+12) for_plotting.py ##NOT FOR TYPICAL USE
     * code for generating plots in Mijjum et al. (2023)
 
 ### Outputs
