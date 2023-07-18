@@ -18,10 +18,15 @@ Created on Tue Nov  1 14:22:28 2022
 
 #Exposure Age
 
+#SET DIRECTORY
+import glob
+import os
 
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+directory = os.path.dirname(__file__)
+import Read
 import numpy as np
 import pandas as pd
-import Read
 import scaling_factor
 import shielding
 import muons
@@ -189,13 +194,17 @@ if Read.muons == 'True':
     for i in range (len(tempvals_df)):
         x = tempvals_df.iloc[i][0]
         y = tempvals_df_mu.iloc[i][0]
+        
         for j in range(len(tempvals_df.iloc[0])):
             l = func(sthick[i],stopo[i],x) + y
+
             if l < n0[i]:
                 x += tempvals_df.iloc[i][j+1]
                 y += tempvals_df_mu.iloc[i][j+1]
+    
             else:
                 iteration.append(j)
+            
                 break
             
     exp_age = []

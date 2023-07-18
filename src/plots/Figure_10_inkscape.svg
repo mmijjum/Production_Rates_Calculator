@@ -26,7 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -43,13 +43,14 @@
      inkscape:window-height="771"
      id="namedview1949"
      showgrid="false"
-     inkscape:zoom="0.91378415"
-     inkscape:cx="234.80007"
-     inkscape:cy="241.91094"
+     inkscape:zoom="0.78744332"
+     inkscape:cx="-60.988311"
+     inkscape:cy="177.59807"
      inkscape:window-x="0"
      inkscape:window-y="23"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg1947" />
+     inkscape:current-layer="svg1947"
+     inkscape:document-rotation="0" />
   <defs
      id="defs1413">
     <style
@@ -692,22 +693,6 @@
              transform="translate(18.12 230.618437)rotate(-90)scale(0.12 -0.12)"
              id="g1751">
             <use
-               transform="translate(0 0.765625)"
-               xlink:href="#DejaVuSans-Oblique-78"
-               id="use1687" />
-            <use
-               transform="translate(74.804688 0.765625)"
-               xlink:href="#DejaVuSans-Oblique-101"
-               id="use1689" />
-            <use
-               transform="translate(140.978021 39.046875)scale(0.7)"
-               xlink:href="#DejaVuSans-50"
-               id="use1691" />
-            <use
-               transform="translate(185.514154 39.046875)scale(0.7)"
-               xlink:href="#DejaVuSans-49"
-               id="use1693" />
-            <use
                transform="translate(232.784661 0.765625)"
                xlink:href="#DejaVuSans-32"
                id="use1695" />
@@ -1249,4 +1234,18 @@
          id="rect1942" />
     </clipPath>
   </defs>
+  <text
+     xml:space="preserve"
+     style="font-size:12px;line-height:1.25;font-family:sans-serif;stroke-width:0.75"
+     x="-229.54459"
+     y="17.913746"
+     id="text21438"
+     transform="rotate(-90)"><tspan
+       sodipodi:role="line"
+       id="tspan21436"
+       x="-229.54459"
+       y="17.913746"
+       style="font-size:12px;stroke-width:0.75"><tspan
+   style="font-size:65%;baseline-shift:super"
+   id="tspan21448">21</tspan>Ne</tspan></text>
 </svg>

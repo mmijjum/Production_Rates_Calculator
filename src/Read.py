@@ -40,7 +40,6 @@ stop = Exposure_Age_Inputs['Stop']
 plate = Exposure_Age_Inputs['Plate']
 z_from_surface = Exposure_Age_Inputs['Depth below paleosurface']
 paleo = Exposure_Age_Inputs['Paleoduration?']
-expage = Exposure_Age_Inputs['Exposure Age']
 
 if plate[0] == 1:
     plate = 'NA'
@@ -77,7 +76,6 @@ if Nuclide[0] != 4:
 else:
     muons = 'True'
 
-texp = expage[0]
 
 resolution = int(250000)/10**6 #change from 250000 to 50000 for MCADAM full resolution
 if paleo[0] ==0: 
