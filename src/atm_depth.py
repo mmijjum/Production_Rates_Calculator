@@ -104,5 +104,5 @@ def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(xdf)
 
-# xn = np.repeat(1013.25*1.019716, len(xdf) * len(time))
-# x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
+xn = np.repeat(1013.25*1.019716, len(xdf) * len(time))
+x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])

@@ -726,3 +726,9 @@ Rc_const = pd.read_csv(directory+'/text_for_plots/Rc_const.csv', header = None)
 Rc_tv_latonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_latonly.csv', header = None)
 Rc_tv_fieldonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_fieldonly.csv', header = None)
 Rc_tv_both = pd.read_csv(directory+'/text_for_plots/Rc_tv_both.csv', header = None)
+
+north_america = pd.read_csv(directory+'/text_for_plots/north_america.csv', header = None)
+poles = pd.read_csv(directory+'/text_for_plots/poles.csv', header = None)
+equator = pd.read_csv(directory+'/text_for_plots/equator.csv', header = None)
+
+

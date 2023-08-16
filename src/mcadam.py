@@ -26,7 +26,6 @@ temp_median =pd.concat([MCADAM_250['age'],MCADAM_250['50%']],axis=1)
 updated_df =  temp_median[(temp_median['age'] >= Read.time[0]) & (temp_median['age'] <= Read.time[-1])]
 medians = updated_df['50%'].reset_index(drop=True)
 
-
 #50kyr resolution model
 #need to update time range in 'read' to use this
 

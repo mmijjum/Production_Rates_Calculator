@@ -69,3 +69,4 @@ if Read.system == 4:
 
     
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
+

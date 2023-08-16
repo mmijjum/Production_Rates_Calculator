@@ -35,17 +35,17 @@ Flux comparisons
 # plt.figure(figsize=(8,6)) 
 # plt.yscale('log')
 # plt.xscale('log')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0], '--',c = 'darkblue', label = 'Sea level, pole')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Sea level, equator')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
-# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkgreen', label = '2000 masl, equator')
+# plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[0]*neutron_spallation.E.iloc[:,0],c = 'black', label = 'Sea level, pole')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[2]*neutron_spallation.E.iloc[:,0], c = 'darkblue', label = 'Sea level, equator')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[8]*neutron_spallation.E.iloc[:,0], '--', c = 'darkgreen', label = '2000 masl, pole')
+# # plt.plot(neutron_spallation.E.iloc[:,0], neutron_spallation.PhiGMev[10]*neutron_spallation.E.iloc[:,0],  c = 'darkgreen', label = '2000 masl, equator')
 
 
 # plt.ylabel('Differential Flux' r'$ \;\times$' 'Energy ' '$ (cm^{-2} s^{-1}$)', fontsize = 13)
 # plt.xlabel('Energy (MeV)', fontsize = 13)
-# plt.legend(loc='lower left')
-# plt.savefig(directory+'/plots/Figure_1.pdf', dpi = 300, bbox_inches='tight')
-
+# # plt.legend(loc='lower left')
+# plt.tick_params(left=False, bottom=False, labelleft=False, labelbottom=False)
+# plt.savefig(directory+'/plots/Figure_1_modified.svg', dpi = 300, bbox_inches='tight')
 
 """
 Figure 2
@@ -57,43 +57,43 @@ Rc vs. Scaling Factor
 # # note: make sure you hard code atm depth to 1033 g/cm2
 
 
-# paleolatitudes = np.arange(0,92,2)
+# paleolatitudes = np.arange(0,91,1)
 # fig,ax = plt.subplots()
 
 
-# # make a plot with different y-axis using second axis object
-# ax.plot(paleolatitudes, Read.Rc_full[1][1:],color="darkblue")
-# ax.plot(paleolatitudes, Read.Rc_half[1][1:],color="darkblue", linestyle = '-.')
+# # # make a plot with different y-axis using second axis object
+# ax.plot(paleolatitudes, Read.Rc_full[1][1:],linewidth = 2.5, color="mediumorchid")
+# ax.plot(paleolatitudes, Read.Rc_half[1][1:],linewidth = 2.5, color="mediumorchid", linestyle = '-.')
 
 # ax.set_ylim(top = 15)
 
 # ax.set_ylabel("Cutoff Rigidity (GV)",
-#               color="darkblue",
+#               color="mediumorchid",
 #               fontsize=13)
 # ax.set_xlabel("Geomagnetic Latitude", fontsize = 13)
-# ax.spines['left'].set_color('darkblue')
-# ax.tick_params(axis='y', colors='darkblue')
+# ax.spines['left'].set_color('mediumorchid')
+# ax.tick_params(axis='y', colors='mediumorchid')
 
 # # twin object for two different y-axis on the sample plot
 # ax2=ax.twinx()
-# ax2.plot(paleolatitudes, Read.sf_half[1][1:],
-#         color="darkgreen", linestyle = '-.', label = "$M_{half}$")
-# ax2.plot(paleolatitudes, Read.sf_full[1][1:],
-#         color="darkgreen", label = "$M_{present}$")
+# ax2.plot(paleolatitudes, Read.sf_half[1][1:], linewidth = 2.5,
+#         color="teal", linestyle = '-.', label = "$M_{half}$")
+# ax2.plot(paleolatitudes, round(Read.sf_full[1][1:],4),linewidth = 2.5,
+#         color="teal", label = "$M_{present}$")
 
 # ax2.set_ylim(top=1.1)
-# ax2.set_ylim(bottom=0.44)
+# ax2.set_ylim(bottom=0.5)
 
 # # set x-axis label
 # # set y-axis label
 # ax2.set_xlim(left=0)
 # ax2.set_xlim(right=90)
-# ax2.set_ylabel("Scaling Factor",color="darkgreen",fontsize=13)
-# ax2.tick_params(axis='y', colors='darkgreen')
+# ax2.set_ylabel("Scaling Factor",color="teal",fontsize=13)
+# ax2.tick_params(axis='y', colors='teal')
 
 # ax2.legend(loc = 'right')
 
-# plt.savefig(Read.directory+'/plots/Figure_2.png', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots/Figure_2.svg', dpi = 300, bbox_inches='tight')
 
 ##DO NUT RUN, SAVED CSV's##
 # Rc_half = Rc.Rc.iloc[:,0]
@@ -142,10 +142,10 @@ UPDATED: 1/30
 
 # time = np.arange(0,70+0.25,0.25)
 # ax0 = fig.add_subplot(spec[0, :])
-# ax0.plot(time,Read.IN.iloc[:,1]/Read.IN.iloc[0,1], 'royalblue', label = 'India (20N, 73E)')
-# ax0.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue')
-# ax0.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen')
-# ax0.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen')
+# ax0.plot(time,Read.IN.iloc[:,1]/Read.IN.iloc[0,1], linewidth = 2.5, c = 'royalblue', label = 'India (20N, 73E)')
+# ax0.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], linewidth = 2.5, c = 'mediumorchid')
+# ax0.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), linewidth = 2.5, c = 'darkblue')
+# ax0.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), linewidth = 2.5, c = 'mediumseagreen')
 # ax0.text(65,0, 'A', fontsize = 22)
 
 # plt.axhspan(0.85, 1.1, xmin=0, xmax=1, color = 'gray', alpha = 0.5)
@@ -155,16 +155,16 @@ UPDATED: 1/30
 # #annotate_axes(ax0, 'ax0')
 
 # ax10 = fig.add_subplot(spec[1, :])
-# ax10.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], 'darkblue', label = 'Greenland (75N, 42W)')
-# ax10.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), 'mediumseagreen', label = 'Northern Chile (19S, 69W)')
-# ax10.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), 'darkgreen', label = 'South Africa (31S, 22E)')
+# ax10.plot(time,Read.GL.iloc[:,1]/Read.GL.iloc[0,1], linewidth = 2.5, c = 'mediumorchid', label = 'Greenland (75N, 42W)')
+# ax10.plot(time,(Read.SA.iloc[:,1]+90)/(Read.SA.iloc[0,1]+90), linewidth = 2.5, c = 'darkblue', label = 'Northern Chile (19S, 69W)')
+# ax10.plot(time,(Read.AF.iloc[:,1]+90)/(Read.AF.iloc[0,1]+90), linewidth = 2.5, c = 'mediumseagreen', label = 'South Africa (31S, 22E)')
 # ax10.set_xlim(0, 70)
 # ax10.text(65,0.93, 'B', fontsize = 22)
 
 # plt.legend()
 
 
-# plt.savefig(directory+'/plots/Figure_4.svg', dpi = 300, bbox_inches='tight')
+# plt.savefig(directory+'/plots/Figure_4.png', dpi = 300, bbox_inches='tight')
 """
 Figure 4
 Workflow figure
@@ -199,20 +199,32 @@ Comparing bin size
 # time1 =  np.arange(0,70.05,0.05)
 # time2=  np.arange(0,70.05,0.25)
 
-# x = Read.sf_50kyr.iloc[:,1]
+#x = Read.sf_50kyr.iloc[:,1]
 
-# plt.rcParams["figure.figsize"] = [7,4] #update figure size 
+# plt.rcParams["figure.figsize"] = [5,4] #update figure size 
 
-# # plt.scatter(time, Read.sf_250kyr.iloc[:,1]/sub[:], s = 20, marker = 's', c = 'cornflowerblue',  label = '250 kyr')
-# # plt.scatter(time, Read.sf_250kyr.iloc[:,1]/gupdated[:], s = 15 ,c = 'teal', label = '1ma')
-# plt.plot(time1, Read.sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x, c = 'gray',  label = 'SF(250 kyr) : SF(50 kyr)')
-# plt.plot(time2,  Read.sf_250ka.iloc[:,1]/Read.sf_1ma.iloc[:,1].repeat(4).reset_index(drop=True).iloc[3:].reset_index(drop=True), c = 'darkgreen', label = 'SF(250 kyr): SF(1 Myr)')
-# plt.xlabel('Time (Ma)', fontsize = 13)
-# plt.ylabel('Scaling factor ratio', fontsize = 13)
-# plt.legend(loc = 'lower right')
-# plt.xlim(0,70)
-# plt.axhline(y = 1, color = 'black', lw = 3)
 
+# # plt.plot(time1, Read.sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x, c = 'gray',  label = 'SF(250 kyr) : SF(50 kyr)')
+# # plt.plot(time2,  Read.sf_250ka.iloc[:,1]/Read.sf_1ma.iloc[:,1].repeat(4).reset_index(drop=True).iloc[3:].reset_index(drop=True), c = 'darkgreen', label = 'SF(250 kyr): SF(1 Myr)')
+# # plt.xlabel('Time (Ma)', fontsize = 13)
+# # plt.ylabel('Scaling factor ratio', fontsize = 13)
+# # plt.legend(loc = 'lower right')
+# # plt.xlim(0,70)
+# # plt.axhline(y = 1, color = 'black', lw = 3)
+# w = 0.02
+# plt.ylim(0,0.8)
+# data = Read.sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x
+# data2= Read.sf_250ka.iloc[:,1]/Read.sf_1ma.iloc[:,1].repeat(4).reset_index(drop=True).iloc[3:].reset_index(drop=True)
+# x, bins, p = plt.hist(data,  bins=np.arange(min(data), max(data) + w, w), density = True,color = 'darkblue', label = 'SF(250 kyr) : SF(50 kyr)')
+# y, bins, q = plt.hist(data2,bins=np.arange(min(data2), max(data2) + w, w), density = True, color = 'cornflowerblue', alpha = 0.7, label = 'SF(250 kyr): SF(1000 kyr)')
+
+# for item in p:
+#     item.set_height(item.get_height()/sum(x))
+# for item in q:
+#     item.set_height(item.get_height()/sum(y))
+# plt.legend(bbox_to_anchor=(0, 0.2), prop={'size':9}, loc = 'lower left')
+# plt.xlabel('Scaling factor ratio', fontsize = 13)
+# plt.ylabel('Normalized number of occurrences', fontsize = 13)
 # plt.savefig(Read.directory+'/plots/Figure_6.svg', dpi = 300, bbox_inches='tight')
 
 
@@ -240,7 +252,7 @@ Atmospheric Depth / SF variations
 
 
 #START RUN#
-#from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
+# from mpl_toolkits.axes_grid.inset_locator import (inset_axes, InsetPosition,
 #                                                   mark_inset)
 # import matplotlib.patches as patches
 # fig = plt.figure(figsize=(4,4))
@@ -250,8 +262,8 @@ Atmospheric Depth / SF variations
 
 # fig, ax1 = plt.subplots()
 # ax1.set_aspect('equal')
-# ax1.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
-# ax1.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
+# ax1.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  linewidth = 2.5, markersize = 6, label = 'High latitude: 75N,40E ', c = 'mediumorchid')
+# ax1.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',   linewidth = 2.5,  markersize = 6,label = 'Equator: 0N, 78E' , c = 'teal')
 # ax1.set_ylabel('Scaling factor using ERA40')
 # ax1.set_xlabel('Scaling factor using standard atmosphere')
 # ax1.legend(loc=0)
@@ -263,15 +275,15 @@ Atmospheric Depth / SF variations
 
 # left, bottom, width, height = [0.53, 0.2, 0.20, 0.25] # modify to move the inset curve and change its size
 # ax2 = fig.add_axes([left, bottom, width, height])
-# ax2.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  markersize = 4, label = 'High latitude: 75N,40E ', c = 'darkmagenta')
-# ax2.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',    markersize = 4,label = 'Equator: 0N, 78E' , c = 'green')
+# ax2.plot(Read.GL_STD.iloc[1:12][1],Read.GL_ERA40.iloc[1:12][1], 'x-',  linewidth = 2.5, markersize = 6, label = 'High latitude: 75N,40E ', c = 'mediumorchid')
+# ax2.plot(Read.EC_STD.iloc[1:12][1],Read.EC_ERA40.iloc[1:12][1], 'x-',  linewidth = 2.5,   markersize = 6,label = 'Equator: 0N, 78E' , c = 'teal')
 # ax2.set_xlim(0,5)
 # ax2.set_ylim(0,5)
 # ax2.set_xticks([0, 2,4])
 # ax2.set_yticks([0,2,4])
 # ax2.tick_params(axis='both', which='major', labelsize=8)
 
-# plt.savefig(Read.directory+'/plots/Figure_7.pdf', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots/Figure_7.svg', dpi = 300, bbox_inches='tight')
 
 """
 FIGURE 8
@@ -292,31 +304,31 @@ Scaling factor TV and Constant
 # sf_india_tvlatonly.to_csv(directory+'/text_for_plots/sf_india_tvlatonly.csv') 
 
 # # #BEGIN
-# time = np.linspace(0,70,281)
-# f = plt.figure(figsize=(10,4))
-# ax = f.add_subplot(121)
-# ax2 = f.add_subplot(122)
-# ax.plot(time,Read.sf_IN.iloc[:,1], c = 'cornflowerblue',label = 'time-varying field and latitude')
-# ax.plot(time,Read.sf_IN_const.iloc[:,1], '--',c = 'gray', label = 'constant field and latitude')
-# ax.set_xlim(0,70)
-# ax.set_ylim(0.50,0.95)
-# ax.vlines(66.052, 0.50, 0.95)
-# ax.set_xlabel('Time (Ma)', fontsize = 13)
-# ax.set_ylabel('Scaling Factor', fontsize = 13)
-# ax.legend(loc = 'lower left')
+time = np.linspace(0,70,281)
+f = plt.figure(figsize=(10,4))
+ax = f.add_subplot(121)
+ax2 = f.add_subplot(122)
+ax.plot(time,Read.sf_IN.iloc[:,1], linewidth = 2.5, c = 'mediumorchid',label = 'time-varying field and latitude')
+ax.plot(time,Read.sf_IN_const.iloc[:,1], '--',linewidth = 2.5,c = 'black', label = 'constant field and latitude')
+ax.set_xlim(0,70)
+ax.set_ylim(0.50,0.95)
+ax.vlines(66.052, 0.50, 0.95, linewidth = 2.5)
+ax.set_xlabel('Time (Ma)', fontsize = 13)
+ax.set_ylabel('Scaling Factor', fontsize = 13)
+ax.legend(loc = 'lower left')
 
-# ax2.plot(time,Read.sf_IN_tvfieldonly.iloc[:,1], c = 'darkblue',label = 'time-varying field, constant latitude')
-# ax2.plot(time,Read.sf_IN_tvlatonly.iloc[:,1], '--',c = 'darkblue', label = 'constant field, time-varying latitude')
-# ax2.set_xlim(0,70)
-# ax2.set_ylim(0.50,0.95)
-# ax2.vlines(66.052, 0.50, 0.95)
-# ax2.set_xlabel('Time (Ma)', fontsize = 13)
-# ax2.legend(loc = 'lower left')
-# plt.setp(ax2.get_yticklabels(), visible=False)
+ax2.plot(time,Read.sf_IN_tvfieldonly.iloc[:,1], linewidth = 2.5,c = 'teal',label = 'time-varying field, constant latitude')
+ax2.plot(time,Read.sf_IN_tvlatonly.iloc[:,1], '--',linewidth = 2.5,c = 'cornflowerblue', label = 'constant field, time-varying latitude')
+ax2.set_xlim(0,70)
+ax2.set_ylim(0.50,0.95)
+ax2.vlines(66.052, 0.50, 0.95,linewidth = 2.5)
+ax2.set_xlabel('Time (Ma)', fontsize = 13)
+ax2.legend(loc = 'lower left')
+plt.setp(ax2.get_yticklabels(), visible=False)
 
 
 # plt.legend()
-# plt.savefig(directory+'/plots/Figure_8.pdf', dpi = 300, bbox_inches='tight')
+plt.savefig(directory+'/plots/Figure_8.svg', dpi = 300, bbox_inches='tight')
 
 
 
@@ -325,173 +337,173 @@ Scaling factor TV and Constant
 FIGURE 9
 EVENSTAR DATASET
 # """
-exp_ages_time_varying = [123711.56784481702,
-  999533.1347072537,
-  2817928.666639061,
-  1441520.2154506764,
-  1575648.7693156952,
-  2289425.588858862,
-  2789213.1630930123,
-  5165228.172593149,
-  796766.0228160876,
-  1016613.8886182504,
-  3210693.4968792396,
-  5161109.108027882,
-  4707634.001329615,
-  4981073.315183841,
-  5777608.415537915,
-  3713328.032380344,
-  4046287.0490981997,
-  4176138.879048041,
-  3962228.461631419,
-  10835959.355273897,
-  7464911.5783851715,
-  11514247.225706374,
-  10183405.696121413,
-  10030923.126653235,
-  2500613.1495002457,
-  2449401.1464622775,
-  1928887.6388999196,
-  2097483.787806235]
+# exp_ages_time_varying = [123711.56784481702,
+#   999533.1347072537,
+#   2817928.666639061,
+#   1441520.2154506764,
+#   1575648.7693156952,
+#   2289425.588858862,
+#   2789213.1630930123,
+#   5165228.172593149,
+#   796766.0228160876,
+#   1016613.8886182504,
+#   3210693.4968792396,
+#   5161109.108027882,
+#   4707634.001329615,
+#   4981073.315183841,
+#   5777608.415537915,
+#   3713328.032380344,
+#   4046287.0490981997,
+#   4176138.879048041,
+#   3962228.461631419,
+#   10835959.355273897,
+#   7464911.5783851715,
+#   11514247.225706374,
+#   10183405.696121413,
+#   10030923.126653235,
+#   2500613.1495002457,
+#   2449401.1464622775,
+#   1928887.6388999196,
+#   2097483.787806235]
 
 
-exp_ages_constant=[114178.40941275092,
-  915548.2364675693,
-  2746014.619631548,
-  1341551.6727679542,
-  1470533.7586362667,
-  2220203.58931553,
-  2715635.700679978,
-  4981745.755188121,
-  723516.2706354419,
-  929511.2203713668,
-  3120629.716115289,
-  4964262.731758633,
-  4534587.021603081,
-  4803374.235357489,
-  5597879.032507703,
-  3607749.971365527,
-  3953596.474927516,
-  4070084.5060458444,
-  3869600.7516200244,
-  11287499.665375376,
-  7592071.915754564,
-  12099483.599733688,
-  10520939.488464704,
-  10348394.797798144,
-  2441944.866592093,
-  2391818.2217071657,
-  1845837.7841213397,
-  2021858.3975555908]
+# exp_ages_constant=[114178.40941275092,
+#   915548.2364675693,
+#   2746014.619631548,
+#   1341551.6727679542,
+#   1470533.7586362667,
+#   2220203.58931553,
+#   2715635.700679978,
+#   4981745.755188121,
+#   723516.2706354419,
+#   929511.2203713668,
+#   3120629.716115289,
+#   4964262.731758633,
+#   4534587.021603081,
+#   4803374.235357489,
+#   5597879.032507703,
+#   3607749.971365527,
+#   3953596.474927516,
+#   4070084.5060458444,
+#   3869600.7516200244,
+#   11287499.665375376,
+#   7592071.915754564,
+#   12099483.599733688,
+#   10520939.488464704,
+#   10348394.797798144,
+#   2441944.866592093,
+#   2391818.2217071657,
+#   1845837.7841213397,
+#   2021858.3975555908]
 
-exp_neon_tv = [896046.5305617505,
-  878123.6952542933,
-  258811.43118141443,
-  114314.40601917045,
-  303595.49294417026,
-  212668.68720897142,
-  251199.94187942267,
-  34769.28506635009,
-  2104520.3024722096,
-  2198307.0562126436,
-  3057560.445202753,
-  6001813.100896719,
-  2965384.3320831135,
-  2171288.238053092]
+# exp_neon_tv = [896046.5305617505,
+#   878123.6952542933,
+#   258811.43118141443,
+#   114314.40601917045,
+#   303595.49294417026,
+#   212668.68720897142,
+#   251199.94187942267,
+#   34769.28506635009,
+#   2104520.3024722096,
+#   2198307.0562126436,
+#   3057560.445202753,
+#   6001813.100896719,
+#   2965384.3320831135,
+#   2171288.238053092]
 
-exp_neon_const = [809860.9281488108,
-  793119.6169726079,
-  237012.03447028896,
-  104784.26787107512,
-  276929.85080212716,
-  195750.59034431167,
-  231188.1972169888,
-  31842.72636385542,
-  2017729.6458384574,
-  2117270.9750331547,
-  2958672.607989357,
-  5850182.994291976,
-  2868402.6018716474,
-  2089254.4066904038]
-
-
-updated_texp_tv = []
-updated_texp_const = []
+# exp_neon_const = [809860.9281488108,
+#   793119.6169726079,
+#   237012.03447028896,
+#   104784.26787107512,
+#   276929.85080212716,
+#   195750.59034431167,
+#   231188.1972169888,
+#   31842.72636385542,
+#   2017729.6458384574,
+#   2117270.9750331547,
+#   2958672.607989357,
+#   5850182.994291976,
+#   2868402.6018716474,
+#   2089254.4066904038]
 
 
-updated_neon_tv = []
-updated_neon_const = []
+# updated_texp_tv = []
+# updated_texp_const = []
 
 
-diff_tv_pyx = []
-diff_tv_qtz = []
-perdif_ev = []
+# updated_neon_tv = []
+# updated_neon_const = []
 
-perdifneon = []
-for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
-    updated = exp_ages_time_varying[i]/10**6
-    updated_texp_tv.append(updated) #Evenstar data
-    updated_const = exp_ages_constant[i]/10**6 
-    updated_texp_const.append(updated_const) #this model
-    temp = updated - updated_const
-    diff_tv_pyx.append(temp)
-    perdif_ev.append((temp/updated_const)*100)
 
-for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
-    updatedneontv = exp_neon_tv[i]/10**6
-    updated_neon_tv.append(updatedneontv)
-    updatedneonconst = exp_neon_const[i]/10**6
-    updated_neon_const.append(updatedneonconst)
-    temp = updatedneontv - updatedneonconst
-    diff_tv_qtz.append(temp)
-    perdifneon.append((temp/updatedneonconst)*100)
+# diff_tv_pyx = []
+# diff_tv_qtz = []
+# perdif_ev = []
+
+# perdifneon = []
+# for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
+#     updated = exp_ages_time_varying[i]/10**6
+#     updated_texp_tv.append(updated) #Evenstar data
+#     updated_const = exp_ages_constant[i]/10**6 
+#     updated_texp_const.append(updated_const) #this model
+#     temp = updated - updated_const
+#     diff_tv_pyx.append(temp)
+#     perdif_ev.append((temp/updated_const)*100)
+
+# for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
+#     updatedneontv = exp_neon_tv[i]/10**6
+#     updated_neon_tv.append(updatedneontv)
+#     updatedneonconst = exp_neon_const[i]/10**6
+#     updated_neon_const.append(updatedneonconst)
+#     temp = updatedneontv - updatedneonconst
+#     diff_tv_qtz.append(temp)
+#     perdifneon.append((temp/updatedneonconst)*100)
     
 
-exp_ages_dunai = [15841610.860898754,
-  17157920.46981707,
-  13437876.451249499,
-  23994885.491510965,
-  15997145.95709793,
-  17688239.01095434,
-  11564761.672042133,
-  7977061.619168946,
-  17599412.92309837,
-  11512558.038499627,
-  14719352.283567602,
-  18653558.207069784,
-  14142985.625848925,
-  69767.52340756613,
-  131783.09976984715,
-  89147.39102077894]
-exp_ages_dunai_const = [17264860.407843497,
-  18643337.482291736,
-  14379851.011593908,
-  27317197.32506301,
-  17441877.955655158,
-  19312419.704735752,
-  12123180.962518461,
-  8078272.012801984,
-  19196960.838426054,
-  12061447.60824129,
-  15979301.362290312,
-  20574505.077746626,
-  15251919.869642701,
-  64405.830279700436,
-  121655.45719498975,
-  82296.33869072834]
+# exp_ages_dunai = [15841610.860898754,
+#   17157920.46981707,
+#   13437876.451249499,
+#   23994885.491510965,
+#   15997145.95709793,
+#   17688239.01095434,
+#   11564761.672042133,
+#   7977061.619168946,
+#   17599412.92309837,
+#   11512558.038499627,
+#   14719352.283567602,
+#   18653558.207069784,
+#   14142985.625848925,
+#   69767.52340756613,
+#   131783.09976984715,
+#   89147.39102077894]
+# exp_ages_dunai_const = [17264860.407843497,
+#   18643337.482291736,
+#   14379851.011593908,
+#   27317197.32506301,
+#   17441877.955655158,
+#   19312419.704735752,
+#   12123180.962518461,
+#   8078272.012801984,
+#   19196960.838426054,
+#   12061447.60824129,
+#   15979301.362290312,
+#   20574505.077746626,
+#   15251919.869642701,
+#   64405.830279700436,
+#   121655.45719498975,
+#   82296.33869072834]
 
-updated_dunai_const = []
-updated_dunai = []
-diff_tv_dunai = []
-perdif = []
-for i in range(len(exp_ages_dunai)):
-    updated_dunaix = exp_ages_dunai[i]/10**6
-    updated_dunai_constx = exp_ages_dunai_const[i]/10**6
-    updated_dunai.append(updated_dunaix)
-    updated_dunai_const.append(updated_dunai_constx)
-    temp = updated_dunaix - updated_dunai_constx
-    diff_tv_dunai.append(temp)
-    perdif.append((temp/updated_dunai_constx)*100)
+# updated_dunai_const = []
+# updated_dunai = []
+# diff_tv_dunai = []
+# perdif = []
+# for i in range(len(exp_ages_dunai)):
+#     updated_dunaix = exp_ages_dunai[i]/10**6
+#     updated_dunai_constx = exp_ages_dunai_const[i]/10**6
+#     updated_dunai.append(updated_dunaix)
+#     updated_dunai_const.append(updated_dunai_constx)
+#     temp = updated_dunaix - updated_dunai_constx
+#     diff_tv_dunai.append(temp)
+#     perdif.append((temp/updated_dunai_constx)*100)
 
 # # y_error = [20024,
 # # 30877,
@@ -630,100 +642,112 @@ for i in range(len(exp_ages_dunai)):
 # #     yne.append(yneonev[i]/10**6)
 # # for i in range(len(xneondu)):
 # #     xdu.append(xneondu[i]/10**6)
-# #     ydu.append(yneondu[i]/10**6)
-
-fig = plt.figure(figsize=(14,9))
-
-
-gs = gridspec.GridSpec(2,2)
-
-ax1=fig.add_subplot(gs[:,0])
-ax2=fig.add_subplot(gs[0,1])
-ax3=fig.add_subplot(gs[1,1])
-
-ax2.set_ylim(-3.5,0.5)
-ax2.set_xlim(2,30)
-ax2.hlines(0,2,30)
-
-ax2.plot(updated_texp_const[0:4] ,diff_tv_pyx[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
-ax2.plot(updated_texp_const[4:17],diff_tv_pyx[4:17], 'o', c = 'royalblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 3')
-ax2.plot(updated_texp_const[17:26],diff_tv_pyx[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
-
-ax2.plot(updated_neon_const[0:9], diff_tv_qtz[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
-ax2.plot(updated_neon_const[9:11], diff_tv_qtz[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
-ax2.plot(updated_neon_const[11:14], diff_tv_qtz[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
-ax2.plot(updated_neon_const[13], diff_tv_qtz[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
-
-ax2.plot(updated_dunai_const[0:5], diff_tv_dunai[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
-ax2.plot(updated_dunai_const[5:9], diff_tv_dunai[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
-ax2.plot(updated_dunai_const[9:13],  diff_tv_dunai[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
-ax2.plot(updated_dunai_const[13:15], diff_tv_dunai[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
-ax2.plot(updated_dunai_const[15:16], diff_tv_dunai[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
-ax2.set_ylabel('Exposure age difference (Ma)', fontsize = 14)
-ax2.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
-
-ax3.set_xlim(2,30)
-ax3.set_ylim(-14,7.5)
-ax3.plot(updated_texp_const[0:4] ,perdif_ev[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
-ax3.plot(updated_texp_const[4:17],perdif_ev[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8, label = '$^{3}He$ - Surface 3')
-ax3.plot(updated_texp_const[17:26],perdif_ev[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
-
-ax3.plot(updated_neon_const[0:9], perdifneon[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
-ax3.plot(updated_neon_const[9:11], perdifneon[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
-ax3.plot(updated_neon_const[11:14], perdifneon[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
-ax3.plot(updated_neon_const[13], perdifneon[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
-
-ax3.plot(updated_dunai_const[0:5], perdif[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
-ax3.plot(updated_dunai_const[5:9], perdif[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
-ax3.plot(updated_dunai_const[9:13],  perdif[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
-ax3.plot(updated_dunai_const[13:15], perdif[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
-ax3.plot(updated_dunai_const[15:16], perdif[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
-ax3.set_ylabel('Exposure age percent difference (%)', fontsize = 14)
-ax3.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# # #     ydu.append(yneondu[i]/10**6)
+# fig = plt.figure(figsize=(14,9))
 
 
+# gs = gridspec.GridSpec(2,2)
+
+# ax1=fig.add_subplot(gs[:,0])
+# ax2=fig.add_subplot(gs[0,1])
+# ax3=fig.add_subplot(gs[1,1])
+
+# ax2.set_ylim(-3.5,0.5)
+# ax2.set_xlim(2,30)
+# ax2.hlines(0,2,30)
+# fig = plt.figure(figsize=(14,12))
 
 
-ax1.set_xlim(2,30)
-ax1.plot([2,30], [2,30], 'k-')
-ax1.plot(updated_neon_const[0:9], updated_neon_tv[0:9],  's', c = 'teal', markersize = 7)
-ax1.plot(updated_neon_const[9:11], updated_neon_tv[9:11],  's', c='limegreen', markersize = 7)
-ax1.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue', markersize = 7)
-ax1.plot(updated_neon_const[13], updated_neon_tv[13],  's', c='deepskyblue', markersize = 7)
+# gs = gridspec.GridSpec(2,2)
 
-ax1.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c='limegreen', markersize = 7)
-ax1.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', markersize = 7)
-ax1.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue', markersize = 7)
+# ax1=fig.add_subplot(gs[0,0])
+# #ax2=fig.add_subplot(gs[0,1])
+# ax3=fig.add_subplot(gs[0,1])
 
-ax1.plot(updated_dunai_const[0:5],updated_dunai[0:5], 's', c='midnightblue', markersize = 7)
-ax1.plot(updated_dunai_const[5:9],updated_dunai[5:9], 's', c='purple',markersize =7)
-ax1.plot(updated_dunai_const[9:13],updated_dunai[9:13], 's', c='mediumpurple', markersize = 7)
-ax1.plot(updated_dunai_const[13:15],updated_dunai[13:15], 's', c='skyblue', markersize =7)
-ax1.plot(updated_dunai_const[15:16],updated_dunai[15:16], 's', c='hotpink', markersize = 7)
-ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 14)
-ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
-#ax2.legend()
+# ax2.set_ylim(-3.5,0.5)
+# ax2.set_xlim(2,30)
+# ax2.hlines(0,2,30)
 
-# # ax1.set_xlim(2,30)
-# # ax1.plot([2,30], [2,30], 'k-')
-# # ax1.errorbar(updated_neon_const[0:9], updated_neon_tv[0:9], yerr = yne[0:9], xerr = xne[0:9], fmt = 's', c = 'teal', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_neon_const[9:11], updated_neon_tv[9:11], yerr = yne[9:11], xerr = xne[9:11], fmt = 's', c='limegreen', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_neon_const[11:14], updated_neon_tv[11:14], yerr = yne[11:14], xerr = xne[11:14], fmt = 's', c='royalblue', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_neon_const[13], updated_neon_tv[13], yerr = yne[13], xerr = xne[13], fmt = 's', c='deepskyblue', capsize = 2, markersize = 7)
+# ax2.plot(updated_texp_const[0:4] ,diff_tv_pyx[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+# ax2.plot(updated_texp_const[4:17],diff_tv_pyx[4:17], 'o', c = 'royalblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 3')
+# ax2.plot(updated_texp_const[17:26],diff_tv_pyx[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
 
-# # ax1.errorbar(updated_texp_const[0:4],updated_texp_tv[0:4],yerr = yy[0:4], xerr=  xx[0:4], fmt = 'o', c='limegreen', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_texp_const[4:17],updated_texp_tv[4:17],yerr = yy[4:17], xerr=  xx[4:17], fmt = 'o', c = 'royalblue', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_texp_const[17:26],updated_texp_tv[17:26],yerr = yy[17:26], xerr=  xx[17:26], fmt = 'o', c = 'deepskyblue', capsize = 2, markersize = 7)
+# ax2.plot(updated_neon_const[0:9], diff_tv_qtz[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+# ax2.plot(updated_neon_const[9:11], diff_tv_qtz[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+# ax2.plot(updated_neon_const[11:14], diff_tv_qtz[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+# ax2.plot(updated_neon_const[13], diff_tv_qtz[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
 
-# # ax1.errorbar(updated_dunai_const[0:5],updated_dunai[0:5],yerr = ydu[0:5], xerr=  xdu[0:5], fmt = 's', c='midnightblue', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_dunai_const[5:9],updated_dunai[5:9],yerr = ydu[5:9], xerr=  xdu[5:9], fmt = 's', c='purple', capsize = 2, markersize =7)
-# # ax1.errorbar(updated_dunai_const[9:13],updated_dunai[9:13],yerr = ydu[9:13], xerr=  xdu[9:13], fmt = 's', c='mediumpurple', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_dunai_const[13:15],updated_dunai[13:15],yerr = ydu[13:15], xerr=  xdu[13:15], fmt = 's', c='skyblue', capsize = 2, markersize =7)
-# # ax1.errorbar(updated_dunai_const[15:16],updated_dunai[15:16],yerr = ydu[15:16], xerr=  xdu[15:16], fmt = 's', c='hotpink', capsize = 2, markersize = 7)
-# # ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 13)
-# # ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 13)
-# # #ax2.legend()
-plt.savefig(Read.directory+'/plots/Figure_9.svg', dpi = 300, bbox_inches='tight')
+# ax2.plot(updated_dunai_const[0:5], diff_tv_dunai[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# ax2.plot(updated_dunai_const[5:9], diff_tv_dunai[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# ax2.plot(updated_dunai_const[9:13],  diff_tv_dunai[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# ax2.plot(updated_dunai_const[13:15], diff_tv_dunai[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# ax2.plot(updated_dunai_const[15:16], diff_tv_dunai[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# ax2.set_ylabel('Exposure age difference (Ma)', fontsize = 14)
+# ax2.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+
+# ax3.set_xlim(2,30)
+# ax3.set_ylim(-14,7.5)
+# ax3.plot(updated_texp_const[0:4] ,perdif_ev[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+# ax3.plot(updated_texp_const[4:17],perdif_ev[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8, label = '$^{3}He$ - Surface 3')
+# ax3.plot(updated_texp_const[17:26],perdif_ev[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
+
+# ax3.plot(updated_neon_const[0:9], perdifneon[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+# ax3.plot(updated_neon_const[9:11], perdifneon[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+# ax3.plot(updated_neon_const[11:14], perdifneon[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+# ax3.plot(updated_neon_const[13], perdifneon[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
+
+# ax3.plot(updated_dunai_const[0:5], perdif[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# ax3.plot(updated_dunai_const[5:9], perdif[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# ax3.plot(updated_dunai_const[9:13],  perdif[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# ax3.plot(updated_dunai_const[13:15], perdif[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# ax3.plot(updated_dunai_const[15:16], perdif[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# ax3.set_ylabel('Exposure age percent difference (%)', fontsize = 14)
+# ax3.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# ax3.hlines(0,2,30)
+
+
+
+# ax1.set_xlim(2,30)
+# ax1.plot([2,30], [2,30], 'k-')
+# ax1.plot(updated_neon_const[0:9], updated_neon_tv[0:9],  's', c = 'teal', markersize = 7)
+# ax1.plot(updated_neon_const[9:11], updated_neon_tv[9:11],  's', c='limegreen', markersize = 7)
+# ax1.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue', markersize = 7)
+# ax1.plot(updated_neon_const[13], updated_neon_tv[13],  's', c='deepskyblue', markersize = 7)
+
+# ax1.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c='limegreen', markersize = 7)
+# ax1.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', markersize = 7)
+# ax1.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue', markersize = 7)
+
+# ax1.plot(updated_dunai_const[0:5],updated_dunai[0:5], 's', c='midnightblue', markersize = 7)
+# ax1.plot(updated_dunai_const[5:9],updated_dunai[5:9], 's', c='purple',markersize =7)
+# ax1.plot(updated_dunai_const[9:13],updated_dunai[9:13], 's', c='mediumpurple', markersize = 7)
+# ax1.plot(updated_dunai_const[13:15],updated_dunai[13:15], 's', c='skyblue', markersize =7)
+# ax1.plot(updated_dunai_const[15:16],updated_dunai[15:16], 's', c='hotpink', markersize = 7)
+# ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 14)
+# ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# ax2.legend()
+# plt.savefig(Read.directory+'/plots/subplotsposter', dpi = 300, bbox_inches='tight')
+
+# ax1.set_xlim(2,30)
+# ax1.plot([2,30], [2,30], 'k-')
+# ax1.errorbar(updated_neon_const[0:9], updated_neon_tv[0:9], yerr = yne[0:9], xerr = xne[0:9], fmt = 's', c = 'teal', capsize = 2, markersize = 7)
+# ax1.errorbar(updated_neon_const[9:11], updated_neon_tv[9:11], yerr = yne[9:11], xerr = xne[9:11], fmt = 's', c='limegreen', capsize = 2, markersize = 7)
+# ax1.errorbar(updated_neon_const[11:14], updated_neon_tv[11:14], yerr = yne[11:14], xerr = xne[11:14], fmt = 's', c='royalblue', capsize = 2, markersize = 7)
+# ax1.errorbar(updated_neon_const[13], updated_neon_tv[13], yerr = yne[13], xerr = xne[13], fmt = 's', c='deepskyblue', capsize = 2, markersize = 7)
+
+# ax1.errorbar(updated_texp_const[0:4],updated_texp_tv[0:4],yerr = yy[0:4], xerr=  xx[0:4], fmt = 'o', c='limegreen', capsize = 2, markersize = 7)
+# ax1.errorbar(updated_texp_const[4:17],updated_texp_tv[4:17],yerr = yy[4:17], xerr=  xx[4:17], fmt = 'o', c = 'royalblue', capsize = 2, markersize = 7)
+# ax1.errorbar(updated_texp_const[17:26],updated_texp_tv[17:26],yerr = yy[17:26], xerr=  xx[17:26], fmt = 'o', c = 'deepskyblue', capsize = 2, markersize = 7)
+
+# ax1.errorbar(updated_dunai_const[0:5],updated_dunai[0:5],yerr = ydu[0:5], xerr=  xdu[0:5], fmt = 's', c='midnightblue', capsize = 2, markersize = 7)
+# ax1.errorbar(updated_dunai_const[5:9],updated_dunai[5:9],yerr = ydu[5:9], xerr=  xdu[5:9], fmt = 's', c='purple', capsize = 2, markersize =7)
+# ax1.errorbar(updated_dunai_const[9:13],updated_dunai[9:13],yerr = ydu[9:13], xerr=  xdu[9:13], fmt = 's', c='mediumpurple', capsize = 2, markersize = 7)
+# ax1.errorbar(updated_dunai_const[13:15],updated_dunai[13:15],yerr = ydu[13:15], xerr=  xdu[13:15], fmt = 's', c='skyblue', capsize = 2, markersize =7)
+# ax1.errorbar(updated_dunai_const[15:16],updated_dunai[15:16],yerr = ydu[15:16], xerr=  xdu[15:16], fmt = 's', c='hotpink', capsize = 2, markersize = 7)
+# ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 13)
+# ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 13)
+# #ax2.legend()
+#plt.savefig(Read.directory+'/plots/Figure_9.svg', dpi = 300, bbox_inches='tight')
 
 """
 FIG 10
@@ -790,103 +814,103 @@ LIBARKIN DATASET
 """
 1:1 LINE COMPARISON
 """
-exp_ages_time_varying = [131996.26202489913,
-  1023626.3006114559,
-  2818578.1182617154,
-  1442111.5909461104,
-  1572187.6926164788,
-  2278513.403392353,
-  2789561.569762896,
-  5190519.589554306,
-  824517.3451888387,
-  1039899.2318907074,
-  3213175.7139825514,
-  5186659.724390685,
-  4721445.394785178,
-  5000015.329512211,
-  5759439.620363143,
-  3711836.322560931,
-  4060198.6266656416,
-  4191863.641518183,
-  3972943.0084628374,
-  10899929.349473981,
-  7500679.307668893,
-  11590489.115385713,
-  10242831.200003851,
-  10087732.900187513,
-  2503058.2716951943,
-  2450012.1182982484,
-  1919685.6734813016,
-  2088176.22741603]
+# exp_ages_time_varying = [131996.26202489913,
+#   1023626.3006114559,
+#   2818578.1182617154,
+#   1442111.5909461104,
+#   1572187.6926164788,
+#   2278513.403392353,
+#   2789561.569762896,
+#   5190519.589554306,
+#   824517.3451888387,
+#   1039899.2318907074,
+#   3213175.7139825514,
+#   5186659.724390685,
+#   4721445.394785178,
+#   5000015.329512211,
+#   5759439.620363143,
+#   3711836.322560931,
+#   4060198.6266656416,
+#   4191863.641518183,
+#   3972943.0084628374,
+#   10899929.349473981,
+#   7500679.307668893,
+#   11590489.115385713,
+#   10242831.200003851,
+#   10087732.900187513,
+#   2503058.2716951943,
+#   2450012.1182982484,
+#   1919685.6734813016,
+#   2088176.22741603]
 
 
-exp_ages_constant=[114400.49565798171,
-  917329.0518705035,
-  2751355.8402647623,
-  1344161.0993252213,
-  1473394.0657873328,
-  2224522.064947964,
-  2720917.8318576734,
-  4991435.653787645,
-  724923.5683262685,
-  931319.1949078307,
-  3126699.593423725,
-  4973918.624462918,
-  4543407.160283238,
-  4812717.1869177325,
-  5608767.36018699,
-  3614767.3369865143,
-  3961286.539982639,
-  4078001.1497473023,
-  3877127.438196669,
-  11309454.76557007,
-  7606839.109954978,
-  12123018.074383643,
-  10541403.567087896,
-  10368523.26303627,
-  2446694.6469513695,
-  2396470.5016860655,
-  1849428.0879702813,
-  2025791.0757406428]
+# exp_ages_constant=[114400.49565798171,
+#   917329.0518705035,
+#   2751355.8402647623,
+#   1344161.0993252213,
+#   1473394.0657873328,
+#   2224522.064947964,
+#   2720917.8318576734,
+#   4991435.653787645,
+#   724923.5683262685,
+#   931319.1949078307,
+#   3126699.593423725,
+#   4973918.624462918,
+#   4543407.160283238,
+#   4812717.1869177325,
+#   5608767.36018699,
+#   3614767.3369865143,
+#   3961286.539982639,
+#   4078001.1497473023,
+#   3877127.438196669,
+#   11309454.76557007,
+#   7606839.109954978,
+#   12123018.074383643,
+#   10541403.567087896,
+#   10368523.26303627,
+#   2446694.6469513695,
+#   2396470.5016860655,
+#   1849428.0879702813,
+#   2025791.0757406428]
 
-exp_neon_tv = [925394.9003644264,
-  907557.1721116758,
-  276612.40319194266,
-  122540.79545892825,
-  322327.13753088925,
-  227052.2907854808,
-  267801.40712947334,
-  37299.39263586361,
-  2096294.213187858,
-  2189679.5142527027,
-  3061778.4589791135,
-  5985087.135238934,
-  2968169.8326294757,
-  2163056.8551527187]
+# exp_neon_tv = [925394.9003644264,
+#   907557.1721116758,
+#   276612.40319194266,
+#   122540.79545892825,
+#   322327.13753088925,
+#   227052.2907854808,
+#   267801.40712947334,
+#   37299.39263586361,
+#   2096294.213187858,
+#   2189679.5142527027,
+#   3061778.4589791135,
+#   5985087.135238934,
+#   2968169.8326294757,
+#   2163056.8551527187]
 
-exp_neon_const = [809860.9281488108,
-  793119.6169726079,
-  237012.03447028896,
-  104784.26787107512,
-  276929.85080212716,
-  195750.59034431167,
-  231188.1972169888,
-  31842.72636385542,
-  2017729.6458384574,
-  2117270.9750331547,
-  2958672.607989357,
-  5850182.994291976,
-  2868402.6018716474,
-  2089254.4066904038]
-
-
-
-updated_texp_tv = []
-updated_texp_const = []
+# exp_neon_const = [809860.9281488108,
+#   793119.6169726079,
+#   237012.03447028896,
+#   104784.26787107512,
+#   276929.85080212716,
+#   195750.59034431167,
+#   231188.1972169888,
+#   31842.72636385542,
+#   2017729.6458384574,
+#   2117270.9750331547,
+#   2958672.607989357,
+#   5850182.994291976,
+#   2868402.6018716474,
+#   2089254.4066904038]
 
 
-updated_neon_tv = []
-updated_neon_const = []
+
+# updated_texp_tv = []
+# updated_texp_const = []
+
+
+# updated_neon_tv = []
+# updated_neon_const = []
 
 
 # errorymin = []
@@ -1009,17 +1033,17 @@ updated_neon_const = []
 #  1812725.5202450978,
 #  1980508.6869887935]
 
-for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
-    updated = exp_ages_time_varying[i]/10**6
-    updated_texp_tv.append(updated) #Evenstar data
-    updated_const = exp_ages_constant[i]/10**6 
-    updated_texp_const.append(updated_const) #this model
+# for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
+#     updated = exp_ages_time_varying[i]/10**6
+#     updated_texp_tv.append(updated) #Evenstar data
+#     updated_const = exp_ages_constant[i]/10**6 
+#     updated_texp_const.append(updated_const) #this model
 
-for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
-    updatedneontv = exp_neon_tv[i]/10**6
-    updated_neon_tv.append(updatedneontv)
-    updatedneonconst = exp_neon_const[i]/10**6
-    updated_neon_const.append(updatedneonconst)
+# for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
+#     updatedneontv = exp_neon_tv[i]/10**6
+#     updated_neon_tv.append(updatedneontv)
+#     updatedneonconst = exp_neon_const[i]/10**6
+#     updated_neon_const.append(updatedneonconst)
 
 # for i in range(len(y_errormin)):
 #     updated = y_errormin[i]/10**6
@@ -1062,4 +1086,24 @@ for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
 
 # plt.savefig(Read.directory+'/plots/1to1.png', dpi = 300, bbox_inches='tight')
 
+# x = np.linspace(0,15,281)
+# # #CHANGE MEDIANS TO medians = np.linspace(0,15,281)
 
+# # # north_america = scaling_factor.Siteprod_df#.values.tolist()[0]
+# # # north_america.to_csv(directory+'/text_for_plots/north_america.csv') 
+
+# # # poles = scaling_factor.Siteprod_df#.values.tolist()[0]
+# # # poles.to_csv(directory+'/text_for_plots/poles.csv') 
+
+# # # equator = scaling_factor.Siteprod_df#.values.tolist()[0]
+# # # equator.to_csv(directory+'/text_for_plots/equator.csv') 
+
+
+# plt.plot(x[0:151],Read.north_america.iloc[1][1:152], linewidth = 2.5, c = 'mediumorchid', label = '45N, 120W, sea level')
+# plt.plot(x[0:151],Read.poles.iloc[1][1:152], '-.', linewidth = 2.5, c = 'black',label = 'Pole, sea level')
+# plt.plot(x[0:151],Read.equator.iloc[1][1:152], '--', linewidth = 2.5, c = 'teal',label = 'Equator, sea level')
+# plt.legend()
+
+# plt.ylabel('Scaling Factor', fontsize = 13)
+# plt.xlabel('Dipole Moment (10$^{22}$ Am$^2$)', fontsize = 13)
+# plt.savefig(Read.directory+'/plots/simplified_intensity.svg', dpi = 300, bbox_inches='tight')

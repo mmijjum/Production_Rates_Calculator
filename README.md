@@ -7,7 +7,7 @@
 
 This repository contains the manuscript, code, and data associated with the project: *A model framework for scaling pre-Quaternary cosmogenic nuclide production rates*.
  
-GRC 2023 Abstract: Measurements of cosmogenic nuclides have become an essential component of quantitatively studying Earth surface processes. There are a growing number of studies that utilize cosmogenic noble gases to study the exposure histories of surfaces on timescales longer than the Quaternary, or to quantify the paleo-exposure histories of surfaces that were exposed to cosmic rays in the geologic past. Changes in the Earth’s geomagnetic field strength affect cosmogenic nuclide production rates, and therefore need to be accounted for in production rate scaling models. While multiple scaling models for cosmogenic nuclide production rates have been developed, existing models are all optimized for the late Quaternary. In order to improve applications of cosmogenic noble gases beyond the Quaternary, we developed a new scaling model that extends to 70 Ma. This model, which builds upon the Lifton Sato Dunai (LSD) scaling model, implements a new continuous paleointensity model and incorporates the effects of changes in paleolatitude due to tectonic plate motions. We demonstrate the effects of incorporating changes in the geomagnetic field and paleolatitude on pre-Quaternary timescales by applying our scaling model to existing datasets from paleo exposure sites, and from sites with apparent continuous million-year exposure histories. Our ‘deep time’ scaling model will enable measurements of stable cosmogenic nuclides to be applied to research questions such as constraining paleoexposure durations between lava flows and calculating the formation timescales of paleosurfaces.
+Mijjum et al. (2023) abstract: Cosmogenic nuclide dating is an essential component of studying Earth surface processes. Most scaling schemes for terrestrial cosmogenic nuclide production rates have been developed for the late Quaternary. However, applications of cosmogenic nuclides that extend beyond the late Quaternary are becoming more prevalent. For these deeper time applications, production rate calculations using scaling models optimized for the late Quaternary neglect spatiotemporal variations in geomagnetic field intensity and paleogeography beyond the Quaternary. We present a production rate scaling scheme for the past 70 million years, SPRITE (Scaling Production Rates In deep TimE). This model extends existing scaling schemes into deeper time by (1) accounting for site-specific changes in paleolatitude, and (2) integrating a geomagnetic field intensity model rooted in data from a global paleomagnetic database. We evaluate the efficacy of our model by applying it to existing datasets from paleoexposure sites, and from sites with apparent continuous million-year exposure histories. This scaling model enables measurements of stable cosmogenic nuclides to be applied to research questions such as constraining hiatus durations between ancient lava flows, quantifying sediment transport and storage timescales in the geologic past, and calculating the formation timescales of stable landforms in arid environments over millions of years.
 
 
 *Mijjum, M, Bristol, K.E., Bono, R.K., Sprain, C.J., Tremblay, M.M, 2023. A model framework for scaling pre-Quaternary cosmogenic nuclide production rates. In preparation.*
@@ -81,8 +81,7 @@ The following .csv files are adapted from LSD:
 The following .csv files are what make up the magnetic data compilation:
 
 * Geomagnetic data
-    * archeo010.csv - Excerpt from the GEOMAGIA50.v3 paleointensity database (Brown et al., 2015)
-    * MCADAM_1b.csv - Excerpt from the MCADAM1.b dipole moment model (Bono et al., 2021)
+    * MCADAM_1b_cosmo.csv - Excerpt from the MCADAM1.b dipole moment model, designed for use in SPRITE by implementing 250ka bins (Bono et al., 2022).
 	
 ### Code
 
@@ -144,7 +143,7 @@ SPRITE calculates exposure ages using 3He and 21Ne measurements. The following a
 * Sample thickness (cm)
 * Sample density (g/cm3)
 * Topographic shielding correction (0 - 1)
-* Erosion rate (cm/yr)
+* Erosion rate (g/cm2/yr)
 * Nuclide concentration (at/g)
 * Nuclide uncertainty (at/g)
 * Nuclide - mineral system 
