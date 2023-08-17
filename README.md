@@ -1,25 +1,17 @@
 # SPRITE: Scaling Production Rates In deep TimE
-**Please note: This calculator is still under development! The following README is a draft.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
-
-[![DOI](https://img.shields.io/badge/DOI-10.1130%2Fabs%2F2021AM--364512-red)](https://gsa.confex.com/gsa/2021AM/webprogram/Paper364512.html)
+SPRITE is published under the [MIT license](LICENSE.txt).
 
 This repository contains the manuscript, code, and data associated with the project: *A model framework for scaling pre-Quaternary cosmogenic nuclide production rates*.
  
 Mijjum et al. (2023) abstract: Cosmogenic nuclide dating is an essential component of studying Earth surface processes. Most scaling schemes for terrestrial cosmogenic nuclide production rates have been developed for the late Quaternary. However, applications of cosmogenic nuclides that extend beyond the late Quaternary are becoming more prevalent. For these deeper time applications, production rate calculations using scaling models optimized for the late Quaternary neglect spatiotemporal variations in geomagnetic field intensity and paleogeography beyond the Quaternary. We present a production rate scaling scheme for the past 70 million years, SPRITE (Scaling Production Rates In deep TimE). This model extends existing scaling schemes into deeper time by (1) accounting for site-specific changes in paleolatitude, and (2) integrating a geomagnetic field intensity model rooted in data from a global paleomagnetic database. We evaluate the efficacy of our model by applying it to existing datasets from paleoexposure sites, and from sites with apparent continuous million-year exposure histories. This scaling model enables measurements of stable cosmogenic nuclides to be applied to research questions such as constraining hiatus durations between ancient lava flows, quantifying sediment transport and storage timescales in the geologic past, and calculating the formation timescales of stable landforms in arid environments over millions of years.
 
 
-*Mijjum, M, Bristol, K.E., Bono, R.K., Sprain, C.J., Tremblay, M.M, 2023. A model framework for scaling pre-Quaternary cosmogenic nuclide production rates. In preparation.*
+* Mijjum, M, Bristol, K.E., Bono, R.K., Sprain, C.J., Tremblay, M.M, 2023. A model framework for scaling pre-Quaternary cosmogenic nuclide production rates.
 
-SPRITE is published under the [MIT license](LICENSE.txt).
 
 
 ## Folders 
-### Manuscript
-
-The manuscript and reference files and will be included within this folder.
-
 
 ### Data
 All the data needed to run the code are included within this folder. 
@@ -91,17 +83,17 @@ Description of each of the scripts:
     * All .csv / .xlsx files from 'Data' are read into the code here.
 
 2) mcadam.py 
-    * MCADAM and GEOMAGIA data is compiled into a contineous geomagnetic model.  
+    * MCADAM_1b_cosmo.csv is read in only for the time period specified by the user in 'Inputs.xlsx'. 
 
 3) Pmag_paleolat.py
-    * Present day site latitude is converted to paleolatitude for the specified time duration in User_Interface. 
+    * Present day site latitude is converted to paleolatitude for the specified time duration 'Inputs.xlsx'. 
 
 4) Rc.py
-    * Cutoff rigidity is calculated following Dunai (2001). 
+    * Cutoff rigidity is calculated following Eq. 2 of Mijjum et al. (2023).
 
 5) atm_depth.py
     * Elevation is converted to atmospheric depth either using ERA40 reanalysis data or a standard atmosphere conversion.
-    * Conversion method is specified in excel spreadsheet - 1 = standard atmosphere, 0 = ERA40. 
+    * Conversion method is specified in excel spreadsheet. 1 = standard atmosphere, 0 = ERA40. 
 
 6) neutrons.py
     * Production via spallation from neutrons is calculated. 
@@ -122,8 +114,6 @@ Description of each of the scripts:
     * Exposure ages are calculated. 
     * If 21Ne: incorporates muons into calculation. 
 
-12) for_plotting.py ##NOT FOR TYPICAL USE
-    * code for generating plots in Mijjum et al. (2023)
 
 ### Outputs
 
@@ -153,7 +143,10 @@ SPRITE calculates exposure ages using 3He and 21Ne measurements. The following a
 * Depth below paleosurface
 * Paleoduration
 
+The user may also refer to Figure 3 of Mijjum et al. (2023) for a workflow diagaram of how each calculation within the model is executed. 
+
 * NOTE: Details on how to format spreadsheet are in 'README' tab of 'inputs.xlsx'. Only 'Active' tab is read into code. All other tabs are reference tables that can be copy-pasted into 'Active' to generate certain figures, or for specific datasets. 
+
 2) Run 'expage.py' 
 
 3) Will output exposure ages for each sample. For ~20 samples, takes ~3 minutes to run for 20 Ma. 
