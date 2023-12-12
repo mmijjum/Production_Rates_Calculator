@@ -41,6 +41,8 @@ plate = Exposure_Age_Inputs['Plate']
 z_from_surface = Exposure_Age_Inputs['Depth below paleosurface']
 paleo = Exposure_Age_Inputs['Paleoduration?']
 
+delta = Exposure_Age_Inputs['Uplift/Subsidence']
+
 if plate[0] == 1:
     plate = 'NA'
 if plate[0] == 2:
@@ -639,6 +641,8 @@ h63p = 7.4700e-4;
 h64p = 3.7200;
 h65p = 1.9700;
 
+
+data_muons = pd.read_csv(directory+'/Data/data_muons.txt', header = None)
 
 ##EVERYTHING BELOW ARE TEXT FILES FOR PLOTS MADE IN MANUSCRIPT. 
 #NOT RELEVANT FOR REGULAR USER

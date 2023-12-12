@@ -56,28 +56,52 @@ empty = []
 Etoa = []
 
 phiPri = []
-x = atm_depth.x[0].to_numpy().flatten().tolist()
+#x = atm_depth.x[0].to_numpy().flatten().tolist()
+x = atm_depth.x
+
 E = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
 
-for i in range(len(x)):
-    for j in range(len(E)): 
-            Etoa_temp = E[j]+ 2.1153*x[i]
-            Etoa.append(Etoa_temp)
+# for i in range(len(x)):
+#     for j in range(len(E)): 
+#             Etoa_temp = E[j]+ 2.1153*x[i]
+#             Etoa.append(Etoa_temp)
 
+# Etoa_df = pd.DataFrame([(Etoa[n:n+200]) for n in range(0, len(Etoa), len(E))]) 
+
+for i in range(len(atm_depth.sample_pressure)):
+    for j in range(len(time)): 
+        for n in range(len(E)):
+            Etoa_temp = E[n]+ 2.1153*x.iloc[i,j]
+            Etoa.append(Etoa_temp)
 Etoa_df = pd.DataFrame([(Etoa[n:n+200]) for n in range(0, len(Etoa), len(E))]) 
 
 def Rtoa(Etoa):
     return 0.001*np.sqrt((A*Etoa)**2 + 2*A*Ep*Etoa)/Z
 Rtoa = Rtoa(Etoa_df) #shape (samples*time,len(E))
 
-def b(s1, s2, s3, s4):
-    return s1+s2*atm_depth.x[0]+s3*atm_depth.x[0]**2+s4*atm_depth.x[0]**3
+# def b(s1, s2, s3, s4):
+#     return s1+s2*atm_depth.x[0]+s3*atm_depth.x[0]**2+s4*atm_depth.x[0]**3
 
-b1 = b(Read.secondary_spectrum.iloc[0]['values'],Read.secondary_spectrum.iloc[1]['values'],Read.secondary_spectrum.iloc[2]['values'],Read.secondary_spectrum.iloc[3]['values'])
-b2 = b(Read.secondary_spectrum.iloc[4]['values'],Read.secondary_spectrum.iloc[5]['values'],Read.secondary_spectrum.iloc[6]['values'],Read.secondary_spectrum.iloc[7]['values'])
-b3 = b(Read.secondary_spectrum.iloc[8]['values'],Read.secondary_spectrum.iloc[9]['values'],Read.secondary_spectrum.iloc[10]['values'],Read.secondary_spectrum.iloc[11]['values'])
-b4 = b(Read.secondary_spectrum.iloc[12]['values'],Read.secondary_spectrum.iloc[13]['values'],Read.secondary_spectrum.iloc[14]['values'],Read.secondary_spectrum.iloc[15]['values'])
+# b1 = b(Read.secondary_spectrum.iloc[0]['values'],Read.secondary_spectrum.iloc[1]['values'],Read.secondary_spectrum.iloc[2]['values'],Read.secondary_spectrum.iloc[3]['values'])
+# b2 = b(Read.secondary_spectrum.iloc[4]['values'],Read.secondary_spectrum.iloc[5]['values'],Read.secondary_spectrum.iloc[6]['values'],Read.secondary_spectrum.iloc[7]['values'])
+# b3 = b(Read.secondary_spectrum.iloc[8]['values'],Read.secondary_spectrum.iloc[9]['values'],Read.secondary_spectrum.iloc[10]['values'],Read.secondary_spectrum.iloc[11]['values'])
+# b4 = b(Read.secondary_spectrum.iloc[12]['values'],Read.secondary_spectrum.iloc[13]['values'],Read.secondary_spectrum.iloc[14]['values'],Read.secondary_spectrum.iloc[15]['values'])
 
+b1 = []
+b2 = []
+b3 = []
+b4 = []
+for i in range(len(atm_depth.sample_pressure)):
+    for j in range(len(time)): 
+        b1_temp = Read.secondary_spectrum.iloc[0]['values'] + Read.secondary_spectrum.iloc[1]['values'] * x.iloc[i,j] + Read.secondary_spectrum.iloc[2]['values']* x.iloc[i,j]**2 + Read.secondary_spectrum.iloc[3]['values'] * x.iloc[i,j]**3
+        b1.append(b1_temp)
+        b2_temp = Read.secondary_spectrum.iloc[4]['values'] + Read.secondary_spectrum.iloc[5]['values'] * x.iloc[i,j] + Read.secondary_spectrum.iloc[6]['values']* x.iloc[i,j]**2 + Read.secondary_spectrum.iloc[7]['values'] * x.iloc[i,j]**3
+        b2.append(b2_temp)
+        b3_temp = Read.secondary_spectrum.iloc[8]['values'] + Read.secondary_spectrum.iloc[9]['values'] * x.iloc[i,j] + Read.secondary_spectrum.iloc[10]['values']* x.iloc[i,j]**2 + Read.secondary_spectrum.iloc[11]['values'] * x.iloc[i,j]**3
+        b3.append(b3_temp)
+        b4_temp = Read.secondary_spectrum.iloc[12]['values'] + Read.secondary_spectrum.iloc[13]['values'] * x.iloc[i,j] + Read.secondary_spectrum.iloc[14]['values']* x.iloc[i,j]**2 + Read.secondary_spectrum.iloc[15]['values'] * x.iloc[i,j]**3
+        b4.append(b4_temp)
+        
 def Elisfun(Etoa):
     return Etoa + s*Z/A
 Elis = Elisfun(Etoa_df)
@@ -100,11 +124,20 @@ def phiTOAfun(C,B,p1,Rlis,p2,Rtoa):
 phiTOA = phiTOAfun(C,Beta,Read.primary_spectrum.iloc[4]['values'],Rlis,Read.primary_spectrum.iloc[5]['values'], Rtoa)
 
 
-for i in range(len(Beta)):
-    for j in range(len(E)):
-        phiPri_temp = (U/Beta.iloc[i,j])*phiTOA.iloc[i,j]*(Read.primary_spectrum.iloc[1]['values']*np.exp(-Read.primary_spectrum.iloc[2]['values']*x[i]) + (1 - Read.primary_spectrum.iloc[1]['values'])*np.exp(-Read.primary_spectrum.iloc[3]['values']*x[i]))
-        phiPri.append(phiPri_temp)
+# for i in range(len(Beta)):
+#     for j in range(len(E)):
+#         phiPri_temp = (U/Beta.iloc[i,j])*phiTOA.iloc[i,j]*(Read.primary_spectrum.iloc[1]['values']*np.exp(-Read.primary_spectrum.iloc[2]['values']*x[i]) + (1 - Read.primary_spectrum.iloc[1]['values'])*np.exp(-Read.primary_spectrum.iloc[3]['values']*x[i]))
+#         phiPri.append(phiPri_temp)
+# phiPri_df = pd.DataFrame([(phiPri[n:n+200]) for n in range(0, len(phiPri), len(E))]) 
+
+
+for i in range(len(atm_depth.sample_pressure)):
+    for j in range(len(time)): 
+        for n in range(len(E)):
+            phiPri_temp = (U/Beta.iloc[i,n])*phiTOA.iloc[i,n]*(Read.primary_spectrum.iloc[1]['values']*np.exp(-Read.primary_spectrum.iloc[2]['values']*x.iloc[i,j]) + (1 - Read.primary_spectrum.iloc[1]['values'])*np.exp(-Read.primary_spectrum.iloc[3]['values']*x.iloc[i,j]))
+            phiPri.append(phiPri_temp)
 phiPri_df = pd.DataFrame([(phiPri[n:n+200]) for n in range(0, len(phiPri), len(E))]) 
+
 
 def minmax(g1, g2, g3, g4, g5):
     return g1 + g2*Rc.Rc.iloc[: , 0:] + g3/(1 + np.exp((Rc.Rc.iloc[: , 0:] - g4)/g5))
@@ -124,10 +157,10 @@ g6 = minmax(Read.h_values_protons.iloc[45]['values'] , Read.h_values_protons.ilo
 phiP = []
 for i in range(len(g1min)):
     for j in range(len(time)):
-        phiPmin = g1min.iloc[i,j]*(np.exp(-g2min.iloc[i,j]*x[i]) - g3min.iloc[i,j]*np.exp(-g4min.iloc[i,j]*x[i])) 
-        phiPmax = g1max.iloc[i,j]*(np.exp(-g2max.iloc[i,j]*x[i]) - g3max.iloc[i,j]*np.exp(-g4max.iloc[i,j]*x[i])) 
+        phiPmin = g1min.iloc[i,j]*(np.exp(-g2min.iloc[i,j]*x.iloc[i,j]) - g3min.iloc[i,j]*np.exp(-g4min.iloc[i,j]*x.iloc[i,j])) 
+        phiPmax = g1max.iloc[i,j]*(np.exp(-g2max.iloc[i,j]*x.iloc[i,j]) - g3max.iloc[i,j]*np.exp(-g4max.iloc[i,j]*x.iloc[i,j])) 
         
-        f3 = g5.iloc[i,j] + g6.iloc[i,j]*x[i]
+        f3 = g5.iloc[i,j] + g6.iloc[i,j]*x.iloc[i,j]
         f2 = (phiPmin - phiPmax)/(smin**f3 - smax**f3)
         f1 = phiPmin - f2*smin**f3
         
@@ -155,7 +188,7 @@ Es1_list = []
 Es2_list = []
 for i in range(len(Ec)):
     for j in range(len(time)):
-        Es = 1.3691*(Ec.iloc[i,j] - 2.0665*x[i])
+        Es = 1.3691*(Ec.iloc[i,j] - 2.0665*x.iloc[i,j])
         Es1 = max(108.33,Es)
         Es2 = max(2301.3,Es)
         Es1_list.append(Es1)
@@ -165,13 +198,11 @@ Es2_df = pd.DataFrame([(Es2_list[n:n+len(time)]) for n in range(0, len(Es2_list)
 
 Es1_updated = Es1_df.stack().tolist() #this flattens ES1 df into a list so you can incorporate it into the for loop below
 Es2_updated = Es2_df.stack().tolist() #this flattens ES1 df into a list so you can incorporate it into the for loop below
-E_updated = E_df.loc[E_df.index.repeat(len(time))].reset_index(drop=True)
+#E_updated = E_df.loc[E_df.index.repeat(len(time))].reset_index(drop=True)
 
-updated_phiPri = phiPri_df.loc[phiPri_df.index.repeat(len(time))]
-
-for i in range(len(updated_phiPri)):
+for i in range(len(phiPri_df)):
     for j in range(len(E)):
-        df2p_temp = (updated_phiPri.iloc[i,j])*(np.tanh(3.4643*(E[j]/Es1_updated[i] - 1)) + 1)/2 + phiSec_df.iloc[i,j]*(np.tanh(1.6752*(1 - E[j]/Es2_updated[i])) + 1)/2 
+        df2p_temp = (phiPri_df.iloc[i,j])*(np.tanh(3.4643*(E[j]/Es1_updated[i] - 1)) + 1)/2 + phiSec_df.iloc[i,j]*(np.tanh(1.6752*(1 - E[j]/Es2_updated[i])) + 1)/2 
         df2p.append(df2p_temp)
 phiPtot = pd.DataFrame([(df2p[n:n+200]) for n in range(0, len(df2p), len(E))]) #checked 2/1, works
 

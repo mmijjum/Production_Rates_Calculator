@@ -32,10 +32,21 @@ def truncate(number, decimals=0):
     factor = 10.0 ** decimals
     return math.trunc(number * factor) / factor
 time = Read.time 
+delta = Read.delta
+conversion_factor = 0.01*250000
 
+delta = delta*conversion_factor
 lon_repeated = np.repeat(Read.lon,len(time))
 lon_df = pd.DataFrame([(lon_repeated.tolist()[n:n+len(time)]) for n in range(0, len(lon_repeated.tolist()), len(time))])
-alt_list = np.repeat(Read.alt, len(time))
+alt_list_temp = np.repeat(Read.alt, len(time))
+delta_list = np.repeat(delta, len(time))
+
+alt_list = alt_list_temp+delta_list.reset_index(drop=True)
+# for j in range(len(delta)):
+#     for i in range(len(alt_list)-1): ##UPDATE ALT LIST TO REFLECT UPLIFT/SUBSIDENCE
+#         alt_list[i+1]=alt_list[i]+delta[j]
+     
+ 
 
 lat_numpy = Read.ERA40lat.to_numpy()
 lon_numpy = Read.ERA40lon.to_numpy()
@@ -103,6 +114,7 @@ xdf = pd.DataFrame([(x_updated[n:n+len(time)]) for n in range(0, len(x_updated),
 def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(xdf)
+
 
 #below hard codes sea level atm depth
 # xn = np.repeat(1013.25*1.019716, len(xdf) * len(time))

@@ -82,23 +82,23 @@ f2_values = []
 f1_values = []
 PhiL_values = []
 
-x = atm_depth.x[0].to_numpy().flatten().tolist()
+x = atm_depth.x
 
 for n in range(len(atm_depth.sample_pressure)):
     for i in range(len(time)):
-        c4_vals = a5.iloc[n,i] + Read.a_values.iloc[0]['values']*x[n]/(1 + Read.a_values.iloc[1]['values']*np.exp(Read.a_values.iloc[2]['values']*x[n])) #lethargy^-1
+        c4_vals = a5.iloc[n,i] + Read.a_values.iloc[0]['values']*x.iloc[n,i]/(1 + Read.a_values.iloc[1]['values']*np.exp(Read.a_values.iloc[2]['values']*x.iloc[n,i])) #lethargy^-1
         c4.append(c4_vals)
        
-        c12_vals = a9.iloc[n,i]*(np.exp(-a10.iloc[n,i]*x[n]) + a11.iloc[n,i]*np.exp(-Read.a_values.iloc[3]['values']*x[n])) # MeV
+        c12_vals = a9.iloc[n,i]*(np.exp(-a10.iloc[n,i]*x.iloc[n,i]) + a11.iloc[n,i]*np.exp(-Read.a_values.iloc[3]['values']*x.iloc[n,i])) # MeV
         c12.append(c12_vals)
         
-        PhiLmin = a1min.iloc[n,i]*(np.exp(-a2min.iloc[n,i]*x[n]) - a3min.iloc[n,i]*np.exp(-a4min.iloc[n,i]*x[n])) #Length of Rc
+        PhiLmin = a1min.iloc[n,i]*(np.exp(-a2min.iloc[n,i]*x.iloc[n,i]) - a3min.iloc[n,i]*np.exp(-a4min.iloc[n,i]*x.iloc[n,i])) #Length of Rc
         PhiLmin_values.append(PhiLmin)
     
-        PhiLmax = a1max.iloc[n,i]*(np.exp(-a2max.iloc[n,i]*x[n]) - a3max.iloc[n,i]*np.exp(-a4max.iloc[n,i]*x[n])) 
+        PhiLmax = a1max.iloc[n,i]*(np.exp(-a2max.iloc[n,i]*x.iloc[n,i]) - a3max.iloc[n,i]*np.exp(-a4max.iloc[n,i]*x.iloc[n,i])) 
         PhiLmax_values.append(PhiLmax)
         
-        f3 = b5.iloc[n,i] + (b6.iloc[n,i]*x[n])
+        f3 = b5.iloc[n,i] + (b6.iloc[n,i]*x.iloc[n,i])
         f3_values.append(f3)
 
 
@@ -112,14 +112,14 @@ f3_df = pd.DataFrame([(f3_values[n:n+len(time)]) for n in range(0, len(f3_values
 
 for n in range(len(atm_depth.sample_pressure)):
     for i in range(len(time)):
-         f2 = (PhiLmin_df.iloc[n,i] - PhiLmax_df.iloc[n,i])/((smin**f3_df.iloc[n,i]) - (smax**f3_df.iloc[n,i]))
-         f2_values.append(f2)
+          f2 = (PhiLmin_df.iloc[n,i] - PhiLmax_df.iloc[n,i])/((smin**f3_df.iloc[n,i]) - (smax**f3_df.iloc[n,i]))
+          f2_values.append(f2)
     
-         f1 = PhiLmin_df.iloc[n,i]  - f2*smin**f3_df.iloc[n,i]
-         f1_values.append(f1)
+          f1 = PhiLmin_df.iloc[n,i]  - f2*smin**f3_df.iloc[n,i]
+          f1_values.append(f1)
      
-         PhiL = f1 + (f2*s**f3_df.iloc[n,i])
-         PhiL_values.append(PhiL)
+          PhiL = f1 + (f2*s**f3_df.iloc[n,i])
+          PhiL_values.append(PhiL)
     
 
 f2_df = pd.DataFrame([(f2_values[n:n+len(time)]) for n in range(0, len(f2_values), len(time))])
