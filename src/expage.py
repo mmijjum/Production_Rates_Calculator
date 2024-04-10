@@ -29,7 +29,7 @@ import numpy as np
 import pandas as pd
 import scaling_factor
 import shielding
-import muons
+import Muons_v2
 
 n0 = Read.nuclide_concentration
 sthick = shielding.S_thick[0]
@@ -160,7 +160,7 @@ if Read.muons == 'False':
 
 if Read.muons == 'True': 
     
-    Pmu = muons.pmuons_df
+    Pmu = Muons_v2.pmuons_df
     firstmubin = []
     for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
         temp = Pmu.iloc[i][0] * np.exp(((-erosion[i]*i)-shielding.z_df.iloc[i][0]/2)/lambdamu) * (dt_start*10**6)

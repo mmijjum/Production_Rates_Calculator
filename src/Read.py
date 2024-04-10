@@ -72,6 +72,8 @@ if atm[0] == 0:
     stdatm = 0
 if atm[0] == 1:
     stdatm = 1
+if atm[0] == 2:
+    stdatm = 2
     
 if Nuclide[0] != 4:
     muons = 'False'
@@ -119,6 +121,13 @@ ERA40lat = pd.read_csv(directory+'/Data/ERA40lat.csv', header=None)
 ERA40lon = pd.read_csv(directory+'/Data/ERA40lon.csv', header=None)
 meanT = pd.read_csv(directory+'/Data/meanT.csv', header=None)
 meanP = pd.read_csv(directory+'/Data/meanP.csv', header=None)
+
+#Read in climate simulation files
+climate_lat = pd.read_csv(directory+'/climate/latitude.csv', header=None) 
+climate_lon = pd.read_csv(directory+'/climate/longitude.csv', header=None) 
+climate_mslp= pd.read_csv(directory+'/climate/p_mm_msl.csv', header=None) 
+climate_mat = pd.read_csv(directory+'/climate/mat_cor.csv', header=None) 
+
 
 #Reaction Cross Sections: naming scheme is Element_nucleon_x_nuclide_T
 #e.g: Oxygen_neutron_x_3He_T = Onx3HeT
