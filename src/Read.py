@@ -125,9 +125,54 @@ meanP = pd.read_csv(directory+'/Data/meanP.csv', header=None)
 #Read in climate simulation files
 climate_lat = pd.read_csv(directory+'/climate/latitude.csv', header=None) 
 climate_lon = pd.read_csv(directory+'/climate/longitude.csv', header=None) 
-climate_mslp= pd.read_csv(directory+'/climate/p_mm_msl.csv', header=None) 
-climate_mat = pd.read_csv(directory+'/climate/mat_cor.csv', header=None) 
 
+climate_mslp_a = pd.read_csv(directory+'/climate/texpa1_p_mm_msl.csv', header=None) 
+climate_mat_a = pd.read_csv(directory+'/climate/texpa1_mat_cor.csv', header=None) 
+
+climate_mslp_b = pd.read_csv(directory+'/climate/texpb_p_mm_msl.csv', header=None) 
+climate_mat_b = pd.read_csv(directory+'/climate/texpb_mat_cor.csv', header=None) 
+
+climate_mslp_c = pd.read_csv(directory+'/climate/texpc_p_mm_msl.csv', header=None) 
+climate_mat_c = pd.read_csv(directory+'/climate/texpc_mat_cor.csv', header=None) 
+
+climate_mslp_d = pd.read_csv(directory+'/climate/texpd_p_mm_msl.csv', header=None) 
+climate_mat_d = pd.read_csv(directory+'/climate/texpd_mat_cor.csv', header=None) 
+
+climate_mslp_e = pd.read_csv(directory+'/climate/texpe_p_mm_msl.csv', header=None) 
+climate_mat_e = pd.read_csv(directory+'/climate/texpe_mat_cor.csv', header=None) 
+
+climate_mslp_f = pd.read_csv(directory+'/climate/texpf_p_mm_msl.csv', header=None) 
+climate_mat_f = pd.read_csv(directory+'/climate/texpf_mat_cor.csv', header=None) 
+
+climate_mslp_g = pd.read_csv(directory+'/climate/texpg_p_mm_msl.csv', header=None) 
+climate_mat_g = pd.read_csv(directory+'/climate/texpg_mat_cor.csv', header=None) 
+
+climate_mslp_h = pd.read_csv(directory+'/climate/texph_p_mm_msl.csv', header=None) 
+climate_mat_h = pd.read_csv(directory+'/climate/texph_mat_cor.csv', header=None) 
+
+climate_mslp_i = pd.read_csv(directory+'/climate/texpi_p_mm_msl.csv', header=None) 
+climate_mat_i = pd.read_csv(directory+'/climate/texpi_mat_cor.csv', header=None) 
+
+climate_mslp_j = pd.read_csv(directory+'/climate/texpj_p_mm_msl.csv', header=None) 
+climate_mat_j = pd.read_csv(directory+'/climate/texpj_mat_cor.csv', header=None) 
+
+climate_mslp_k = pd.read_csv(directory+'/climate/texpk_p_mm_msl.csv', header=None) 
+climate_mat_k = pd.read_csv(directory+'/climate/texpk_mat_cor.csv', header=None) 
+
+climate_mslp_l = pd.read_csv(directory+'/climate/texpl_p_mm_msl.csv', header=None) 
+climate_mat_l = pd.read_csv(directory+'/climate/texpl_mat_cor.csv', header=None) 
+
+climate_mslp_m = pd.read_csv(directory+'/climate/texpm_p_mm_msl.csv', header=None) 
+climate_mat_m = pd.read_csv(directory+'/climate/texpm_mat_cor.csv', header=None) 
+
+climate_mslp_n = pd.read_csv(directory+'/climate/texpn_p_mm_msl.csv', header=None) 
+climate_mat_n = pd.read_csv(directory+'/climate/texpn_mat_cor.csv', header=None) 
+
+climate_mslp_o = pd.read_csv(directory+'/climate/texpo_p_mm_msl.csv', header=None) 
+climate_mat_o = pd.read_csv(directory+'/climate/texpo_mat_cor.csv', header=None) 
+
+climate_mslp_p = pd.read_csv(directory+'/climate/texpp_p_mm_msl.csv', header=None) 
+climate_mat_p = pd.read_csv(directory+'/climate/texpp_mat_cor.csv', header=None) 
 
 #Reaction Cross Sections: naming scheme is Element_nucleon_x_nuclide_T
 #e.g: Oxygen_neutron_x_3He_T = Onx3HeT

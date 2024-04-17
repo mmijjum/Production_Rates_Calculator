@@ -34,6 +34,7 @@ def truncate(number, decimals=0):
 time = Read.time 
 delta = Read.delta
 conversion_factor = 0.01*250000
+binsize= 250000
 
 delta = delta*conversion_factor
 lon_repeated = np.repeat(Read.lon,len(time))
@@ -66,18 +67,17 @@ if Read.stdatm == 0: #ERA40
         else:
             lon_list.append(Read.site_lon)
     
-    temp = []
+    temp1 = []
     slp = []
     differential = []
     sample_pressure = []
     
     for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
         t = sci.interpolate.interp2d(lon_numpy,lat_numpy,meanT_numpy)
-        site_T = t(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i], lon_df.to_numpy().flatten().tolist()[i])
-        site_T_degK = site_T + 273.15
-        temp.append(site_T)
+        site_T = t(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])
+        temp1.append(site_T)
         p = sci.interpolate.interp2d(lon_numpy,lat_numpy,meanP_numpy)
-        site_slp = p(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i], lon_df.to_numpy().flatten().tolist()[i])
+        site_slp = p(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])
         slp.append(site_slp)
         
     #Lifton Lapse Rate Fit to COSPAR CIRA-86 <10 km altitude
@@ -91,7 +91,7 @@ if Read.stdatm == 0: #ERA40
         differential.append(dtdz)
         
     for i in range(len(slp)):
-        sp = slp[i] * np.exp( (gmr/differential[i]) * (np.log(temp[i]) - np.log(temp[i] - (alt_list[i]*differential[i])) ) )
+        sp = slp[i] * np.exp( (gmr/differential[i]) * (np.log(temp1[i]) - np.log(temp1[i] - (alt_list[i]*differential[i])) ) )
         sp = float(sp)
         empty.append(sp)
     sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
@@ -99,13 +99,7 @@ if Read.stdatm == 0: #ERA40
 if Read.stdatm == 1:
         #Lifton Lapse Rate Fit to COSPAR CIRA-86 <10 km altitude
     lr = [-6.1517E-03, -3.1831E-06, -1.5014E-07, 1.8097E-09, 1.1791E-10, -6.5359E-14, -9.5209E-15]
-    
-    differential = []
     empty = []
-    for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
-        dtdz = lr[0] + lr[1]*Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**6;
-        dtdz = -dtdz
-        differential.append(dtdz)
         
     for i in range(len(alt_list)):
         differential = 0.0065
@@ -116,10 +110,44 @@ if Read.stdatm == 1:
 if Read.stdatm == 2: #climate simulation
     lat_numpy = Read.climate_lat.to_numpy()
     lon_numpy = Read.climate_lon.to_numpy()
-    meanT_numpy = Read.climate_mat.to_numpy()
-    meanP_numpy = Read.climate_mslp.to_numpy()
+   
+    a = Read.climate_mslp_a
+    b = Read.climate_mslp_b
+    c = Read.climate_mslp_c
+    d = Read.climate_mslp_d
+    e = Read.climate_mslp_e
+    f = Read.climate_mslp_f
+    g = Read.climate_mslp_g
+    h = Read.climate_mslp_h
+    i = Read.climate_mslp_i
+    j = Read.climate_mslp_j
+    k = Read.climate_mslp_k
+    l = Read.climate_mslp_l
+    m = Read.climate_mslp_m
+    n = Read.climate_mslp_n
+    o = Read.climate_mslp_o
     
+    mslp_merged = (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o)
     
+    at = Read.climate_mat_a
+    bt = Read.climate_mat_b
+    ct = Read.climate_mat_c
+    dt = Read.climate_mat_d
+    et = Read.climate_mat_e
+    ft = Read.climate_mat_f
+    gt = Read.climate_mat_g
+    ht = Read.climate_mat_h
+    it = Read.climate_mat_i
+    jt = Read.climate_mat_j
+    kt = Read.climate_mat_k
+    lt = Read.climate_mat_l
+    mt = Read.climate_mat_m
+    nt = Read.climate_mat_n
+    ot = Read.climate_mat_o
+
+    mat_merged = (at,bt,ct,dt,et,ft,gt,ht,it,jt,kt,lt,mt,nt,ot)
+
+
     gmr = -0.03417; # Assorted constants
     dtdz = 0.0065; # Lapse rate from standard atmosphere
     
@@ -136,15 +164,43 @@ if Read.stdatm == 2: #climate simulation
     differential = []
     sample_pressure = []
     
-    for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
-        t = sci.interpolate.interp2d(lon_numpy,lat_numpy,meanT_numpy)
-        site_T = t(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i], lon_df.to_numpy().flatten().tolist()[i])
-        site_T_degK = site_T + 273.15
-        temp.append(site_T)
-        p = sci.interpolate.interp2d(lon_numpy,lat_numpy,meanP_numpy)
-        site_slp = p(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i], lon_df.to_numpy().flatten().tolist()[i])
-        slp.append(site_slp)
+    time = Read.time
+    domain = [0,2,7.25,12.75,17.25,22.75,28.50,33.50,37.75,42,48.50,54,58.25,63.50,67.50] #Ma of each bin
+    mini_durations = [0,8,21,22,18,22,23,20] #how many MCADAM bins in each domain bin
+    start = np.argmax(domain <= time[0])
+    stop = (np.argmax(domain > time[-1])) - 1
+    if stop == start:
+        duration = range(start)
+    
+    else:
+        duration = range(start,stop+1)
+    
+    for j in range(len(Read.site_lon)):
+        x = mini_durations[0]
+        for k in range(len(duration)):
+            t = sci.interpolate.interp2d(lon_numpy,lat_numpy,mat_merged[k])
+            p = sci.interpolate.interp2d(lon_numpy,lat_numpy,mslp_merged[k])
+            y = x + mini_durations[k+1]
+            site_T = t(lon_df.loc[j][x:y],Pmag_paleolat.pl_df.loc[j][x:y])
+            site_T_degK = site_T + 273.15
+            temp.append(site_T)
+            site_slp = p(lon_df.loc[j][x:y],Pmag_paleolat.pl_df.loc[j][x:y])
+            slp.append(site_slp)
+            x = y
+           
+
+            
+            
+    temperatures = []
+    pressures = []
+    for i in range(len(temp)):
+        for k in range(len(temp[i])):
+            x = temp[i][k][0]
+            y = slp[i][k][0]
+            temperatures.append(x)
+            pressures.append(y)
         
+            
     #Lifton Lapse Rate Fit to COSPAR CIRA-86 <10 km altitude
     lr = [-6.1517E-03, -3.1831E-06, -1.5014E-07, 1.8097E-09, 1.1791E-10, -6.5359E-14, -9.5209E-15]
     
@@ -154,26 +210,41 @@ if Read.stdatm == 2: #climate simulation
         dtdz = lr[0] + lr[1]*Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**6;
         dtdz = -dtdz
         differential.append(dtdz)
-        
-    for i in range(len(slp)):
-        sp = slp[i] * np.exp( (gmr/differential[i]) * (np.log(temp[i]) - np.log(temp[i] - (alt_list[i]*differential[i])) ) )
+    pressures_new = []
+    last = []
+    
+    
+    for i in range(len(pressures)):
+        sp = pressures[i] * np.exp( (gmr/differential[i]) * (np.log(temperatures[i]) - np.log(temperatures[i] - (alt_list[i]*differential[i])) ) )
         sp = float(sp)
         empty.append(sp)
-    sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
+    # if stop == start:
+    #     out = empty * len(time)
+    # else:
+    #     for i in range(0,stop+1):
+    #         pressures_new.append(np.repeat(empty[i],mini_durations[i]))
+    #     last.append(np.repeat(empty[-1],(((time[-1]-domain[stop])*10**6)/binsize)))
+    #     flatten = np.concatenate(last).ravel().tolist()
+    #     pressures_new.append(flatten)
+    #     out = np.concatenate(pressures_new).ravel().tolist()
 
 
-x_updated = []
-for i in range(len(empty)):
-    temp = truncate(empty[i],0)
-    x_updated.append(float(temp))
-xdf = pd.DataFrame([(x_updated[n:n+len(time)]) for n in range(0, len(x_updated), len(time))])
+sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
+    
+        
+
+# # x_updated = []
+# # for i in range(len(empty)):
+# #     temp = truncate(empty[i],0)
+# #     x_updated.append(float(temp))
+# # xdf = pd.DataFrame([(x_updated[n:n+len(time)]) for n in range(0, len(x_updated), len(time))])
 
 #convert pressure to atmospheric depth
 def atmdepth(x):
     return x*(1.019716)
-x = atmdepth(xdf)
+x = atmdepth(sample_pressure)
 
 
-#below hard codes sea level atm depth
-# xn = np.repeat(1013.25*1.019716, len(xdf) * len(time))
-# x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
+# # #below hard codes sea level atm depth
+# # # xn = np.repeat(1013.25*1.019716, len(xdf) * len(time))
+# # # x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
