@@ -43,9 +43,9 @@ alt_list_temp = np.repeat(Read.alt, len(time))
 delta_list = np.repeat(delta, len(time))
 
 alt_list = alt_list_temp+delta_list.reset_index(drop=True)
-# for j in range(len(delta)):
-#     for i in range(len(alt_list)-1): ##UPDATE ALT LIST TO REFLECT UPLIFT/SUBSIDENCE
-#         alt_list[i+1]=alt_list[i]+delta[j]
+for j in range(len(delta)):
+    for i in range(len(alt_list)-1): ##UPDATE ALT LIST TO REFLECT UPLIFT/SUBSIDENCE
+        alt_list[i+1]=alt_list[i]+delta[j]
      
  
 if Read.stdatm == 0: #ERA40
@@ -218,27 +218,9 @@ if Read.stdatm == 2: #climate simulation
         sp = pressures[i] * np.exp( (gmr/differential[i]) * (np.log(temperatures[i]) - np.log(temperatures[i] - (alt_list[i]*differential[i])) ) )
         sp = float(sp)
         empty.append(sp)
-    # if stop == start:
-    #     out = empty * len(time)
-    # else:
-    #     for i in range(0,stop+1):
-    #         pressures_new.append(np.repeat(empty[i],mini_durations[i]))
-    #     last.append(np.repeat(empty[-1],(((time[-1]-domain[stop])*10**6)/binsize)))
-    #     flatten = np.concatenate(last).ravel().tolist()
-    #     pressures_new.append(flatten)
-    #     out = np.concatenate(pressures_new).ravel().tolist()
-
 
 sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
     
-        
-
-# # x_updated = []
-# # for i in range(len(empty)):
-# #     temp = truncate(empty[i],0)
-# #     x_updated.append(float(temp))
-# # xdf = pd.DataFrame([(x_updated[n:n+len(time)]) for n in range(0, len(x_updated), len(time))])
-
 #convert pressure to atmospheric depth
 def atmdepth(x):
     return x*(1.019716)
