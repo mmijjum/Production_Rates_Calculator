@@ -40,12 +40,12 @@ delta = delta*conversion_factor
 lon_repeated = np.repeat(Read.lon,len(time))
 lon_df = pd.DataFrame([(lon_repeated.tolist()[n:n+len(time)]) for n in range(0, len(lon_repeated.tolist()), len(time))])
 alt_list_temp = np.repeat(Read.alt, len(time))
-delta_list = np.repeat(delta, len(time))
+delta_list = np.repeat(delta, len(time)).reset_index(drop=True)
 
 alt_list = alt_list_temp+delta_list.reset_index(drop=True)
-for j in range(len(delta)):
-    for i in range(len(alt_list)-1): ##UPDATE ALT LIST TO REFLECT UPLIFT/SUBSIDENCE
-        alt_list[i+1]=alt_list[i]+delta[j]
+# for j in range(len(delta)):
+#     for i in range(len(alt_list)-1): ##UPDATE ALT LIST TO REFLECT UPLIFT/SUBSIDENCE
+#         alt_list[i+1]=alt_list[i]+delta[j]
      
  
 if Read.stdatm == 0: #ERA40, using dataset from LSDn
@@ -170,7 +170,8 @@ if Read.stdatm == 2: #climate simulation
     domain = [0,2,7.25,12.75,17.25,22.75,28.50,33.50,37.75,42,48.50,54,58.25,63.50,67.50,72] #using midpoints, the range of each time slice (in Ma)
     mini_durations = [0,8,21,22,18,22,23,20,17,17,26,22,17,21,16,18] #how many MCADAM bins in climate bin (e.g., between 0-2 Ma, there are 8 MCADAM bins (sized 250 ka))
     stop = (np.argmax(domain > time[-1])) - 1 #determine where in the domain to start, given user input of start time
-    start = np.argmax(domain <= time[0])  #determine where in the domain to end, given user input of end time
+    start_temp = min(domain, key = lambda x: abs(x-time[0]))
+    start = domain.index(start_temp)#np.argmax(domain <= time[0])  #determine where in the domain to end, given user input of end time
     if stop == start: #determine how many consecutive bins will be used. If stop == start, only one bin is used.
         duration = range(start)
     
@@ -221,15 +222,17 @@ if Read.stdatm == 2: #climate simulation
         #sp = float(sp)
         empty.append(sp)
 
-sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
-sample_pressure = sample_pressure.fillna(0)
+    sample_pressure = pd.DataFrame([(empty[n:n+len(time)]) for n in range(0, len(empty), len(time))])
+    sample_pressure = sample_pressure.fillna(0)
 
 #convert pressure to atmospheric depth
 def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(sample_pressure)
 
+##below hard codes sea level atm depth
+# xn = np.repeat(1013.25*1.019716, len(x) * len(time))
+# x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
 
-# # #below hard codes sea level atm depth
-# # # xn = np.repeat(1013.25*1.019716, len(xdf) * len(time))
-# # # x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
+# x.to_csv(Read.directory+'/text_for_plots/valdes_v_time.csv', index=False)  
+

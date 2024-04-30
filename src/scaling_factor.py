@@ -35,8 +35,8 @@ if Read.system == 1:
             
 
 if Read.system == 2:
-    p3nref_cpx = 80.175076 
-    p3pref_cpx =  13.062843
+    p3nref_cpx = 80.017751 
+    p3pref_cpx =  13.039046 
     HeRef_cpx = p3nref_cpx + p3pref_cpx #reference production rate, internal
 
     #Nuclide specific scaling factors as f(Rc)

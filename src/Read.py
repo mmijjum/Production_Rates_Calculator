@@ -174,6 +174,10 @@ climate_mat_o = pd.read_csv(directory+'/climate/texpo_mat_cor.csv', header=None)
 climate_mslp_p = pd.read_csv(directory+'/climate/texpp_p_mm_msl.csv', header=None) 
 climate_mat_p = pd.read_csv(directory+'/climate/texpp_mat_cor.csv', header=None) 
 
+atm_2 = pd.read_csv(directory+'/text_for_plots/atm_2.csv', header=None) 
+atm_1 = pd.read_csv(directory+'/text_for_plots/atm_1.csv', header=None) 
+atm_0 = pd.read_csv(directory+'/text_for_plots/atm_0.csv', header=None) 
+
 #Reaction Cross Sections: naming scheme is Element_nucleon_x_nuclide_T
 #e.g: Oxygen_neutron_x_3He_T = Onx3HeT
 Onx3HeT = pd.read_csv(directory+'/Data/Onx3HeT.csv', header = None) 
@@ -759,9 +763,13 @@ sf_1ma = pd.read_csv(directory+'/text_for_plots/sf_1ma.csv')
 
 GL_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_7_GL_ERA40', header = None)
 GL_STD = pd.read_csv(directory+'/text_for_plots/Figure_7_GL_STD', header = None)
+GL_climate = pd.read_csv(directory+'/text_for_plots/Figure_6_GL_climate', header = None)
+GL_climate_70 = pd.read_csv(directory+'/text_for_plots/Figure_6_GL_climate_70', header = None)
 
 EC_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_7_EC_ERA40', header = None)
 EC_STD = pd.read_csv(directory+'/text_for_plots/Figure_7_EC_STD', header = None)
+EC_climate = pd.read_csv(directory+'/text_for_plots/Figure_6_EC_climate', header = None)
+EC_climate_70 = pd.read_csv(directory+'/text_for_plots/Figure_6_EC_climate_70', header = None)
 
 Rc_full = pd.read_csv(directory+'/text_for_plots/Rc_full.csv', header = None)
 Rc_half = pd.read_csv(directory+'/text_for_plots/Rc_half.csv', header = None)
@@ -776,17 +784,19 @@ x_c = pd.read_csv(directory+'/text_for_plots/x_c.csv', header = None)
 lib5e3 = pd.read_csv(directory+'/text_for_plots/lib_5e3.csv', header = None)
 lib1e3 = pd.read_csv(directory+'/text_for_plots/lib_1e3.csv', header = None)
 lib5e4 = pd.read_csv(directory+'/text_for_plots/lib_5e4.csv', header = None)
-lib3e3 = pd.read_csv(directory+'/text_for_plots/lib_3e3.csv', header = None)
-lib10e3 = pd.read_csv(directory+'/text_for_plots/lib_10e3.csv', header = None)
-lib20e3 = pd.read_csv(directory+'/text_for_plots/lib_20e3.csv', header = None)
+lib3e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3.csv', header = None)
+lib10e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3.csv', header = None)
+lib20e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3.csv', header = None)
 
 Rc_const = pd.read_csv(directory+'/text_for_plots/Rc_const.csv', header = None)
 Rc_tv_latonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_latonly.csv', header = None)
 Rc_tv_fieldonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_fieldonly.csv', header = None)
 Rc_tv_both = pd.read_csv(directory+'/text_for_plots/Rc_tv_both.csv', header = None)
 
-north_america = pd.read_csv(directory+'/text_for_plots/north_america.csv', header = None)
+midlats = pd.read_csv(directory+'/text_for_plots/midlats.csv', header = None)
 poles = pd.read_csv(directory+'/text_for_plots/poles.csv', header = None)
 equator = pd.read_csv(directory+'/text_for_plots/equator.csv', header = None)
 
-
+era40_v_time = pd.read_csv(directory+'/text_for_plots/era40_v_time.csv', header = None)
+std_v_time = pd.read_csv(directory+'/text_for_plots/std_v_time.csv', header = None)
+#valdes_v_time = pd.read_csv(directory+'/text_for_plots/valdes_v_time.csv', header = None)
