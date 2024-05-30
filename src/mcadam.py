@@ -25,6 +25,24 @@ MCADAM_250 = MCADAM_250ka_full.iloc[0:281]
 temp_median =pd.concat([MCADAM_250['age'],MCADAM_250['50%']],axis=1)
 updated_df =  temp_median[(temp_median['age'] >= Read.time[0]) & (temp_median['age'] <= Read.time[-1])]
 medians = updated_df['50%'].reset_index(drop=True)
+# sigma_25 = MCADAM_250['25%'].reset_index(drop=True)
+# sigma_75 = MCADAM_250['75%'].reset_index(drop=True)
+
+# sig25 = sigma_25
+# sig75 = sigma_75
+
+# time = np.arange(0,70.25,0.25)
+# plt.plot(time,medians,'#016c59', label = 'MCADAM (Bono et al., 2022')
+# plt.xlim(0,70)
+# plt.hlines(5.45,0,70, colors = '#67a9cf',linestyles='--',linewidth=3, label = 'LSDn long term average')
+# plt.fill_between(time, sig75, medians,  color = '#bdc9e1', alpha = 0.5)
+# plt.fill_between(time, medians, sig25, color =  '#bdc9e1', alpha = 0.5)
+# plt.legend(fontsize = 11)
+# plt.xlabel('Time (Ma)', fontsize =13)
+# plt.ylabel(r'Paleointensity ($\times$ 10$^{22}$ Am$^2$)', fontsize =13)
+
+# plt.savefig(Read.directory+'/plots_updated/cosmo_pmag.png', dpi = 300, bbox_inches='tight')
+
 
 #50kyr resolution model
 #need to update time range in 'read' to use this

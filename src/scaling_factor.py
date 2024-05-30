@@ -15,6 +15,11 @@ import pandas as pd
 import Rc
 import neutron_spallation
 import proton_spallation
+import glob
+import os
+
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+directory = os.path.dirname(__file__)
 
 #Calculate scaling factor from spallation of protons + neutrons
 #NOTE: all 'refs' were calculated using this model, for a hypothetical sample at SLHL.
@@ -69,4 +74,4 @@ if Read.system == 4:
 
     
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
-
+#Siteprod_df.to_csv(directory+'/text_for_plots_updated/sf_tvlat_only_sigma.csv') 

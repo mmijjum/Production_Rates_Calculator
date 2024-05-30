@@ -800,3 +800,17 @@ equator = pd.read_csv(directory+'/text_for_plots/equator.csv', header = None)
 era40_v_time = pd.read_csv(directory+'/text_for_plots/era40_v_time.csv', header = None)
 std_v_time = pd.read_csv(directory+'/text_for_plots/std_v_time.csv', header = None)
 #valdes_v_time = pd.read_csv(directory+'/text_for_plots/valdes_v_time.csv', header = None)
+
+sf_negative_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_negative_sigma.csv', header = None)
+sf_positive_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_positive_sigma.csv', header = None)
+sf_regular_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_regular_sigma.csv', header = None)
+sf_constant_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_constant_sigma.csv', header = None)
+
+sf_tvfieldonly_negsigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_negsigma.csv', header = None)
+sf_tvfieldonly_possigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_possigma.csv', header = None)
+sf_tvfieldonly_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_sigma.csv', header = None)
+sf_tvlatonly_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_tvlat_only_sigma.csv', header = None)
+
+
+
+

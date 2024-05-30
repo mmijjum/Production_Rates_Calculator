@@ -28,19 +28,19 @@ if Read.system == 4:
     data = Read.data_muons # column 1 is momentum [MeV/c], column 2 is g/cm2
     
     #H = atm_depth.x
-    h = atm_depth.x
+    h = atm_depth.x/1.019716
     rho = Read.rho
     z_temp = Read.z_from_surface
     Z = z_temp * rho #convert depth from surface from cm to g/cm2
     
-    H = (1013.25 - h)*1.019716
+    H = (1013.25 - h)*1.019716 #atm_depth.x is already in g/cm2, difference?
     
     #find vertical flux at SLHL
     a = 258.5*(100**2.66)
     b = 75 * (100**1.66)
     
     phi_vert_slhl = (a/((Z + 21000) * (((Z + 1000)**1.66) + b))) * np.exp(-5.5e-6 * Z)
-    
+
     #Convert user-input depth below surface
     
     
@@ -81,11 +81,11 @@ if Read.system == 4:
         for i in range(len(H.iloc[0])):
             Z_new= thresh(Z[k])
             tol = phi_vert_slhl[k] * 1e-4
-            f = lambda x: Rv0(x)* np.exp(H.iloc[k,i]/(LZ(x)))
+            f = lambda x: Rv0(x)* np.exp(H.iloc[k,i]/LZ(x))
             temp = integrate.quad(f, Z_new, 2e5+1, epsabs = tol)
             phi_vert_site.append(temp[0])
         
-    phi_200k = (a/((2e5+21000)*(((2e5+1000)**1.66) + b)))*np.exp(-5.5e-6* 2e5)
+    phi_200k = (1/((2e5+21000) * (((2e5+1000)**1.66) + b))) * np.exp(-5.5e-6 * 2e5)
     phi_vert_site = phi_vert_site + phi_200k;
     
     
@@ -132,7 +132,7 @@ if Read.system == 4:
     
             #fast muon production
             
-            P_fast_temp = phi[i]*Beta*(Ebar**aalpha)*sigma*2e5 #2e5 = consts.Natoms 
+            P_fast_temp = phi[i]*Beta*(Ebar**aalpha)*sigma*1.0228e22 #2e5 = consts.Natoms 
             P_fast.append(P_fast_temp)
     #negative muon capture #IGNORE FOR OW, ONLY DOING FAST MUONS
     
@@ -142,10 +142,10 @@ if Read.system == 4:
     ##SAVE ATTENUATION LENGTHS FOR FINAL FIGURE##
     atten = []
     for i in range(len(Z)):
-       #deal with zero situation
-       Z_new = thresh(Z[i])
-       LZ_temps = LZ(Z_new)
-       atten.append(LZ_temps)
+        #deal with zero situation
+        Z_new = thresh(Z[i])
+        LZ_temps = LZ(Z_new)
+        atten.append(LZ_temps)
       
     
     if Read.paleo[0] == 1:

@@ -344,8 +344,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="399.94549"
-     inkscape:cy="275.59908"
+     inkscape:cx="255.09809"
+     inkscape:cy="147.02765"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -354,7 +354,7 @@
      inkscape:window-height="1009"
      inkscape:window-x="1440"
      inkscape:window-y="23"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -746,26 +746,11 @@
             <g
                id="ytick_2-1">
               <g
-                 id="line2d_13-2">
-                <path
-                   clip-path="url(#p62c8d4cc68)"
-                   d="M 40.603125,201.25922 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path2704" />
-              </g>
+                 id="line2d_13-2" />
               <g
                  id="line2d_14-3">
                 <g
-                   id="g2709">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#me493610280"
-                     y="201.25922"
-                     id="use2707"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g2709" />
               </g>
             </g>
             <g
@@ -818,26 +803,11 @@
             <g
                id="ytick_4-0">
               <g
-                 id="line2d_17-1">
-                <path
-                   clip-path="url(#p62c8d4cc68)"
-                   d="M 40.603125,146.89922 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path2737" />
-              </g>
+                 id="line2d_17-1" />
               <g
                  id="line2d_18-8">
                 <g
-                   id="g2742">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#me493610280"
-                     y="146.89922"
-                     id="use2740"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g2742" />
               </g>
             </g>
             <g
@@ -890,26 +860,11 @@
             <g
                id="ytick_6-2">
               <g
-                 id="line2d_21-8">
-                <path
-                   clip-path="url(#p62c8d4cc68)"
-                   d="M 40.603125,92.539219 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path2769" />
-              </g>
+                 id="line2d_21-8" />
               <g
                  id="line2d_22-4">
                 <g
-                   id="g2774">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#me493610280"
-                     y="92.539223"
-                     id="use2772"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g2774" />
               </g>
             </g>
             <g
@@ -962,26 +917,11 @@
             <g
                id="ytick_8-7">
               <g
-                 id="line2d_25-1">
-                <path
-                   clip-path="url(#p62c8d4cc68)"
-                   d="M 40.603125,38.179219 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path2801" />
-              </g>
+                 id="line2d_25-1" />
               <g
                  id="line2d_26-8">
                 <g
-                   id="g2806">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#me493610280"
-                     y="38.179218"
-                     id="use2804"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g2806" />
               </g>
             </g>
             <g
@@ -2501,26 +2441,11 @@
             <g
                id="ytick_2">
               <g
-                 id="line2d_13">
-                <path
-                   clip-path="url(#pe8a5d87fb4)"
-                   d="M 40.603125,201.25922 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path1067" />
-              </g>
+                 id="line2d_13" />
               <g
                  id="line2d_14">
                 <g
-                   id="g1072">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#mad87a8a417"
-                     y="201.25922"
-                     id="use1070"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g1072" />
               </g>
             </g>
             <g
@@ -2573,26 +2498,11 @@
             <g
                id="ytick_4">
               <g
-                 id="line2d_17">
-                <path
-                   clip-path="url(#pe8a5d87fb4)"
-                   d="M 40.603125,146.89922 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path1100" />
-              </g>
+                 id="line2d_17" />
               <g
                  id="line2d_18">
                 <g
-                   id="g1105">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#mad87a8a417"
-                     y="146.89922"
-                     id="use1103"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g1105" />
               </g>
             </g>
             <g
@@ -2645,26 +2555,11 @@
             <g
                id="ytick_6">
               <g
-                 id="line2d_21">
-                <path
-                   clip-path="url(#pe8a5d87fb4)"
-                   d="M 40.603125,92.539219 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path1132" />
-              </g>
+                 id="line2d_21" />
               <g
                  id="line2d_22">
                 <g
-                   id="g1137">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#mad87a8a417"
-                     y="92.539223"
-                     id="use1135"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g1137" />
               </g>
             </g>
             <g
@@ -2717,26 +2612,11 @@
             <g
                id="ytick_8">
               <g
-                 id="line2d_25">
-                <path
-                   clip-path="url(#pe8a5d87fb4)"
-                   d="M 40.603125,38.179219 H 258.04312"
-                   style="fill:none;stroke:#b0b0b0;stroke-width:0.8;stroke-linecap:square"
-                   id="path1164" />
-              </g>
+                 id="line2d_25" />
               <g
                  id="line2d_26">
                 <g
-                   id="g1169">
-                  <use
-                     style="stroke:#000000;stroke-width:0.8"
-                     x="40.603127"
-                     xlink:href="#mad87a8a417"
-                     y="38.179218"
-                     id="use1167"
-                     width="100%"
-                     height="100%" />
-                </g>
+                   id="g1169" />
               </g>
             </g>
             <g
