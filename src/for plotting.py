@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -420,7 +421,7 @@ Atmospheric Depth / SF variations
 # ax2.set_yticks([0,2,4])
 # ax2.tick_params(axis='both', which='major', labelsize=8)
 # plt.grid()
-ottb# plt.savefig(Read.directory+'/plots_updated/Figure_6A.svg', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots_updated/Figure_6A.svg', dpi = 300, bbox_inches='tight')
 
 
 # fig = plt.figure(figsize=(4,4))
@@ -497,117 +498,122 @@ Scaling factor TV and Constant
 # sf_india_tvlatonly = scaling_factor.Siteprod_df.iloc[0]
 # sf_india_tvlatonly.to_csv(directory+'/text_for_plots/sf_india_tvlatonly.csv') 
 
-# neg = Read.sf_negative_sigma.iloc[1][1:]
-# pos = Read.sf_positive_sigma.iloc[1][1:]
+# sig75 = Read.sf_sigma75.iloc[1][1:]
+# sig25 = Read.sf_sigma25.iloc[1][1:]
 # median = Read.sf_regular_sigma.iloc[1][1:]
 # const = Read.sf_constant_sigma.iloc[1][1:]
 
-# tvfield_neg = Read.sf_tvfieldonly_negsigma.iloc[1][1:]
-# tvfield_pos = Read.sf_tvfieldonly_possigma.iloc[1][1:]
+# tvfield_25 = Read.sf_tvfieldonly_25sigma.iloc[1][1:]
+# tvfield_75 = Read.sf_tvfieldonly_75sigma.iloc[1][1:]
 # tvfield_avg = Read.sf_tvfieldonly_sigma.iloc[1][1:]
 # tvlat = Read.sf_tvlatonly_sigma.iloc[1][1:]
 
-# # # #BEGIN
+# # # # #BEGIN
 # time = np.linspace(0,70,281)
-# f = plt.figure(figsize=(10,4))
+# f = plt.figure(figsize=(15,6))
 # ax = f.add_subplot(121)
 # ax2 = f.add_subplot(122)
 # ax.plot(time,median, linewidth = 2, c = '#016c59',label = 'time-varying field and latitude')
 # ax.plot(time,const, '--',linewidth = 2.5,c = 'black', label = 'constant field and latitude')
-# ax.fill_between(time, pos, median,  color = '#a6bddb', alpha = 0.5)
-# ax.fill_between(time, median, neg, color =  '#a6bddb', alpha = 0.5)
+# ax.fill_between(time, sig75, median,  color = '#a6bddb', alpha = 0.5)
+# ax.fill_between(time, median, sig25, color =  '#a6bddb', alpha = 0.5)
 
 # ax.set_xlim(0,70)
-# ax.plot(time, neg, '#a6bddb')
-# ax.plot(time,pos,'#a6bddb')
+# ax.set_ylim(0.45,0.95)
 
-# ax.vlines(66.052, 0.50, 0.95, linewidth = 2.5)
-# ax.set_xlabel('Time (Ma)', fontsize = 13)
-# ax.set_ylabel('Scaling Factor', fontsize = 13)
-# ax.legend(loc = 'lower left')
+# ax.plot(time, sig25, '#a6bddb')
+# ax.plot(time,sig75,'#a6bddb')
+
+# ax.vlines(66.052, 0.45, 0.95, linewidth = 2.5)
+# ax.set_xlabel('Time (Ma)', fontsize = 15)
+# ax.set_ylabel('Scaling Factor', fontsize = 15)
+# ax.legend(loc = 'lower left', fontsize =13)
 
 # ax2.plot(time,tvfield_avg, linewidth = 2.5,c = '#014636',label = 'time-varying field, constant latitude')
 # ax2.plot(time,tvlat, '--',linewidth = 2.5,c = '#67a9cf', label = 'constant field, time-varying latitude')
-# ax2.plot(time, tvfield_neg, '#a6bddb')
-# ax2.plot(time,tvfield_pos,'#a6bddb')
-# ax2.fill_between(time, tvfield_pos, tvfield_avg,  color = '#a6bddb', alpha = 0.5)
-# ax2.fill_between(time, tvfield_avg, tvfield_neg, color =  '#a6bddb', alpha = 0.5)
+# ax2.plot(time, tvfield_25, '#a6bddb')
+# ax2.plot(time,tvfield_75,'#a6bddb')
+# ax2.fill_between(time, tvfield_75, tvfield_avg,  color = '#a6bddb', alpha = 0.5)
+# ax2.fill_between(time, tvfield_avg, tvfield_25, color =  '#a6bddb', alpha = 0.5)
+
+# ax2.set_ylim(0.45,0.95)
+# ax2.vlines(66.052, 0.45, 0.95, linewidth = 2.5)
 
 
 # ax2.set_xlim(0,70)
 # ax2.vlines(66.052, 0.50, 0.95,linewidth = 2.5)
-# ax2.set_xlabel('Time (Ma)', fontsize = 13)
-# ax2.legend(loc = 'lower left')
+# ax2.set_xlabel('Time (Ma)', fontsize = 15)
+# ax2.legend(loc = 'lower left', fontsize = 13)
 # plt.setp(ax2.get_yticklabels(), visible=False)
-
-
 # plt.savefig(directory+'/plots_updated/Figure_8.pdf', dpi = 300, bbox_inches='tight')
 
 
 
 
 """
+
 FIGURE 9
 EVENSTAR DATASET
-# """
-# exp_ages_time_varying = [123764.70513124338,
-#  999950.5881550129,
-#  2809842.973923239,
-#  1437709.5492099412,
-#  1597412.2430487473,
-#  2306374.286561611,
-#  2811905.9936664747,
-#  5205562.436422755,
-#  804638.461019477,
-#  1027097.292649448,
-#  3243379.122532165,
-#  5272036.169905982,
-#  4814983.263867728,
-#  5004348.192627103,
-#  5798579.472430228,
-#  3801760.946131991,
-#  4043021.3848517216,
-#  4190083.484928454,
-#  3974482.253474694,
-#  10867014.793712351,
-#  7457939.823871471,
-#  11504457.347719094,
-#  10174352.548386587,
-#  10034978.260752263,
-#  2501601.075564036,
-#  2442727.0967175965,
-#  1917534.0170423328,
-#  2085500.9806046379]
+
+"""
+exp_ages_time_varying = [123764.70513124338,
+  999950.5881550129,
+  2809842.973923239,
+  1437709.5492099412,
+  1597412.2430487473,
+  2306374.286561611,
+  2811905.9936664747,
+  5205562.436422755,
+  804638.461019477,
+  1027097.292649448,
+  3243379.122532165,
+  5272036.169905982,
+  4814983.263867728,
+  5004348.192627103,
+  5798579.472430228,
+  3801760.946131991,
+  4043021.3848517216,
+  4190083.484928454,
+  3974482.253474694,
+  10867014.793712351,
+  7457939.823871471,
+  11504457.347719094,
+  10174352.548386587,
+  10034978.260752263,
+  2501601.075564036,
+  2442727.0967175965,
+  1917534.0170423328,
+  2085500.9806046379]
 
 
-# exp_ages_constant= [114228.05791045129,
-#  915946.3467122873,
-#  2738524.329526318,
-#  1337892.329096456,
-#  1492716.4114716016,
-#  2237688.836019829,
-#  2737022.7304163054,
-#  5020979.568684665,
-#  730821.6829189667,
-#  938896.583164952,
-#  3152139.0098045915,
-#  5070621.350176061,
-#  4631739.899436452,
-#  4825366.17480535,
-#  5623508.560978162,
-#  3695269.4978240505,
-#  3950957.8542163633,
-#  4083156.2323068194,
-#  3882028.5922924485,
-#  11323751.27282418,
-#  7584169.781085953,
-#  12086889.969182406,
-#  10509988.870293442,
-#  10352712.57702584,
-#  2442963.7472036444,
-#  2385523.147630269,
-#  1834586.2395702424,
-#  2009533.8964364766]
+exp_ages_constant= [114228.05791045129,
+  915946.3467122873,
+  2738524.329526318,
+  1337892.329096456,
+  1492716.4114716016,
+  2237688.836019829,
+  2737022.7304163054,
+  5020979.568684665,
+  730821.6829189667,
+  938896.583164952,
+  3152139.0098045915,
+  5070621.350176061,
+  4631739.899436452,
+  4825366.17480535,
+  5623508.560978162,
+  3695269.4978240505,
+  3950957.8542163633,
+  4083156.2323068194,
+  3882028.5922924485,
+  11323751.27282418,
+  7584169.781085953,
+  12086889.969182406,
+  10509988.870293442,
+  10352712.57702584,
+  2442963.7472036444,
+  2385523.147630269,
+  1834586.2395702424,
+  2009533.8964364766]
 
 # exp_neon_tv = [899178.2239571962,
 #  881190.6642503834,
@@ -623,7 +629,20 @@ EVENSTAR DATASET
 #  6039894.976639283,
 #  2995217.1577257384,
 #  2171667.694324269]
-
+exp_neon_tv = [893085.7250556983,
+ 875221.1921809706,
+ 257798.42015530643,
+ 113880.06361267179,
+ 302399.27001622773,
+ 209822.878995474,
+ 247806.52138093146,
+ 34722.797305155655,
+ 2082839.6017052303,
+ 2175640.4048787877,
+ 3065982.425373138,
+ 6014480.99988274,
+ 2981303.2917019706,
+ 2153874.8413577583]
 # exp_neon_const = [812782.8357428286,
 #  795981.1233760518,
 #  238097.90154721637,
@@ -638,6 +657,8 @@ EVENSTAR DATASET
 #  5898613.305004761,
 #  2896141.6064051455,
 #  2089912.6167371792]
+
+exp_neon_const = 
 
 # updated_texp_tv = []
 # updated_texp_const = []
@@ -671,40 +692,56 @@ EVENSTAR DATASET
 #     perdifneon.append((temp/updatedneonconst)*100)
     
 
-# exp_ages_dunai = [15900030.658459842,
-#  17218840.558627594,
-#  13484315.229998497,
-#  24086068.288904108,
-#  16059125.504195761,
-#  17797279.76808732,
-#  11639733.465906788,
-#  8031877.958063593,
-#  17707901.95244436,
-#  11537975.877970759,
-#  14752091.425843798,
-#  18692537.288270455,
-#  14171877.48969891,
-#  69986.11861290704,
-#  132196.00182438002,
-#  89426.70711649234]
+exp_ages_dunai =[15763162.316651337,
+ 17075680.469415437,
+ 13373564.048961097,
+ 23882521.271142293,
+ 15917941.945918053,
+ 17659709.87583329,
+ 11540887.08438787,
+ 7955567.591118362,
+ 17570891.270206448,
+ 11440981.091073878,
+ 14630876.939257234,
+ 18550091.08735184,
+ 14063969.09053718,
+ 69282.03158254962,
+ 130866.12991986367,
+ 88527.04035548007]
 
-# exp_ages_dunai_const = [17331545.871189587,
-#  18715347.30854896,
-#  14435393.136169683,
-#  27422709.90482942,
-#  17509247.1486647,
-#  19453054.81838913,
-#  12211463.267820993,
-#  8137098.856875005,
-#  19336755.168219406,
-#  12091655.94147015,
-#  16019322.10241993,
-#  20626034.672335483,
-#  15290118.856428267,
-#  64603.2217204989,
-#  122028.30769427573,
-#  82548.56108730416]
+exp_ages_dunai_const = [17161945.98764428,
+ 18532216.445887096,
+ 14294129.283031106,
+ 27154373.540771343,
+ 17337899.121718615,
+ 19257932.737467907,
+ 12088955.656717582,
+ 8055480.605828487,
+ 19142772.660304118,
+ 11970940.785396203,
+ 15859377.55985923,
+ 20420117.32115244,
+ 15137462.068127034,
+ 64002.81290539869,
+ 120894.2621184707,
+ 81781.37204578723]
 
+exp_ages_dunai_const_uplift = [7581483.7753831865,
+ 8264233.412305639,
+ 6200134.499184896,
+ 12887355.060303997,
+ 7674218.512485995,
+ 8608704.436590236,
+ 5158252.069907712,
+ 3353996.070116172,
+ 8555282.20511929,
+ 5108927.361147547,
+ 6940178.600556521,
+ 9215456.556107948,
+ 6595223.125255934,
+ 25808.363452443053,
+ 48759.27274475137,
+ 32986.415681101986]
 # updated_dunai_const = []
 # updated_dunai = []
 # diff_tv_dunai = []
@@ -969,7 +1006,6 @@ LIBARKIN DATASET
 # tempvals = []
 # tempvalsmu = []
 # lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
-# #lambdamu = 1300 #muon attenuation length in at/g/yr (Balco supplementary)
 # rho = 2.32
 # erosion = (3*(10**-3)) #in cm/yr
 # dt2 = 250000
@@ -982,74 +1018,67 @@ LIBARKIN DATASET
 
 # z0 = np.arange(0,102,2)
 # concentrations = []
-# lambdamu = [270.4025448920097,
-#   274.9372570467424,
-#   278.13155424768183,
-#   280.7343789517444,
-#   282.84834647839074,
-#   284.660106845728,
-#   286.31349756855957,
-#   287.9757281535187,
-#   289.516459198588,
-#   291.103221766351,
-#   292.6029218013917,
-#   294.0283931916488,
-#   295.3895999442067,
-#   296.7488552020244,
-#   298.1690670244588,
-#   299.5449208856159,
-#   300.88063015490684,
-#   302.1797722975252,
-#   303.44541631024646,
-#   304.6802190032463,
-#   305.88649897457054,
-#   307.2175391394648,
-#   308.544341747117,
-#   309.8493357308708,
-#   311.1338055065029,
-#   312.398909799448,
-#   313.6456984545915,
-#   314.8751264406627,
-#   316.08806560360387,
-#   317.28531459791793,
-#   318.4676073313087,
-#   319.63562018713145,
-#   320.7899782351222,
-#   321.95226462147866,
-#   323.2171719602245,
-#   324.47137641152597,
-#   325.7152705918301,
-#   326.9492222457257,
-#   328.1735764491849,
-#   329.3886575649421,
-#   330.5947709835189,
-#   331.79220467815344,
-#   332.9812305975691,
-#   334.16210591694244,
-#   335.33507416446423,
-#   336.50036623840316,
-#   337.72712627344026,
-#   339.043875095838,
-#   340.3553725591056,
-#   341.6617483776725,
-#   342.9631264842444]
 
+# lambdamu = 4000
+    
     
 # for i in range(len(z0)):
 #     Cspall = (shielding.S_thick[0][0]*(neutron_spallation.pn_df[0][i] + proton_spallation.pp_df[0][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt1)) + (shielding.S_thick[0][0]*(neutron_spallation.pn_df[1][i] + proton_spallation.pp_df[1][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt2))+ (shielding.S_thick[0][0]*(neutron_spallation.pn_df[2][i] + proton_spallation.pp_df[2][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt3))
-#     Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu[i]) * np.exp(-(rho*z0[i]/lambdamu[i])) * (1-np.exp(-(rho*erosion/lambdamu[i])*dt1)) + muons.pmuons_df[1][i] / ((rho * erosion) / lambdamu[i]) * np.exp(-(rho*z0[i]/lambdamu[i])) * (1-np.exp(-(rho*erosion/lambdamu[i])*(dt2))) + muons.pmuons_df[2][i] / ((rho * erosion) / lambdamu[i]) * np.exp(-(rho*z0[i]/lambdamu[i])) * (1-np.exp(-(rho*erosion/lambdamu[i])*(dt3))) 
+#     Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*dt1)) + muons.pmuons_df[1][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(dt2))) + muons.pmuons_df[2][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(dt3))) 
 #     Ctot = Cspall + Cmuons
 #     concentrations.append(Cspall + Cmuons)
-# np.savetxt(directory+"/text_for_plots_updated/lib_3e3.csv", 
+# np.savetxt(directory+"/text_for_plots_updated/lib_3e3_times10.csv", 
 #             concentrations,
 #             delimiter =", ", 
 #             fmt ='% s')
 
+#calcute percent difference
 
+# perdif3 = []
+# perdif10 = []
+# perdif20 = []
+
+# for i in range(len(Read.lib3e3[0])):
+#     perdift3 = (Read.lib3e3[0][i] - Read.lib3e3_div10[0][i]) / ((Read.lib3e3[0][i] + Read.lib3e3_div10[0][i])/2)*100
+#     perdift10 = (Read.lib10e3[0][i] - Read.lib10e3_div10[0][i]) / ((Read.lib10e3[0][i] + Read.lib10e3_div10[0][i])/2)*100
+#     perdift20 = (Read.lib20e3[0][i] - Read.lib20e3_div10[0][i]) / ((Read.lib20e3[0][i] + Read.lib20e3_div10[0][i])/2)*100
+                                                                     
+#     perdif3.append(perdift3)
+#     perdif10.append(perdift10)
+#     perdif20.append(perdift20)
 
 # plt.plot(z0,Read.lib3e3[0], c = 'darkblue', label=r'3$\times 10^{-3}$ cm/yr')
 # plt.plot(z0,Read.lib10e3[0], c = 'cornflowerblue', label = r'10$\times 10^{-3}$ cm/yr')
 # plt.plot(z0,Read.lib20e3[0], c = 'teal',label = r'20$\times 10^{-3}$ cm/yr')
+# plt.xlabel('Depth below surface (cm)')
+# plt.ylabel('Percent difference in predicted concentration')
+#plt.title(r'Attenuation length / 10')
+#plt.savefig(Read.directory+'/plots_updated/libarkin_div10.png', dpi = 300, bbox_inches='tight')
+#plt.legend()
+
+# perdif3x = []
+# perdif10x = []
+# perdif20x = []
+
+# for i in range(len(Read.lib3e3[0])):
+#     perdift3 = (-Read.lib3e3[0][i] + Read.lib3e3_times10[0][i]) / ((Read.lib3e3[0][i] + Read.lib3e3_times10[0][i])/2)*100
+#     perdift10 = (-Read.lib10e3[0][i] + Read.lib10e3_times10[0][i]) / ((Read.lib10e3[0][i] + Read.lib10e3_times10[0][i])/2)*100
+#     perdift20 = (-Read.lib20e3[0][i] + Read.lib20e3_times10[0][i]) / ((Read.lib20e3[0][i] + Read.lib20e3_times10[0][i])/2)*100
+                                                                     
+#     perdif3x.append(perdift3)
+#     perdif10x.append(perdift10)
+#     perdif20x.append(perdift20)
+
+# plt.plot(z0,perdif3x, c = 'darkblue', label=r'3$\times 10^{-3}$ cm/yr')
+# plt.plot(z0,perdif10x, c = 'cornflowerblue', label = r'10$\times 10^{-3}$ cm/yr')
+# plt.plot(z0,perdif20x, c = 'teal',label = r'20$\times 10^{-3}$ cm/yr')
+# plt.xlabel('Depth below surface (cm)')
+# plt.ylabel('Percent difference in predicted concentration')
+# plt.title(r'Attenuation length $\times$ 10')
+
+# plt.legend()
+
+# plt.savefig(Read.directory+'/plots_updated/libarkin_times10.png', dpi = 300, bbox_inches='tight')
 
 # x = [15,15,15,35,45,35,55]
 # y = [2380000.00,2630000.00,2750000.00,330000.00,730000.00,340000.00,590000.00]
@@ -1070,7 +1099,11 @@ LIBARKIN DATASET
 # plt.ylim(0,5e6)
 # plt.xlabel('Depth below paleosurface (cm)', fontsize = 12)
 # plt.ylabel(r'Concentration ($\times 10^{6}$atoms/g)', fontsize = 12)
-# plt.savefig(Read.directory+'/plots_updated/Figure_10.png', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots_updated/libarkin_times100', dpi = 300, bbox_inches='tight')
+"""
+LIBARKIN V2
+
+"""
 
 
 """

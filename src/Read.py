@@ -37,6 +37,8 @@ Nuclide = Exposure_Age_Inputs['Nuclide']
 atm = Exposure_Age_Inputs['Atmospheric conversion']
 start = Exposure_Age_Inputs['Start']
 stop = Exposure_Age_Inputs['Stop']
+if np.isnan(stop)[0] == True:
+    stop[0] = 70
 plate = Exposure_Age_Inputs['Plate']
 z_from_surface = Exposure_Age_Inputs['Depth below paleosurface']
 paleo = Exposure_Age_Inputs['Paleoduration?']
@@ -82,6 +84,19 @@ else:
 
 
 resolution = int(250000)/10**6 #change from 250000 to 50000 for MCADAM full resolution
+
+import math 
+timerange = [start[0],stop[0]]
+def round_down(num):
+    return num - (num%0.25)
+
+def quarter(x):
+    return math.ceil(x*4)/4
+
+time2 = round_down(timerange[0])
+time1 = quarter(timerange[1])
+time = np.arange(time2,time1+0.05,resolution)
+
 if paleo[0] ==0: 
     timerange = [start[0],stop[0]+0.05]
     
@@ -97,20 +112,7 @@ if paleo[0] ==0:
     time2 = myround(timerange[1])
     time = np.arange(time1,time2+.25,resolution)
 
-if paleo[0] == 1:
-    timerange = [start[0]+0.05,stop[0]]
-    def round_down(num):
-        return num - (num%0.25)
 
-    time1 = round_down(timerange[1])
-    
-    def myround(x, base=0.25):
-        return base * round(x/base)
-
-    time2 = myround(timerange[0])
-
-    
-    time = np.arange(time2,time1+0.5,resolution)
 #convert lat/lon/altitude to lists for use later.
 lat = site_lat.tolist()
 lon = site_lon.tolist()
@@ -788,6 +790,15 @@ lib3e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3.csv', header = N
 lib10e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3.csv', header = None)
 lib20e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3.csv', header = None)
 
+lib3e3_times10 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3_times10.csv', header = None)
+lib10e3_times10 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3_times10.csv', header = None)
+lib20e3_times10 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3_times10.csv', header = None)
+
+
+lib3e3_div10 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3_div10.csv', header = None)
+lib10e3_div10 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3_div10.csv', header = None)
+lib20e3_div10 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3_div10.csv', header = None)
+
 Rc_const = pd.read_csv(directory+'/text_for_plots/Rc_const.csv', header = None)
 Rc_tv_latonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_latonly.csv', header = None)
 Rc_tv_fieldonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_fieldonly.csv', header = None)
@@ -801,15 +812,15 @@ era40_v_time = pd.read_csv(directory+'/text_for_plots/era40_v_time.csv', header 
 std_v_time = pd.read_csv(directory+'/text_for_plots/std_v_time.csv', header = None)
 #valdes_v_time = pd.read_csv(directory+'/text_for_plots/valdes_v_time.csv', header = None)
 
-sf_negative_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_negative_sigma.csv', header = None)
-sf_positive_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_positive_sigma.csv', header = None)
+sf_sigma75 = pd.read_csv(directory+'/text_for_plots_updated/sf_sigma75.csv', header = None)
+sf_sigma25= pd.read_csv(directory+'/text_for_plots_updated/sf_sigma25.csv', header = None)
 sf_regular_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_regular_sigma.csv', header = None)
 sf_constant_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_constant_sigma.csv', header = None)
 
-sf_tvfieldonly_negsigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_negsigma.csv', header = None)
-sf_tvfieldonly_possigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_possigma.csv', header = None)
+sf_tvfieldonly_25sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_25sigma.csv', header = None)
+sf_tvfieldonly_75sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_75sigma.csv', header = None)
 sf_tvfieldonly_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_sigma.csv', header = None)
-sf_tvlatonly_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_tvlat_only_sigma.csv', header = None)
+sf_tvlatonly_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_tvlatonly_sigma.csv', header = None)
 
 
 

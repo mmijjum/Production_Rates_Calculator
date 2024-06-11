@@ -30,6 +30,7 @@ import pandas as pd
 import scaling_factor
 import shielding
 import Muons_v2
+import atm_depth 
 
 n0 = Read.nuclide_concentration
 sthick = shielding.S_thick[0]
@@ -43,18 +44,32 @@ if Read.system == 3:
     slhl = 1.369 * (78.28355 + 13.197369 ) #1.369 = LSDn non-dimensional correction factor (excluding a data point from calibration dataset, per Marissa)
 if Read.system == 4:
     slhl = 1.272 * (11.847124 + 1.624044) #1.272 = non dimensional scaling factor, from Greg's make_consts
+
 tempvals = []
 tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
-lambdamu = 1500 #muon attenuation length in at/g/yr (Balco supplementary)
+a = 0.01036
+b = -9.697e-6
+htemp = atm_depth.x
+htemp[:] = htemp.values[:, ::-1] #reverse to get in correct time sequence
+h = (htemp) / 1.019716 # convert back from atmospheric depth to pressure
+#lambdamu = 1 / (a + b*h) #muon attenuation length, equation 8 in Balco (@017)
+lambdamu = 4000
 #lambdamu=8780 #3he, larsen
 dt = 250000
 #Pmu = 0.23 #larsen et al, this is for comparing 3He muon production
+
 if Read.paleo[0] == 0:
     dt_start = (Read.time1 + 0.25) - Read.timerange[0]
 
-if Read.paleo[0] == 1:
-    dt_start = float(Read.timerange[-1] - Read.stop)
+#if Read.paleo[0] == 1:
+#    dt_start = float(Read.timerange[-1] - Read.stop)
+
+# dt_start = (Read.stop-Read.time[-2])[0]
+
+# if dt_start == 0 :
+#     dt_start = 0.25
+
 
 firstbin  = []
 
