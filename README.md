@@ -138,7 +138,7 @@ SPRITE calculates exposure ages using 3He and 21Ne measurements. The following a
 * Nuclide uncertainty (at/g)
 * Nuclide - mineral system 
 * Atmospheric conversion preference
-* Start and stop duration
+* Time 1 and Time 2 (exposure duration)(Ma)
 * Tectonic plate
 * Depth below paleosurface
 * Paleoduration

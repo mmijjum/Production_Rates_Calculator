@@ -35,8 +35,8 @@ nuclide_concentration = Exposure_Age_Inputs['Nuclide Concentration']
 nuclide_uncertainty = Exposure_Age_Inputs['Nuclide Uncertainty']
 Nuclide = Exposure_Age_Inputs['Nuclide']
 atm = Exposure_Age_Inputs['Atmospheric conversion']
-start = Exposure_Age_Inputs['Start']
-stop = Exposure_Age_Inputs['Stop']
+start = Exposure_Age_Inputs['Time 1']
+stop = Exposure_Age_Inputs['Time 2']
 if np.isnan(stop)[0] == True:
     stop[0] = 70
 plate = Exposure_Age_Inputs['Plate']
@@ -790,14 +790,9 @@ lib3e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3.csv', header = N
 lib10e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3.csv', header = None)
 lib20e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3.csv', header = None)
 
-lib3e3_times10 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3_times10.csv', header = None)
-lib10e3_times10 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3_times10.csv', header = None)
-lib20e3_times10 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3_times10.csv', header = None)
-
-
-lib3e3_div10 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3_div10.csv', header = None)
-lib10e3_div10 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3_div10.csv', header = None)
-lib20e3_div10 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3_div10.csv', header = None)
+lib3e3_0 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3_0.csv', header = None)
+lib3e4_0 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e4_0.csv', header = None)
+lib1e4_0 = pd.read_csv(directory+'/text_for_plots_updated/lib_1e4_0.csv', header = None)
 
 Rc_const = pd.read_csv(directory+'/text_for_plots/Rc_const.csv', header = None)
 Rc_tv_latonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_latonly.csv', header = None)
@@ -810,7 +805,7 @@ equator = pd.read_csv(directory+'/text_for_plots/equator.csv', header = None)
 
 era40_v_time = pd.read_csv(directory+'/text_for_plots/era40_v_time.csv', header = None)
 std_v_time = pd.read_csv(directory+'/text_for_plots/std_v_time.csv', header = None)
-#valdes_v_time = pd.read_csv(directory+'/text_for_plots/valdes_v_time.csv', header = None)
+valdes_v_time = pd.read_csv(directory+'/text_for_plots/valdes_v_time.csv', header = None)
 
 sf_sigma75 = pd.read_csv(directory+'/text_for_plots_updated/sf_sigma75.csv', header = None)
 sf_sigma25= pd.read_csv(directory+'/text_for_plots_updated/sf_sigma25.csv', header = None)
@@ -823,5 +818,9 @@ sf_tvfieldonly_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield
 sf_tvlatonly_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_tvlatonly_sigma.csv', header = None)
 
 
+uplift_constant = pd.read_csv(directory+'/text_for_plots_updated/uplift_dunai_constant.csv', header=None)
+uplift_tv= pd.read_csv(directory+'/text_for_plots_updated/tv_dunai.csv',header=None)
 
+static_constant = pd.read_csv(directory+'/text_for_plots_updated/static_constant.csv', header=None)
+static_tv = pd.read_csv(directory+'/text_for_plots_updated/static_tv.csv', header=None)
 

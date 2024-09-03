@@ -74,4 +74,4 @@ if Read.system == 4:
 
     
 Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
-#Siteprod_df.to_csv(directory+'/text_for_plots_updated/sf_tvlatonly_sigma.csv') 
+Siteprod_df.to_csv(directory+'/text_for_plots_updated/static_tv.csv') 

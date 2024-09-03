@@ -343,15 +343,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="255.09809"
-     inkscape:cy="147.02765"
+     inkscape:zoom="1.0977089"
+     inkscape:cx="167.41546"
+     inkscape:cy="219.90672"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1009"
+     inkscape:window-height="952"
      inkscape:window-x="1440"
      inkscape:window-y="23"
      inkscape:window-maximized="0"
@@ -367,7 +367,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -380,7 +380,10 @@
        style="stroke-linecap:butt;stroke-linejoin:round"
        id="g4108"
        transform="matrix(0.35277779,0,0,0.35277779,104.00049,57.003869)"
-       clip-path="url(#clipPath5783)">
+       clip-path="url(#clipPath5783)"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
       <g
          id="figure_1-0">
         <g
@@ -2086,7 +2089,10 @@
     <g
        style="stroke-linecap:butt;stroke-linejoin:round"
        id="g2468"
-       transform="matrix(0.35277779,0,0,0.35277779,6.6185869,57.356925)">
+       transform="matrix(0.35277779,0,0,0.35277779,6.6185869,57.356925)"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
       <g
          id="figure_1">
         <g
@@ -3992,7 +3998,10 @@
        style="font-size:4.5861px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
        x="24.298552"
        y="67.24231"
-       id="text5807"><tspan
+       id="text5807"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5805"
          x="24.298552"
@@ -4003,7 +4012,10 @@
        style="font-size:4.5861px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round"
        x="121.72461"
        y="67.24231"
-       id="text5807-3"><tspan
+       id="text5807-3"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5805-4"
          x="121.72461"
@@ -4011,69 +4023,87 @@
          style="stroke-width:0.264583">B)</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.88056000000000001px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;fill:#014636;fill-opacity:1;"
+       style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#014636;fill-opacity:1;stroke-width:0.264583"
        x="73.435455"
        y="82.025406"
-       id="text5829"><tspan
+       id="text5829"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5827"
          x="73.435455"
          y="82.025406"
-         style="font-size:3.88056000000000001px;stroke-width:0.264583;fill:#014636;fill-opacity:1;">5000</tspan></text>
+         style="font-size:3.88056px;fill:#014636;fill-opacity:1;stroke-width:0.264583">5000 m</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.88056000000000001px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round;fill:#014636;fill-opacity:1;"
+       style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#014636;fill-opacity:1;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round"
        x="170.5"
        y="81.923225"
-       id="text5829-3"><tspan
+       id="text5829-3"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5827-0"
          x="170.5"
          y="81.923225"
-         style="font-size:3.88056000000000001px;stroke-width:0.264583;fill:#014636;fill-opacity:1;">5000</tspan></text>
+         style="font-size:3.88056px;fill:#014636;fill-opacity:1;stroke-width:0.264583">5000 m</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.88056000000000001px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round;fill:#014636;fill-opacity:1;"
-       x="38.019348"
+       style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#014636;fill-opacity:1;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round"
+       x="33.256844"
        y="101.76699"
-       id="text5829-9"><tspan
+       id="text5829-9"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5827-5"
-         x="38.019348"
+         x="33.256844"
          y="101.76699"
-         style="font-size:3.88056000000000001px;stroke-width:0.264583;fill:#014636;fill-opacity:1;">4000</tspan></text>
+         style="font-size:3.88056px;fill:#014636;fill-opacity:1;stroke-width:0.264583">4000 m</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.88056000000000001px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round;fill:#014636;fill-opacity:1;"
-       x="135.45244"
+       style="font-size:3.88056px;line-height:1.25;font-family:sans-serif;fill:#014636;fill-opacity:1;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round"
+       x="129.63168"
        y="98.365204"
-       id="text5829-9-9"><tspan
+       id="text5829-9-9"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5827-5-1"
-         x="135.45244"
+         x="129.63168"
          y="98.365204"
-         style="font-size:3.88056000000000001px;stroke-width:0.264583;fill:#014636;fill-opacity:1;">4000</tspan></text>
+         style="font-size:3.88056px;fill:#014636;fill-opacity:1;stroke-width:0.264583">4000 m</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.52777999999999992px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round;fill:#67a9cf;fill-opacity:1;"
-       x="176.54762"
-       y="119.72086"
-       id="text5829-93"><tspan
+       style="font-size:3.52778px;line-height:1.25;font-family:sans-serif;fill:#67a9cf;fill-opacity:1;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round"
+       x="175.5835"
+       y="120.68499"
+       id="text5829-93"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5827-8"
-         x="176.54762"
-         y="119.72086"
-         style="font-size:3.52777999999999992px;stroke-width:0.264583;fill:#67a9cf;fill-opacity:1;">2000</tspan></text>
+         x="175.5835"
+         y="120.68499"
+         style="font-size:3.52778px;fill:#67a9cf;fill-opacity:1;stroke-width:0.264583">2000 m</tspan></text>
     <text
        xml:space="preserve"
-       style="font-size:3.52776999999999985px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round;fill:#67a9cf;fill-opacity:1;"
+       style="font-size:3.52777px;line-height:1.25;font-family:sans-serif;fill:#67a9cf;fill-opacity:1;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:round"
        x="79.297852"
        y="120.70861"
-       id="text5829-93-3"><tspan
+       id="text5829-93-3"
+       inkscape:export-filename="/Users/mmijjum/Desktop/Manuscripts/SPRITE manuscript/Figure_7_updated.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
          sodipodi:role="line"
          id="tspan5827-8-3"
          x="79.297852"
          y="120.70861"
-         style="font-size:3.52776999999999985px;stroke-width:0.264583;fill:#67a9cf;fill-opacity:1;">2000</tspan></text>
+         style="font-size:3.52777px;fill:#67a9cf;fill-opacity:1;stroke-width:0.264583">2000 m</tspan></text>
   </g>
 </svg>

@@ -29,74 +29,74 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 directory = os.path.dirname(__file__)
 
 """
+Figure 6
 Climate Data
 """
-elevations = np.arange(0,5001,500)
-# ERA40 = [1028.664348
-# ,971.610977
-# ,917.170475
-# ,865.248965
-# ,815.754994
-# ,768.599501
-# ,723.695775
-# ,680.959421
-# ,640.308321
-# ,601.662595
-# ,564.944569]
+# elevations = np.arange(0,5001,500)
+# ERA40 = [1036.622906,
+# 978.049912,
+# 922.219431 ,
+# 869.030156,
+# 818.383504 ,
+# 770.183563 ,
+# 724.337055,
+# 680.753283,
+# 639.344096,
+# 600.023836,
+# 562.709303]
 
-# standard = [1033.227237
-# ,973.417892
-# ,916.443484
-# ,862.200037
-# ,810.586253
-# ,761.503465
-# ,714.855602
-# ,670.549150
-# ,628.493115
-# ,588.598980
-# ,550.780674]
+# standard = [1033.227237,
+# 973.417892,
+# 916.443484,
+# 862.200037,
+# 810.586253,
+# 761.503465,
+# 714.855602,
+# 670.549150,
+# 628.493115,
+# 588.598980,
+# 550.780674]
 
-# VALDES = [1018.662499
-# ,961.930398
-# ,907.807301
-# ,856.199073
-# ,807.014024
-# ,760.162867
-# ,715.558687
-# ,673.116896
-# ,632.755200
-# ,594.393560
-# ,557.954153]
-
+# VALDES = [1028.118847,
+# 970.446696,
+# 915.455137,
+# 863.045885,
+# 813.123272,
+# 765.594208,
+# 720.368134,
+# 677.356984,
+# 636.475138,
+# 597.639386,
+# 560.768879]
 # era40 = []
 # valdes = []
 # for i in range(len(ERA40)):
 #     era40.append(standard[i]-ERA40[i])
 #     valdes.append(standard[i]-VALDES[i])
 
-# plt.plot(elevations, era40, '#016c59', label = 'standard atmosphere - ERA40')
+# plt.plot(elevations, era40, 'black', label = 'standard atmosphere - ERA40')
 # #plt.plot(elevations, standard)
-# plt.plot(elevations,valdes, '--', c='#67a9cf', label = 'standard atmosphere - Valdes et al. (2021)')
+# plt.plot(elevations,valdes, '--', c='black', label = 'standard atmosphere - Valdes et al. (2021)')
 
 # plt.ylabel('Atmospheric depth difference (g/cm${^2}$)', fontsize = 11)
 # plt.xlabel('Elevation (MASL)', fontsize = 11)
 # plt.legend()
-#plt.savefig(directory+'/plots_updated/Figure_0.svg', dpi = 300, bbox_inches='tight')
+# plt.savefig(directory+'/plots_updated/Figure_0.svg', dpi = 300, bbox_inches='tight')
 
 # time = np.arange(0,70.25,0.25)
 # era40 = Read.era40_v_time[1:]
 # std = Read.std_v_time[1:]
 # valdes = Read.valdes_v_time[1:]
 
-# plt.plot(time,era40.iloc[0][:],'#016c59', label = 'ERA40')
-# plt.plot(time,valdes.iloc[0][:],'--',c='#3690c0', label = 'Valdes et al. (2021)')
-# plt.plot(time,std.iloc[0][:],'-.',c='#a6bddb' ,label = 'standard atmosphere')
+# plt.plot(time,era40.iloc[0][1:],'black', label = 'ERA40')
+# plt.plot(time,valdes.iloc[0][1:],'--',c='black', label = 'Valdes et al. (2021)')
+# plt.plot(time,std.iloc[0][1:],'-.',c='black' ,label = 'standard atmosphere')
 
 # plt.legend()
 # plt.xlabel('Time (Ma)', fontsize = 11)
 # plt.ylabel('Atmospheric depth (g/cm${^2}$)', fontsize = 11)
 
-# plt.savefig(directory+'/plots_updated/Figure_0B.pdf', dpi = 300, bbox_inches='tight')
+# plt.savefig(directory+'/plots_updated/Figure_0B.svg', dpi = 300, bbox_inches='tight')
 
 
 
@@ -550,115 +550,102 @@ Scaling factor TV and Constant
 
 
 
-"""
+# """
 
-FIGURE 9
-EVENSTAR DATASET
+# FIGURE 9
+# EVENSTAR DATASET
 
-"""
-exp_ages_time_varying = [123764.70513124338,
-  999950.5881550129,
-  2809842.973923239,
-  1437709.5492099412,
-  1597412.2430487473,
-  2306374.286561611,
-  2811905.9936664747,
-  5205562.436422755,
-  804638.461019477,
-  1027097.292649448,
-  3243379.122532165,
-  5272036.169905982,
-  4814983.263867728,
-  5004348.192627103,
-  5798579.472430228,
-  3801760.946131991,
-  4043021.3848517216,
-  4190083.484928454,
-  3974482.253474694,
-  10867014.793712351,
-  7457939.823871471,
-  11504457.347719094,
-  10174352.548386587,
-  10034978.260752263,
-  2501601.075564036,
-  2442727.0967175965,
-  1917534.0170423328,
-  2085500.9806046379]
+# """
+# exp_ages_time_varying = [123764.70513124338,
+#   999950.5881550129,
+#   2809842.973923239,
+#   1437709.5492099412,
+#   1597412.2430487473,
+#   2306374.286561611,
+#   2811905.9936664747,
+#   5205562.436422755,
+#   804638.461019477,
+#   1027097.292649448,
+#   3243379.122532165,
+#   5272036.169905982,
+#   4814983.263867728,
+#   5004348.192627103,
+#   5798579.472430228,
+#   3801760.946131991,
+#   4043021.3848517216,
+#   4190083.484928454,
+#   3974482.253474694,
+#   10867014.793712351,
+#   7457939.823871471,
+#   11504457.347719094,
+#   10174352.548386587,
+#   10034978.260752263,
+#   2501601.075564036,
+#   2442727.0967175965,
+#   1917534.0170423328,
+#   2085500.9806046379]
+
+# exp_ages_constant= [114228.05791045129,
+#   915946.3467122873,
+#   2738524.329526318,
+#   1337892.329096456,
+#   1492716.4114716016,
+#   2237688.836019829,
+#   2737022.7304163054,
+#   5020979.568684665,
+#   730821.6829189667,
+#   938896.583164952,
+#   3152139.0098045915,
+#   5070621.350176061,
+#   4631739.899436452,
+#   4825366.17480535,
+#   5623508.560978162,
+#   3695269.4978240505,
+#   3950957.8542163633,
+#   4083156.2323068194,
+#   3882028.5922924485,
+#   11323751.27282418,
+#   7584169.781085953,
+#   12086889.969182406,
+#   10509988.870293442,
+#   10352712.57702584,
+#   2442963.7472036444,
+#   2385523.147630269,
+#   1834586.2395702424,
+#   2009533.8964364766]
 
 
-exp_ages_constant= [114228.05791045129,
-  915946.3467122873,
-  2738524.329526318,
-  1337892.329096456,
-  1492716.4114716016,
-  2237688.836019829,
-  2737022.7304163054,
-  5020979.568684665,
-  730821.6829189667,
-  938896.583164952,
-  3152139.0098045915,
-  5070621.350176061,
-  4631739.899436452,
-  4825366.17480535,
-  5623508.560978162,
-  3695269.4978240505,
-  3950957.8542163633,
-  4083156.2323068194,
-  3882028.5922924485,
-  11323751.27282418,
-  7584169.781085953,
-  12086889.969182406,
-  10509988.870293442,
-  10352712.57702584,
-  2442963.7472036444,
-  2385523.147630269,
-  1834586.2395702424,
-  2009533.8964364766]
+# exp_neon_tv = [893171.6042412941,
+#   875306.5594295587,
+#   257829.28728460363,
+#   113891.21526679581,
+#   302435.37394875474,
+#   209844.55595393197,
+#   247835.1756155724,
+#   34726.29393051977,
+#   2083043.0180226536,
+#   2175843.36519608,
+#   3066251.27098606,
+#   6014867.565018561,
+#   2981554.3122289614,
+#   2154086.2918152586]
 
-# exp_neon_tv = [899178.2239571962,
-#  881190.6642503834,
-#  259997.35382776128,
-#  114824.4914495859,
-#  304978.6339121114,
-#  212150.12984814626,
-#  250571.26324864503,
-#  34985.91799025203,
-#  2098806.2918170462,
-#  2192313.0001936136,
-#  3083125.499253487,
-#  6039894.976639283,
-#  2995217.1577257384,
-#  2171667.694324269]
-exp_neon_tv = [893085.7250556983,
- 875221.1921809706,
- 257798.42015530643,
- 113880.06361267179,
- 302399.27001622773,
- 209822.878995474,
- 247806.52138093146,
- 34722.797305155655,
- 2082839.6017052303,
- 2175640.4048787877,
- 3065982.425373138,
- 6014480.99988274,
- 2981303.2917019706,
- 2153874.8413577583]
-# exp_neon_const = [812782.8357428286,
-#  795981.1233760518,
-#  238097.90154721637,
-#  105264.3354208746,
-#  278198.6007551687,
-#  195317.64176282572,
-#  230676.87001299247,
-#  32043.77088924872,
-#  2011808.5130362157,
-#  2111057.733012669,
-#  2983165.7621081476,
-#  5898613.305004761,
-#  2896141.6064051455,
-#  2089912.6167371792]
 
-exp_neon_const = 
+
+# exp_neon_const = [807709.0575222793,
+#   791014.1341699025,
+#   236324.26155541767,
+#   104479.46561747165,
+#   276128.5809262426,
+#   193361.72654931567,
+#   228368.15645606536,
+#   31825.841032641998,
+#   1995778.20589343,
+#   2094232.3820456,
+#   2967381.6952170026,
+#   5867371.194278396,
+#   2883651.1637155297,
+#   2071981.4245235054]
 
 # updated_texp_tv = []
 # updated_texp_const = []
@@ -692,56 +679,42 @@ exp_neon_const =
 #     perdifneon.append((temp/updatedneonconst)*100)
     
 
-exp_ages_dunai =[15763162.316651337,
- 17075680.469415437,
- 13373564.048961097,
- 23882521.271142293,
- 15917941.945918053,
- 17659709.87583329,
- 11540887.08438787,
- 7955567.591118362,
- 17570891.270206448,
- 11440981.091073878,
- 14630876.939257234,
- 18550091.08735184,
- 14063969.09053718,
- 69282.03158254962,
- 130866.12991986367,
- 88527.04035548007]
+# exp_ages_dunai =[15763888.284884367,
+#   17076439.897954084,
+#   13374151.996150088,
+#   23883596.012271866,
+#   15918675.374240698,
+#   17660422.55280363,
+#   11541398.822023429,
+#   7955981.4814617345,
+#   17571600.49200227,
+#   11441483.741217585,
+#   14631506.693484198,
+#   18550832.147374067,
+#   14064530.42373193,
+#   69285.95320017869,
+#   130873.53703242909,
+#   88532.05131133944]
+                         
+# exp_ages_dunai_const = [17162844.505560774,
+#   18533186.489756998,
+#   14294878.008155053,
+#   27155794.989833537,
+#   17338807.22884569,
+#   19258940.393708486,
+#   12089588.878998378,
+#   8055902.3665621765,
+#   19143774.462789685,
+#   11971567.401384685,
+#   15860207.587445626,
+#   20421186.017621815,
+#   15138254.28251518,
+#   64006.15963224702,
+#   120900.58338250335,
+#   81785.64841898231]
 
-exp_ages_dunai_const = [17161945.98764428,
- 18532216.445887096,
- 14294129.283031106,
- 27154373.540771343,
- 17337899.121718615,
- 19257932.737467907,
- 12088955.656717582,
- 8055480.605828487,
- 19142772.660304118,
- 11970940.785396203,
- 15859377.55985923,
- 20420117.32115244,
- 15137462.068127034,
- 64002.81290539869,
- 120894.2621184707,
- 81781.37204578723]
 
-exp_ages_dunai_const_uplift = [7581483.7753831865,
- 8264233.412305639,
- 6200134.499184896,
- 12887355.060303997,
- 7674218.512485995,
- 8608704.436590236,
- 5158252.069907712,
- 3353996.070116172,
- 8555282.20511929,
- 5108927.361147547,
- 6940178.600556521,
- 9215456.556107948,
- 6595223.125255934,
- 25808.363452443053,
- 48759.27274475137,
- 32986.415681101986]
+
 # updated_dunai_const = []
 # updated_dunai = []
 # diff_tv_dunai = []
@@ -755,144 +728,7 @@ exp_ages_dunai_const_uplift = [7581483.7753831865,
 #     diff_tv_dunai.append(temp)
 #     perdif.append((temp/updated_dunai_constx)*100)
 
-# # y_error = [20024,
-# # 30877,
-# # 52155,
-# # 28716,
-# # 54135,
-# # 70775,
-# # 40501,
-# # 110558,
-# # 33130,
-# # 35213,
-# # 69442,
-# # 89892,
-# # 86588,
-# # 90548,
-# # 77420,
-# # 62253,
-# # 94631,
-# # 115389,
-# # 101593,
-# # 102604,
-# # 194636,
-# # 272514,
-# # 210046,
-# # 171295,
-# # 58222,
-# # 42513,
-# # 35826,
-# # 42440]
-# # x_error = [17355,
-# # 31168,
-# # 50093,
-# # 29221,
-# # 59277,
-# # 69591,
-# # 38828,
-# # 109016,
-# # 31363,
-# # 35544,
-# # 66907,
-# # 87171,
-# # 79062,
-# # 85765,
-# # 96656,
-# # 62143,
-# # 86525,
-# # 104787,
-# # 93817,
-# # 121054,
-# # 182896,
-# # 321577,
-# # 242034,
-# # 194538,
-# # 56117,
-# # 41789,
-# # 36703,
-# # 45282]
 
-# # yneonev = [82499.49,
-# # 55742.90,
-# # 43201.36,
-# # 37929.29,
-# # 57143.42,
-# # 31317.56,
-# # 30962.38,
-# # 5328.48,
-# # 111686.88,
-# # 161531.33,
-# # 184113.38,
-# # 187758.39,
-# # 115246.43,
-# # 168229.17]
-
-# # xneonev = [77428.56,
-# # 52316.60,
-# # 37422.95,
-# # 32433.23,
-# # 49897.27,
-# # 27000.08,
-# # 27000.08,
-# # 4548.96,
-# # 118373.47,
-# # 172179.60,
-# # 174975.26,
-# # 236835.20,
-# # 109492.01,
-# # 178914.05]
-
-# # xneondu = [82859.2777,
-# # 135587.909,
-# # 112989.9241,
-# # 165718.5554,
-# # 124288.9165,
-# # 130853.3818,
-# # 92367.09305,
-# # 61578.06203,
-# # 119307.4952,
-# # 76971.58652,
-# # 107760.2211,
-# # 138548.8557,
-# # 115457.3798,
-# # 25046.71178,
-# # 35781.01682,
-# # 14312.40673]
-
-# # yneondu = [79052.48545,
-# # 109848.2555,
-# # 93437.68495,
-# # 147986.4804,
-# # 122527.0669,
-# # 103009.4903,
-# # 78891.49512,
-# # 59214.35941,
-# # 94174.20442,
-# # 65742.06001,
-# # 94600.16256,
-# # 108413.5881,
-# # 88604.29968,
-# # 28889.1525,
-# # 41270.21786,
-# # 16508.08714]
-
-# # xx = []
-# # yy = []
-# # xne =[]
-# # yne = []
-
-# # xdu = []
-# # ydu = []
-
-# for i in range(len(x_error)):
-#     xx.append(x_error[i]/10**6)
-#     yy.append(y_error[i]/10**6)
-# for i in range(len(xneonev)):
-#     xne.append(xneonev[i]/10**6)
-#     yne.append(yneonev[i]/10**6)
-# for i in range(len(xneondu)):
-#     xdu.append(xneondu[i]/10**6)
-# #     ydu.append(yneondu[i]/10**6)
 # fig = plt.figure(figsize=(14,9))
 
 
@@ -901,15 +737,6 @@ exp_ages_dunai_const_uplift = [7581483.7753831865,
 # ax1=fig.add_subplot(gs[:,0])
 # ax2=fig.add_subplot(gs[0,1])
 # ax3=fig.add_subplot(gs[1,1])
-
-# # ax2.set_ylim(-3.5,0.5)
-# # ax2.set_xlim(2,30)
-# # ax2.hlines(0,2,30)
-# #fig = plt.figure(figsize=(14,12))
-
-
-# gs = gridspec.GridSpec(2,2)
-
 
 
 # ax2.set_ylim(-3.5,0.5)
@@ -957,46 +784,28 @@ exp_ages_dunai_const_uplift = [7581483.7753831865,
 
 # ax1.set_xlim(2,30)
 # ax1.plot([2,30], [2,30], 'k-')
-# ax1.plot(updated_neon_const[0:9], updated_neon_tv[0:9],  's', c = 'teal', markersize = 7)
-# ax1.plot(updated_neon_const[9:11], updated_neon_tv[9:11],  's', c='limegreen', markersize = 7)
-# ax1.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue', markersize = 7)
-# ax1.plot(updated_neon_const[13], updated_neon_tv[13],  's', c='deepskyblue', markersize = 7)
+# ax1.plot(updated_neon_const[0:9], updated_neon_tv[0:9],  's', c = 'teal', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_neon_const[9:11], updated_neon_tv[9:11],  's', c='limegreen', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue',alpha = 0.7, markersize = 8)
+# ax1.plot(updated_neon_const[13], updated_neon_tv[13],  's', c='deepskyblue', alpha = 0.7,markersize = 8)
 
-# ax1.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c='limegreen', markersize = 7)
-# ax1.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', markersize = 7)
-# ax1.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue', markersize = 7)
+# ax1.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c='limegreen', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue',alpha = 0.7, markersize = 8)
 
-# ax1.plot(updated_dunai_const[0:5],updated_dunai[0:5], 's', c='midnightblue', markersize = 7)
-# ax1.plot(updated_dunai_const[5:9],updated_dunai[5:9], 's', c='purple',markersize =7)
-# ax1.plot(updated_dunai_const[9:13],updated_dunai[9:13], 's', c='mediumpurple', markersize = 7)
-# ax1.plot(updated_dunai_const[13:15],updated_dunai[13:15], 's', c='skyblue', markersize =7)
-# ax1.plot(updated_dunai_const[15:16],updated_dunai[15:16], 's', c='hotpink', markersize = 7)
+# ax1.plot(updated_dunai_const[0:5],updated_dunai[0:5], 's', c='midnightblue',alpha = 0.7, markersize = 8)
+# ax1.plot(updated_dunai_const[5:9],updated_dunai[5:9], 's', c='purple',alpha = 0.7,markersize =8)
+# ax1.plot(updated_dunai_const[9:13],updated_dunai[9:13], 's', c='mediumpurple',alpha = 0.7, markersize = 8)
+# ax1.plot(updated_dunai_const[13:15],updated_dunai[13:15], 's', c='skyblue', alpha = 0.7,markersize =8)
+# ax1.plot(updated_dunai_const[15:16],updated_dunai[15:16], 's', c='hotpink', alpha = 0.7,markersize = 8)
 # ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 14)
 # ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
-# ax2.legend()
-
-# plt.savefig(Read.directory+'/plots_updated/evenstar.pdf', dpi = 300, bbox_inches='tight')
 
 # ax1.set_xlim(2,30)
 # ax1.plot([2,30], [2,30], 'k-')
-# # ax1.errorbar(updated_neon_const[0:9], updated_neon_tv[0:9], yerr = yne[0:9], xerr = xne[0:9], fmt = 's', c = 'teal', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_neon_const[9:11], updated_neon_tv[9:11], yerr = yne[9:11], xerr = xne[9:11], fmt = 's', c='limegreen', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_neon_const[11:14], updated_neon_tv[11:14], yerr = yne[11:14], xerr = xne[11:14], fmt = 's', c='royalblue', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_neon_const[13], updated_neon_tv[13], yerr = yne[13], xerr = xne[13], fmt = 's', c='deepskyblue', capsize = 2, markersize = 7)
-
-# # ax1.errorbar(updated_texp_const[0:4],updated_texp_tv[0:4],yerr = yy[0:4], xerr=  xx[0:4], fmt = 'o', c='limegreen', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_texp_const[4:17],updated_texp_tv[4:17],yerr = yy[4:17], xerr=  xx[4:17], fmt = 'o', c = 'royalblue', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_texp_const[17:26],updated_texp_tv[17:26],yerr = yy[17:26], xerr=  xx[17:26], fmt = 'o', c = 'deepskyblue', capsize = 2, markersize = 7)
-
-# # ax1.errorbar(updated_dunai_const[0:5],updated_dunai[0:5],yerr = ydu[0:5], xerr=  xdu[0:5], fmt = 's', c='midnightblue', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_dunai_const[5:9],updated_dunai[5:9],yerr = ydu[5:9], xerr=  xdu[5:9], fmt = 's', c='purple', capsize = 2, markersize =7)
-# # ax1.errorbar(updated_dunai_const[9:13],updated_dunai[9:13],yerr = ydu[9:13], xerr=  xdu[9:13], fmt = 's', c='mediumpurple', capsize = 2, markersize = 7)
-# # ax1.errorbar(updated_dunai_const[13:15],updated_dunai[13:15],yerr = ydu[13:15], xerr=  xdu[13:15], fmt = 's', c='skyblue', capsize = 2, markersize =7)
-# # ax1.errorbar(updated_dunai_const[15:16],updated_dunai[15:16],yerr = ydu[15:16], xerr=  xdu[15:16], fmt = 's', c='hotpink', capsize = 2, markersize = 7)
 # ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 13)
 # ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 13)
-# ax2.legend()
-# #plt.savefig(Read.directory+'/plots/Figure_9.svg', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots_updated/atacama.svg', dpi = 300, bbox_inches='tight')
 
 """
 FIG 10
@@ -1007,7 +816,7 @@ LIBARKIN DATASET
 # tempvalsmu = []
 # lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
 # rho = 2.32
-# erosion = (3*(10**-3)) #in cm/yr
+# erosion = (20*(10**-3)) #in cm/yr
 # dt2 = 250000
 # dt1 = 49000
 # dt3 = 201000
@@ -1018,67 +827,29 @@ LIBARKIN DATASET
 
 # z0 = np.arange(0,102,2)
 # concentrations = []
-
-# lambdamu = 4000
-    
+# a = 0.01036
+# b = -9.697e-6
+# htemp = atm_depth.x
+# htemp[:] = htemp.values[:, ::-1] #reverse to get in correct time sequence
+# h = (htemp) / 1.019716 # convert back from atmospheric depth to pressure
+# lambdamu = 1 / (a + b*h) #muon attenuation length, equation 8 in Balco (@017)    
     
 # for i in range(len(z0)):
 #     Cspall = (shielding.S_thick[0][0]*(neutron_spallation.pn_df[0][i] + proton_spallation.pp_df[0][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt1)) + (shielding.S_thick[0][0]*(neutron_spallation.pn_df[1][i] + proton_spallation.pp_df[1][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt2))+ (shielding.S_thick[0][0]*(neutron_spallation.pn_df[2][i] + proton_spallation.pp_df[2][i])) / ((rho * erosion) / lambdasp) * np.exp(-(rho*z0[i]/lambdasp)) * (1-np.exp(-(rho*erosion/lambdasp)*dt3))
-#     Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*dt1)) + muons.pmuons_df[1][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(dt2))) + muons.pmuons_df[2][i] / ((rho * erosion) / lambdamu) * np.exp(-(rho*z0[i]/lambdamu)) * (1-np.exp(-(rho*erosion/lambdamu)*(dt3))) 
+#     Cmuons = muons.pmuons_df[0][i] / ((rho * erosion) / lambdamu[0][i]) * np.exp(-(rho*z0[i]/lambdamu[0][i])) * (1-np.exp(-(rho*erosion/lambdamu[0][i])*dt1)) + muons.pmuons_df[1][i] / ((rho * erosion) / lambdamu[1][i]) * np.exp(-(rho*z0[i]/lambdamu[1][i])) * (1-np.exp(-(rho*erosion/lambdamu[1][i])*(dt2))) + muons.pmuons_df[2][i] / ((rho * erosion) / lambdamu[2][i]) * np.exp(-(rho*z0[i]/lambdamu[2][i])) * (1-np.exp(-(rho*erosion/lambdamu[2][i])*(dt3))) 
 #     Ctot = Cspall + Cmuons
 #     concentrations.append(Cspall + Cmuons)
-# np.savetxt(directory+"/text_for_plots_updated/lib_3e3_times10.csv", 
+# np.savetxt(directory+"/text_for_plots_updated/lib_20e3.csv", 
 #             concentrations,
 #             delimiter =", ", 
 #             fmt ='% s')
 
-#calcute percent difference
-
-# perdif3 = []
-# perdif10 = []
-# perdif20 = []
-
-# for i in range(len(Read.lib3e3[0])):
-#     perdift3 = (Read.lib3e3[0][i] - Read.lib3e3_div10[0][i]) / ((Read.lib3e3[0][i] + Read.lib3e3_div10[0][i])/2)*100
-#     perdift10 = (Read.lib10e3[0][i] - Read.lib10e3_div10[0][i]) / ((Read.lib10e3[0][i] + Read.lib10e3_div10[0][i])/2)*100
-#     perdift20 = (Read.lib20e3[0][i] - Read.lib20e3_div10[0][i]) / ((Read.lib20e3[0][i] + Read.lib20e3_div10[0][i])/2)*100
-                                                                     
-#     perdif3.append(perdift3)
-#     perdif10.append(perdift10)
-#     perdif20.append(perdift20)
-
+# z0 = np.arange(0,102,2)
 # plt.plot(z0,Read.lib3e3[0], c = 'darkblue', label=r'3$\times 10^{-3}$ cm/yr')
 # plt.plot(z0,Read.lib10e3[0], c = 'cornflowerblue', label = r'10$\times 10^{-3}$ cm/yr')
 # plt.plot(z0,Read.lib20e3[0], c = 'teal',label = r'20$\times 10^{-3}$ cm/yr')
-# plt.xlabel('Depth below surface (cm)')
-# plt.ylabel('Percent difference in predicted concentration')
-#plt.title(r'Attenuation length / 10')
-#plt.savefig(Read.directory+'/plots_updated/libarkin_div10.png', dpi = 300, bbox_inches='tight')
-#plt.legend()
 
-# perdif3x = []
-# perdif10x = []
-# perdif20x = []
 
-# for i in range(len(Read.lib3e3[0])):
-#     perdift3 = (-Read.lib3e3[0][i] + Read.lib3e3_times10[0][i]) / ((Read.lib3e3[0][i] + Read.lib3e3_times10[0][i])/2)*100
-#     perdift10 = (-Read.lib10e3[0][i] + Read.lib10e3_times10[0][i]) / ((Read.lib10e3[0][i] + Read.lib10e3_times10[0][i])/2)*100
-#     perdift20 = (-Read.lib20e3[0][i] + Read.lib20e3_times10[0][i]) / ((Read.lib20e3[0][i] + Read.lib20e3_times10[0][i])/2)*100
-                                                                     
-#     perdif3x.append(perdift3)
-#     perdif10x.append(perdift10)
-#     perdif20x.append(perdift20)
-
-# plt.plot(z0,perdif3x, c = 'darkblue', label=r'3$\times 10^{-3}$ cm/yr')
-# plt.plot(z0,perdif10x, c = 'cornflowerblue', label = r'10$\times 10^{-3}$ cm/yr')
-# plt.plot(z0,perdif20x, c = 'teal',label = r'20$\times 10^{-3}$ cm/yr')
-# plt.xlabel('Depth below surface (cm)')
-# plt.ylabel('Percent difference in predicted concentration')
-# plt.title(r'Attenuation length $\times$ 10')
-
-# plt.legend()
-
-# plt.savefig(Read.directory+'/plots_updated/libarkin_times10.png', dpi = 300, bbox_inches='tight')
 
 # x = [15,15,15,35,45,35,55]
 # y = [2380000.00,2630000.00,2750000.00,330000.00,730000.00,340000.00,590000.00]
@@ -1099,7 +870,7 @@ LIBARKIN DATASET
 # plt.ylim(0,5e6)
 # plt.xlabel('Depth below paleosurface (cm)', fontsize = 12)
 # plt.ylabel(r'Concentration ($\times 10^{6}$atoms/g)', fontsize = 12)
-# plt.savefig(Read.directory+'/plots_updated/libarkin_times100', dpi = 300, bbox_inches='tight')
+# plt.savefig(Read.directory+'/plots_updated/libarkin.pdf', dpi = 300, bbox_inches='tight')
 """
 LIBARKIN V2
 
@@ -1398,11 +1169,310 @@ LIBARKIN V2
 # plt.xlabel('Sample elevation [MASL]')
 # plt.legend()
 
-# # plt.plot(time,atm_2.iloc[0], '--', label = 'Climate data')
-# # plt.plot(time,atm_1.iloc[0],'-.', label = 'Standard atmosphere')
-# # plt.plot(time,atm_0.iloc[0], label = 'ERA40')
-# # plt.xlabel('Time (Ma)')
-# # plt.ylabel('Atmospheric Depth (g/cm2)')
-# # plt.legend()
+# plt.plot(time,atm_2.iloc[0], '--', label = 'Climate data')
+# plt.plot(time,atm_1.iloc[0],'-.', label = 'Standard atmosphere')
+# plt.plot(time,atm_0.iloc[0], label = 'ERA40')
+# plt.xlabel('Time (Ma)')
+# plt.ylabel('Atmospheric Depth (g/cm2)')
+# plt.legend()
 # plt.savefig(Read.directory+'/plots/atm_depth_comparison_elevations.png', dpi = 300, bbox_inches='tight')
+
+# """
+
+# FIGURE 9
+# ATACAMA DATASET
+# UPLIFT
+
+# """
+
+# exp_ages_tv_uplift = [123764.70513124338,
+#   1011721.3154752883,
+#   2934967.3752608323,
+#   1463523.9210383103,
+#   1627495.22304928,
+#   2379409.3664045176,
+#   2933413.659577405,
+#   5628517.284506589,
+#   812312.3744830841,
+#   1040974.4429489293,
+#   3406667.4156682994,
+#   5671102.087487514,
+#   5156666.159387262,
+#   5410559.460795641,
+#   6243713.399592858,
+#   4001738.9914335134,
+#   4341101.961751757,
+#   4506959.208549344,
+#   4252356.466299975,
+#   13049595.996737225,
+#   8477795.64572071,
+#   14031203.72585432,
+#   12056498.933110522,
+#   11845543.948775323,
+#   2609554.820853299,
+#   2546577.5222186195,
+#   1976683.9716491036,
+#   2154513.7377854045]
+
+# exp_ages_constant_uplift = [114228.05791045129,
+#   925683.4924972189,
+#   2851567.1078528627,
+#   1361983.204932554,
+#   1520896.4900682927,
+#   2308382.7616215744,
+#   2846276.7023067386,
+#   5421535.293460598,
+#   737177.1652444504,
+#   950281.2655596972,
+#   3302153.253938878,
+#   5449697.376729284,
+#   4945321.536036997,
+#   5206286.30833472,
+#   6154030.817246244,
+#   3885848.9901233376,
+#   4214183.486464434,
+#   4358970.864916163,
+#   4130737.5225037164,
+#   13950922.95605886,
+#   8641300.496771319,
+#   15175840.066833192,
+#   12730664.759090213,
+#   12482905.637024231,
+#   2540004.4605131424,
+#   2483550.646732441,
+#   1891064.693892004,
+#   2077722.472297793]
+# exp_neon_tv_uplift = [901477.3619298406,
+#   883413.0982569401,
+#   257961.43805251978,
+#   113959.20696139176,
+#   302999.40117392206,
+#   209994.54910795248,
+#   248089.87060402642,
+#   34762.279854703855,
+#   2141601.013207391,
+#   2240464.225536865,
+#   3203064.493085238,
+#   6453140.144192169,
+#   3107996.480401831,
+#   2218827.0455286833]
+ 
+# exp_neon_const_uplift = [814523.7302475247,
+#   797627.0714262014,
+#   236399.26191033865,
+#   104539.315520937,
+#   276477.85401260597,
+#   193496.09313945018,
+#   228594.3357526747,
+#   31857.884829358478,
+#   2052899.4793962038,
+#   2157714.310530949,
+#   3092208.5330092534,
+#   6403677.673500354,
+#   2997992.20006065,
+#   2135542.581971693]
+
+# updated_texp_tv_uplift = []
+# updated_texp_const_uplift = []
+
+
+# updated_neon_tv_uplift = []
+# updated_neon_const_uplift = []
+
+
+# diff_tv_pyx_uplift = []
+# diff_tv_qtz_uplift = []
+# perdif_ev_uplift = []
+
+# perdifneon_uplift = []
+# for i in range(len(exp_ages_constant_uplift)): #convert ages from [yr] to [Ma]
+#     updated = exp_ages_tv_uplift[i]/10**6
+#     updated_texp_tv_uplift.append(updated) #Evenstar data
+#     updated_const = exp_ages_constant_uplift[i]/10**6 
+#     updated_texp_const_uplift.append(updated_const) #this model
+#     temp = updated - updated_const
+#     diff_tv_pyx_uplift.append(temp)
+#     perdif_ev_uplift.append((temp/updated_const)*100)
+
+# for i in range(len(exp_neon_tv_uplift)): #convert ages from [yr] to [Ma]
+#     updatedneontv = exp_neon_tv_uplift[i]/10**6
+#     updated_neon_tv_uplift.append(updatedneontv)
+#     updatedneonconst = exp_neon_const_uplift[i]/10**6
+#     updated_neon_const_uplift.append(updatedneonconst)
+#     temp = updatedneontv - updatedneonconst
+#     diff_tv_qtz_uplift.append(temp)
+#     perdifneon_uplift.append((temp/updatedneonconst)*100)
+    
+
+
+# exp_ages_dunai_uplift = [21620883.698379427,
+#  24056295.76201434,
+#  17361363.196589906,
+#  40069619.75631412,
+#  21924929.188413106,
+#  25543921.808545973,
+#  14124650.763207203,
+#  9106392.952987157,
+#  25322648.87909743,
+#  13978668.270522999,
+#  19645764.316148702,
+#  27952676.845142517,
+#  18589950.22714381,
+#  69378.698394077,
+#  131094.04670745842,
+#  88682.33937065522]
+
+# exp_ages_dunai_const_uplift = [24814188.752465002,
+#  27736727.057144716,
+#  19030258.69177412,
+#  46086717.902100146,
+#  25205794.1053524,
+#  29344893.444416832,
+#  15229493.23631132,
+#  9272744.911805676,
+#  29115531.30299894,
+#  15035437.472459888,
+#  22128031.12508559,
+#  31844129.630884707,
+#  20684262.93627985,
+#  64092.364079986764,
+#  121102.18690494522,
+#  81924.99928118107]
+# updated_dunai_const_uplift = []
+# updated_dunai_uplift = []
+# diff_tv_dunai_uplift = []
+# perdif_uplift = []
+# for i in range(len(exp_ages_dunai_uplift)):
+#     updated_dunaix = exp_ages_dunai_uplift[i]/10**6
+#     updated_dunai_constx = exp_ages_dunai_const_uplift[i]/10**6
+#     updated_dunai_uplift.append(updated_dunaix)
+#     updated_dunai_const_uplift.append(updated_dunai_constx)
+#     temp = updated_dunaix - updated_dunai_constx
+#     diff_tv_dunai_uplift.append(temp)
+#     perdif_uplift.append((temp/updated_dunai_constx)*100)
+
+# fig = plt.figure(figsize=(14,9))
+
+
+# gs = gridspec.GridSpec(2,2)
+
+# ax1=fig.add_subplot(gs[:,0])
+# ax2=fig.add_subplot(gs[0,1])
+# ax3=fig.add_subplot(gs[1,1])
+
+
+# ax2.set_ylim(-7,1)
+# ax2.set_xlim(2,50)
+# ax2.hlines(0,2,50)
+
+# ax2.plot(updated_texp_const_uplift[0:4] ,diff_tv_pyx_uplift[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+# ax2.plot(updated_texp_const_uplift[4:17],diff_tv_pyx_uplift[4:17], 'o', c = 'royalblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 3')
+# ax2.plot(updated_texp_const_uplift[17:26],diff_tv_pyx_uplift[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
+
+# ax2.plot(updated_neon_const_uplift[0:9], diff_tv_qtz_uplift[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+# ax2.plot(updated_neon_const_uplift[9:11], diff_tv_qtz_uplift[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+# ax2.plot(updated_neon_const_uplift[11:14], diff_tv_qtz_uplift[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+# ax2.plot(updated_neon_const_uplift[13], diff_tv_qtz_uplift[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
+
+# ax2.plot(updated_dunai_const_uplift[0:5], diff_tv_dunai_uplift[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# ax2.plot(updated_dunai_const_uplift[5:9], diff_tv_dunai_uplift[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# ax2.plot(updated_dunai_const_uplift[9:13],  diff_tv_dunai_uplift[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# ax2.plot(updated_dunai_const_uplift[13:15], diff_tv_dunai_uplift[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# ax2.plot(updated_dunai_const_uplift[15:16], diff_tv_dunai_uplift[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# ax2.set_ylabel('Exposure age difference (Ma)', fontsize = 14)
+# ax2.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+
+# ax3.set_xlim(2,50)
+# ax3.set_ylim(-14,7.5)
+# ax3.plot(updated_texp_const_uplift[0:4] ,perdif_ev_uplift[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+# ax3.plot(updated_texp_const_uplift[4:17],perdif_ev_uplift[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8, label = '$^{3}He$ - Surface 3')
+# ax3.plot(updated_texp_const_uplift[17:26],perdif_ev_uplift[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
+
+# ax3.plot(updated_neon_const_uplift[0:9], perdifneon_uplift[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+# ax3.plot(updated_neon_const_uplift[9:11], perdifneon_uplift[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+# ax3.plot(updated_neon_const_uplift[11:14], perdifneon_uplift[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+# ax3.plot(updated_neon_const_uplift[13], perdifneon_uplift[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
+
+# ax3.plot(updated_dunai_const_uplift[0:5], perdif_uplift[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# ax3.plot(updated_dunai_const_uplift[5:9], perdif_uplift[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# ax3.plot(updated_dunai_const_uplift[9:13],  perdif_uplift[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# ax3.plot(updated_dunai_const_uplift[13:15], perdif_uplift[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# ax3.plot(updated_dunai_const_uplift[15:16], perdif_uplift[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# ax3.set_ylabel('Exposure age percent difference (%)', fontsize = 14)
+# ax3.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# ax3.hlines(0,2,50)
+
+# ax3.set_xlim(2,30)
+# ax3.set_ylim(-14,7.5)
+# ax3.plot(updated_texp_const[0:4] ,perdif_ev[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+# ax3.plot(updated_texp_const[4:17],perdif_ev[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8, label = '$^{3}He$ - Surface 3')
+# ax3.plot(updated_texp_const[17:26],perdif_ev[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
+
+# ax3.plot(updated_neon_const[0:9], perdifneon[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+# ax3.plot(updated_neon_const[9:11], perdifneon[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+# ax3.plot(updated_neon_const[11:14], perdifneon[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+# ax3.plot(updated_neon_const[13], perdifneon[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
+
+# ax3.plot(updated_dunai_const[0:5], perdif[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# ax3.plot(updated_dunai_const[5:9], perdif[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# ax3.plot(updated_dunai_const[9:13],  perdif[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# ax3.plot(updated_dunai_const[13:15], perdif[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# ax3.plot(updated_dunai_const[15:16], perdif[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# ax3.set_ylabel('Exposure age percent difference (%)', fontsize = 14)
+# ax3.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# ax3.hlines(0,2,30)
+
+
+# ax1.set_xlim(2,50)
+# ax1.plot([2,50], [2,50], 'k-')
+# ax1.plot(updated_neon_const_uplift[0:9], updated_neon_tv_uplift[0:9],  's', c = 'teal',alpha = 0.7, markersize = 8)
+# ax1.plot(updated_neon_const_uplift[9:11], updated_neon_tv_uplift[9:11],  's', c='limegreen', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_neon_const_uplift[11:14], updated_neon_tv_uplift[11:14], 's', c='royalblue',alpha = 0.7, markersize = 8)
+# ax1.plot(updated_neon_const_uplift[13], updated_neon_tv_uplift[13],  's', c='deepskyblue', alpha = 0.7,markersize = 8)
+
+# ax1.plot(updated_texp_const_uplift[0:4],updated_texp_tv_uplift[0:4], 'o', c='limegreen', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_texp_const_uplift[4:17],updated_texp_tv_uplift[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_texp_const_uplift[17:26],updated_texp_tv_uplift[17:26], 'o', c = 'deepskyblue',alpha = 0.7, markersize = 8)
+
+# ax1.plot(updated_dunai_const_uplift[0:5],updated_dunai_uplift[0:5], 's', c='midnightblue',alpha = 0.7, markersize = 8)
+# ax1.plot(updated_dunai_const_uplift[5:9],updated_dunai_uplift[5:9], 's', c='purple',alpha = 0.7,markersize =8)
+# ax1.plot(updated_dunai_const_uplift[9:13],updated_dunai_uplift[9:13], 's', c='mediumpurple',alpha = 0.7, markersize = 8)
+# ax1.plot(updated_dunai_const_uplift[13:15],updated_dunai_uplift[13:15], 's', c='skyblue',alpha = 0.7, markersize =8)
+# ax1.plot(updated_dunai_const_uplift[15:16],updated_dunai_uplift[15:16], 's', c='hotpink',alpha = 0.7, markersize = 8)
+# ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 14)
+# ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# # plt.savefig(Read.directory+'/plots_updated/uplift_figure.svg', dpi = 300, bbox_inches='tight')
+
+
+
+
+
+
+# #perdif
+
+# # uplift_constant_temp=Read.uplift_constant
+# # uplift_tv_temp= Read.uplift_tv
+
+
+# # uplift_constant = uplift_constant_temp.iloc[1:][:]
+# # uplift_tv = uplift_tv_temp.iloc[1:][:]
+
+# # new_df = ((uplift_constant-uplift_tv).div((uplift_constant+uplift_tv)/2))*100
+
+
+
+
+# static_constant_temp=Read.static_constant
+# static_tv_temp= Read.static_tv
+
+
+# static_constant = static_constant_temp.iloc[1:][:]
+# static_tv = static_tv_temp.iloc[1:][:]
+
+# new_df_static = ((static_constant-static_tv).div((static_constant+static_tv)/2))*100
+# new_df_static.to_csv(directory+'/text_for_plots_updated/new_df_static.csv') 
+
+
+
+
 
