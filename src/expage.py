@@ -62,8 +62,8 @@ dt = 250000
 if Read.paleo[0] == 0:
     dt_start = (Read.time1 + 0.25) - Read.timerange[0]
 
-# if Read.paleo[0] == 1:
-#     dt_start = float(Read.timerange[-1] - Read.stop)
+if Read.paleo[0] == 1:
+    dt_start = float(Read.timerange[-1] - Read.stop)
 
 # dt_start = (Read.stop-Read.time[-2])[0]
 

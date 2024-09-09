@@ -37,14 +37,17 @@ Nuclide = Exposure_Age_Inputs['Nuclide']
 atm = Exposure_Age_Inputs['Atmospheric conversion']
 start = Exposure_Age_Inputs['Time 1']
 stop = Exposure_Age_Inputs['Time 2']
-if np.isnan(stop)[0] == True:
+
+if np.isnan(stop)[0] == True: #if user does not supply a stop time, run for the full duration of the model.
     stop[0] = 70
+    
 plate = Exposure_Age_Inputs['Plate']
 z_from_surface = Exposure_Age_Inputs['Depth below paleosurface']
 paleo = Exposure_Age_Inputs['Paleoduration?']
 
 delta = Exposure_Age_Inputs['Uplift/Subsidence']
 
+#Specify plate
 if plate[0] == 1:
     plate = 'NA'
 if plate[0] == 2:
@@ -61,6 +64,8 @@ if plate[0] == 7:
     plate = 'ANT'
 if plate[0] == 8:
     plate = 'GL'
+
+#Specify Nuclide-Mineral system (see ReadMe)
 if Nuclide[0] == 1:
     system = 1
 if Nuclide[0] == 2:
@@ -70,20 +75,26 @@ if Nuclide[0] == 3:
 if Nuclide[0] == 4:
     system = 4
     
+#Specify elevation-atmospheric depth conversion
 if atm[0] == 0:
     stdatm = 0
 if atm[0] == 1:
     stdatm = 1
 if atm[0] == 2:
     stdatm = 2
-    
+
+#Specify 3He (empirical muons) or 21Ne (modeled muons)
 if Nuclide[0] != 4:
     muons = 'False'
 else:
     muons = 'True'
 
-
+#time step
 resolution = int(250000)/10**6 #change from 250000 to 50000 for MCADAM full resolution
+
+#The following lines take into account the user might input a start/stop time that is not perfectly divisible by the resolution. So, round either start/stop so it is evenly divisible. 
+#The exposure age calculation will recognize if the model did this- it will correct the first time step in the actual integration.
+#For example, if you want the code to start at 22.1 Ma, the following code will calculate dataframes starting at 22 Ma. The exposure age calculation will recognize that you only want 0.1 Ma from that 22.0-22.25 time bin though, and only calculate production for 0.1 Ma in that time bin.
 
 import math 
 timerange = [start[0],stop[0]]
@@ -96,6 +107,7 @@ def quarter(x):
 time2 = round_down(timerange[0])
 time1 = quarter(timerange[1])
 time = np.arange(time2,time1+0.05,resolution)
+
 
 if paleo[0] ==0: 
     timerange = [start[0],stop[0]+0.05]
@@ -364,463 +376,344 @@ u4n = 4.5141e-3;
 u5n = 3.1992e8;
 
 
-#Negative muon coefficients
-w111nmin = 2.0899e3;
-w112nmin = 1.2110e2;
-w113nmin = -9.2925e2;
-w114nmin = 6.8558;
-w115nmin = 3.2929;
-w111nmax = 2.4185e3;
-w112nmax = 1.1240e2;
-w113nmax = -8.9497e2;
-w114nmax = 7.4497;
-w115nmax = 3.5522;
-w121nmin = -5.6641;
-w122nmin = -6.4998e-1;
-w123nmin = 3.5830;
-w124nmin = 8.8799e-1;
-w125nmin = 3.7337;
-w121nmax = -5.6115;
-w122nmax = -6.5095e-1;
-w123nmax = 3.3115;
-w124nmax = 7.7616e-1;
-w125nmax = 3.7607;
-w131nmin = 1.1807e-2;
-w132nmin = 1.5847e-3;
-w133nmin = -1.2543e-2;
-w134nmin = 3.4411;
-w135nmin = 3.6455;
-w131nmax = 1.1804e-2;
-w132nmax = 1.5798e-3;
-w133nmax = -1.2480e-2;
-w134nmax = 3.4818;
-w135nmax = 3.5926;
-w141nmin = -2.5853e-6;
-w142nmin = -7.9871e-7;
-w143nmin = 2.5370e-5;
-w144nmin = 4.9450;
-w145nmin = 3.7213;
-w141nmax = -2.5196e-6;
-w142nmax = -7.9341e-7;
-w143nmax = 2.5343e-5;
-w144nmax = 4.9219;
-w145nmax = 3.7354;
-w151nmin = 1.8671e-9;
-w152nmin = -1.9787e-10;
-w153nmin = -1.7061e-8;
-w154nmin = 5.1157;
-w155nmin = 4.2354;
-w151nmax = 1.8602e-9;
-w152nmax = -2.0122e-10;
-w153nmax = -1.7016e-8;
-w154nmax = 5.1424;
-w155nmax = 4.2718;
+# #Negative muon coefficients
+# w111nmin = 2.0899e3;
+# w112nmin = 1.2110e2;
+# w113nmin = -9.2925e2;
+# w114nmin = 6.8558;
+# w115nmin = 3.2929;
+# w111nmax = 2.4185e3;
+# w112nmax = 1.1240e2;
+# w113nmax = -8.9497e2;
+# w114nmax = 7.4497;
+# w115nmax = 3.5522;
+# w121nmin = -5.6641;
+# w122nmin = -6.4998e-1;
+# w123nmin = 3.5830;
+# w124nmin = 8.8799e-1;
+# w125nmin = 3.7337;
+# w121nmax = -5.6115;
+# w122nmax = -6.5095e-1;
+# w123nmax = 3.3115;
+# w124nmax = 7.7616e-1;
+# w125nmax = 3.7607;
+# w131nmin = 1.1807e-2;
+# w132nmin = 1.5847e-3;
+# w133nmin = -1.2543e-2;
+# w134nmin = 3.4411;
+# w135nmin = 3.6455;
+# w131nmax = 1.1804e-2;
+# w132nmax = 1.5798e-3;
+# w133nmax = -1.2480e-2;
+# w134nmax = 3.4818;
+# w135nmax = 3.5926;
+# w141nmin = -2.5853e-6;
+# w142nmin = -7.9871e-7;
+# w143nmin = 2.5370e-5;
+# w144nmin = 4.9450;
+# w145nmin = 3.7213;
+# w141nmax = -2.5196e-6;
+# w142nmax = -7.9341e-7;
+# w143nmax = 2.5343e-5;
+# w144nmax = 4.9219;
+# w145nmax = 3.7354;
+# w151nmin = 1.8671e-9;
+# w152nmin = -1.9787e-10;
+# w153nmin = -1.7061e-8;
+# w154nmin = 5.1157;
+# w155nmin = 4.2354;
+# w151nmax = 1.8602e-9;
+# w152nmax = -2.0122e-10;
+# w153nmax = -1.7016e-8;
+# w154nmax = 5.1424;
+# w155nmax = 4.2718;
 
-w211nmin = 8.5946e1;
-w212nmin = -5.8637;
-w213nmin = 3.6872e2;
-w214nmin = 4.8178;
-w215nmin = 3.2984;
-w211nmax = 8.6974e1;
-w212nmax = -5.8773;
-w213nmax = 3.7230e2;
-w214nmax = 4.6802;
-w215nmax = 3.2996;
-w221nmin = 3.4175;
-w222nmin = 7.9022e-2;
-w223nmin = -5.2936e-1;
-w224nmin = 6.8789;
-w225nmin = 1.0647;
-w221nmax = 3.4184;
-w222nmax = 7.8730e-2;
-w223nmax = -5.3162e-1;
-w224nmax = 6.8578;
-w225nmax = 1.0891;
-w231nmin = -3.3253e-3;
-w232nmin = -1.4941e-4;
-w233nmin = 1.8630e-3;
-w234nmin = 7.0358;
-w235nmin = 6.0158e-1;
-w231nmax = -3.3203e-3;
-w232nmax = -1.4962e-4;
-w233nmax = 1.8556e-3;
-w234nmax = 7.0391;
-w235nmax = 6.0068e-1;
-w241nmin = -2.6862e-6;
-w242nmin = -8.9985e-8;
-w243nmin = -2.7068e-6;
-w244nmin = 7.0511;
-w245nmin = 4.6369e-1;  
-w241nmax = -2.6832e-6;
-w242nmax = -8.9349e-8;
-w243nmax = -2.7056e-6;
-w244nmax = 7.0489;
-w245nmax = 4.6511e-1;
-w251nmin = 2.3372e-9;
-w252nmin = 1.5003e-10;
-w253nmin = 1.1941e-9;
-w254nmin = 7.0490;
-w255nmin = 3.5646e-1;
-w251nmax = 2.3300e-9;
-w252nmax = 1.4973e-10;
-w253nmax = 1.1994e-9;
-w254nmax = 7.0449;
-w255nmax = 3.6172e-1;
+# w211nmin = 8.5946e1;
+# w212nmin = -5.8637;
+# w213nmin = 3.6872e2;
+# w214nmin = 4.8178;
+# w215nmin = 3.2984;
+# w211nmax = 8.6974e1;
+# w212nmax = -5.8773;
+# w213nmax = 3.7230e2;
+# w214nmax = 4.6802;
+# w215nmax = 3.2996;
+# w221nmin = 3.4175;
+# w222nmin = 7.9022e-2;
+# w223nmin = -5.2936e-1;
+# w224nmin = 6.8789;
+# w225nmin = 1.0647;
+# w221nmax = 3.4184;
+# w222nmax = 7.8730e-2;
+# w223nmax = -5.3162e-1;
+# w224nmax = 6.8578;
+# w225nmax = 1.0891;
+# w231nmin = -3.3253e-3;
+# w232nmin = -1.4941e-4;
+# w233nmin = 1.8630e-3;
+# w234nmin = 7.0358;
+# w235nmin = 6.0158e-1;
+# w231nmax = -3.3203e-3;
+# w232nmax = -1.4962e-4;
+# w233nmax = 1.8556e-3;
+# w234nmax = 7.0391;
+# w235nmax = 6.0068e-1;
+# w241nmin = -2.6862e-6;
+# w242nmin = -8.9985e-8;
+# w243nmin = -2.7068e-6;
+# w244nmin = 7.0511;
+# w245nmin = 4.6369e-1;  
+# w241nmax = -2.6832e-6;
+# w242nmax = -8.9349e-8;
+# w243nmax = -2.7056e-6;
+# w244nmax = 7.0489;
+# w245nmax = 4.6511e-1;
+# w251nmin = 2.3372e-9;
+# w252nmin = 1.5003e-10;
+# w253nmin = 1.1941e-9;
+# w254nmin = 7.0490;
+# w255nmin = 3.5646e-1;
+# w251nmax = 2.3300e-9;
+# w252nmax = 1.4973e-10;
+# w253nmax = 1.1994e-9;
+# w254nmax = 7.0449;
+# w255nmax = 3.6172e-1;
 
-w311nmin = 7.8736e-1;
-w312nmin = -1.8004e-2;
-w313nmin = -3.0414e-1;
-w314nmin = 1.4479e1;
-w315nmin = 5.6128;
-w311nmax = 8.1367e-1;
-w312nmax = -2.4784e-2;
-w313nmax = -3.1104e-1;
-w314nmax = 1.0553e1;
-w315nmax = 3.6057;
-w321nmin = 2.1362e-3;
-w322nmin = 4.9866e-5;
-w323nmin = 1.4331e-3;
-w324nmin = 8.1043;
-w325nmin = 3.4619;
-w321nmax = 6.6470e-4;
-w322nmax = 1.3546e-4;
-w323nmax = 1.8371e-3;
-w324nmax = 9.2913;
-w325nmax = 2.3906;
-w331nmin = -6.0480e-6;
-w332nmin = -1.3554e-7;
-w333nmin = -3.9433e-6;
-w334nmin = 7.8291;
-w335nmin = 4.3398;
-w331nmax = -3.7978e-6;
-w332nmax = -2.9193e-7;
-w333nmax = -2.5834e-6;
-w334nmax = 9.6668;
-w335nmax = 1.3763;
-w341nmin = 6.6770e-9;
-w342nmin = 1.0885e-12;
-w343nmin = 1.5756e-9;
-w344nmin = 2.2697e1;
-w345nmin = 1.9922;
-w341nmax = 2.7492e-9;
-w342nmax = 3.3458e-10;
-w343nmax = 2.3109e-9;
-w344nmax = 1.0281e1;
-w345nmax = 1.3660;
-w351nmin = -3.0952e-12;
-w352nmin = 3.8044e-14;
-w353nmin = 7.4580e-13;
-w354nmin = 7.8473;
-w355nmin = 2.0013;
-w351nmax = -1.8076e-12;
-w352nmax = -4.1711e-14;
-w353nmax = 4.6284e-13;
-w354nmax = 4.5439;
-w355nmax = 4.7886e-1;
+# w311nmin = 7.8736e-1;
+# w312nmin = -1.8004e-2;
+# w313nmin = -3.0414e-1;
+# w314nmin = 1.4479e1;
+# w315nmin = 5.6128;
+# w311nmax = 8.1367e-1;
+# w312nmax = -2.4784e-2;
+# w313nmax = -3.1104e-1;
+# w314nmax = 1.0553e1;
+# w315nmax = 3.6057;
+# w321nmin = 2.1362e-3;
+# w322nmin = 4.9866e-5;
+# w323nmin = 1.4331e-3;
+# w324nmin = 8.1043;
+# w325nmin = 3.4619;
+# w321nmax = 6.6470e-4;
+# w322nmax = 1.3546e-4;
+# w323nmax = 1.8371e-3;
+# w324nmax = 9.2913;
+# w325nmax = 2.3906;
+# w331nmin = -6.0480e-6;
+# w332nmin = -1.3554e-7;
+# w333nmin = -3.9433e-6;
+# w334nmin = 7.8291;
+# w335nmin = 4.3398;
+# w331nmax = -3.7978e-6;
+# w332nmax = -2.9193e-7;
+# w333nmax = -2.5834e-6;
+# w334nmax = 9.6668;
+# w335nmax = 1.3763;
+# w341nmin = 6.6770e-9;
+# w342nmin = 1.0885e-12;
+# w343nmin = 1.5756e-9;
+# w344nmin = 2.2697e1;
+# w345nmin = 1.9922;
+# w341nmax = 2.7492e-9;
+# w342nmax = 3.3458e-10;
+# w343nmax = 2.3109e-9;
+# w344nmax = 1.0281e1;
+# w345nmax = 1.3660;
+# w351nmin = -3.0952e-12;
+# w352nmin = 3.8044e-14;
+# w353nmin = 7.4580e-13;
+# w354nmin = 7.8473;
+# w355nmin = 2.0013;
+# w351nmax = -1.8076e-12;
+# w352nmax = -4.1711e-14;
+# w353nmax = 4.6284e-13;
+# w354nmax = 4.5439;
+# w355nmax = 4.7886e-1;
 
-h51n = 5.6500e-1;
-h52n = 1.2100e-2;
-h53n = -3.5700e-1;
-h54n = 4.7300;
-h55n = 1.4600;
-h61n = 8.8000e-5;
-h62n = -3.8900e-6;
-h63n = 4.9100e-4;
-h64n = 4.5100;
-h65n = 1.7200;
+# h51n = 5.6500e-1;
+# h52n = 1.2100e-2;
+# h53n = -3.5700e-1;
+# h54n = 4.7300;
+# h55n = 1.4600;
+# h61n = 8.8000e-5;
+# h62n = -3.8900e-6;
+# h63n = 4.9100e-4;
+# h64n = 4.5100;
+# h65n = 1.7200;
 
-# Positive muon coefficients
-u1p = 6.2603e9;
-u2p = 3.4320e-3;
-u3p = 1.0131;
-u4p = 4.1817e-3;
-u5p = 3.7543e8;
-
-
-w111pmin = 2.0538e3;
-w112pmin = 1.2598e2;
-w113pmin = -1.0131e3;
-w114pmin = 6.1791;
-w115pmin = 3.4718;
-w111pmax = 2.3945e3;
-w112pmax = 1.1790e2;
-w113pmax = -9.4920e2;
-w114pmax = 7.0369;
-w115pmax = 3.8446;
-w121pmin = -5.6688;
-w122pmin = -6.5475e-1;
-w123pmin = 3.5933;
-w124pmin = 1.3137;
-w125pmin = 3.2223;
-w121pmax = -5.6246;
-w122pmax = -6.5784e-1;
-w123pmax = 3.2754;
-w124pmax = 1.0604;
-w125pmax = 3.3353;
-w131pmin = 1.1700e-2;
-w132pmin = 1.5748e-3;
-w133pmin = -1.2521e-2;
-w134pmin = 3.2601;
-w135pmin = 3.6451;
-w131pmax = 1.1736e-2;
-w132pmax = 1.5714e-3;
-w133pmax = -1.2383e-2;
-w134pmax = 3.3054;
-w135pmax = 3.5833;
-w141pmin = -2.3130e-6;
-w142pmin = -7.5964e-7;
-w143pmin = 2.4832e-5;
-w144pmin = 4.9409;
-w145pmin = 3.7979;
-w141pmax = -2.2412e-6;
-w142pmax = -7.5644e-7;
-w143pmax = 2.4834e-5;
-w144pmax = 4.8875;
-w145pmax = 3.8034;
-w151pmin = 1.7430e-9;
-w152pmin = -2.2205e-10;
-w153pmin = -1.6916e-8;
-w154pmin = 5.1206;
-w155pmin = 4.3875;
-w151pmax = 1.7462e-9;
-w152pmax = -2.2603e-10;
-w153pmax = -1.6852e-8;
-w154pmax = 5.1768;
-w155pmax = 4.3997;
-
-w211pmin = 8.4834e1;
-w212pmin = -5.7723;
-w213pmin = 3.7035e2;
-w214pmin = 4.8084;
-w215pmin = 3.3589;
-w211pmax = 8.7301e1;
-w212pmax = -5.9021;
-w213pmax = 3.7664e2;
-w214pmax = 4.5920;
-w215pmax = 3.3933;
-w221pmin = 3.4086;
-w222pmin = 7.8728e-2;
-w223pmin = -5.2000e-1;
-w224pmin = 6.8730;
-w225pmin = 1.0869;
-w221pmax = 3.4070;
-w222pmax = 7.8501e-2;
-w223pmax = -5.2268e-1;
-w224pmax = 6.8422;
-w225pmax = 1.0916;
-w231pmin = -3.3162e-3;
-w232pmin = -1.4917e-4;
-w233pmin = 1.8524e-3;
-w234pmin = 7.0237;
-w235pmin = 6.0692e-1;
-w231pmax = -3.3141e-3;
-w232pmax = -1.4904e-4;
-w233pmax = 1.8518e-3;
-w234pmax = 7.0237;
-w235pmax = 6.1137e-1;
-w241pmin = -2.6781e-6;
-w242pmin = -8.8820e-8;
-w243pmin = -2.7098e-6;
-w244pmin = 7.0420;
-w245pmin = 4.6845e-1;
-w241pmax = -2.6774e-6;
-w242pmax = -8.8086e-8;
-w243pmax = -2.7055e-6;
-w244pmax = 7.0422;
-w245pmax = 4.7162e-1;
-w251pmin = 2.3267e-9;
-w252pmin = 1.4896e-10;
-w253pmin = 1.2010e-9;
-w254pmin = 7.0431;
-w255pmin = 3.6378e-1;
-w251pmax = 2.3187e-9;
-w252pmax = 1.4872e-10;
-w253pmax = 1.2045e-9;
-w254pmax = 7.0488;
-w255pmax = 3.6659e-1;
-
-w311pmin = 7.6040e-1;
-w312pmin = -1.8020e-2;
-w313pmin = -2.7253e-1;
-w314pmin = 1.1292e1;
-w315pmin = 5.3901;
-w311pmax = 9.2327e-1;
-w312pmax = -2.9590e-2;
-w313pmax = -4.2838e-1;
-w314pmax = 9.6573;
-w315pmax = 4.0023;
-w321pmin = 2.0613e-3;
-w322pmin = 6.1719e-5;
-w323pmin = 1.7751e-3;
-w324pmin = 7.5508;
-w325pmin = 3.9262;
-w321pmax = 8.4438e-4;
-w322pmax = 1.3392e-4;
-w323pmax = 1.8096e-3;
-w324pmax = 9.2554;
-w325pmax = 2.4406;
-w331pmin = -5.9644e-6;
-w332pmin = -1.4795e-7;
-w333pmin = -4.1301e-6;
-w334pmin = 7.5298;
-w335pmin = 4.3879;
-w331pmax = -3.9078e-6;
-w332pmax = -2.8780e-7;
-w333pmax = -2.4920e-6;
-w334pmax = 9.7445;
-w335pmax = 1.4865;
-w341pmin = 6.4640e-9;
-w342pmin = -9.2764e-12;
-w343pmin = 1.7352e-9;
-w344pmin = 2.3633e1;
-w345pmin = 1.6729;
-w341pmax = 1.9852e-9;
-w342pmax = 3.5716e-10;
-w343pmax = 2.9465e-9;
-w344pmax = 1.0431e1;
-w345pmax = 1.9364;
-w351pmin = -3.2101e-12;
-w352pmin = 5.4637e-14;
-w353pmin = 9.2092e-13;
-w354pmin = 7.5423;
-w355pmin = 2.6570;
-w351pmax = -1.7751e-12;
-w352pmax = -3.1711e-14;
-w353pmax = 4.7927e-13;
-w354pmax = 4.2050;
-w355pmax = 7.4704e-1;
-
-h51p = 5.0600e-1;
-h52p = 1.3000e-2;
-h53p = -3.9400e-1;
-h54p = 4.1200;
-h55p = 1.3300;
-h61p = 1.3900e-4;
-h62p = 6.9500e-6;
-h63p = 7.4700e-4;
-h64p = 3.7200;
-h65p = 1.9700;
+# # Positive muon coefficients
+# u1p = 6.2603e9;
+# u2p = 3.4320e-3;
+# u3p = 1.0131;
+# u4p = 4.1817e-3;
+# u5p = 3.7543e8;
 
 
-data_muons = pd.read_csv(directory+'/Data/data_muons.txt', header = None)
+# w111pmin = 2.0538e3;
+# w112pmin = 1.2598e2;
+# w113pmin = -1.0131e3;
+# w114pmin = 6.1791;
+# w115pmin = 3.4718;
+# w111pmax = 2.3945e3;
+# w112pmax = 1.1790e2;
+# w113pmax = -9.4920e2;
+# w114pmax = 7.0369;
+# w115pmax = 3.8446;
+# w121pmin = -5.6688;
+# w122pmin = -6.5475e-1;
+# w123pmin = 3.5933;
+# w124pmin = 1.3137;
+# w125pmin = 3.2223;
+# w121pmax = -5.6246;
+# w122pmax = -6.5784e-1;
+# w123pmax = 3.2754;
+# w124pmax = 1.0604;
+# w125pmax = 3.3353;
+# w131pmin = 1.1700e-2;
+# w132pmin = 1.5748e-3;
+# w133pmin = -1.2521e-2;
+# w134pmin = 3.2601;
+# w135pmin = 3.6451;
+# w131pmax = 1.1736e-2;
+# w132pmax = 1.5714e-3;
+# w133pmax = -1.2383e-2;
+# w134pmax = 3.3054;
+# w135pmax = 3.5833;
+# w141pmin = -2.3130e-6;
+# w142pmin = -7.5964e-7;
+# w143pmin = 2.4832e-5;
+# w144pmin = 4.9409;
+# w145pmin = 3.7979;
+# w141pmax = -2.2412e-6;
+# w142pmax = -7.5644e-7;
+# w143pmax = 2.4834e-5;
+# w144pmax = 4.8875;
+# w145pmax = 3.8034;
+# w151pmin = 1.7430e-9;
+# w152pmin = -2.2205e-10;
+# w153pmin = -1.6916e-8;
+# w154pmin = 5.1206;
+# w155pmin = 4.3875;
+# w151pmax = 1.7462e-9;
+# w152pmax = -2.2603e-10;
+# w153pmax = -1.6852e-8;
+# w154pmax = 5.1768;
+# w155pmax = 4.3997;
 
-##EVERYTHING BELOW ARE TEXT FILES FOR PLOTS MADE IN MANUSCRIPT. 
-#NOT RELEVANT FOR REGULAR USER
+# w211pmin = 8.4834e1;
+# w212pmin = -5.7723;
+# w213pmin = 3.7035e2;
+# w214pmin = 4.8084;
+# w215pmin = 3.3589;
+# w211pmax = 8.7301e1;
+# w212pmax = -5.9021;
+# w213pmax = 3.7664e2;
+# w214pmax = 4.5920;
+# w215pmax = 3.3933;
+# w221pmin = 3.4086;
+# w222pmin = 7.8728e-2;
+# w223pmin = -5.2000e-1;
+# w224pmin = 6.8730;
+# w225pmin = 1.0869;
+# w221pmax = 3.4070;
+# w222pmax = 7.8501e-2;
+# w223pmax = -5.2268e-1;
+# w224pmax = 6.8422;
+# w225pmax = 1.0916;
+# w231pmin = -3.3162e-3;
+# w232pmin = -1.4917e-4;
+# w233pmin = 1.8524e-3;
+# w234pmin = 7.0237;
+# w235pmin = 6.0692e-1;
+# w231pmax = -3.3141e-3;
+# w232pmax = -1.4904e-4;
+# w233pmax = 1.8518e-3;
+# w234pmax = 7.0237;
+# w235pmax = 6.1137e-1;
+# w241pmin = -2.6781e-6;
+# w242pmin = -8.8820e-8;
+# w243pmin = -2.7098e-6;
+# w244pmin = 7.0420;
+# w245pmin = 4.6845e-1;
+# w241pmax = -2.6774e-6;
+# w242pmax = -8.8086e-8;
+# w243pmax = -2.7055e-6;
+# w244pmax = 7.0422;
+# w245pmax = 4.7162e-1;
+# w251pmin = 2.3267e-9;
+# w252pmin = 1.4896e-10;
+# w253pmin = 1.2010e-9;
+# w254pmin = 7.0431;
+# w255pmin = 3.6378e-1;
+# w251pmax = 2.3187e-9;
+# w252pmax = 1.4872e-10;
+# w253pmax = 1.2045e-9;
+# w254pmax = 7.0488;
+# w255pmax = 3.6659e-1;
 
-#FIGURE 2 TEXT FILES
-IN = pd.read_csv(directory+'/text_for_plots/IN.csv')
-SA = pd.read_csv(directory+'/text_for_plots/SA.csv')
-GL = pd.read_csv(directory+'/text_for_plots/GL.csv')
-AF = pd.read_csv(directory+'/text_for_plots/AF.csv')
+# w311pmin = 7.6040e-1;
+# w312pmin = -1.8020e-2;
+# w313pmin = -2.7253e-1;
+# w314pmin = 1.1292e1;
+# w315pmin = 5.3901;
+# w311pmax = 9.2327e-1;
+# w312pmax = -2.9590e-2;
+# w313pmax = -4.2838e-1;
+# w314pmax = 9.6573;
+# w315pmax = 4.0023;
+# w321pmin = 2.0613e-3;
+# w322pmin = 6.1719e-5;
+# w323pmin = 1.7751e-3;
+# w324pmin = 7.5508;
+# w325pmin = 3.9262;
+# w321pmax = 8.4438e-4;
+# w322pmax = 1.3392e-4;
+# w323pmax = 1.8096e-3;
+# w324pmax = 9.2554;
+# w325pmax = 2.4406;
+# w331pmin = -5.9644e-6;
+# w332pmin = -1.4795e-7;
+# w333pmin = -4.1301e-6;
+# w334pmin = 7.5298;
+# w335pmin = 4.3879;
+# w331pmax = -3.9078e-6;
+# w332pmax = -2.8780e-7;
+# w333pmax = -2.4920e-6;
+# w334pmax = 9.7445;
+# w335pmax = 1.4865;
+# w341pmin = 6.4640e-9;
+# w342pmin = -9.2764e-12;
+# w343pmin = 1.7352e-9;
+# w344pmin = 2.3633e1;
+# w345pmin = 1.6729;
+# w341pmax = 1.9852e-9;
+# w342pmax = 3.5716e-10;
+# w343pmax = 2.9465e-9;
+# w344pmax = 1.0431e1;
+# w345pmax = 1.9364;
+# w351pmin = -3.2101e-12;
+# w352pmin = 5.4637e-14;
+# w353pmin = 9.2092e-13;
+# w354pmin = 7.5423;
+# w355pmin = 2.6570;
+# w351pmax = -1.7751e-12;
+# w352pmax = -3.1711e-14;
+# w353pmax = 4.7927e-13;
+# w354pmax = 4.2050;
+# w355pmax = 7.4704e-1;
 
-sf_IN = pd.read_csv(directory+'/text_for_plots/sf_IN.csv')
-sf_SA = pd.read_csv(directory+'/text_for_plots/sf_SA.csv')
-sf_GL = pd.read_csv(directory+'/text_for_plots/sf_GL.csv')
-sf_AF = pd.read_csv(directory+'/text_for_plots/sf_AF.csv')
-
-sf_IN_const = pd.read_csv(directory+'/text_for_plots/sf_IN_const.csv')
-
-sf_IN_tvlatonly = pd.read_csv(directory+'/text_for_plots/sf_india_tvlatonly.csv')
-
-sf_IN_tvfieldonly = pd.read_csv(directory+'/text_for_plots/sf_india_tvfieldonly.csv')
-
-#FIGURE X TEXT FILES
-
-pn_cpx = pd.read_csv(directory+'/text_for_plots/pn_cpx.csv')
-pp_cpx = pd.read_csv(directory+'/text_for_plots/pp_cpx.csv')
-pn_qtz = pd.read_csv(directory+'/text_for_plots/pn_qtz.csv')
-pp_qtz = pd.read_csv(directory+'/text_for_plots/pp_qtz.csv')
-
-mean = pd.read_csv(directory+'/text_for_plots/sf_mean.csv')
-upper = pd.read_csv(directory+'/text_for_plots/sf_upper.csv')
-lower = pd.read_csv(directory+'/text_for_plots/sf_lower.csv')
-
-
-chisq_neg33 = pd.read_csv(directory+'/text_for_plots/chisq_neg33.csv', header = None)
-chisq_neg73 = pd.read_csv(directory+'/text_for_plots/chisq_neg73.csv', header = None)
-
-chisq_neg1003 = pd.read_csv(directory+'/text_for_plots/chisq_neg1003.csv', header = None)
-chisq_neg203 = pd.read_csv(directory+'/text_for_plots/chisq_neg203.csv', header = None)
-chisq_neg153 = pd.read_csv(directory+'/text_for_plots/chisq_neg153.csv', header = None)
-chisq_neg103 = pd.read_csv(directory+'/text_for_plots/chisq_neg103.csv', header = None)
-chisq_neg53 = pd.read_csv(directory+'/text_for_plots/chisq_neg53.csv', header = None)
-chisq_neg625 = pd.read_csv(directory+'/text_for_plots/chisq_neg6253.csv', header = None)
-
-SLchisq_neg093 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg093.csv', header = None)
-SLchisq_neg083 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg083.csv', header = None)
-SLchisq_neg073 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg073.csv', header = None)
-SLchisq_neg063 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg063.csv', header = None)
-SLchisq_neg0653 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg0653.csv', header = None)
-SLchisq_neg53 = pd.read_csv(directory+'/text_for_plots/SLchisq_neg53.csv', header = None)
-
-
-sf_std = pd.read_csv(directory+'/text_for_plots/sf_std.csv')
-sf_era= pd.read_csv(directory+'/text_for_plots/sf_era.csv')
-
-sf_50kyr = pd.read_csv(directory+'/text_for_plots/sf_50kyr.csv')
-sf_250ka = pd.read_csv(directory+'/text_for_plots/sf_250ka.csv')
-sf_1ma = pd.read_csv(directory+'/text_for_plots/sf_1ma.csv')
-
-#Figure 5
-
-GL_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_7_GL_ERA40', header = None)
-GL_STD = pd.read_csv(directory+'/text_for_plots/Figure_7_GL_STD', header = None)
-GL_climate = pd.read_csv(directory+'/text_for_plots/Figure_6_GL_climate', header = None)
-GL_climate_70 = pd.read_csv(directory+'/text_for_plots/Figure_6_GL_climate_70', header = None)
-
-EC_ERA40 =  pd.read_csv(directory+'/text_for_plots/Figure_7_EC_ERA40', header = None)
-EC_STD = pd.read_csv(directory+'/text_for_plots/Figure_7_EC_STD', header = None)
-EC_climate = pd.read_csv(directory+'/text_for_plots/Figure_6_EC_climate', header = None)
-EC_climate_70 = pd.read_csv(directory+'/text_for_plots/Figure_6_EC_climate_70', header = None)
-
-Rc_full = pd.read_csv(directory+'/text_for_plots/Rc_full.csv', header = None)
-Rc_half = pd.read_csv(directory+'/text_for_plots/Rc_half.csv', header = None)
-
-sf_full = pd.read_csv(directory+'/text_for_plots/sf_full.csv', header = None)
-sf_half = pd.read_csv(directory+'/text_for_plots/sf_half.csv', header = None)
-
-x_tv = pd.read_csv(directory+'/text_for_plots/x_tv.csv', header = None)
-x_c = pd.read_csv(directory+'/text_for_plots/x_c.csv', header = None)
-
-#Libarkin artificial curves
-lib5e3 = pd.read_csv(directory+'/text_for_plots/lib_5e3.csv', header = None)
-lib1e3 = pd.read_csv(directory+'/text_for_plots/lib_1e3.csv', header = None)
-lib5e4 = pd.read_csv(directory+'/text_for_plots/lib_5e4.csv', header = None)
-lib3e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3.csv', header = None)
-lib10e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_10e3.csv', header = None)
-lib20e3 = pd.read_csv(directory+'/text_for_plots_updated/lib_20e3.csv', header = None)
-
-lib3e3_0 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e3_0.csv', header = None)
-lib3e4_0 = pd.read_csv(directory+'/text_for_plots_updated/lib_3e4_0.csv', header = None)
-lib1e4_0 = pd.read_csv(directory+'/text_for_plots_updated/lib_1e4_0.csv', header = None)
-
-Rc_const = pd.read_csv(directory+'/text_for_plots/Rc_const.csv', header = None)
-Rc_tv_latonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_latonly.csv', header = None)
-Rc_tv_fieldonly = pd.read_csv(directory+'/text_for_plots/Rc_tv_fieldonly.csv', header = None)
-Rc_tv_both = pd.read_csv(directory+'/text_for_plots/Rc_tv_both.csv', header = None)
-
-midlats = pd.read_csv(directory+'/text_for_plots/midlats.csv', header = None)
-poles = pd.read_csv(directory+'/text_for_plots/poles.csv', header = None)
-equator = pd.read_csv(directory+'/text_for_plots/equator.csv', header = None)
-
-era40_v_time = pd.read_csv(directory+'/text_for_plots/era40_v_time.csv', header = None)
-std_v_time = pd.read_csv(directory+'/text_for_plots/std_v_time.csv', header = None)
-valdes_v_time = pd.read_csv(directory+'/text_for_plots/valdes_v_time.csv', header = None)
-
-sf_sigma75 = pd.read_csv(directory+'/text_for_plots_updated/sf_sigma75.csv', header = None)
-sf_sigma25= pd.read_csv(directory+'/text_for_plots_updated/sf_sigma25.csv', header = None)
-sf_regular_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_regular_sigma.csv', header = None)
-sf_constant_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_constant_sigma.csv', header = None)
-
-sf_tvfieldonly_25sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_25sigma.csv', header = None)
-sf_tvfieldonly_75sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_75sigma.csv', header = None)
-sf_tvfieldonly_sigma = pd.read_csv(directory+'/text_for_plots_updated/sf_tvfield_only_sigma.csv', header = None)
-sf_tvlatonly_sigma= pd.read_csv(directory+'/text_for_plots_updated/sf_tvlatonly_sigma.csv', header = None)
+# h51p = 5.0600e-1;
+# h52p = 1.3000e-2;
+# h53p = -3.9400e-1;
+# h54p = 4.1200;
+# h55p = 1.3300;
+# h61p = 1.3900e-4;
+# h62p = 6.9500e-6;
+# h63p = 7.4700e-4;
+# h64p = 3.7200;
+# h65p = 1.9700;
 
 
-uplift_constant = pd.read_csv(directory+'/text_for_plots_updated/uplift_dunai_constant.csv', header=None)
-uplift_tv= pd.read_csv(directory+'/text_for_plots_updated/tv_dunai.csv',header=None)
+# data_muons = pd.read_csv(directory+'/Data/data_muons.txt', header = None)
 
-static_constant = pd.read_csv(directory+'/text_for_plots_updated/static_constant.csv', header=None)
-static_tv = pd.read_csv(directory+'/text_for_plots_updated/static_tv.csv', header=None)
 

@@ -49,23 +49,26 @@ lon_df = pd.DataFrame([(lon_repeated.tolist()[n:n+len(time)]) for n in range(0, 
 alt_list_temp = np.repeat(Read.alt, len(time))
 alt_df_temp = pd.DataFrame([(alt_list_temp[n:n+len(time)]) for n in range(0, len(alt_list_temp), len(time))])
 
-
+#This will correct the elevation dataframe for the uplift/subsidence.
 for i in range(len(time)-1):
     for j in range(len(alt_df_temp)):
         alt_df_temp.iloc[j][i+1] = alt_df_temp.iloc[j][i] + delta[j]
 
-# #UPLIFT##
-# alt_df_temp[alt_df_temp < 0] = 0
-# a = alt_df_temp[0].idxmin()
-# b = alt_df_temp.iloc[alt_df_temp[0].idxmin()][:].idxmin()
 
-# indx = np.arange(alt_df_temp.iloc[alt_df_temp[0].idxmin()][:].idxmin(), len(time))
+if Read.delta[0] < 0:
+#In uplift scenario: we want code to stop updating elevations once the first sample in the dataset reaches sea level.
+#UPLIFT##
+    alt_df_temp[alt_df_temp < 0] = 0
+    a = alt_df_temp[0].idxmin()
+    b = alt_df_temp.iloc[alt_df_temp[0].idxmin()][:].idxmin()
+    
+    indx = np.arange(alt_df_temp.iloc[alt_df_temp[0].idxmin()][:].idxmin(), len(time))
+    
+    
+    for i in indx-1:
+        for j in range(len(alt_df_temp)):
+            alt_df_temp.iloc[j][i+1] = alt_df_temp.iloc[j][b-1]
 
-# for i in indx-1:
-#     for j in range(len(alt_df_temp)):
-#         alt_df_temp.iloc[j][i+1] = alt_df_temp.iloc[j][b-1]
-        
-        
 alt_df = alt_df_temp#.iloc[:, ::-1].reset_index(drop = True)
 alt_df.columns = pd.RangeIndex(alt_df.columns.size)
 alt_list = alt_df.to_numpy().flatten().tolist()
@@ -327,13 +330,17 @@ if Read.stdatm == 2: #climate simulation
     start_temp = min(domain, key = lambda x: abs(x-time[0]))
     start = domain.index(start_temp)#np.argmax(domain <= time[0])  #determine where in the domain to end, given user input of end time
     if stop == start: #determine how many consecutive bins will be used. If stop == start, only one bin is used.
-        duration = range(start)
+        duration = range(0,1)
+    
+    if start > stop:
+        start = stop
+        duration = range(start,stop+1)
     
     else:
         duration = range(start,stop+1)
     
     for j in range(len(Read.site_lon)): #interpolate to identify temp/MSLP for each time bin, and resize to match 
-        x = mini_durations[0]
+        x = mini_durations[start]
         for k in duration:
             t = sci.interpolate.interp2d(lon_numpy,lat_numpy,mat_merged[k])
             p = sci.interpolate.interp2d(lon_numpy,lat_numpy,mslp_merged[k])
@@ -346,7 +353,6 @@ if Read.stdatm == 2: #climate simulation
             x = y
            
 
-            
             
     temperatures = []
     pressures = []
@@ -384,9 +390,9 @@ def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(sample_pressure)
 
-# #below hard codes sea level atm depth
-# # xn = np.repeat(1013.25*1.019716, len(x) * len(time))
-# # x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
-# x.to_csv(directory+'/text_for_plots/std_v_time.csv') 
+#below hard codes sea level atm depth
+# xn = np.repeat(1013.25*1.019716, len(x) * len(time))
+# x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
+
 
 
