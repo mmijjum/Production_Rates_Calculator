@@ -17,6 +17,8 @@ import neutron_spallation
 import proton_spallation
 import glob
 import os
+import neutrons_LSDn
+import protons_LSDn
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 directory = os.path.dirname(__file__)
@@ -25,7 +27,10 @@ directory = os.path.dirname(__file__)
 #NOTE: all 'refs' were calculated using this model, for a hypothetical sample at SLHL.
 
 time = Read.time 
+time_LSDn = Read.LSDn_tv
+
 Siteprod = []
+Siteprod_LSDn = []
 
 if Read.system == 1:
     p3nref_q = 91.452156
@@ -37,6 +42,10 @@ if Read.system == 1:
         for i in range(len(time)):
             SiteHe_temp_qtz = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_qtz #scaling factor
             Siteprod.append(SiteHe_temp_qtz)
+    for n in range(len(Rc.Rc_LSDn)):
+        for i in range(len(time_LSDn)):
+            SiteHe_temp_qtz_LSDn = (neutrons_LSDn.pn_df.iloc[n,i] + protons_LSDn.pp_df.iloc[n,i])/HeRef_qtz #scaling factor
+            Siteprod_LSDn.append(SiteHe_temp_qtz_LSDn)
             
 
 if Read.system == 2:
@@ -49,6 +58,11 @@ if Read.system == 2:
         for i in range(len(time)):
             SiteHe_temp_cpx = (neutron_spallation.pn_df.iloc[n,i] +proton_spallation.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
             Siteprod.append(SiteHe_temp_cpx)
+    for n in range(len(Rc.Rc_LSDn)):
+        for i in range(len(time_LSDn)):
+            SiteHe_temp_cpx_LSDn = (neutrons_LSDn.pn_df.iloc[n,i] + protons_LSDn.pp_df.iloc[n,i])/HeRef_cpx #scaling factor
+            Siteprod_LSDn.append(SiteHe_temp_cpx_LSDn)
+            
 
 if Read.system ==3 :
     #SiteHe for olivine: 
@@ -61,6 +75,11 @@ if Read.system ==3 :
         for i in range(len(time)):        
             SiteHe_temp_ol = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/HeRef_ol #scaling factor
             Siteprod.append(SiteHe_temp_ol)
+    for n in range(len(Rc.Rc_LSDn)):
+        for i in range(len(time_LSDn)):
+            SiteHe_temp_ol_LSDn = (neutrons_LSDn.pn_df.iloc[n,i] + protons_LSDn.pp_df.iloc[n,i])/HeRef_ol #scaling factor
+            Siteprod_LSDn.append(SiteHe_temp_ol_LSDn)
+            
 
 if Read.system == 4:
     p21nref_q = 11.847124
@@ -71,7 +90,18 @@ if Read.system == 4:
         for i in range(len(time)):  
             SiteNe_temp_qtz = (neutron_spallation.pn_df.iloc[n,i] + proton_spallation.pp_df.iloc[n,i])/NeRef_qtz #scaling factor
             Siteprod.append(SiteNe_temp_qtz)
+    for n in range(len(Rc.Rc_LSDn)):
+        for i in range(len(time_LSDn)):
+            SiteNe_temp_qtz_LSDn = (neutrons_LSDn.pn_df.iloc[n,i] + protons_LSDn.pp_df.iloc[n,i])/NeRef_qtz #scaling factor
+            Siteprod_LSDn.append(SiteNe_temp_qtz_LSDn)
+            
 
     
-Siteprod_df = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
-#Siteprod_df.to_csv(directory+'/text_for_plots_updated/dunai_static_sf_const.csv') 
+Siteprod_df_temp = pd.DataFrame([(Siteprod[n:n+len(time)]) for n in range(0, len(Siteprod), len(time))])
+Siteprod_df_LSDn = pd.DataFrame([(Siteprod_LSDn[n:n+len(time_LSDn)]) for n in range(0, len(Siteprod_LSDn), len(time_LSDn))])
+
+n = 8 # number of bins in Siteprod_df to replace (0-2Ma)
+Siteprod_df_shortened = Siteprod_df_temp.drop(columns=Siteprod_df_temp.columns[:n])
+Siteprod_df = pd.concat([Siteprod_df_LSDn, Siteprod_df_shortened], axis=1, ignore_index = True)
+
+#Siteprod_df.to_csv(directory+'/text_for_plots_updated/sf_tvlatonly_sigma.csv') 

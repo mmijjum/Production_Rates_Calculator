@@ -47,6 +47,19 @@ paleo = Exposure_Age_Inputs['Paleoduration?']
 
 delta = Exposure_Age_Inputs['Uplift/Subsidence']
 
+LSDn_meta = pd.read_excel(directory+'/Data/lsdn_rc.xlsx',header = None) #excel sheet with all pmag data. 0-70 Ma, all criteria
+LSDn_tv_0_14ka = (LSDn_meta[0]).dropna().iloc[:-1]
+LSDn_MM0 = (LSDn_meta[1]).dropna()
+
+LSDn_tv_14ka_2ma = (LSDn_meta[3]).dropna().iloc[:-1]
+LSDn_MM01 = (LSDn_meta[4]).dropna()
+
+M0 = 7.747 #Lifton DGRF from 2014 paper
+LSDn_0_14ka = (LSDn_MM0*M0).iloc[:-1]
+LSDn_14ka_2ma = (LSDn_MM01*M0).iloc[:-1]
+LSDn_M = pd.concat([LSDn_0_14ka, LSDn_14ka_2ma], ignore_index=True)
+LSDn_tv = pd.concat([LSDn_tv_0_14ka, LSDn_tv_14ka_2ma], ignore_index=True)
+
 #Specify plate
 if plate[0] == 1:
     plate = 'NA'
@@ -713,7 +726,6 @@ u5n = 3.1992e8;
 # h64p = 3.7200;
 # h65p = 1.9700;
 
-
-# data_muons = pd.read_csv(directory+'/Data/data_muons.txt', header = None)
+data_muons = pd.read_csv(directory+'/Data/data_muons.txt', header = None)
 
 

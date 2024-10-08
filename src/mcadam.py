@@ -25,11 +25,18 @@ MCADAM_250 = MCADAM_250ka_full.iloc[0:281]
 temp_median =pd.concat([MCADAM_250['age'],MCADAM_250['50%']],axis=1)
 updated_df =  temp_median[(temp_median['age'] >= Read.time[0]) & (temp_median['age'] <= Read.time[-1])]
 medians = updated_df['50%'].reset_index(drop=True)
-# sigma_25 = MCADAM_250['25%'].reset_index(drop=True)
-# sigma_75 = MCADAM_250['75%'].reset_index(drop=True)
 
-# sig25 = sigma_25
-# sig75 = sigma_75
+
+temp_25 =pd.concat([MCADAM_250['age'],MCADAM_250['25%']],axis=1)
+updated_df_25 =  temp_25[(temp_25['age'] >= Read.time[0]) & (temp_25['age'] <= Read.time[-1])]
+sigma_25 = updated_df_25['25%'].reset_index(drop=True)
+
+temp_75 =pd.concat([MCADAM_250['age'],MCADAM_250['75%']],axis=1)
+updated_df_75 =  temp_75[(temp_75['age'] >= Read.time[0]) & (temp_75['age'] <= Read.time[-1])]
+sigma_75 = updated_df_75['75%'].reset_index(drop=True)
+
+#sig25 = sigma_25
+#sig75 = sigma_75
 
 # time = np.arange(0,70.25,0.25)
 # plt.plot(time,medians,'#016c59', label = 'MCADAM (Bono et al., 2022')

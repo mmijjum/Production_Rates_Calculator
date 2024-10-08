@@ -390,9 +390,17 @@ def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(sample_pressure)
 
+n = len(Read.LSDn_M) 
+sample_pressure_LSDn = pd.concat([sample_pressure[0]] * (n), axis=1, ignore_index=True)
+x_LSDn = atmdepth(sample_pressure_LSDn)
+
+
+
 #below hard codes sea level atm depth
 # xn = np.repeat(1013.25*1.019716, len(x) * len(time))
 # x = pd.DataFrame([(xn[n:n+len(time)]) for n in range(0, len(xn), len(time))])
+
+#sample_pressure.to_csv(directory+'/text_for_plots/antarctica_ERA40.csv') 
 
 
 
