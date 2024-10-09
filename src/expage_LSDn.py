@@ -29,7 +29,8 @@ import numpy as np
 import pandas as pd
 import scaling_factor
 import shielding
-import Muons_v2
+#import Muons_v2
+import Muons_v2_LSDn
 import atm_depth 
 
 n0 = Read.nuclide_concentration
@@ -60,7 +61,7 @@ tempvalsmu = []
 lambdasp = 160 #effective attenuation length for spallation in at/g/yr = 160 g/cm2 Balco 2008, gosee and phillips 2001
 a = 0.01036
 b = -9.697e-6
-htemp = atm_depth.x
+htemp = atm_depth.x_merged
 #htemp[:] = htemp.values[:, ::-1] #reverse to get in correct time sequence
 h = (htemp) / 1.019716 # convert back from atmospheric depth to pressure
 lambdamu = 1 / (a + b*h) #muon attenuation length, equation 8 in Balco (@017)
@@ -94,45 +95,45 @@ dt = dt_temp.iloc[:-n_0]
 # bin1 = pd.Series(firstbin)
 
 
-if Read.muons == 'False': 
-    #For 3He
-    def func(sthick,stopo,tempvals):
-        return sthick*stopo*slhl*tempvals
+# if Read.muons == 'False': 
+#     #For 3He
+#     def func(sthick,stopo,tempvals):
+#         return sthick*stopo*slhl*tempvals
     
             
-    for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
-        for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
-            temp = (scaling_factor.Siteprod_df.iloc[i][j]* np.exp((-erosion[i]*i)/lambdasp)* dt[j])
-            tempvals.append(temp)
-          #   n = sthick * slhl * temp
-          #   if n == n0:
+#     for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
+#         for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
+#             temp = (scaling_factor.Siteprod_df.iloc[i][j]* np.exp((-erosion[i]*i)/lambdasp)* dt[j])
+#             tempvals.append(temp)
+#           #   n = sthick * slhl * temp
+#           #   if n == n0:
     
-    tempvals_df = pd.DataFrame([(tempvals[n:n+len(dt)]) for n in range(0, len(tempvals), len(dt))])
-    #tempvals_df[0] = bin1
+#     tempvals_df = pd.DataFrame([(tempvals[n:n+len(dt)]) for n in range(0, len(tempvals), len(dt))])
+#     #tempvals_df[0] = bin1
 
-#     # #muons part
+# #     # #muons part
 
-    iteration = []
-    for i in range(len(tempvals_df)):
-        x = tempvals_df.iloc[i][0]
-        for j in range(len(tempvals_df.iloc[0])):
-            l = func(sthick[i],stopo[i], x)
-            if l < n0[i]:
-                x += tempvals_df.iloc[i][j+1]
-            else:
-                iteration.append(j)
-                break
+#     iteration = []
+#     for i in range(len(tempvals_df)):
+#         x = tempvals_df.iloc[i][0]
+#         for j in range(len(tempvals_df.iloc[0])):
+#             l = func(sthick[i],stopo[i], x)
+#             if l < n0[i]:
+#                 x += tempvals_df.iloc[i][j+1]
+#             else:
+#                 iteration.append(j)
+#                 break
                 
             
-    exp_age = []
-    for i in range (len(tempvals_df)):
-        a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
-        dt2 = ((n0[i]/(sthick[i] *stopo[i]* slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]]* np.exp((-erosion[i]*i)/lambdasp))
-        if iteration[i] == 0:
-            expage = dt2
-        else:
-            expage = (np.sum(dt[0:iteration[i]])) + dt2
-        exp_age.append(expage)
+#     exp_age = []
+#     for i in range (len(tempvals_df)):
+#         a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
+#         dt2 = ((n0[i]/(sthick[i] *stopo[i]* slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]]* np.exp((-erosion[i]*i)/lambdasp))
+#         if iteration[i] == 0:
+#             expage = dt2
+#         else:
+#             expage = (np.sum(dt[0:iteration[i]])) + dt2
+#         exp_age.append(expage)
 
     
         # Pmu = 0.23
@@ -187,9 +188,9 @@ if Read.muons == 'False':
         #     exp_age.append(expage)
 
 
-# if Read.muons == 'True': 
+if Read.muons == 'True': 
     
-#     Pmu = Muons_v2.pmuons_df
+    Pmu = Muons_v2_LSDn.pmuons_df
 #     firstmubin = []
 #     for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
 #         for j in range(len(scaling_factor.Siteprod_df.iloc[0])):
@@ -199,53 +200,52 @@ if Read.muons == 'False':
 
 #     bin1muons = pd.Series(firstmubin)
     
-#     def func(sthick,stopo,tempvals):
-#         return sthick*stopo*slhl*tempvals
+    def func(sthick,stopo,tempvals):
+        return sthick*stopo*slhl*tempvals
     
             
-#     for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
-#         for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
-#             temp = (scaling_factor.Siteprod_df.iloc[i][j]* np.exp((-erosion[i]*i)/lambdasp)* dt)
-#             tempvals.append(temp)
+    for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
+        for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
+            temp = (scaling_factor.Siteprod_df.iloc[i][j]* np.exp((-erosion[i]*i)/lambdasp)* dt[j])
+            tempvals.append(temp)
 #           #   n = sthick * slhl * temp
 #           #   if n == n0:
     
-#     tempvals_df = pd.DataFrame([(tempvals[n:n+len(Read.time)]) for n in range(0, len(tempvals), len(Read.time))])
+    tempvals_df = pd.DataFrame([(tempvals[n:n+len(dt)]) for n in range(0, len(tempvals), len(dt))])
 #     tempvals_df[0] = bin1    #muons part
   
-#     for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
-#         for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
-#             temp = Pmu.iloc[i][j] * np.exp(((-erosion[i]*i)-shielding.z_df.iloc[i][j]/2)/lambdamu.iloc[i][j]) * dt
-#             tempvalsmu.append(temp)
+    for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
+        for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
+            temp = Pmu.iloc[i][j] * np.exp(((-erosion[i]*i)- shielding.z_df.iloc[0][0]/2)/lambdamu.iloc[i][j]) * dt[j]
+            tempvalsmu.append(temp)
     
-#     tempvals_df_mu = pd.DataFrame([(tempvalsmu[n:n+len(Read.time)]) for n in range(0, len(tempvalsmu), len(Read.time))])
-#     tempvals_df_mu[0] = bin1muons    #muons part
+    tempvals_df_mu = pd.DataFrame([(tempvalsmu[n:n+len(dt)]) for n in range(0, len(tempvalsmu), len(dt))])
 
-#     iteration = []
-#     for i in range (len(tempvals_df)):
-#         x = tempvals_df.iloc[i][0]
-#         y = tempvals_df_mu.iloc[i][0]
+
+    iteration = []
+    for i in range (len(tempvals_df)):
+        x = tempvals_df.iloc[i][0]
+        y = tempvals_df_mu.iloc[i][0]
         
-#         for j in range(len(tempvals_df.iloc[0])):
-#             l = func(sthick[i],stopo[i],x) + y
+        for j in range(len(tempvals_df.iloc[0])):
+            l = func(sthick[i],stopo[i],x) + y
 
-#             if l < n0[i]:
-#                 x += tempvals_df.iloc[i][j+1]
-#                 y += tempvals_df_mu.iloc[i][j+1]
+            if l < n0[i]:
+                x += tempvals_df.iloc[i][j+1]
+                y += tempvals_df_mu.iloc[i][j+1]
     
-#             else:
-#                 iteration.append(j)
+            else:
+                iteration.append(j)
             
-#                 break
+                break
             
-#     exp_age = []
-#     a = []
-#     b = []
+    exp_age = []
+    a = []
+    b = []
 #     scaling_factor.Siteprod_df.iloc[i][j]
-#     for i in range (len(tempvals_df)):
-#         a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
-#         b = (np.sum(tempvals_df_mu.iloc[i][0:iteration[i]]))
-#         dt2 = (n0[i] - (sthick[i]*stopo[i]*slhl*a) - b)/ (sthick[i]*stopo[i]*slhl* (scaling_factor.Siteprod_df.iloc[i][iteration[i]]* np.exp((-erosion[i]*i)/lambdasp)) + Pmu.iloc[i][iteration[i]]* np.exp(((-erosion[i]*i)-shielding.z_df.iloc[i][iteration[i]]/2)/lambdamu.iloc[i][iteration[i]]))
-#         expage = ((iteration[i]-1) * dt) + (dt_start*10**6) + dt2
-#         exp_age.append(expage)
-
+    for i in range (len(tempvals_df)):
+        a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
+        b = (np.sum(tempvals_df_mu.iloc[i][0:iteration[i]]))
+        dt2 = (n0[i] - (sthick[i]*stopo[i]*slhl*a) - b)/ (sthick[i]*stopo[i]*slhl* (scaling_factor.Siteprod_df.iloc[i][iteration[i]]* np.exp((-erosion[i]*i)/lambdasp)) + Pmu.iloc[i][iteration[i]]* np.exp(((-erosion[i]*i)- shielding.z_df.iloc[0][0]/2)/lambdamu.iloc[i][iteration[i]]))
+        expage = (np.sum(dt[0:iteration[i]])) + dt2
+        exp_age.append(expage)

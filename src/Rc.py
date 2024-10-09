@@ -33,11 +33,11 @@ M_half = M_modern/2
 
 LSDn_M = Read.LSDn_M
 
-for x in range (len(Pmag_paleolat.pl_df)):
-    for i in range(len(mcadam.medians)):
-        Rc_calc = (((mcadam.medians[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9 #divided by 10^9 to convert [V] to [GV]
-        Rc_list.append(Rc_calc)
-Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
+# for x in range (len(Pmag_paleolat.pl_df)):
+#     for i in range(len(mcadam.medians)):
+#         Rc_calc = (((mcadam.medians[i]*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9 #divided by 10^9 to convert [V] to [GV]
+#         Rc_list.append(Rc_calc)
+# Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
 
 Rc_list2= []
 for x in range (len(Pmag_paleolat.pl_df_LSDn)):
@@ -48,11 +48,11 @@ Rc_LSDn = pd.DataFrame([(Rc_list2[n:n+len(LSDn_M)]) for n in range(0, len(Rc_lis
 
 
 #RUN THIS if you want to apply long term average only
-# for x in range (len(Pmag_paleolat.pl_df)):
-#     for i in range(len(mcadam.medians)):
-#         Rc_calc = (((M_constant*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
-#         Rc_list.append(Rc_calc)
-# Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
+for x in range (len(Pmag_paleolat.pl_df)):
+    for i in range(len(mcadam.medians)):
+        Rc_calc = (((M_constant*mu_knot*c)/(16*np.pi*R**2))*((np.cos(np.deg2rad(Pmag_paleolat.pl_df.iloc[x,i])))**4))/10**9
+        Rc_list.append(Rc_calc)
+Rc = pd.DataFrame([(Rc_list[n:n+len(time)]) for n in range(0, len(Rc_list), len(time))])
 
 """
 Below are specialized scripts for making specific figures in Mijjum et al. (2024)

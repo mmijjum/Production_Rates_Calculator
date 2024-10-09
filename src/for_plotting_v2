@@ -1,0 +1,457 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Oct  8 11:43:47 2024
+
+@author: mmijjum
+"""
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import os
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+directory = os.path.dirname(__file__)
+
+"""
+Figure 1
+Rc vs. Scaling Factor
+
+Before running this code: 
+    
+1) in excel sheet: set every lat to 0-90, lon = 0, elevation = 0
+2) Make sure pmag_paleolat is hard-coded to not vary w/ time. 
+3) Only run for ~1 Ma, bc you're only gonna use the first value anyways.
+4) In atmospheric depth plot - hard code to 1033 g/cm2
+5) You need to run it for Rc: M_modern, then M_half. 
+    Save the Rc dataframes as Rc_full and Rc_half.
+"""
+
+##Read in necessary dataframes
+# Rc_full = pd.read_csv(directory+'/text_for_plots/Rc_full.csv', header = None)
+# Rc_half = pd.read_csv(directory+'/text_for_plots/Rc_half.csv', header = None)
+
+# sf_full = pd.read_csv(directory+'/text_for_plots/sf_full.csv', header = None)
+# sf_half = pd.read_csv(directory+'/text_for_plots/sf_half.csv', header = None)
+
+# paleolatitudes = np.arange(0,91,2) #set x-axis
+# fig,ax = plt.subplots()
+
+# #make a plot with different y-axis using second axis object
+# ax.plot(paleolatitudes, Rc_full[1][1:],linewidth = 2.5, color="#016c59")
+# ax.plot(paleolatitudes, Rc_half[1][1:],linewidth = 2.5, color="#016c59", linestyle = '-.')
+
+# ax.set_ylim(top = 15)
+
+# ax.set_ylabel("Cutoff Rigidity (GV)",
+#               color="#016c59",
+#               fontsize=13)
+# ax.set_xlabel("Geomagnetic Latitude", fontsize = 13)
+# ax.spines['left'].set_color('#016c59')
+# ax.tick_params(axis='y', colors='#016c59')
+
+# # twin object for two different y-axis on the sample plot
+# ax2=ax.twinx()
+# ax2.plot(paleolatitudes, sf_half[1][1:], linewidth = 2.5,
+#         color="#67a9cf", linestyle = '-.', label = "$M_{half}$")
+# ax2.plot(paleolatitudes, sf_full[1][1:],linewidth =2.5,
+#         color="#67a9cf", label = "$M_{present}$")
+
+
+# # set x-axis label
+# # set y-axis label
+# ax2.set_xlim(left=0)
+# ax2.set_xlim(right=90)
+# ax2.set_ylabel("Scaling Factor",color="#67a9cf",fontsize=13)
+# ax2.tick_params(axis='y', colors='#67a9cf')
+
+# ax2.legend(loc = 'right')
+
+# plt.savefig(directory+'/plots_updated/Figure_2.pdf', dpi = 300, bbox_inches='tight')
+
+"""
+Figure 2
+Paleolatitude 
+
+Before running this code: 
+    1)The relevant CSV files are already saved. Unless you are changing them, you don't need to re-run the code at all. If you are re-running:
+    2)Set inputs to 'Figure 2' sheet.
+    3) Make sure pmag_paleolat is time-varying.
+    4) You'll need to change the plate variable in the spreadsheet as needed. 
+"""
+## The following lines will re-make the necessary CSV files. Unless you are changing them- DO NOT RE-RUN
+## IN = Pmag_paleolat.pl_df.iloc[0]
+## IN.to_csv(directory+'/text_for_plots/IN.csv') 
+
+
+## SA = Pmag_paleolat.pl_df.iloc[1]
+## SA.to_csv(directory+'/text_for_plots/SA.csv') 
+ 
+
+## GL = Pmag_paleolat.pl_df.iloc[2]
+## GL.to_csv(directory+'/text_for_plots/GL.csv') 
+
+
+## AF = Pmag_paleolat.pl_df.iloc[3]
+## AF.to_csv(directory+'/text_for_plots/AF.csv') 
+    
+#Begin uncommenting!
+
+##Read in text files:
+# IN = pd.read_csv(directory+'/text_for_plots/IN.csv')
+# SA = pd.read_csv(directory+'/text_for_plots/SA.csv')
+# GL = pd.read_csv(directory+'/text_for_plots/GL.csv')
+# AF = pd.read_csv(directory+'/text_for_plots/AF.csv')
+
+# time = np.linspace(0,70,281) #set X-axis
+
+# fig = plt.figure(figsize=(10.5, 8.5))
+# spec = fig.add_gridspec(3,3)
+# fig.text(0.06, 0.65, 'Normalized paleolatitude', va='center', rotation='vertical', size =15)
+# fig.text(0.45, 0.34, 'Time (Ma)', va='center', rotation='horizontal', size =15)
+
+# time = np.arange(0,70+0.25,0.25)
+# ax0 = fig.add_subplot(spec[0, :])
+# ax0.plot(time,IN.iloc[:,1]/IN.iloc[0,1], linewidth = 2.5, c = 'royalblue', label = 'India (20N, 73E)')
+# ax0.plot(time,GL.iloc[:,1]/GL.iloc[0,1], linewidth = 2.5, c = 'mediumorchid')
+# ax0.plot(time,(SA.iloc[:,1]+90)/(SA.iloc[0,1]+90), linewidth = 2.5, c = 'darkblue')
+# ax0.plot(time,(AF.iloc[:,1]+90)/(AF.iloc[0,1]+90), linewidth = 2.5, c = 'mediumseagreen')
+# ax0.text(65,0, 'A', fontsize = 22)
+
+# plt.axhspan(0.85, 1.1, xmin=0, xmax=1, color = 'gray', alpha = 0.5)
+
+# ax0.set_xlim(0, 70)
+# plt.legend()
+# #annotate_axes(ax0, 'ax0')
+
+# ax10 = fig.add_subplot(spec[1, :])
+# ax10.plot(time,GL.iloc[:,1]/GL.iloc[0,1], linewidth = 2.5, c = 'mediumorchid', label = 'Greenland (75N, 42W)')
+# ax10.plot(time,(SA.iloc[:,1]+90)/(SA.iloc[0,1]+90), linewidth = 2.5, c = 'darkblue', label = 'Northern Chile (19S, 69W)')
+# ax10.plot(time,(AF.iloc[:,1]+90)/(AF.iloc[0,1]+90), linewidth = 2.5, c = 'mediumseagreen', label = 'South Africa (31S, 22E)')
+# ax10.set_xlim(0, 70)
+# ax10.text(65,0.93, 'B', fontsize = 22)
+
+# plt.legend()
+# plt.savefig(directory+'/plots/Figure_4.png', dpi = 300, bbox_inches='tight')
+
+"""
+Figure 3
+Workflow figure - not coded
+"""
+
+
+"""
+Figure 4
+MCADAM Model - Katie Bristol
+
+"""
+
+
+"""
+Figure 5
+Comparing bin size
+
+To run in excel:
+    1) In inputs - sample India site (23N), sea level, pyroxene
+    2) Need to save the scaling factor dataframe for the different temporal resolutions. You can change temporal resolution in MCADAM script.
+"""
+
+##These lines will re-make the saved SF dataframes. DO NOT RUN IF YOU'RE NOT CHANGING IT#
+
+## sf_50kyr = scaling_factor.Siteprod_df.iloc[0]
+## sf_50kyr.to_csv(directory+'/text_for_plots/sf_50kyr.csv')
+
+## sf_1ma = scaling_factor.Siteprod_df.iloc[0]
+## sf_1ma.to_csv(directory+'/text_for_plots/sf_1ma.csv') 
+
+## sf_250ka= scaling_factor.Siteprod_df.iloc[0]
+## sf_250ka.to_csv(directory+'/text_for_plots/sf_250ka.csv') 
+
+##Read in necessary text:
+# sf_50kyr = pd.read_csv(directory+'/text_for_plots/sf_50kyr.csv')
+# sf_250ka = pd.read_csv(directory+'/text_for_plots/sf_250ka.csv')
+# sf_1ma = pd.read_csv(directory+'/text_for_plots/sf_1ma.csv')
+
+##Code:
+# time1 =  np.arange(0,70.05,0.05)
+# time2=  np.arange(0,70.05,0.25)
+
+#x = sf_50kyr.iloc[:,1]
+
+# plt.rcParams["figure.figsize"] = [5,4] #update figure size 
+
+
+# # plt.plot(time1, sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x, c = 'gray',  label = 'SF(250 kyr) : SF(50 kyr)')
+# # plt.plot(time2,  sf_250ka.iloc[:,1]/sf_1ma.iloc[:,1].repeat(4).reset_index(drop=True).iloc[3:].reset_index(drop=True), c = 'darkgreen', label = 'SF(250 kyr): SF(1 Myr)')
+# # plt.xlabel('Time (Ma)', fontsize = 13)
+# # plt.ylabel('Scaling factor ratio', fontsize = 13)
+# # plt.legend(loc = 'lower right')
+# # plt.xlim(0,70)
+# # plt.axhline(y = 1, color = 'black', lw = 3)
+# w = 0.02
+# plt.ylim(0,0.8)
+# data = sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x
+# data2= sf_250ka.iloc[:,1]/sf_1ma.iloc[:,1].repeat(4).reset_index(drop=True).iloc[3:].reset_index(drop=True)
+# x, bins, p = plt.hist(data,  bins=np.arange(min(data), max(data) + w, w), density = True,color = 'darkblue', label = 'SF(250 kyr) : SF(50 kyr)')
+# y, bins, q = plt.hist(data2,bins=np.arange(min(data2), max(data2) + w, w), density = True, color = 'cornflowerblue', alpha = 0.7, label = 'SF(250 kyr): SF(1000 kyr)')
+
+# for item in p:
+#     item.set_height(item.get_height()/sum(x))
+# for item in q:
+#     item.set_height(item.get_height()/sum(y))
+# plt.legend(bbox_to_anchor=(0, 0.2), prop={'size':9}, loc = 'lower left')
+# plt.xlabel('Scaling factor ratio', fontsize = 13)
+# plt.ylabel('Normalized number of occurrences', fontsize = 13)
+# plt.savefig(directory+'/plots/Figure_6.svg', dpi = 300, bbox_inches='tight')
+
+"""
+FIGURE 6
+
+Scaling factor TV and Constant
+
+"""
+
+
+# # #DONT RUN THIS PART
+# sf_india = scaling_factor.Siteprod_df.iloc[0]
+# sf_india.to_csv(directory+'/text_for_plots/sf_IN.csv') 
+# sf_india_const = scaling_factor.Siteprod_df.iloc[0]
+# sf_india_const.to_csv(directory+'/text_for_plots/sf_IN_const.csv') 
+# sf_india_tvfieldonly = scaling_factor.Siteprod_df.iloc[0]
+# sf_india_tvfieldonly.to_csv(directory+'/text_for_plots/sf_india_tvfieldonly.csv') 
+# sf_india_tvlatonly = scaling_factor.Siteprod_df.iloc[0]
+# sf_india_tvlatonly.to_csv(directory+'/text_for_plots/sf_india_tvlatonly.csv') 
+
+# sig75 = sf_sigma75.iloc[1][1:]
+# sig25 = sf_sigma25.iloc[1][1:]
+# median =sf_regular_sigma.iloc[1][1:]
+# const = sf_constant_sigma.iloc[1][1:]
+
+# tvfield_25 = sf_tvfieldonly_25sigma.iloc[1][1:]
+# tvfield_75 = sf_tvfieldonly_75sigma.iloc[1][1:]
+# tvfield_avg = sf_tvfieldonly_sigma.iloc[1][1:]
+# tvlat = sf_tvlatonly_sigma.iloc[1][1:]
+
+# # # # #BEGIN
+# time = np.linspace(0,70,281)
+# f = plt.figure(figsize=(15,6))
+# ax = f.add_subplot(121)
+# ax2 = f.add_subplot(122)
+# ax.plot(time,median, linewidth = 2, c = '#016c59',label = 'time-varying field and latitude')
+# ax.plot(time,const, '--',linewidth = 2.5,c = 'black', label = 'constant field and latitude')
+# ax.fill_between(time, sig75, median,  color = '#a6bddb', alpha = 0.5)
+# ax.fill_between(time, median, sig25, color =  '#a6bddb', alpha = 0.5)
+
+# ax.set_xlim(0,70)
+# ax.set_ylim(0.45,0.95)
+
+# ax.plot(time, sig25, '#a6bddb')
+# ax.plot(time,sig75,'#a6bddb')
+
+# ax.vlines(66.052, 0.45, 0.95, linewidth = 2.5)
+# ax.set_xlabel('Time (Ma)', fontsize = 15)
+# ax.set_ylabel('Scaling Factor', fontsize = 15)
+# ax.legend(loc = 'lower left', fontsize =13)
+
+# ax2.plot(time,tvfield_avg, linewidth = 2.5,c = '#014636',label = 'time-varying field, constant latitude')
+# ax2.plot(time,tvlat, '--',linewidth = 2.5,c = '#67a9cf', label = 'constant field, time-varying latitude')
+# ax2.plot(time, tvfield_25, '#a6bddb')
+# ax2.plot(time,tvfield_75,'#a6bddb')
+# ax2.fill_between(time, tvfield_75, tvfield_avg,  color = '#a6bddb', alpha = 0.5)
+# ax2.fill_between(time, tvfield_avg, tvfield_25, color =  '#a6bddb', alpha = 0.5)
+
+# ax2.set_ylim(0.45,0.95)
+# ax2.vlines(66.052, 0.45, 0.95, linewidth = 2.5)
+
+
+# ax2.set_xlim(0,70)
+# ax2.vlines(66.052, 0.50, 0.95,linewidth = 2.5)
+# ax2.set_xlabel('Time (Ma)', fontsize = 15)
+# ax2.legend(loc = 'lower left', fontsize = 13)
+# plt.setp(ax2.get_yticklabels(), visible=False)
+# plt.savefig(directory+'/plots_updated/Figure_8.pdf', dpi = 300, bbox_inches='tight')
+
+    
+"""
+NEW EVENSTAR FIGURE
+"""
+t_cpx_tv = [127752.60582088573,
+ 984162.1262581163,
+ 2846306.534078561,
+ 1389258.6673328548,
+ 1549441.746161166,
+ 2294728.6111806347,
+ 2844070.84976501,
+ 5353463.085910166,
+ 807436.4674610357,
+ 1002228.8745564914,
+ 3293469.9260718096,
+ 5413073.649512974,
+ 4943551.208225091,
+ 5135940.5731570255,
+ 5882650.872377071,
+ 3873433.6755535025,
+ 4182366.18996209,
+ 4324353.079607126,
+ 4089837.416285006,
+ 11246508.157481706,
+ 7743930.472061706,
+ 11913493.74941639,
+ 10516680.128945855,
+ 10377958.617091846,
+ 2522442.7358753113,
+ 2445980.9338783138,
+ 1881330.9255949694,
+ 2051482.2947345783]
+
+t_cpx_const = [127550.45010137597,
+ 982938.6283601706,
+ 2823872.504616442,
+ 1386949.4050687125,
+ 1547454.4614787283,
+ 2298908.187435368,
+ 2821797.558898027,
+ 5213497.319342755,
+ 806348.433833418,
+ 1000877.8486951116,
+ 3256422.9995765956,
+ 5267882.395433342,
+ 4807325.211794432,
+ 4998631.612932419,
+ 5832825.882157335,
+ 3825717.167711228,
+ 4109260.5920640165,
+ 4234613.111664737,
+ 4024083.97419149,
+ 11813662.060701597,
+ 7888245.238179045,
+ 12595789.920927303,
+ 10947157.078291597,
+ 10789453.634880532,
+ 2514814.5419891,
+ 2440636.963800355,
+ 1877862.9480487357,
+ 2049646.747968753]
+
+t_qtz_tv = [896206.7939181189,
+ 878362.8383798527,
+ 264920.88340950105,
+ 119327.3182085496,
+ 305815.4862325982,
+ 214126.51362611144,
+ 254566.77723230896,
+ 38432.06112115359,
+ 2067064.7696490448,
+ 2166753.3414753093,
+ 3120090.070754946,
+ 6117941.457308308,
+ 3030371.057439765,
+ 2141039.718231983]
+
+t_qtz_const = [894741.236792822,
+ 877261.2605537559,
+ 264536.2818474675,
+ 119169.91504834245,
+ 305328.05832091457,
+ 213764.21265166433,
+ 254112.23894512616,
+ 38381.03331259172,
+ 2066166.0363766595,
+ 2169267.513283057,
+ 3084961.8988671782,
+ 6128553.283178382,
+ 2999279.319739138,
+ 2142478.114128847]
+
+updated_texp_tv = []
+updated_texp_const = []
+diff_tv_pyx = []
+perdif_ev = []
+
+for i in range(len(t_cpx_const)): #convert ages from [yr] to [Ma]
+    updated = t_cpx_tv[i]/10**6
+    updated_texp_tv.append(updated) #Evenstar data
+    updated_const = t_cpx_const[i]/10**6 
+    updated_texp_const.append(updated_const) #this model
+    temp = updated - updated_const
+    diff_tv_pyx.append(temp)
+    perdif_ev.append((temp/updated_const)*100)
+
+updated_neon_tv = []
+updated_neon_const = []
+diff_tv_qtz = []
+perdifneon = []
+
+for i in range(len(t_qtz_tv)): #convert ages from [yr] to [Ma]
+    updatedneontv = t_qtz_tv[i]/10**6
+    updated_neon_tv.append(updatedneontv)
+    updatedneonconst = t_qtz_const[i]/10**6
+    updated_neon_const.append(updatedneonconst)
+    temp = updatedneontv - updatedneonconst
+    diff_tv_qtz.append(temp)
+    perdifneon.append((temp/updatedneonconst)*100)
+    
+
+fig = plt.figure(figsize=(14,9))
+
+
+gs = gridspec.GridSpec(2,2)
+
+ax1=fig.add_subplot(gs[:,0])
+ax2=fig.add_subplot(gs[0,1])
+ax3=fig.add_subplot(gs[1,1])
+
+
+ax2.set_ylim(-3.5,0.5)
+ax2.set_xlim(2,30)
+ax2.hlines(0,2,30)
+
+ax2.plot(updated_texp_const[0:4] ,diff_tv_pyx[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+ax2.plot(updated_texp_const[4:17],diff_tv_pyx[4:17], 'o', c = 'royalblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 3')
+ax2.plot(updated_texp_const[17:26],diff_tv_pyx[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
+
+ax2.plot(updated_neon_const[0:9], diff_tv_qtz[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+ax2.plot(updated_neon_const[9:11], diff_tv_qtz[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+ax2.plot(updated_neon_const[11:14], diff_tv_qtz[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+ax2.plot(updated_neon_const[13], diff_tv_qtz[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
+
+
+ax2.set_ylabel('Exposure age difference (Ma)', fontsize = 14)
+ax2.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+
+ax3.set_xlim(2,30)
+ax3.set_ylim(-14,7.5)
+ax3.plot(updated_texp_const[0:4] ,perdif_ev[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+ax3.plot(updated_texp_const[4:17],perdif_ev[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8, label = '$^{3}He$ - Surface 3')
+ax3.plot(updated_texp_const[17:26],perdif_ev[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
+
+ax3.plot(updated_neon_const[0:9], perdifneon[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+ax3.plot(updated_neon_const[9:11], perdifneon[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+ax3.plot(updated_neon_const[11:14], perdifneon[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+ax3.plot(updated_neon_const[13], perdifneon[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
+
+
+ax3.set_ylabel('Exposure age percent difference (%)', fontsize = 14)
+ax3.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+ax3.hlines(0,2,30)
+
+
+
+ax1.set_xlim(2,30)
+ax1.plot([2,30], [2,30], 'k-')
+
+ax1.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c='limegreen', alpha = 0.7,markersize = 8)
+ax1.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8)
+ax1.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue',alpha = 0.7, markersize = 8)
+
+ax1.plot(updated_neon_const[0:9], updated_neon_tv[0:9],  's', c = 'teal', alpha = 0.7,markersize = 8)
+ax1.plot(updated_neon_const[9:11], updated_neon_tv[9:11],  's', c='limegreen', alpha = 0.7,markersize = 8)
+ax1.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue',alpha = 0.7, markersize = 8)
+ax1.plot(updated_neon_const[13], updated_neon_tv[13],  's', c='deepskyblue', alpha = 0.7,markersize = 8)
+
+
+ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 14)
+ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+
+ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 13)
+ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 13)
+#plt.savefig(directory+'/plots_updated/new_fig_9.png', dpi = 300, bbox_inches='tight')

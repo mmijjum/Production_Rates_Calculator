@@ -28,7 +28,7 @@ if Read.system == 4:
     data = Read.data_muons # column 1 is momentum [MeV/c], column 2 is g/cm2
     
     #H = atm_depth.x
-    h = atm_depth.x_LSDn/1.019716
+    h = atm_depth.x_merged/1.019716
     rho = Read.rho
     z_temp = Read.z_from_surface
     Z = z_temp * rho #convert depth from surface from cm to g/cm2

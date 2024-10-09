@@ -390,10 +390,15 @@ def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(sample_pressure)
 
+n0 = 8
+x_shortened = x.drop(columns=x.columns[:n0])
+
+
 n = len(Read.LSDn_M) 
 sample_pressure_LSDn = pd.concat([sample_pressure[0]] * (n), axis=1, ignore_index=True)
 x_LSDn = atmdepth(sample_pressure_LSDn)
 
+x_merged = pd.concat([x_LSDn, x_shortened], axis=1, ignore_index = True)
 
 
 #below hard codes sea level atm depth

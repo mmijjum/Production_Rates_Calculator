@@ -29,7 +29,7 @@ import numpy as np
 import pandas as pd
 import scaling_factor
 import shielding
-import Muons_v2
+import Muons_v2_LSDn
 import atm_depth 
 
 n0 = Read.nuclide_concentration
@@ -185,7 +185,7 @@ if Read.muons == 'False':
 
 if Read.muons == 'True': 
     
-    Pmu = Muons_v2.pmuons_df
+    Pmu = Muons_v2_LSDn.pmuons_df
     firstmubin = []
     for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
         for j in range(len(scaling_factor.Siteprod_df.iloc[0])):
