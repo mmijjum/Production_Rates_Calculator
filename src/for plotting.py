@@ -613,21 +613,21 @@ To run in excel:
 ## sf_250ka.to_csv(directory+'/text_for_plots/sf_250ka.csv') 
 
 #Start uncommenting:
-# time1 =  np.arange(0,70.05,0.05)
-# time2=  np.arange(0,70.05,0.25)
+time1 =  np.arange(2,70.05,0.05)
+time2=  np.arange(2,70.05,0.25)
 
-#x = Read.sf_50kyr.iloc[:,1]
+x_temp = sf_50kyr.iloc[:,1]
+x = x_temp[41::] # remove first 2 Ma post LSDn update
+plt.rcParams["figure.figsize"] = [5,4] #update figure size 
 
-# plt.rcParams["figure.figsize"] = [5,4] #update figure size 
 
-
-# # plt.plot(time1, Read.sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x, c = 'gray',  label = 'SF(250 kyr) : SF(50 kyr)')
-# # plt.plot(time2,  Read.sf_250ka.iloc[:,1]/Read.sf_1ma.iloc[:,1].repeat(4).reset_index(drop=True).iloc[3:].reset_index(drop=True), c = 'darkgreen', label = 'SF(250 kyr): SF(1 Myr)')
-# # plt.xlabel('Time (Ma)', fontsize = 13)
-# # plt.ylabel('Scaling factor ratio', fontsize = 13)
-# # plt.legend(loc = 'lower right')
-# # plt.xlim(0,70)
-# # plt.axhline(y = 1, color = 'black', lw = 3)
+plt.plot(time1,sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x, c = 'gray',  label = 'SF(250 kyr) : SF(50 kyr)')
+plt.plot(time2, sf_250ka.iloc[:,1]/Read.sf_1ma.iloc[:,1].repeat(4).reset_index(drop=True).iloc[3:].reset_index(drop=True), c = 'darkgreen', label = 'SF(250 kyr): SF(1 Myr)')
+plt.xlabel('Time (Ma)', fontsize = 13)
+plt.ylabel('Scaling factor ratio', fontsize = 13)
+plt.legend(loc = 'lower right')
+plt.xlim(0,70)
+plt.axhline(y = 1, color = 'black', lw = 3)
 # w = 0.02
 # plt.ylim(0,0.8)
 # data = Read.sf_250ka.iloc[:,1].repeat(5).reset_index(drop=True).iloc[4:].reset_index(drop=True)/x
@@ -878,253 +878,253 @@ Scaling factor TV and Constant
 # EVENSTAR DATASET
 
 # """
-exp_ages_time_varying = [123764.70513124338,
-  999950.5881550129,
-  2809842.973923239,
-  1437709.5492099412,
-  1597412.2430487473,
-  2306374.286561611,
-  2811905.9936664747,
-  5205562.436422755,
-  804638.461019477,
-  1027097.292649448,
-  3243379.122532165,
-  5272036.169905982,
-  4814983.263867728,
-  5004348.192627103,
-  5798579.472430228,
-  3801760.946131991,
-  4043021.3848517216,
-  4190083.484928454,
-  3974482.253474694,
-  10867014.793712351,
-  7457939.823871471,
-  11504457.347719094,
-  10174352.548386587,
-  10034978.260752263,
-  2501601.075564036,
-  2442727.0967175965,
-  1917534.0170423328,
-  2085500.9806046379]
+# exp_ages_time_varying = [123764.70513124338,
+#   999950.5881550129,
+#   2809842.973923239,
+#   1437709.5492099412,
+#   1597412.2430487473,
+#   2306374.286561611,
+#   2811905.9936664747,
+#   5205562.436422755,
+#   804638.461019477,
+#   1027097.292649448,
+#   3243379.122532165,
+#   5272036.169905982,
+#   4814983.263867728,
+#   5004348.192627103,
+#   5798579.472430228,
+#   3801760.946131991,
+#   4043021.3848517216,
+#   4190083.484928454,
+#   3974482.253474694,
+#   10867014.793712351,
+#   7457939.823871471,
+#   11504457.347719094,
+#   10174352.548386587,
+#   10034978.260752263,
+#   2501601.075564036,
+#   2442727.0967175965,
+#   1917534.0170423328,
+#   2085500.9806046379]
 
-exp_ages_constant= [114228.05791045129,
-  915946.3467122873,
-  2738524.329526318,
-  1337892.329096456,
-  1492716.4114716016,
-  2237688.836019829,
-  2737022.7304163054,
-  5020979.568684665,
-  730821.6829189667,
-  938896.583164952,
-  3152139.0098045915,
-  5070621.350176061,
-  4631739.899436452,
-  4825366.17480535,
-  5623508.560978162,
-  3695269.4978240505,
-  3950957.8542163633,
-  4083156.2323068194,
-  3882028.5922924485,
-  11323751.27282418,
-  7584169.781085953,
-  12086889.969182406,
-  10509988.870293442,
-  10352712.57702584,
-  2442963.7472036444,
-  2385523.147630269,
-  1834586.2395702424,
-  2009533.8964364766]
-
-
-exp_neon_tv = [893171.6042412941,
-  875306.5594295587,
-  257829.28728460363,
-  113891.21526679581,
-  302435.37394875474,
-  209844.55595393197,
-  247835.1756155724,
-  34726.29393051977,
-  2083043.0180226536,
-  2175843.36519608,
-  3066251.27098606,
-  6014867.565018561,
-  2981554.3122289614,
-  2154086.2918152586]
+# exp_ages_constant= [114228.05791045129,
+#   915946.3467122873,
+#   2738524.329526318,
+#   1337892.329096456,
+#   1492716.4114716016,
+#   2237688.836019829,
+#   2737022.7304163054,
+#   5020979.568684665,
+#   730821.6829189667,
+#   938896.583164952,
+#   3152139.0098045915,
+#   5070621.350176061,
+#   4631739.899436452,
+#   4825366.17480535,
+#   5623508.560978162,
+#   3695269.4978240505,
+#   3950957.8542163633,
+#   4083156.2323068194,
+#   3882028.5922924485,
+#   11323751.27282418,
+#   7584169.781085953,
+#   12086889.969182406,
+#   10509988.870293442,
+#   10352712.57702584,
+#   2442963.7472036444,
+#   2385523.147630269,
+#   1834586.2395702424,
+#   2009533.8964364766]
 
 
-
-exp_neon_const = [807709.0575222793,
-  791014.1341699025,
-  236324.26155541767,
-  104479.46561747165,
-  276128.5809262426,
-  193361.72654931567,
-  228368.15645606536,
-  31825.841032641998,
-  1995778.20589343,
-  2094232.3820456,
-  2967381.6952170026,
-  5867371.194278396,
-  2883651.1637155297,
-  2071981.4245235054]
-
-updated_texp_tv = []
-updated_texp_const = []
+# exp_neon_tv = [893171.6042412941,
+#   875306.5594295587,
+#   257829.28728460363,
+#   113891.21526679581,
+#   302435.37394875474,
+#   209844.55595393197,
+#   247835.1756155724,
+#   34726.29393051977,
+#   2083043.0180226536,
+#   2175843.36519608,
+#   3066251.27098606,
+#   6014867.565018561,
+#   2981554.3122289614,
+#   2154086.2918152586]
 
 
-updated_neon_tv = []
-updated_neon_const = []
+
+# exp_neon_const = [807709.0575222793,
+#   791014.1341699025,
+#   236324.26155541767,
+#   104479.46561747165,
+#   276128.5809262426,
+#   193361.72654931567,
+#   228368.15645606536,
+#   31825.841032641998,
+#   1995778.20589343,
+#   2094232.3820456,
+#   2967381.6952170026,
+#   5867371.194278396,
+#   2883651.1637155297,
+#   2071981.4245235054]
+
+# updated_texp_tv = []
+# updated_texp_const = []
 
 
-diff_tv_pyx = []
-diff_tv_qtz = []
-perdif_ev = []
+# updated_neon_tv = []
+# updated_neon_const = []
 
-perdifneon = []
-for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
-    updated = exp_ages_time_varying[i]/10**6
-    updated_texp_tv.append(updated) #Evenstar data
-    updated_const = exp_ages_constant[i]/10**6 
-    updated_texp_const.append(updated_const) #this model
-    temp = updated - updated_const
-    diff_tv_pyx.append(temp)
-    perdif_ev.append((temp/updated_const)*100)
 
-for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
-    updatedneontv = exp_neon_tv[i]/10**6
-    updated_neon_tv.append(updatedneontv)
-    updatedneonconst = exp_neon_const[i]/10**6
-    updated_neon_const.append(updatedneonconst)
-    temp = updatedneontv - updatedneonconst
-    diff_tv_qtz.append(temp)
-    perdifneon.append((temp/updatedneonconst)*100)
+# diff_tv_pyx = []
+# diff_tv_qtz = []
+# perdif_ev = []
+
+# perdifneon = []
+# for i in range(len(exp_ages_constant)): #convert ages from [yr] to [Ma]
+#     updated = exp_ages_time_varying[i]/10**6
+#     updated_texp_tv.append(updated) #Evenstar data
+#     updated_const = exp_ages_constant[i]/10**6 
+#     updated_texp_const.append(updated_const) #this model
+#     temp = updated - updated_const
+#     diff_tv_pyx.append(temp)
+#     perdif_ev.append((temp/updated_const)*100)
+
+# for i in range(len(exp_neon_tv)): #convert ages from [yr] to [Ma]
+#     updatedneontv = exp_neon_tv[i]/10**6
+#     updated_neon_tv.append(updatedneontv)
+#     updatedneonconst = exp_neon_const[i]/10**6
+#     updated_neon_const.append(updatedneonconst)
+#     temp = updatedneontv - updatedneonconst
+#     diff_tv_qtz.append(temp)
+#     perdifneon.append((temp/updatedneonconst)*100)
     
 
-exp_ages_dunai =[15763888.284884367,
-  17076439.897954084,
-  13374151.996150088,
-  23883596.012271866,
-  15918675.374240698,
-  17660422.55280363,
-  11541398.822023429,
-  7955981.4814617345,
-  17571600.49200227,
-  11441483.741217585,
-  14631506.693484198,
-  18550832.147374067,
-  14064530.42373193,
-  69285.95320017869,
-  130873.53703242909,
-  88532.05131133944]
+# exp_ages_dunai =[15763888.284884367,
+#   17076439.897954084,
+#   13374151.996150088,
+#   23883596.012271866,
+#   15918675.374240698,
+#   17660422.55280363,
+#   11541398.822023429,
+#   7955981.4814617345,
+#   17571600.49200227,
+#   11441483.741217585,
+#   14631506.693484198,
+#   18550832.147374067,
+#   14064530.42373193,
+#   69285.95320017869,
+#   130873.53703242909,
+#   88532.05131133944]
                          
-exp_ages_dunai_const = [17162844.505560774,
-  18533186.489756998,
-  14294878.008155053,
-  27155794.989833537,
-  17338807.22884569,
-  19258940.393708486,
-  12089588.878998378,
-  8055902.3665621765,
-  19143774.462789685,
-  11971567.401384685,
-  15860207.587445626,
-  20421186.017621815,
-  15138254.28251518,
-  64006.15963224702,
-  120900.58338250335,
-  81785.64841898231]
+# exp_ages_dunai_const = [17162844.505560774,
+#   18533186.489756998,
+#   14294878.008155053,
+#   27155794.989833537,
+#   17338807.22884569,
+#   19258940.393708486,
+#   12089588.878998378,
+#   8055902.3665621765,
+#   19143774.462789685,
+#   11971567.401384685,
+#   15860207.587445626,
+#   20421186.017621815,
+#   15138254.28251518,
+#   64006.15963224702,
+#   120900.58338250335,
+#   81785.64841898231]
 
 
 
-updated_dunai_const = []
-updated_dunai = []
-diff_tv_dunai = []
-perdif = []
-for i in range(len(exp_ages_dunai)):
-    updated_dunaix = exp_ages_dunai[i]/10**6
-    updated_dunai_constx = exp_ages_dunai_const[i]/10**6
-    updated_dunai.append(updated_dunaix)
-    updated_dunai_const.append(updated_dunai_constx)
-    temp = updated_dunaix - updated_dunai_constx
-    diff_tv_dunai.append(temp)
-    perdif.append((temp/updated_dunai_constx)*100)
+# updated_dunai_const = []
+# updated_dunai = []
+# diff_tv_dunai = []
+# perdif = []
+# for i in range(len(exp_ages_dunai)):
+#     updated_dunaix = exp_ages_dunai[i]/10**6
+#     updated_dunai_constx = exp_ages_dunai_const[i]/10**6
+#     updated_dunai.append(updated_dunaix)
+#     updated_dunai_const.append(updated_dunai_constx)
+#     temp = updated_dunaix - updated_dunai_constx
+#     diff_tv_dunai.append(temp)
+#     perdif.append((temp/updated_dunai_constx)*100)
 
 
-fig = plt.figure(figsize=(14,9))
+# fig = plt.figure(figsize=(14,9))
 
 
-gs = gridspec.GridSpec(2,2)
+# gs = gridspec.GridSpec(2,2)
 
-ax1=fig.add_subplot(gs[:,0])
-ax2=fig.add_subplot(gs[0,1])
-ax3=fig.add_subplot(gs[1,1])
-
-
-ax2.set_ylim(-3.5,0.5)
-ax2.set_xlim(2,30)
-ax2.hlines(0,2,30)
-
-ax2.plot(updated_texp_const[0:4] ,diff_tv_pyx[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
-ax2.plot(updated_texp_const[4:17],diff_tv_pyx[4:17], 'o', c = 'royalblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 3')
-ax2.plot(updated_texp_const[17:26],diff_tv_pyx[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
-
-# ax2.plot(updated_neon_const[0:9], diff_tv_qtz[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
-# ax2.plot(updated_neon_const[9:11], diff_tv_qtz[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
-# ax2.plot(updated_neon_const[11:14], diff_tv_qtz[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
-# ax2.plot(updated_neon_const[13], diff_tv_qtz[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
-
-# ax2.plot(updated_dunai_const[0:5], diff_tv_dunai[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
-# ax2.plot(updated_dunai_const[5:9], diff_tv_dunai[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
-# ax2.plot(updated_dunai_const[9:13],  diff_tv_dunai[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
-# ax2.plot(updated_dunai_const[13:15], diff_tv_dunai[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
-# ax2.plot(updated_dunai_const[15:16], diff_tv_dunai[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
-ax2.set_ylabel('Exposure age difference (Ma)', fontsize = 14)
-ax2.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
-
-ax3.set_xlim(2,30)
-ax3.set_ylim(-14,7.5)
-ax3.plot(updated_texp_const[0:4] ,perdif_ev[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
-ax3.plot(updated_texp_const[4:17],perdif_ev[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8, label = '$^{3}He$ - Surface 3')
-ax3.plot(updated_texp_const[17:26],perdif_ev[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
-
-# ax3.plot(updated_neon_const[0:9], perdifneon[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
-# ax3.plot(updated_neon_const[9:11], perdifneon[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
-# ax3.plot(updated_neon_const[11:14], perdifneon[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
-# ax3.plot(updated_neon_const[13], perdifneon[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
-
-# ax3.plot(updated_dunai_const[0:5], perdif[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
-# ax3.plot(updated_dunai_const[5:9], perdif[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
-# ax3.plot(updated_dunai_const[9:13],  perdif[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
-# ax3.plot(updated_dunai_const[13:15], perdif[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
-# ax3.plot(updated_dunai_const[15:16], perdif[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
-ax3.set_ylabel('Exposure age percent difference (%)', fontsize = 14)
-ax3.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
-ax3.hlines(0,2,30)
+# ax1=fig.add_subplot(gs[:,0])
+# ax2=fig.add_subplot(gs[0,1])
+# ax3=fig.add_subplot(gs[1,1])
 
 
+# ax2.set_ylim(-3.5,0.5)
+# ax2.set_xlim(2,30)
+# ax2.hlines(0,2,30)
 
-ax1.set_xlim(2,30)
-ax1.plot([2,30], [2,30], 'k-')
-# ax1.plot(updated_neon_const[0:9], updated_neon_tv[0:9],  's', c = 'teal', alpha = 0.7,markersize = 8)
-# ax1.plot(updated_neon_const[9:11], updated_neon_tv[9:11],  's', c='limegreen', alpha = 0.7,markersize = 8)
-# ax1.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue',alpha = 0.7, markersize = 8)
-# ax1.plot(updated_neon_const[13], updated_neon_tv[13],  's', c='deepskyblue', alpha = 0.7,markersize = 8)
+# ax2.plot(updated_texp_const[0:4] ,diff_tv_pyx[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+# ax2.plot(updated_texp_const[4:17],diff_tv_pyx[4:17], 'o', c = 'royalblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 3')
+# ax2.plot(updated_texp_const[17:26],diff_tv_pyx[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
 
-ax1.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c='limegreen', alpha = 0.7,markersize = 8)
-ax1.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8)
-ax1.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue',alpha = 0.7, markersize = 8)
+# # ax2.plot(updated_neon_const[0:9], diff_tv_qtz[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+# # ax2.plot(updated_neon_const[9:11], diff_tv_qtz[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+# # ax2.plot(updated_neon_const[11:14], diff_tv_qtz[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+# # ax2.plot(updated_neon_const[13], diff_tv_qtz[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
 
-# ax1.plot(updated_dunai_const[0:5],updated_dunai[0:5], 's', c='midnightblue',alpha = 0.7, markersize = 8)
-# ax1.plot(updated_dunai_const[5:9],updated_dunai[5:9], 's', c='purple',alpha = 0.7,markersize =8)
-# ax1.plot(updated_dunai_const[9:13],updated_dunai[9:13], 's', c='mediumpurple',alpha = 0.7, markersize = 8)
-# ax1.plot(updated_dunai_const[13:15],updated_dunai[13:15], 's', c='skyblue', alpha = 0.7,markersize =8)
-# ax1.plot(updated_dunai_const[15:16],updated_dunai[15:16], 's', c='hotpink', alpha = 0.7,markersize = 8)
-ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 14)
-ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# # ax2.plot(updated_dunai_const[0:5], diff_tv_dunai[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# # ax2.plot(updated_dunai_const[5:9], diff_tv_dunai[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# # ax2.plot(updated_dunai_const[9:13],  diff_tv_dunai[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# # ax2.plot(updated_dunai_const[13:15], diff_tv_dunai[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# # ax2.plot(updated_dunai_const[15:16], diff_tv_dunai[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# ax2.set_ylabel('Exposure age difference (Ma)', fontsize = 14)
+# ax2.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
 
-ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 13)
-ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 13)
+# ax3.set_xlim(2,30)
+# ax3.set_ylim(-14,7.5)
+# ax3.plot(updated_texp_const[0:4] ,perdif_ev[0:4], 'o', c = 'limegreen', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 2')
+# ax3.plot(updated_texp_const[4:17],perdif_ev[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8, label = '$^{3}He$ - Surface 3')
+# ax3.plot(updated_texp_const[17:26],perdif_ev[17:26], 'o', c = 'deepskyblue', alpha = 0.7, markersize = 8,label = '$^{3}He$ - Surface 5')
+
+# # ax3.plot(updated_neon_const[0:9], perdifneon[0:9], 's', c ='teal', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 1')
+# # ax3.plot(updated_neon_const[9:11], perdifneon[9:11], 's', c='limegreen', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 2')
+# # ax3.plot(updated_neon_const[11:14], perdifneon[11:14], 's', c='royalblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 3')
+# # ax3.plot(updated_neon_const[13], perdifneon[13], 's', c='deepskyblue', alpha = 0.7,markersize = 8,label = '$^{21}Ne$ - Surface 5')
+
+# # ax3.plot(updated_dunai_const[0:5], perdif[0:5], 's', c = 'midnightblue',alpha = 0.7, markersize = 8, label = 'Surface A')
+# # ax3.plot(updated_dunai_const[5:9], perdif[5:9], 's', c = 'purple',alpha = 0.7, markersize = 8, label = 'Surface B')
+# # ax3.plot(updated_dunai_const[9:13],  perdif[9:13],'s', c = 'mediumpurple',alpha = 0.7, markersize = 8, label = 'Surface C')
+# # ax3.plot(updated_dunai_const[13:15], perdif[13:15], 's', c = 'skyblue',alpha = 0.7, markersize = 8, label = 'Surface D')
+# # ax3.plot(updated_dunai_const[15:16], perdif[15:16], 's', c = 'hotpink',alpha = 0.7, markersize = 8, label = 'Surface E')
+# ax3.set_ylabel('Exposure age percent difference (%)', fontsize = 14)
+# ax3.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+# ax3.hlines(0,2,30)
+
+
+
+# ax1.set_xlim(2,30)
+# ax1.plot([2,30], [2,30], 'k-')
+# # ax1.plot(updated_neon_const[0:9], updated_neon_tv[0:9],  's', c = 'teal', alpha = 0.7,markersize = 8)
+# # ax1.plot(updated_neon_const[9:11], updated_neon_tv[9:11],  's', c='limegreen', alpha = 0.7,markersize = 8)
+# # ax1.plot(updated_neon_const[11:14], updated_neon_tv[11:14], 's', c='royalblue',alpha = 0.7, markersize = 8)
+# # ax1.plot(updated_neon_const[13], updated_neon_tv[13],  's', c='deepskyblue', alpha = 0.7,markersize = 8)
+
+# ax1.plot(updated_texp_const[0:4],updated_texp_tv[0:4], 'o', c='limegreen', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_texp_const[4:17],updated_texp_tv[4:17], 'o', c = 'royalblue', alpha = 0.7,markersize = 8)
+# ax1.plot(updated_texp_const[17:26],updated_texp_tv[17:26], 'o', c = 'deepskyblue',alpha = 0.7, markersize = 8)
+
+# # ax1.plot(updated_dunai_const[0:5],updated_dunai[0:5], 's', c='midnightblue',alpha = 0.7, markersize = 8)
+# # ax1.plot(updated_dunai_const[5:9],updated_dunai[5:9], 's', c='purple',alpha = 0.7,markersize =8)
+# # ax1.plot(updated_dunai_const[9:13],updated_dunai[9:13], 's', c='mediumpurple',alpha = 0.7, markersize = 8)
+# # ax1.plot(updated_dunai_const[13:15],updated_dunai[13:15], 's', c='skyblue', alpha = 0.7,markersize =8)
+# # ax1.plot(updated_dunai_const[15:16],updated_dunai[15:16], 's', c='hotpink', alpha = 0.7,markersize = 8)
+# ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 14)
+# ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 14)
+
+# ax1.set_ylabel('SPRITE exposure age (Ma)', fontsize = 13)
+# ax1.set_xlabel('LSDn average exposure age (Ma)', fontsize = 13)
 #plt.savefig(Read.directory+'/plots_updated/old_fig_9.png', dpi = 300, bbox_inches='tight')
 
 """

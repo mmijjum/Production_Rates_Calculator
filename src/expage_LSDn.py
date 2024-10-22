@@ -18,7 +18,7 @@ ex
 
 #Exposure Age
 
-#SET DIRECTORY
+#SET DIRECTORYexp_age
 import glob
 import os
 
@@ -83,57 +83,57 @@ dt = dt_temp.iloc[:-n_0]
 
 #Pmu = 0.23 #larsen et al, this is for comparing 3He muon production
 
-# dt_start = 10
+dt_start = 10
 
 
-# firstbin  = []
+firstbin  = []
 
-# for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
-#     temp_start = (scaling_factor.Siteprod_df.iloc[i][0]* np.exp( (-erosion[i]*i)/lambdasp)* (dt_start*10**6))
-#     firstbin.append(temp_start)
+for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
+    temp_start = (scaling_factor.Siteprod_df.iloc[i][0]* np.exp( (-erosion[i]*i)/lambdasp)* (dt_start*10**6))
+    firstbin.append(temp_start)
 
-# bin1 = pd.Series(firstbin)
+bin1 = pd.Series(firstbin)
 
 
-# if Read.muons == 'False': 
-#     #For 3He
-#     def func(sthick,stopo,tempvals):
-#         return sthick*stopo*slhl*tempvals
+if Read.muons == 'False': 
+    #For 3He
+    def func(sthick,stopo,tempvals):
+        return sthick*stopo*slhl*tempvals
     
             
-#     for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
-#         for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
-#             temp = (scaling_factor.Siteprod_df.iloc[i][j]* np.exp((-erosion[i]*i)/lambdasp)* dt[j])
-#             tempvals.append(temp)
-#           #   n = sthick * slhl * temp
-#           #   if n == n0:
+    for i in range(len(scaling_factor.Siteprod_df)): #how many samples 
+        for j in range(len(scaling_factor.Siteprod_df.iloc[0])): #time length
+            temp = (scaling_factor.Siteprod_df.iloc[i][j]* np.exp((-erosion[i]*i)/lambdasp)* dt[j])
+            tempvals.append(temp)
+          #   n = sthick * slhl * temp
+          #   if n == n0:
     
-#     tempvals_df = pd.DataFrame([(tempvals[n:n+len(dt)]) for n in range(0, len(tempvals), len(dt))])
-#     #tempvals_df[0] = bin1
+    tempvals_df = pd.DataFrame([(tempvals[n:n+len(dt)]) for n in range(0, len(tempvals), len(dt))])
+    #tempvals_df[0] = bin1
 
-# #     # #muons part
+#     # #muons part
 
-#     iteration = []
-#     for i in range(len(tempvals_df)):
-#         x = tempvals_df.iloc[i][0]
-#         for j in range(len(tempvals_df.iloc[0])):
-#             l = func(sthick[i],stopo[i], x)
-#             if l < n0[i]:
-#                 x += tempvals_df.iloc[i][j+1]
-#             else:
-#                 iteration.append(j)
-#                 break
+    iteration = []
+    for i in range(len(tempvals_df)):
+        x = tempvals_df.iloc[i][0]
+        for j in range(len(tempvals_df.iloc[0])):
+            l = func(sthick[i],stopo[i], x)
+            if l < n0[i]:
+                x += tempvals_df.iloc[i][j+1]
+            else:
+                iteration.append(j)
+                break
                 
             
-#     exp_age = []
-#     for i in range (len(tempvals_df)):
-#         a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
-#         dt2 = ((n0[i]/(sthick[i] *stopo[i]* slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]]* np.exp((-erosion[i]*i)/lambdasp))
-#         if iteration[i] == 0:
-#             expage = dt2
-#         else:
-#             expage = (np.sum(dt[0:iteration[i]])) + dt2
-#         exp_age.append(expage)
+    exp_age = []
+    for i in range (len(tempvals_df)):
+        a = (np.sum(tempvals_df.iloc[i][0:iteration[i]]))
+        dt2 = ((n0[i]/(sthick[i] *stopo[i]* slhl)) - a) / (scaling_factor.Siteprod_df.iloc[i][iteration[i]]* np.exp((-erosion[i]*i)/lambdasp))
+        if iteration[i] == 0:
+            expage = dt2
+        else:
+            expage = (np.sum(dt[0:iteration[i]])) + dt2
+        exp_age.append(expage)
 
     
         # Pmu = 0.23
