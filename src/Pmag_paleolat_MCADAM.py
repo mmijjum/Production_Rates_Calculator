@@ -18,8 +18,6 @@ import matplotlib.pyplot as plt
 import os
 
 time = Read.time 
-LSDn_t = Read.LSDn_tv
-
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 directory = os.path.dirname(__file__)
@@ -38,17 +36,6 @@ df.columns = ['Age', 'Paleolat', 'Dec','Inc','Pole_lat','Pole_Long']
 Paleolat = df['Paleolat']
 
 pl_df = pd.DataFrame([(Paleolat.values.tolist()[n:n+len(time)]) for n in range(0, len(Paleolat.values.tolist()), len(time))])
-
-"""
-Below will create a paleolat dataframe compatible with the dimensions of  the Rc dataframe for the
-LSDn magnetic dataset. Not currently time-varying because it only covers 0-2Ma. Paleolat 
-reconstruction only varies every 1 Ma. 
-
-"""
-
-pl_LSDn = np.repeat(Read.site_lat.values, len(LSDn_t))
-pl_df_LSDn = pd.DataFrame([(pl_LSDn[n:n+len(LSDn_t)]) for n in range(0, len(pl_LSDn), len(LSDn_t))])
-
 
 
 #RUN THIS to create non-time varying paleolatitude dataframe

@@ -1,14 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Oct  3 16:38:25 2024
-
-@author: mmijjum
-"""
-
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
 Created on Mon Oct  3 15:20:39 2022
 
 @author: mmijjum
@@ -24,10 +16,10 @@ This code was originally implemented in MATLAB by Nat Lifton in 2013. This modif
 import numpy as np
 import pandas as pd
 import Read
-import atm_depth
-import Rc
+import atm_depth_MCADAM
+import Rc_MCADAM
 
-time = Read.LSDn_tv
+time = Read.time 
 
 
 df = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
@@ -59,7 +51,7 @@ PhiT = 0 #Can calculate, literally always gives 0. Thermal neutron.
 # Total Ground-Level Flux
 
 def minmax(b1, b2, b3, b4, b5):
-    return b1 + (b2*Rc.Rc_LSDn.iloc[: , 0:]) + b3/(1 + np.exp((Rc.Rc_LSDn.iloc[: , 0:] - b4)/b5))
+    return b1 + (b2*Rc_MCADAM.Rc.iloc[: , 0:]) + b3/(1 + np.exp((Rc_MCADAM.Rc.iloc[: , 0:] - b4)/b5))
 a1min = minmax(Read.b_values.iloc[0]['values'], Read.b_values.iloc[2]['values'],Read.b_values.iloc[4]['values'],Read.b_values.iloc[6]['values'],Read.b_values.iloc[8]['values'])
 a1max = minmax(Read.b_values.iloc[1]['values'],Read.b_values.iloc[3]['values'],Read.b_values.iloc[5]['values'],Read.b_values.iloc[7]['values'],Read.b_values.iloc[9]['values'])
 
@@ -90,9 +82,9 @@ f2_values = []
 f1_values = []
 PhiL_values = []
 
-x = atm_depth.x
+x = atm_depth_MCADAM.x
 
-for n in range(len(atm_depth.sample_pressure)):
+for n in range(len(atm_depth_MCADAM.sample_pressure)):
     for i in range(len(time)):
         c4_vals = a5.iloc[n,i] + Read.a_values.iloc[0]['values']*x.iloc[n,i]/(1 + Read.a_values.iloc[1]['values']*np.exp(Read.a_values.iloc[2]['values']*x.iloc[n,i])) #lethargy^-1
         c4.append(c4_vals)
@@ -118,7 +110,7 @@ PhiLmax_df = pd.DataFrame([(PhiLmax_values[n:n+len(time)]) for n in range(0, len
 
 f3_df = pd.DataFrame([(f3_values[n:n+len(time)]) for n in range(0, len(f3_values), len(time))]) 
 
-for n in range(len(atm_depth.sample_pressure)):
+for n in range(len(atm_depth_MCADAM.sample_pressure)):
     for i in range(len(time)):
           f2 = (PhiLmin_df.iloc[n,i] - PhiLmax_df.iloc[n,i])/((smin**f3_df.iloc[n,i]) - (smax**f3_df.iloc[n,i]))
           f2_values.append(f2)
@@ -147,7 +139,7 @@ for i in range(len(c4_df.to_numpy().flatten().tolist())):
 out = np.concatenate(PhiB_list).ravel()
 PhiB_df = pd.DataFrame([(out[n:n+200]) for n in range(0, len(out), len(E))])
 
-fG_df = pd.DataFrame(np.repeat(fG_df.values, len(Rc.Rc_LSDn)*len(time), axis=0))
+fG_df = pd.DataFrame(np.repeat(fG_df.values, len(Rc_MCADAM.Rc)*len(time), axis=0))
 
 
 PhiG_values = []
@@ -161,7 +153,7 @@ p21n_qtz = []
 df = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
 E = pd.DataFrame(df)
 E.columns = ['Energy']
-E_df = pd.concat([E.T]*len(Rc.Rc_LSDn), ignore_index=True)
+E_df = pd.concat([E.T]*len(Rc_MCADAM.Rc), ignore_index=True)
 #E_df = E*len(Rc)
 #E_df
 
@@ -176,7 +168,7 @@ for n in range(len(c4_df)):
 PhiGMev_temp = pd.DataFrame([(df2[n:n+200]) for n in range(0, len(df2), len(E))])  
 PhiGMev = PhiGMev_temp.T
 
-for i in range(len(Rc.Rc_LSDn)*len(time)):
+for i in range(len(Rc_MCADAM.Rc)*len(time)):
 
     if Read.system == 1: #qtz
         p3n_temp_qtz = (np.trapz(PhiGMev.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])*Read.NatomsQtzO+ np.trapz(PhiGMev.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*Read.NatomsQtzSi)*(1e-27*3.1536e7)

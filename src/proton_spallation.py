@@ -7,8 +7,8 @@ Created on Fri Sep 16 08:46:54 2022
 
 This script will calculate the production of some nuclide-mineral pair due to proton spallation. 
 
-Based on Sato et al. (2008) Neutron Spectrum, and PARMA (analytical function approx.
-                                                         )
+Based on Sato et al. (2008) Neutron Spectrum, and PARMA (analytical function approx.)
+                                                         
 This code was originally implemented in MATLAB by Nat Lifton in 2013. This modified version was written by Moe Mijjum.
 
 """
@@ -20,7 +20,7 @@ import Read
 import atm_depth
 
 
-time = Read.time 
+time = Read.LSDn_tv
 
 
 s = 624.5718; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
@@ -42,7 +42,7 @@ p3p = []
 df = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
 E = pd.DataFrame(df)
 E.columns = ['Energy']
-E_df = pd.concat([E.T]*len(Rc.Rc), ignore_index=True)
+E_df = pd.concat([E.T]*len(Rc.Rc_LSDn), ignore_index=True)
 
 Elis = np.zeros((1,len(E)))
 Beta = np.zeros((1,len(E)))
@@ -57,7 +57,7 @@ Etoa = []
 
 phiPri = []
 #x = atm_depth.x[0].to_numpy().flatten().tolist()
-x = atm_depth.x
+x = atm_depth.x_LSDn
 
 E = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
 
@@ -140,7 +140,7 @@ phiPri_df = pd.DataFrame([(phiPri[n:n+200]) for n in range(0, len(phiPri), len(E
 
 
 def minmax(g1, g2, g3, g4, g5):
-    return g1 + g2*Rc.Rc.iloc[: , 0:] + g3/(1 + np.exp((Rc.Rc.iloc[: , 0:] - g4)/g5))
+    return g1 + g2*Rc.Rc_LSDn.iloc[: , 0:] + g3/(1 + np.exp((Rc.Rc_LSDn.iloc[: , 0:] - g4)/g5))
 g1min = minmax(Read.h_values_protons.iloc[0]['values'] , Read.h_values_protons.iloc[2]['values'] ,Read.h_values_protons.iloc[4]['values'] ,Read.h_values_protons.iloc[6]['values'] ,Read.h_values_protons.iloc[8]['values'] )
 g1max = minmax(Read.h_values_protons.iloc[1]['values'] , Read.h_values_protons.iloc[3]['values'] ,Read.h_values_protons.iloc[5]['values'] ,Read.h_values_protons.iloc[7]['values'] ,Read.h_values_protons.iloc[9]['values'] )
 g2min = minmax(Read.h_values_protons.iloc[10]['values'] , Read.h_values_protons.iloc[12]['values'] ,Read.h_values_protons.iloc[14]['values'] ,Read.h_values_protons.iloc[16]['values'] ,Read.h_values_protons.iloc[18]['values'] )
@@ -181,7 +181,7 @@ phiSec_df = pd.DataFrame([(phiSec[n:n+200]) for n in range(0, len(phiSec), len(E
 
 def Ecfun(Rc):
     return (np.sqrt((1000*Rc.iloc[: , 0:]*Z)**2 + Ep**2) - Ep)/A
-Ec = Ecfun(Rc.Rc)
+Ec = Ecfun(Rc.Rc_LSDn)
 
 
 Es1_list = []
@@ -212,7 +212,7 @@ p3p_cpx = []
 p3p_ol = []
 p21p_qtz = []
 
-for i in range(len(Rc.Rc)*len(time)):
+for i in range(len(Rc.Rc_LSDn)*len(time)):
 
     if Read.system == 1: #qtz
         p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])*Read.NatomsQtzO+ np.trapz(phiPtot.T.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*Read.NatomsQtzSi)*(1e-27*3.1536e7)

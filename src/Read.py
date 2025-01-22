@@ -3,11 +3,12 @@
 """
 Created on Thu Sep 15 14:01:08 2022
 
-@autfhor: mmijjum
+@author: mmijjum
     
 
 This script will read in all the necessary files (inputs spreadsheet, and .csv files).
 
+Will also identify over which time range to run subsequent scripts.
 
 """
 import numpy as np
@@ -19,6 +20,7 @@ import matplotlib.pyplot as plt
 #SET DIRECTORY
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 directory = os.path.dirname(__file__)
+
 
 
 #Read in excel sheet with data, set variable names.
@@ -59,6 +61,7 @@ LSDn_0_14ka = (LSDn_MM0*M0).iloc[:-1]
 LSDn_14ka_2ma = (LSDn_MM01*M0).iloc[:-1]
 LSDn_M = pd.concat([LSDn_0_14ka, LSDn_14ka_2ma], ignore_index=True)
 LSDn_tv = pd.concat([LSDn_tv_0_14ka, LSDn_tv_14ka_2ma], ignore_index=True)
+
 
 #Specify plate
 if plate[0] == 1:
@@ -137,6 +140,10 @@ if paleo[0] ==0:
     time2 = myround(timerange[1])
     time = np.arange(time1,time2+.25,resolution)
 
+if time[-1] < 2: #you're only going to use LSDn time vector, need to re-shape it to be smaller if needed.
+    x = np.where(LSDn_tv/10**6 < time[1])
+    LSDn_tv = LSDn_tv[0:x[0][-1]+2]
+    LSDn_M = LSDn_M[0:x[0][-1]+2]
 
 #convert lat/lon/altitude to lists for use later.
 lat = site_lat.tolist()

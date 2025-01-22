@@ -15,12 +15,12 @@ This code was originally implemented in MATLAB by Nat Lifton in 2013. This modif
 
 import numpy as np
 import pandas as pd
-import Rc
+import Rc_MCADAM
 import Read
-import atm_depth
+import atm_depth_MCADAM
 
 
-time = Read.LSDn_tv
+time = Read.time 
 
 
 s = 624.5718; #Solar modulation- uses constant value that Lifton (2008)/code uses for samples beyond 10 Ma
@@ -42,7 +42,7 @@ p3p = []
 df = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
 E = pd.DataFrame(df)
 E.columns = ['Energy']
-E_df = pd.concat([E.T]*len(Rc.Rc_LSDn), ignore_index=True)
+E_df = pd.concat([E.T]*len(Rc_MCADAM.Rc), ignore_index=True)
 
 Elis = np.zeros((1,len(E)))
 Beta = np.zeros((1,len(E)))
@@ -56,8 +56,7 @@ empty = []
 Etoa = []
 
 phiPri = []
-#x = atm_depth.x[0].to_numpy().flatten().tolist()
-x = atm_depth.x_LSDn
+x = atm_depth_MCADAM.x
 
 E = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato & Nita (2008) 
 
@@ -68,7 +67,7 @@ E = np.logspace(0,5.3010,200) #Energy spectrum [MeV]. From LSD, data from Sato &
 
 # Etoa_df = pd.DataFrame([(Etoa[n:n+200]) for n in range(0, len(Etoa), len(E))]) 
 
-for i in range(len(atm_depth.sample_pressure)):
+for i in range(len(atm_depth_MCADAM.sample_pressure)):
     for j in range(len(time)): 
         for n in range(len(E)):
             Etoa_temp = E[n]+ 2.1153*x.iloc[i,j]
@@ -79,19 +78,11 @@ def Rtoa(Etoa):
     return 0.001*np.sqrt((A*Etoa)**2 + 2*A*Ep*Etoa)/Z
 Rtoa = Rtoa(Etoa_df) #shape (samples*time,len(E))
 
-# def b(s1, s2, s3, s4):
-#     return s1+s2*atm_depth.x[0]+s3*atm_depth.x[0]**2+s4*atm_depth.x[0]**3
-
-# b1 = b(Read.secondary_spectrum.iloc[0]['values'],Read.secondary_spectrum.iloc[1]['values'],Read.secondary_spectrum.iloc[2]['values'],Read.secondary_spectrum.iloc[3]['values'])
-# b2 = b(Read.secondary_spectrum.iloc[4]['values'],Read.secondary_spectrum.iloc[5]['values'],Read.secondary_spectrum.iloc[6]['values'],Read.secondary_spectrum.iloc[7]['values'])
-# b3 = b(Read.secondary_spectrum.iloc[8]['values'],Read.secondary_spectrum.iloc[9]['values'],Read.secondary_spectrum.iloc[10]['values'],Read.secondary_spectrum.iloc[11]['values'])
-# b4 = b(Read.secondary_spectrum.iloc[12]['values'],Read.secondary_spectrum.iloc[13]['values'],Read.secondary_spectrum.iloc[14]['values'],Read.secondary_spectrum.iloc[15]['values'])
-
 b1 = []
 b2 = []
 b3 = []
 b4 = []
-for i in range(len(atm_depth.sample_pressure)):
+for i in range(len(atm_depth_MCADAM.sample_pressure)):
     for j in range(len(time)): 
         b1_temp = Read.secondary_spectrum.iloc[0]['values'] + Read.secondary_spectrum.iloc[1]['values'] * x.iloc[i,j] + Read.secondary_spectrum.iloc[2]['values']* x.iloc[i,j]**2 + Read.secondary_spectrum.iloc[3]['values'] * x.iloc[i,j]**3
         b1.append(b1_temp)
@@ -131,7 +122,7 @@ phiTOA = phiTOAfun(C,Beta,Read.primary_spectrum.iloc[4]['values'],Rlis,Read.prim
 # phiPri_df = pd.DataFrame([(phiPri[n:n+200]) for n in range(0, len(phiPri), len(E))]) 
 
 
-for i in range(len(atm_depth.sample_pressure)):
+for i in range(len(atm_depth_MCADAM.sample_pressure)):
     for j in range(len(time)): 
         for n in range(len(E)):
             phiPri_temp = (U/Beta.iloc[i,n])*phiTOA.iloc[i,n]*(Read.primary_spectrum.iloc[1]['values']*np.exp(-Read.primary_spectrum.iloc[2]['values']*x.iloc[i,j]) + (1 - Read.primary_spectrum.iloc[1]['values'])*np.exp(-Read.primary_spectrum.iloc[3]['values']*x.iloc[i,j]))
@@ -140,7 +131,7 @@ phiPri_df = pd.DataFrame([(phiPri[n:n+200]) for n in range(0, len(phiPri), len(E
 
 
 def minmax(g1, g2, g3, g4, g5):
-    return g1 + g2*Rc.Rc_LSDn.iloc[: , 0:] + g3/(1 + np.exp((Rc.Rc_LSDn.iloc[: , 0:] - g4)/g5))
+    return g1 + g2*Rc_MCADAM.Rc.iloc[: , 0:] + g3/(1 + np.exp((Rc_MCADAM.Rc.iloc[: , 0:] - g4)/g5))
 g1min = minmax(Read.h_values_protons.iloc[0]['values'] , Read.h_values_protons.iloc[2]['values'] ,Read.h_values_protons.iloc[4]['values'] ,Read.h_values_protons.iloc[6]['values'] ,Read.h_values_protons.iloc[8]['values'] )
 g1max = minmax(Read.h_values_protons.iloc[1]['values'] , Read.h_values_protons.iloc[3]['values'] ,Read.h_values_protons.iloc[5]['values'] ,Read.h_values_protons.iloc[7]['values'] ,Read.h_values_protons.iloc[9]['values'] )
 g2min = minmax(Read.h_values_protons.iloc[10]['values'] , Read.h_values_protons.iloc[12]['values'] ,Read.h_values_protons.iloc[14]['values'] ,Read.h_values_protons.iloc[16]['values'] ,Read.h_values_protons.iloc[18]['values'] )
@@ -181,7 +172,7 @@ phiSec_df = pd.DataFrame([(phiSec[n:n+200]) for n in range(0, len(phiSec), len(E
 
 def Ecfun(Rc):
     return (np.sqrt((1000*Rc.iloc[: , 0:]*Z)**2 + Ep**2) - Ep)/A
-Ec = Ecfun(Rc.Rc_LSDn)
+Ec = Ecfun(Rc_MCADAM.Rc)
 
 
 Es1_list = []
@@ -212,7 +203,7 @@ p3p_cpx = []
 p3p_ol = []
 p21p_qtz = []
 
-for i in range(len(Rc.Rc_LSDn)*len(time)):
+for i in range(len(Rc_MCADAM.Rc)*len(time)):
 
     if Read.system == 1: #qtz
         p3p_temp_qtz = (np.trapz(phiPtot.T.iloc[:,i]*Read.Onx3df[0],E_df.iloc[0,:])*Read.NatomsQtzO+ np.trapz(phiPtot.T.iloc[:,i]*Read.Sinx3df[0], E_df.iloc[0,:])*Read.NatomsQtzSi)*(1e-27*3.1536e7)

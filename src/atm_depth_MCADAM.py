@@ -9,15 +9,13 @@ This script converts the user-supplied elevation to an atmospheric depth.
 
 This was originally written by Greg Balco, then modified by Brent Goehring and Nat Lifton. This version was modified by Moe Mijjum for python. 
 
-Will update elevations if uplift/subsidence is required by user.
-
 """
 
 import numpy as np
 import pandas as pd
 import scipy as sci
 import Read
-import Pmag_paleolat
+import Pmag_paleolat_MCADAM
 import math
 import glob
 import os
@@ -99,12 +97,12 @@ if Read.stdatm == 0: #ERA40, using dataset from LSDn
     differential = []
     sample_pressure = []
     
-    for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
+    for i in range(len(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist())):
         t = sci.interpolate.interp2d(lon_numpy,lat_numpy,meanT_numpy)
-        site_T = t(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])
+        site_T = t(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])
         temp1.append(site_T)
         p = sci.interpolate.interp2d(lon_numpy,lat_numpy,meanP_numpy)
-        site_slp = p(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])
+        site_slp = p(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])
         slp.append(site_slp)
         
     #Lifton Lapse Rate Fit to COSPAR CIRA-86 <10 km altitude
@@ -112,8 +110,8 @@ if Read.stdatm == 0: #ERA40, using dataset from LSDn
     
     differential = []
     empty = []
-    for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
-        dtdz = lr[0] + lr[1]*Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**6;
+    for i in range(len(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist())):
+        dtdz = lr[0] + lr[1]*Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**6;
         dtdz = -dtdz
         differential.append(dtdz)
         
@@ -212,20 +210,20 @@ if Read.stdatm == 1: #Standard atmosphere
 #     #         t = sci.interpolate.interp2d(lon_numpy,lat_numpy,mat_merged[k])
 #     #         p = sci.interpolate.interp2d(lon_numpy,lat_numpy,mslp_merged[k])
 #     #         y = x + mini_durations[k+1]
-#     #         site_T = t(lon_df.loc[j][x:y],Pmag_paleolat.pl_df.loc[j][x:y])
+#     #         site_T = t(lon_df.loc[j][x:y],Pmag_paleolat_MCADAM.pl_df.loc[j][x:y])
 #     #         site_T_degK = site_T + 273.15
 #     #         temp.append(site_T_degK)
-#     #         site_slp = p(lon_df.loc[j][x:y],Pmag_paleolat.pl_df.loc[j][x:y])
+#     #         site_slp = p(lon_df.loc[j][x:y],Pmag_paleolat_MCADAM.pl_df.loc[j][x:y])
 #     #         slp.append(site_slp)
 #     #         x = y
 #     for j in range(len(Read.site_lon)): #interpolate to identify temp/MSLP for each time bin, and resize to match 
 #         for k in range(len(time)):
 #             t = sci.interpolate.interp2d(lon_numpy,lat_numpy,mat_merged[13])
 #             p = sci.interpolate.interp2d(lon_numpy,lat_numpy,mslp_merged[13])
-#             site_T = t(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])
+#             site_T = t(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])
 #             site_T_degK = site_T + 273.15
 #             temp.append(site_T_degK)
-#             site_slp = p(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])
+#             site_slp = p(lon_df.to_numpy().flatten().tolist()[i],Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])
 #             slp.append(site_slp)
 
         
@@ -247,8 +245,8 @@ if Read.stdatm == 1: #Standard atmosphere
     
 #     differential = []
 #     empty = []
-#     for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
-#         dtdz = lr[0] + lr[1]*Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**6;
+#     for i in range(len(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist())):
+#         dtdz = lr[0] + lr[1]*Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**6;
 #         dtdz = -dtdz
 #         differential.append(dtdz)
 #     pressures_new = []
@@ -327,12 +325,12 @@ if Read.stdatm == 2: #climate simulation
     
     time = Read.time
     domain = [0,2,7.25,12.75,17.25,22.75,28.50,33.50,37.75,42,48.50,54,58.25,63.50,67.50,72] #using midpoints, the range of each time slice (in Ma)
-    mini_durations = [0,1721,21,22,18,22,23,20,17,17,26,22,17,21,16,18] #how many MCADAM bins in climate bin (e.g., between 0-2 Ma, there are 8 MCADAM bins (sized 250 ka))
+    mini_durations = [0,8,21,22,18,22,23,20,17,17,26,22,17,21,16,18] #how many MCADAM bins in climate bin (e.g., between 0-2 Ma, there are 8 MCADAM bins (sized 250 ka))
     stop = (np.argmax(domain > time[-1])) - 1 #determine where in the domain to start, given user input of start time
     start_temp = min(domain, key = lambda x: abs(x-time[0]))
     start = domain.index(start_temp)#np.argmax(domain <= time[0])  #determine where in the domain to end, given user input of end time
     if stop == start: #determine how many consecutive bins will be used. If stop == start, only one bin is used.
-        duration = range(0,1) #this is if the duration is < 2 Ma, ensures it will run just the zeroth climate time step.
+        duration = range(0,1)
     
     if start > stop:
         start = stop
@@ -347,10 +345,10 @@ if Read.stdatm == 2: #climate simulation
             t = sci.interpolate.interp2d(lon_numpy,lat_numpy,mat_merged[k])
             p = sci.interpolate.interp2d(lon_numpy,lat_numpy,mslp_merged[k])
             y = x + mini_durations[k+1]
-            site_T = t(lon_df.loc[j][x:y],Pmag_paleolat.pl_df.loc[j][x:y])
+            site_T = t(lon_df.loc[j][x:y],Pmag_paleolat_MCADAM.pl_df.loc[j][x:y])
             site_T_degK = site_T + 273.15
             temp.append(site_T_degK)
-            site_slp = p(lon_df.loc[j][x:y],Pmag_paleolat.pl_df.loc[j][x:y])
+            site_slp = p(lon_df.loc[j][x:y],Pmag_paleolat_MCADAM.pl_df.loc[j][x:y])
             slp.append(site_slp)
             x = y
            
@@ -371,8 +369,8 @@ if Read.stdatm == 2: #climate simulation
     
     differential = []
     empty = []
-    for i in range(len(Pmag_paleolat.pl_df.to_numpy().flatten().tolist())):
-        dtdz = lr[0] + lr[1]*Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat.pl_df.to_numpy().flatten().tolist()[i])**6;
+    for i in range(len(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist())):
+        dtdz = lr[0] + lr[1]*Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i] + lr[2]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**2 + lr[3]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**3 + lr[4]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**4 + lr[5]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**5 + lr[6]*(Pmag_paleolat_MCADAM.pl_df.to_numpy().flatten().tolist()[i])**6;
         dtdz = -dtdz
         differential.append(dtdz)
     pressures_new = []
@@ -391,16 +389,6 @@ if Read.stdatm == 2: #climate simulation
 def atmdepth(x):
     return x*(1.019716)
 x = atmdepth(sample_pressure)
-
-n0 = 8
-x_shortened = x.drop(columns=x.columns[:n0])
-    
-
-n = len(Read.LSDn_M) 
-sample_pressure_LSDn = pd.concat([sample_pressure[0]] * (n), axis=1, ignore_index=True)
-x_LSDn = atmdepth(sample_pressure_LSDn)
-
-x_merged = pd.concat([x_LSDn, x_shortened], axis=1, ignore_index = True)
 
 
 #below hard codes sea level atm depth

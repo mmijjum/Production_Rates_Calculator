@@ -12,7 +12,7 @@ It was modified by Moe Mijjum to be compatible with SPRITE calculator, in Python
 """
 import numpy as np
 import Read
-import atm_depth
+import atm_depth_MCADAM
 from scipy.interpolate import interp1d
 import scipy.integrate as integrate
 import scipy.special as special
@@ -27,13 +27,13 @@ if Read.system == 4:
     #define range/momentum relation table for muons in standard rock in Groom and others 2001
     data = Read.data_muons # column 1 is momentum [MeV/c], column 2 is g/cm2
     
-    #H = atm_depth.x
-    h = atm_depth.x_merged/1.019716
+    #H = atm_depth_MCADAM.x
+    h = atm_depth_MCADAM.x/1.019716
     rho = Read.rho
     z_temp = Read.z_from_surface
     Z = z_temp * rho #convert depth from surface from cm to g/cm2
     
-    H = (1013.25 - h)*1.019716 #atm_depth.x is already in g/cm2, difference?
+    H = (1013.25 - h)*1.019716 #atm_depth_MCADAM.x is already in g/cm2, difference?
     
     #find vertical flux at SLHL
     a = 258.5*(100**2.66)
